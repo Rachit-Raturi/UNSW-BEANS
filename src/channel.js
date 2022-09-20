@@ -1,3 +1,8 @@
+
+function channelJoinV1( authUserId, channelId ) { 
+    return {};
+}
+
 function channelDetailsV1 (authUserId, channelId) {
   return {
     name: 'Hayden',
