@@ -12,7 +12,7 @@ function channelsListV1(authUserId) {
         name: 'My Channel',
       }
     ],
-  }
+  };
 }
 
 function channelsListAllV1( authUserId ) { 
@@ -23,5 +23,5 @@ function channelsListAllV1( authUserId ) {
         name: 'My Channel',
       }
     ],
-  }
+  };
 }
