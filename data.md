@@ -1,7 +1,10 @@
 ```javascript
 let data = {
-    // TODO: insert your data structure that contains 
-    // users + channels here
+  uId: 1,
+  nameFirst: 'Hayden',
+  nameLast: 'Smith',
+  email: 'hayhay123@gmail.com',
+  handleStr: 'haydensmith',
 }
 ```
 
