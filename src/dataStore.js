@@ -1,24 +1,8 @@
 // YOU SHOULD MODIFY THIS OBJECT BELOW
 let data = {
-  'users': [
-    {
-        'id': 1,
-        'name' : 'user1',
-    },
-    {
-        'id': 2,
-        'name' : 'user2',
-    },
+  users: [
   ],
-  'channels': [
-    {
-        'id': 1,
-        'name' : 'channel1',
-    },
-    {
-        'id': 2,
-        'name' : 'channel2',
-    },
+  channels: [
   ],
 };
 
