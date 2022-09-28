@@ -9,3 +9,5 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
     authUserId: 1,
   };
 }
+
+export default authRegisterV1;
