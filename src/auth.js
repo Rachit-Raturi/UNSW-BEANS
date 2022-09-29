@@ -76,4 +76,4 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   };
 }
 
-export default authRegisterV1;
+export { authRegisterV1, authLoginV1 };
