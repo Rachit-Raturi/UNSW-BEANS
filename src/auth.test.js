@@ -3,7 +3,7 @@ import {getData, setData} from './dataStore';
 import ClearV1 from './other';
 
 
-describe('tests', () => {
+describe('tests for the authRegisterV1 function', () => {
   test('test 1: invalid email', () => {
     ClearV1();
     expect(authRegisterV1('Invalidemail@@gmail.com', 'password', 'Rachit', 'Raturi')).toEqual({error: 'Invalid email entered'});
