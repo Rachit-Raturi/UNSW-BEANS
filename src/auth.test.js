@@ -79,14 +79,24 @@ describe('tests for the authLoginV1 function', () => {
 
   test('test 2: incorrect password is entered', () => {
     ClearV1();
+    let data = getData;
     let loginTest = authRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James');
-    expect(authLoginV1('validemail@gmail.com', 'wrongPassword')).toEqual({error: 'Incorrect password has been entered'});
+    expect(authLoginV1('Validemail@gmail.com', 'wrongPassword')).toEqual({error: 'Incorrect password has been entered'});
   });
 
-  test('test 3: succesful login', () => {
+  test('test 3: succesful login test 1', () => {
     ClearV1();
-    let loginTest = authRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James');
     let data = getData();
-    expect(authLoginV1('validemail@gmail.com', 'password')).toEqual(data.users[0].authUserId);
-  })
+    let loginTest = authRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James');
+    expect(authLoginV1('Validemail@gmail.com', 'password')).toEqual({authUserId: data.users[data.users.length - 1].authUserId});
+  });
+
+  test('test 4: succesful login test 2', () => {
+    ClearV1();
+    let data = getData();
+    let loginTest = authRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James');
+    expect(authLoginV1('Validemail@gmail.com', 'password')).toEqual({authUserId: data.users[data.users.length - 1].authUserId});
+    let loginTest2 = authRegisterV1('second@gmail.com', 'sdjnasdnjkasnjdnj', 'Lebron', 'James');
+    expect(authLoginV1('second@gmail.com', 'sdjnasdnjkasnjdnj')).toEqual({authUserId: data.users[data.users.length - 1].authUserId});
+  });
 });

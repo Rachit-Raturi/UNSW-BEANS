@@ -2,8 +2,22 @@ import validator from 'validator';
 import { getData, setData} from './dataStore'
 
 function authLoginV1(email, password) {
+  let data = getData();
+  for (const users of data.users) {
+    if (users.email === email) {
+      if (password === users.password) {
+        return {
+          authUserId: users.authUserId,
+        };
+      } else {
+        return {
+          error: 'Incorrect password has been entered',
+        };
+      }
+    }
+  }
   return { 
-    authUserId: 1,
+    error: 'Email entered does not belong to a user',
   };
 }
 
