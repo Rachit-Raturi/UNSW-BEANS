@@ -50,7 +50,7 @@ function channelMessagesV1(authUserId, channelId, start) {
   };
 }
 
-beforeEach(('Test') => {
+beforeEach(() => {
   clearV1();
 });
 console.log('========================');
