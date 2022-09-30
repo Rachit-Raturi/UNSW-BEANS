@@ -8,10 +8,9 @@ function channelInviteV1( authUserId, channelId, uId ) {
 
 /**
  * Given a channel with ID channelId that the authorised user
- * is a member of, provides basic details abot the channel.
+ * is a member of, provides basic details about the channel.
  */
 function channelDetailsV1 (authUserId, channelId) {
-  
   return {
     name: 'Hayden',
     ownerMembers: [
@@ -49,12 +48,3 @@ function channelMessagesV1(authUserId, channelId, start) {
     end: 50,
   };
 }
-
-beforeEach(() => {
-  clearV1();
-});
-console.log('========================');
-console.log('Testing channelDetails');
-console.log('===========');
-console.log(channelDetailsV1(1, ));
-console.log();
