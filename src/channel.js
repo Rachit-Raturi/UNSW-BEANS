@@ -6,6 +6,10 @@ function channelInviteV1( authUserId, channelId, uId ) {
   return {};
 }
 
+/**
+ * Given a channel with ID channelId that the authorised user
+ * is a member of, provides basic details about the channel.
+ */
 function channelDetailsV1 (authUserId, channelId) {
   return {
     name: 'Hayden',
