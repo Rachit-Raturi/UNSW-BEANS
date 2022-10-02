@@ -29,10 +29,11 @@ describe('Invalid channelsListV1', () => {
     const userId1 = authRegisterV1('test1@gmail.com', 'Password', 'firstname1', 'lastname1');
     let invaliduserId = 1;
 
-    if (userId.authUserId === 1) {
+    if (userId.authUserId === 1 || userId1.authUserId === 1) {
       invaliduserId = 2;
     }
-    if (userId1.authUserId === 2) {
+    
+    if (userId.authUserId === 2 || userId1.authUserId === 2) {
       invaliduserId = 3;
     }
     
