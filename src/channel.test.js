@@ -1,6 +1,64 @@
-import { channelJoinV1,
-         channelInviteV1,
-         channelDetailsV1,
-         channelMessagesV1 } from './channel';
+import { authRegisterV1, authLoginV1 } from './auth';
+import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
+import { channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1 } from './channel';
 import { getData, setData } from './dataStore';
 import ClearV1 from './other';
+
+let userId;
+let userId1;
+let channelId;
+
+
+beforeEach(() => {
+  ClearV1();
+  userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
+  userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
+  channelId = channelsCreateV1(userId.authUserId,'test',true);
+});
+
+describe('Invalid Channel invite', () => {
+  test('Invalid chanelId', () => {
+    let a = 1;
+    if (channelId.channelId === 1) {
+      a = 2;
+    }
+    expect(channelInviteV1(userId.authUserId, a, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('Invalid authUserId', () => {
+    let a = 1;
+    if (userId.authUserId === 1) {
+      a = 2;
+    }
+    if (userId1.authUserId === 2) {
+      a = 3;
+    }
+    expect(channelInviteV1(a, channelId.channelId, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('Invalid uId', () => {
+    let a = 1;
+    if (userId.authUserId === 1) {
+      a = 2;
+    }
+    if (userId1.authUserId === 2) {
+      a = 3;
+    }
+    expect(channelInviteV1(userId.authUserId, channelId.channelId, a)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('Valid channelId + authId not a member', () => {
+    const userId2 = authRegisterV1('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
+    expect(channelInviteV1(userId1.authUserId, channelId.channelId, userId2.authUserId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('uId member already in channel - 1 member in channel', () => {
+    expect(channelInviteV1(userId.authUserId, channelId.channelId, userId.authUserId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('uId member already in channel - 2 members in channel', () => {
+    const userId2 = authRegisterV1('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
+    channelJoinV1(userId2.authUserId, channelId.channelId);
+    expect(channelInviteV1(userId.authUserId, channelId.channelId, userId2.authUserId)).toStrictEqual({error: expect.any(String)});
+  });
+});

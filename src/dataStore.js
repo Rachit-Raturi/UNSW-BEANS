@@ -6,6 +6,35 @@ let data = {
   ],
 };
 
+/*
+Sample data structure:
+data = {
+  'users': [
+    {
+      email:
+      authUserId:
+      password:
+      nameFirst:
+      nameLast:
+      userHandle:
+    }
+  ]
+  'channels': [
+    channelId:
+    name:
+    isPublic:
+    owners: []
+    members: []
+  ]
+
+}
+
+
+*/
+
+
+
+
 // YOU SHOULDNT NEED TO MODIFY THE FUNCTIONS BELOW IN ITERATION 1
 
 /*
