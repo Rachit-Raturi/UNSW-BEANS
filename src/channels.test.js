@@ -88,3 +88,10 @@ describe('Valid channelsListV1', () => {
     expect(recievedset).toStrictEqual(expectedset);
   });
 });
+
+describe('tests for channelsListAllV1 function', () => { 
+  test('test 1: authUserId is invalid ', () => {
+    ClearV1(); 
+    expect(channelsListAllV1("N/A")).toEqual({error:"authUserId is invalid"}); 
+  });
+}); 

@@ -62,3 +62,29 @@ describe('Invalid Channel invite', () => {
     expect(channelInviteV1(userId.authUserId, channelId.channelId, userId2.authUserId)).toStrictEqual({error: expect.any(String)});
   });
 });
+
+describe('tests for channelJoinV1 function', () => { 
+  test('test 1: Join attempt with invalid channelId ', () => {
+    ClearV1(); 
+    const invalidId = "100AABB";  
+
+    expect(channelJoinV1(userId.authUserId, invalidId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 2: Member is already a member of the channel', () => {
+    ClearV1(); 
+    let result = channelJoinV1(userId.authUserId, channelId.channelId);
+
+    expect(channelJoinV1(userId.authUserId, channelId.channelId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 3: Private channel join attempt', () => {
+    ClearV1(); 
+    const newPrivateChannel = channelsCreateV1(userId.authUserId, 'Channel1', true); 
+
+    // error dependent on if user is the globalOwner
+    if (userId.authUserId > 1) { 
+      expect(channelJoinV1(userId.authUserId, newPrivateChannel.channelId)).toStrictEqual({error: expect.any(String)});
+   }
+  });
+});
