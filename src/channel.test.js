@@ -20,7 +20,7 @@ describe('Invalid Channel invite', () => {
   test('Invalid chanelId', () => {
     let   invalidchannelId = 1;
     if (channelId.channelId === 1) {
-      a = 2;
+      invalidchannelId = 2;
     }
     expect(channelInviteV1(userId.authUserId, invalidchannelId, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
   });
