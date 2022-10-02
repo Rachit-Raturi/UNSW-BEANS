@@ -18,33 +18,33 @@ beforeEach(() => {
 
 describe('Invalid Channel invite', () => {
   test('Invalid chanelId', () => {
-    let a = 1;
+    let   invalidchannelId = 1;
     if (channelId.channelId === 1) {
       a = 2;
     }
-    expect(channelInviteV1(userId.authUserId, a, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
+    expect(channelInviteV1(userId.authUserId, invalidchannelId, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
   });
 
   test('Invalid authUserId', () => {
-    let a = 1;
+    let invaliduserId = 1;
     if (userId.authUserId === 1) {
-      a = 2;
+      invaliduserId = 2;
     }
     if (userId1.authUserId === 2) {
-      a = 3;
+      invaliduserId = 3;
     }
-    expect(channelInviteV1(a, channelId.channelId, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
+    expect(channelInviteV1(invaliduserId, channelId.channelId, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
   });
 
   test('Invalid uId', () => {
-    let a = 1;
+    let invaliduserId = 1;
     if (userId.authUserId === 1) {
-      a = 2;
+      invaliduserId = 2;
     }
     if (userId1.authUserId === 2) {
-      a = 3;
+      invaliduserId = 3;
     }
-    expect(channelInviteV1(userId.authUserId, channelId.channelId, a)).toStrictEqual({error: expect.any(String)});
+    expect(channelInviteV1(userId.authUserId, channelId.channelId, invaliduserId)).toStrictEqual({error: expect.any(String)});
   });
 
   test('Valid channelId + authId not a member', () => {
