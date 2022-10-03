@@ -1,4 +1,36 @@
-function channelJoinV1( authUserId, channelId ) { 
+import { getData, setData} from './dataStore'
+
+
+function channelJoinV1( authUserId, channelId ) {
+  let data = getData();
+  const channel = data.channels.find(a => a.channelId === channelId);
+  const user = data.channels.members.find(a => a.authUserId === authUserId);
+
+  // invalid channelId error 
+  if (channel == undefined) { 
+    return {
+      error: "channelId does not refer to a valid channel"
+    };
+  }
+  // already member error 
+  if (user != undefined) { 
+    return {
+      error: "User is already a member of this channel"
+    };
+  }
+
+  // private channel error 
+  if (data.channels[channelId].isPublic === false) { 
+    // global owner false 
+    if (data.users[authUserId].isGlobalOwner === false ) { 
+      return {
+        error: `User(${authUserId}) cannot join a private channel`
+      };
+    }  
+  }
+
+  data.channels[channelId].members.push(authUserId); 
+
   return {};
 }
 
