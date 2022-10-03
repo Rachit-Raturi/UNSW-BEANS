@@ -45,9 +45,21 @@ function channelsListV1(authUserId) {
     });
 
   const data = getData();
+  const user = data.users.find(a => a.authUserId === authUserId);
+  
+  if (user === undefined) {
+    return {
+        error: "invalid user";
+    };
+  }
+  
+  
+  
   const allchannelsArray = data.channels;
   const publicChannelsArray = [];
-
+    
+  
+    
   for (const element of allchannelsArray) {
     if (element.isPublic === true) {
       publicChannelsArray.push(element);
