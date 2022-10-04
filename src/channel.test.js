@@ -2,6 +2,7 @@ import { authRegisterV1, authLoginV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1 } from './channel';
 import { getData, setData } from './dataStore';
+
 import ClearV1 from './other';
 
 let userId;
@@ -13,7 +14,7 @@ beforeEach(() => {
   userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channelId = channelsCreateV1(userId.authUserId,'test',true);
-});
+})
 
 describe('Invalid Channel invite', () => {
   test('Invalid chanelId', () => {
@@ -79,7 +80,7 @@ describe('tests for channelJoinV1 function', () => {
   });
 
   test('test 3: Private channel join attempt', () => {
-    const newPrivateChannel = channelsCreateV1(userId.authUserId, 'Channel1', true); 
+    const newPrivateChannel = channelsCreateV1(userId.authUserId, 'Channel1', false); 
   
     expect(channelJoinV1(userId1.authUserId, newPrivateChannel.channelId)).toStrictEqual({error: expect.any(String)});
   });
