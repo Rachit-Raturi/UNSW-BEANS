@@ -21,6 +21,7 @@ function channelsCreateV1(authUserId, name, isPublic ) {
   let members = []; 
   let owners = []; 
   owners.push(authUserId); 
+  members.push(authUserId); 
 
   let channel = {
     channelId: data.channels.length,
