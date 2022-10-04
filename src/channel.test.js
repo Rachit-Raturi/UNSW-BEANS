@@ -14,7 +14,7 @@ beforeEach(() => {
   userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channelId = channelsCreateV1(userId.authUserId,'test',true);
-})
+});
 
 describe('Invalid Channel invite', () => {
   test('Invalid chanelId', () => {
@@ -83,5 +83,10 @@ describe('tests for channelJoinV1 function', () => {
     const newPrivateChannel = channelsCreateV1(userId.authUserId, 'Channel1', false); 
   
     expect(channelJoinV1(userId1.authUserId, newPrivateChannel.channelId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 4: Valid Case', () => {
+  
+    expect(channelJoinV1(userId1.authUserId, channelId.channelId)).toStrictEqual({});
   });
 });

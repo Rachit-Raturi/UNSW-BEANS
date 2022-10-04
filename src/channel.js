@@ -26,7 +26,7 @@ function channelJoinV1( authUserId, channelId ) {
     }  
   }
   data.channels[channelId].members.push(authUserId); 
-
+  setData(data); 
   return {};
 }
 
