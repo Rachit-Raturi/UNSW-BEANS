@@ -1,9 +1,8 @@
 import { getData, setData } from './dataStore';
 
-let data = getData();
-
 function channelsCreateV1(authUserId, name, isPublic ) {
-
+  let data = getData();
+  
   // invalid userId
   if (data.users[authUserId] === undefined) { 
     return {
@@ -32,6 +31,7 @@ function channelsCreateV1(authUserId, name, isPublic ) {
   };
 
   data.channels[data.channels.length] = channel;
+  setData(data); 
   
   return { 
     channelId: data.channels.length - 1,
