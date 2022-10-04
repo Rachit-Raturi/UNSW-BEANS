@@ -31,20 +31,22 @@ describe('Tests for channelDetailsV1', () => {
     expect(channelDetailsV1(user.authUserId, channel.channelId)).toStrictEqual({
       name: 'test',
       isPublic: true,
-      ownerMembers: [
+      owners: [
         {
           uId: user.authUserId,
           email: 'test@gmail.com',
           nameFirst: 'firstname',
           nameLast: 'lastname',
+          userHandle: user.userHandle
         }
       ],
-      allMembers: [
+      members: [
         {
           uId: user.authUserId,
           email: 'test@gmail.com',
           nameFirst: 'firstname',
           nameLast: 'lastname',
+          userHandle: user.userHandle
         }
       ],
     });
