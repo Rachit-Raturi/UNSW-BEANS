@@ -1,9 +1,10 @@
 import { getData, setData } from './dataStore';
 
-let data = getData();
+
 
 function channelsCreateV1(authUserId, name, isPublic ) {
 
+  let data = getData();
   // invalid userId
   if (data.users[authUserId] === undefined) { 
     return {
@@ -51,9 +52,8 @@ function channelsCreateV1(authUserId, name, isPublic ) {
 */
 function channelsListV1(authUserId) {
   const data = getData();
-
-  const user = data.users.find(a => a.authUserId === authUserId);  
-  if (user === undefined) {
+  
+  if (data.users[authUserId] === undefined) {
     return {
         error: "invalid user",
     };
