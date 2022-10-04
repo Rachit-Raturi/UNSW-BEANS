@@ -1,6 +1,44 @@
-function channelsCreateV1( authUserId, name, isPublic ) {
+import { getData, setData } from './dataStore';
+
+let data = getData();
+
+function channelsCreateV1(authUserId, name, isPublic ) {
+
+  // invalid userId
+  if (data.users[authUserId] === undefined) { 
+    return {
+      error: "authUserId does not refer to a valid ID"
+    };
+  }
+
+  // name length invalid - between 1 and 20 (inclusive) 
+  if (name.length < 1 || name.length > 20) {
+    return {
+      error: 'name is not between 1 and 20 characters inclusive',
+    };
+  }
+
+  let channelId = 0; 
+  if (data.channels.length !== 0) { 
+    channelId = data.channels.length
+  }
+
+  let members = []; 
+  let owners = []; 
+  owners.push(authUserId); 
+
+  let channel = {
+    channelId: channelId,
+    name: name,
+    isPublic: isPublic,
+    owners: owners,
+    members: members
+  };
+
+  data.channels[data.channels.length] = channel;
+  
   return { 
-    channelId: 1, 
+    channelId: data.channels.length,
   };
 }
 
