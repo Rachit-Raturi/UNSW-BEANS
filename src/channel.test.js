@@ -2,12 +2,12 @@ import { authRegisterV1, authLoginV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1 } from './channel';
 import { getData, setData } from './dataStore';
+
 import ClearV1 from './other';
 
 let userId;
 let userId1;
 let channelId;
-
 
 beforeEach(() => {
   ClearV1();
@@ -63,7 +63,6 @@ describe('Invalid Channel invite', () => {
   });
 });
 
-// Tests for the function channelMessagesV1
 describe('tests for channelMessagesV1 function', () => {
   test('Invalid channelId', () => {
     let invalidchannelId = 2;
@@ -88,3 +87,32 @@ describe('tests for channelMessagesV1 function', () => {
     expect(channelMessagesV1(userId.authUserId, channelId.channelId, start)).toStrictEqual({ channelMessages(userId.authUserId, channel.channelId, 0) => { [messages], 0, -1} });
   });
 });
+
+describe('tests for channelJoinV1 function', () => {
+  test('test 1: Join attempt with invalid channelId ', () => {
+    let invalidchannelId = 1;
+    if (channelId.channelId === 1) {
+      invalidchannelId = 2;
+    }
+
+    expect(channelJoinV1(userId.authUserId, invalidchannelId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 2: Member is already a member of the channel', () => {
+    let result = channelJoinV1(userId.authUserId, channelId.channelId);
+
+    expect(channelJoinV1(userId.authUserId, channelId.channelId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 3: Private channel join attempt', () => {
+    const newPrivateChannel = channelsCreateV1(userId.authUserId, 'Channel1', false); 
+  
+    expect(channelJoinV1(userId1.authUserId, newPrivateChannel.channelId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 4: Valid Case', () => {
+  
+    expect(channelJoinV1(userId1.authUserId, channelId.channelId)).toStrictEqual({});
+  });
+});
+

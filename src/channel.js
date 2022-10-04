@@ -1,8 +1,33 @@
-import { authRegisterV1, authLoginV1 } from './auth.js';
-import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels.js';
-import { getData, setData } from './dataStore.js';
+import { getData, setData } from './dataStore';
 
-function channelJoinV1( authUserId, channelId ) { 
+function channelJoinV1( authUserId, channelId ) {
+  let data = getData();
+
+  // invalid channelId error 
+  if (data.channels[channelId] === undefined) { 
+    return {
+      error: "channelId does not refer to a valid channel"
+    };
+  }
+  // already member error 
+  if (data.channels[channelId].members.includes(authUserId)) { 
+    return {
+      error: "User is already a member of this channel"
+    };
+  }
+
+  // private channel error 
+  if (data.channels[channelId].isPublic === false) { 
+    // global owner false 
+    if (authUserId > 0) { 
+      return {
+        error: `User(${authUserId}) cannot join a private channel`
+      };
+    }  
+  }
+  data.channels[channelId].members.push(authUserId); 
+  setData(data); 
+>>>>>>> 7ed1bd528d64125794dfb920f7bb7a07cf54d9bd
   return {};
 }
 

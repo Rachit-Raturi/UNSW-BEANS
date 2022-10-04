@@ -1,9 +1,8 @@
 import { getData, setData } from './dataStore';
 
-let data = getData();
-
 function channelsCreateV1(authUserId, name, isPublic ) {
-
+  let data = getData();
+  
   // invalid userId
   if (data.users[authUserId] === undefined) { 
     return {
@@ -32,21 +31,53 @@ function channelsCreateV1(authUserId, name, isPublic ) {
   };
 
   data.channels[data.channels.length] = channel;
+  setData(data); 
   
   return { 
     channelId: data.channels.length - 1,
   };
 }
 
+/**
+  * Given a valid authUserId will return a list 
+  * of all the public channels the user is in.
+  *
+  *@param {number} authUserId - The authUserId of the user
+  *
+  *
+  *@returns {channels: {Array<{channelId: number, name: string}>}} 
+  * - returns array of public channels
+
+*/
 function channelsListV1(authUserId) {
+  const data = getData();
+  
+  if (data.users[authUserId] === undefined) {
+    return {
+        error: "invalid user",
+    };
+  }
+  
+  const allchannelsArray = data.channels;
+  const publicChannelsArray = [];
+  const outputChannels = []
+    
+  for (const element of allchannelsArray) {
+    if (element.isPublic === true) {
+      publicChannelsArray.push(element);
+    }
+  }
+
+  for (const element of publicChannelsArray) {
+    if ((element.members).includes(authUserId)) {
+      outputChannels.push({channelId: element.channelId, name: element.name})
+    }
+  }
+
   return {
-    channels: [
-      {
-        channelId: 1,
-        name: 'My Channel',
-      }
-    ],
+    channels: outputChannels,
   };
+
 }
 
 function channelsListAllV1( authUserId ) { 
