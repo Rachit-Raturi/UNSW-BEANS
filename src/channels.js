@@ -1,8 +1,40 @@
-import { getData, setData} from './dataStore.js';
+import { getData, setData } from './dataStore';
 
-function channelsCreateV1( authUserId, name, isPublic ) {
+let data = getData();
+
+function channelsCreateV1(authUserId, name, isPublic ) {
+
+  // invalid userId
+  if (data.users[authUserId] === undefined) { 
+    return {
+      error: "authUserId does not refer to a valid ID"
+    };
+  }
+
+  // name length invalid - between 1 and 20 (inclusive) 
+  if (name.length < 1 || name.length > 20) {
+    return {
+      error: 'name is not between 1 and 20 characters inclusive',
+    };
+  }
+
+  let members = []; 
+  let owners = []; 
+  owners.push(authUserId); 
+  members.push(authUserId); 
+
+  let channel = {
+    channelId: data.channels.length,
+    name: name,
+    isPublic: isPublic,
+    owners: owners,
+    members: members
+  };
+
+  data.channels[data.channels.length] = channel;
+  
   return { 
-    channelId: 1, 
+    channelId: data.channels.length - 1,
   };
 }
 
@@ -18,46 +50,9 @@ function channelsCreateV1( authUserId, name, isPublic ) {
 
 */
 function channelsListV1(authUserId) {
-  setData({
-      'users': [
-        {
-          email: 'cow@gmail.com',
-          authUserId: 1,
-          password: 'turtle',
-          nameFirst: 'cat',
-          nameLast: 'fish',
-          userHandle: 'catfish0'
-        },
-        {
-          email: 'cow1@gmail.com',
-          authUserId: 2,
-          password: 'turtle',
-          nameFirst: 'cat',
-          nameLast: 'fish',
-          userHandle: 'catfish1'
-        },
-      ],
-      'channels': [{
-        channelId: 1,
-        name: 'channel1',
-        isPublic: true,
-        owners: [1],
-        members: [1,2],
-      },
-      {
-        channelId: 2,
-        name: 'channel2',
-        isPublic: true,
-        owners: [2],
-        members: [1,2],
-      }
-      ]
-    
-    });
-
   const data = getData();
-  const user = data.users.find(a => a.authUserId === authUserId);
-  
+
+  const user = data.users.find(a => a.authUserId === authUserId);  
   if (user === undefined) {
     return {
         error: "invalid user",
@@ -96,7 +91,5 @@ function channelsListAllV1( authUserId ) {
     ],
   };
 }
-
-console.log(channelsListV1(1));
 
 export {channelsCreateV1, channelsListV1, channelsListAllV1};
