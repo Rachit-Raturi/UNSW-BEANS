@@ -19,7 +19,7 @@ let data = {
     },
     {
       authUserId: 3,
-      email: 'random@outlook.com'
+      email: 'random@outlook.com',
       password: 'a8#r2fah51sD',
       nameFirst: 'this-is@-very',
       nameLast: 'ab%l0ne',
@@ -48,14 +48,14 @@ let data = {
       owners: [4],
       members: [1,2,3],
       messages: [],
-    }
+    },
     { channelId: 3,
       name: 'random memes',
       isPublic: true,
       owners: [3],
       members: [1,4,2],
       messages: [],
-    }
+    },
   ]
 }
 ```
