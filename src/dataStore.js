@@ -1,5 +1,39 @@
 // YOU SHOULD MODIFY THIS OBJECT BELOW
-let data = {};
+let data = {
+  users: [
+  ],
+  channels: [
+  ],
+};
+
+/*
+Sample data structure:
+data = {
+  'users': [
+    {
+      email:
+      authUserId:
+      password:
+      nameFirst:
+      nameLast:
+      userHandle:
+    }
+  ]
+  'channels': [
+    channelId:
+    name:
+    isPublic:
+    owners: []
+    members: []
+  ]
+
+}
+
+
+*/
+
+
+
 
 // YOU SHOULDNT NEED TO MODIFY THE FUNCTIONS BELOW IN ITERATION 1
 

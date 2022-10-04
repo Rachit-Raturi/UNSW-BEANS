@@ -1,4 +1,32 @@
-function channelJoinV1( authUserId, channelId ) { 
+import { getData, setData } from './dataStore';
+
+function channelJoinV1( authUserId, channelId ) {
+  let data = getData();
+
+  // invalid channelId error 
+  if (data.channels[channelId] === undefined) { 
+    return {
+      error: "channelId does not refer to a valid channel"
+    };
+  }
+  // already member error 
+  if (data.channels[channelId].members.includes(authUserId)) { 
+    return {
+      error: "User is already a member of this channel"
+    };
+  }
+
+  // private channel error 
+  if (data.channels[channelId].isPublic === false) { 
+    // global owner false 
+    if (authUserId > 0) { 
+      return {
+        error: `User(${authUserId}) cannot join a private channel`
+      };
+    }  
+  }
+  data.channels[channelId].members.push(authUserId); 
+  setData(data); 
   return {};
 }
 
@@ -48,3 +76,5 @@ function channelMessagesV1(authUserId, channelId, start) {
     end: 50,
   };
 }
+
+export {channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1};
