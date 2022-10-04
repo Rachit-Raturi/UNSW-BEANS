@@ -2,8 +2,22 @@ import validator from 'validator';
 import { getData, setData} from './dataStore'
 
 function authLoginV1(email, password) {
+  let data = getData();
+  for (const users of data.users) {
+    if (users.email === email) {
+      if (password === users.password) {
+        return {
+          authUserId: users.authUserId,
+        };
+      } else {
+        return {
+          error: 'Incorrect password has been entered',
+        };
+      }
+    }
+  }
   return { 
-    authUserId: 1,
+    error: 'Email entered does not belong to a user',
   };
 }
 
@@ -63,16 +77,16 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   // Register the user
   let user = {
     email: email,
-    authUserId: data.users.length + 1,
+    authUserId: data.users.length,
     password: password,
     nameFirst: nameFirst,
     nameLast: nameLast,
     userHandle: userHandle,
   };
-  data.users[data.users.length] = user;
+  data.users.push(user);
   
   return { 
-    authUserId: data.users.length,
+    authUserId: data.users[data.users.length - 1].authUserId,
   };
 }
 
