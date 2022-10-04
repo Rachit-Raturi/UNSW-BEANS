@@ -11,7 +11,7 @@ beforeEach(() => {
   ClearV1();
   userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
-  channel1 = channelsCreateV1(userId.authUserId,'test',true);
+  channel1 = channelsCreateV1(userId.authUserId,'My Channel1',true);
 });
 
 describe('tests for channelsCreateV1 function', () => { 
@@ -34,19 +34,18 @@ describe('tests for channelsCreateV1 function', () => {
   });
 }); 
 
+
+
+
+
+
+
+
+
 describe('Invalid channelsListV1', () => {
   test('Invalid authUserId - no users', () => {
+    ClearV1();
     expect(channelsListV1(1)).toStrictEqual({error: expect.any(String)});
-  });
-
-  test('Invalid authUserId - 1 user', () => {
-    let invaliduserId = 1;
-
-    if (userId.authUserId === 1) {
-      invaliduserId = 2;
-    }
-    
-    expect(channelsListV1(invaliduserId)).toStrictEqual({error: expect.any(String)});
   });
 
   test('Invalid authUserId - multiple users', () => {
@@ -60,7 +59,7 @@ describe('Invalid channelsListV1', () => {
       invaliduserId = 3;
     }
     
-    expect(channelsListV1(a)).toStrictEqual({error: expect.any(String)});
+    expect(channelsListV1(invaliduserId)).toStrictEqual({error: expect.any(String)});
   });
 });
 
@@ -78,7 +77,7 @@ describe('Valid channelsListV1', () => {
   });
 
   test('test 1 user in 2 courses', () => {
-    const channel2 = channelsCreateV1(userId.authUserId,'test2',true);
+    const channel2 = channelsCreateV1(userId.authUserId,'My Channel2',true);
 
     const outputarray = [];
     outputarray.push({channelId: channel1.channelId, name: 'My Channel1'});
@@ -91,8 +90,8 @@ describe('Valid channelsListV1', () => {
   });
 
   test('test 1 user in multiple courses', () => {
-    const channel2 = channelsCreateV1(userId.authUserId,'test2',true);
-    const channel3 = channelsCreateV1(userId.authUserId,'test3',true);
+    const channel2 = channelsCreateV1(userId.authUserId,'My Channel2',true);
+    const channel3 = channelsCreateV1(userId.authUserId,'My Channel3',true);
 
     const outputarray = [];
     outputarray.push({channelId: channel1.channelId, name: 'My Channel1'});
