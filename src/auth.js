@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { getData, setData} from './dataStore'
+import { getData, setData} from './dataStore.js'
 
 function authLoginV1(email, password) {
   let data = getData();
@@ -60,16 +60,19 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
     };
   }
   // Generating the userhandle
+
   let userHandle = nameFirst.toLowerCase() + nameLast.toLowerCase();
+  let originaluserHandle = userHandle;
   userHandle = userHandle.substring(0, Math.min(userHandle.length, 20));
   let i = 0;
   for (let user of data.users) {
     if (user.userHandle === userHandle) {
-      userHandle = userHandle + i.toString();
+      userHandle = originaluserHandle + i.toString();
       i++;
       if (i === 10) {
         i = 0;
-      }
+        originaluserHandle = originaluserHandle + i.toString();
+      }      
       user = data.users[0];
     }
   }
@@ -84,7 +87,7 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
     userHandle: userHandle,
   };
   data.users.push(user);
-  
+  console.log(userHandle);
   setData(data);
 
   return { 
@@ -93,3 +96,32 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
 }
 
 export { authRegisterV1, authLoginV1 };
+
+authRegisterV1('geeg@gmasil.com','abalone','first','last');
+authRegisterV1('geeg1@gmasil.com','a2balone','first','last');
+authRegisterV1('geeg2@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg3@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg4@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg5@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg6@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg7@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg8@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg9@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg10@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg11@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg12@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg13@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg14@gmasil.com','abalone','first','last');
+authRegisterV1('geeg15@gmasil.com','a2balone','first','last');
+authRegisterV1('geeg16@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg17@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg18@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg19@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg20@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg21@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg22@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg23@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg240@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg25@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg26@gmasil.com','a3balone','first','last');
+authRegisterV1('geeg27@gmasil.com','a3balone','first','last');
