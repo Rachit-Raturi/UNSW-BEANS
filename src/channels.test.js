@@ -5,13 +5,13 @@ import ClearV1 from './other';
 
 let userId;
 let userId1;
-let channel1;
+let channelId;
 
 beforeEach(() => {
   ClearV1();
   userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
-  channel1 = channelsCreateV1(userId.authUserId,'test', true);
+  channelId = channelsCreateV1(userId.authUserId,'test', true);
 });
 
 describe('tests for channelsCreateV1 function', () => { 
@@ -27,10 +27,9 @@ describe('tests for channelsCreateV1 function', () => {
   });
 
   test('test 3: name is less then 1 ', () => {
-    expect(channelsCreateV1(userId.authUserId , "1", false)).toStrictEqual({error: expect.any(String)});
+    expect(channelsCreateV1(userId.authUserId , "", false)).toStrictEqual({error: expect.any(String)});
   });
 }); 
-
 
 describe('Invalid channelsListV1', () => {
   test('Invalid authUserId - no users', () => {
@@ -101,10 +100,3 @@ describe('Valid channelsListV1', () => {
     expect(recievedset).toStrictEqual(expectedset);
   });
 });
-
-describe('tests for channelsListAllV1 function', () => { 
-  test('test 1: authUserId is invalid ', () => {
- 
-    expect(channelsListAllV1("N/A")).toStrictEqual({error: expect.any(String)});
-  });
-}); 

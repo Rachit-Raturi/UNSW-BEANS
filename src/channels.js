@@ -1,20 +1,44 @@
 import { getData, setData} from './dataStore'
+import { authRegisterV1, authLoginV1 } from './auth';
+let data = getData();
 
-function channelsCreateV1( authUserId, name, isPublic ) {
+function channelsCreateV1(authUserId, name, isPublic ) {
 
-/* ID same as index 
-  'channels': [
-    channelId:
-    name:
-    isPublic:
-    owners: []
-    members: []
-  ]
-}
-*/
+  // invalid userId
+  if (data.users[authUserId] === undefined) { 
+    return {
+      error: "authUserId does not refer to a valid ID"
+    };
+  }
 
-return { 
-    channelId: 1, 
+  // name length invalid - between 1 and 20 (inclusive) 
+  if (name.length < 1 || name.length > 20) {
+    return {
+      error: 'name is not between 1 and 20 characters inclusive',
+    };
+  }
+
+  let channelId = 0; 
+  if (data.channels.length !== 0) { 
+    channelId = data.channels.length
+  }
+
+  let members = []; 
+  let owners = []; 
+  owners.push(authUserId); 
+
+  let channel = {
+    channelId: channelId,
+    name: name,
+    isPublic: isPublic,
+    owners: owners,
+    members: members
+  };
+
+  data.channels[data.channels.length] = channel;
+  
+  return { 
+    channelId: data.channels.length,
   };
 }
 
@@ -30,16 +54,14 @@ function channelsListV1(authUserId) {
 }
 
 function channelsListAllV1( authUserId ) { 
-  // error checking - invalid Id
-  let data = getData();
-  const user = data.users.find(a => a.authUserId === authUserId);
-  if (user == undefined) { 
-    return {
-      error: "academicId does not refer to a valid user"
-    };
-  }
-
-  return data.channels; 
+  return {
+    channels: [     
+      {
+        channelId: 1,          
+        name: 'My Channel',
+      }
+    ],
+  };
 }
 
 export {channelsCreateV1, channelsListV1, channelsListAllV1};
