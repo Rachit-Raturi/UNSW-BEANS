@@ -53,7 +53,7 @@ let data = {
       name: 'radom memes',
       isPublic: true,
       owners: [3],
-      members: [1,4],
+      members: [1,4,2],
       messages: [],
     }
   ]
