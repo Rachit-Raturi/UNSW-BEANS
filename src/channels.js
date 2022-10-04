@@ -1,11 +1,10 @@
 import { getData, setData } from './dataStore';
 
-let data = getData();
-
 function channelsCreateV1(authUserId, name, isPublic ) {
-
+  let data = getData();
+  
   // invalid userId
-  if (data.users[authUserId] === undefined) { 
+  if (data.users[authUserId] == undefined) { 
     return {
       error: "authUserId does not refer to a valid ID"
     };
