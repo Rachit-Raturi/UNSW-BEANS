@@ -50,7 +50,7 @@ let data = {
       messages: [],
     }
     { channelId: 3,
-      name: 'radom memes',
+      name: 'random memes',
       isPublic: true,
       owners: [3],
       members: [1,4,2],
