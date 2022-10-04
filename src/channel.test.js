@@ -8,7 +8,6 @@ let userId;
 let userId1;
 let channelId;
 
-
 beforeEach(() => {
   ClearV1();
   userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
@@ -60,5 +59,28 @@ describe('Invalid Channel invite', () => {
     const userId2 = authRegisterV1('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
     channelJoinV1(userId2.authUserId, channelId.channelId);
     expect(channelInviteV1(userId.authUserId, channelId.channelId, userId2.authUserId)).toStrictEqual({error: expect.any(String)});
+  });
+});
+
+describe('tests for channelJoinV1 function', () => {
+  test('test 1: Join attempt with invalid channelId ', () => {
+    let invalidchannelId = 1;
+    if (channelId.channelId === 1) {
+      invalidchannelId = 2;
+    }
+
+    expect(channelJoinV1(userId.authUserId, invalidchannelId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 2: Member is already a member of the channel', () => {
+    let result = channelJoinV1(userId.authUserId, channelId.channelId);
+
+    expect(channelJoinV1(userId.authUserId, channelId.channelId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 3: Private channel join attempt', () => {
+    const newPrivateChannel = channelsCreateV1(userId.authUserId, 'Channel1', true); 
+  
+    expect(channelJoinV1(userId1.authUserId, newPrivateChannel.channelId)).toStrictEqual({error: expect.any(String)});
   });
 });
