@@ -64,32 +64,24 @@ function channelsListV1(authUserId) {
     };
   }
   
-  
-  
   const allchannelsArray = data.channels;
   const publicChannelsArray = [];
-    
-  
+  const outputChannels = []
     
   for (const element of allchannelsArray) {
     if (element.isPublic === true) {
       publicChannelsArray.push(element);
     }
   }
-  
-  for (const element of publicChannelsArray) {
-    if ((element.owners).includes(authUserId)) {
-      console.log('works');
-  }
-  console.log(element.owners);
 
+  for (const element of publicChannelsArray) {
+    if ((element.members).includes(authUserId)) {
+      outputChannels.push({channelId: element.channelId, name: element.name})
+    }
   }
-  console.log('**');
-  console.log(publicChannelsArray);
-  console.log('**');
- 
+
   return {
-    channels: publicChannelsArray,
+    channels: outputChannels,
   };
 
 }
