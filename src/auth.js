@@ -77,16 +77,16 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   // Register the user
   let user = {
     email: email,
-    authUserId: data.users.length + 1,
+    authUserId: data.users.length,
     password: password,
     nameFirst: nameFirst,
     nameLast: nameLast,
     userHandle: userHandle,
   };
-  data.users[data.users.length] = user;
+  data.users.push(user);
   
   return { 
-    authUserId: data.users.length,
+    authUserId: data.users[data.users.length - 1].authUserId,
   };
 }
 
