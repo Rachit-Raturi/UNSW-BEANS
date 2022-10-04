@@ -31,6 +31,7 @@ function channelsCreateV1(authUserId, name, isPublic ) {
   };
 
   data.channels[data.channels.length] = channel;
+  setData(data); 
   
   return { 
     channelId: data.channels.length - 1,
