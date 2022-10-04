@@ -67,15 +67,8 @@ function channelInviteV1( authUserId, channelId, uId ) {
   let membersarray = data.channels.members;
     membersarray.push(uId);
   data.channels.members = membersarray;
-
   return {};
 }
-
-
-
-
-
-
 
 
 /**
