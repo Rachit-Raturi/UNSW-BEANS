@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Invalid Channel invite', () => {
-  test('Invalid chanelId', () => {
+  test('Invalid channelId', () => {
     let   invalidchannelId = 1;
     if (channelId.channelId === 1) {
       invalidchannelId = 2;
@@ -60,5 +60,31 @@ describe('Invalid Channel invite', () => {
     const userId2 = authRegisterV1('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
     channelJoinV1(userId2.authUserId, channelId.channelId);
     expect(channelInviteV1(userId.authUserId, channelId.channelId, userId2.authUserId)).toStrictEqual({error: expect.any(String)});
+  });
+});
+
+// Tests for the function channelMessagesV1
+describe('tests for channelMessagesV1 function', () => {
+  test('Invalid channelId', () => {
+    let invalidchannelId = 2;
+    expect(channelMessagesV1(userId.authUserId, invalidchannelId, start)).toStrictEqual({ error: expect.any(String) });
+  });
+  
+  test('Invalid authUserId', () => {
+    let invaliduserId = 2;
+    expect(channelMessagesV1(invaliduserId, channelId.channelId, start)).toStrictEqual({ error: expect.any(String) });
+  });
+  
+  test('authUserId not in channel', () => {
+    expect(channelMessagesV1(userId1.authUserUd, channelId.channelId, start)).toStrictEqual({ error: expect.any(String) });
+  });
+  
+  test('start > total messages in channel', () => {
+    let start = 1;
+    expect(channelMessagesV1(userId.authUserId, channelId.channelId, start)).toStrictEqual({ error: expect.any(String) });
+  });
+  
+  test('Successful message history', () => {
+    expect(channelMessagesV1(userId.authUserId, channelId.channelId, start)).toStrictEqual({ channelMessages(userId.authUserId, channel.channelId, 0) => { [messages], 0, -1} });
   });
 });
