@@ -57,7 +57,7 @@ function channelsListV1(authUserId) {
   
   const allchannelsArray = data.channels;
   const publicChannelsArray = [];
-  const outputChannels = []
+  const outputChannels = [];
     
   for (const element of allchannelsArray) {
     if (element.isPublic === true) {
