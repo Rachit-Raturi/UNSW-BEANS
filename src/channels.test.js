@@ -1,7 +1,6 @@
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { authRegisterV1, authLoginV1 } from './auth';
 import { channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1 } from './channel';
-import { getData, setData } from './dataStore';
 import ClearV1 from './other';
 
 let userId;
@@ -9,7 +8,10 @@ let userId1;
 let channel1; 
 
 beforeEach(() => {
-    ClearV1();
+  ClearV1();
+  userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
+  userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
+  channel1 = channelsCreateV1(userId.authUserId,'test',true);
 });
 
 describe('tests for channelsCreateV1 function', () => { 
@@ -31,7 +33,6 @@ describe('tests for channelsCreateV1 function', () => {
     expect(channelsCreateV1(userId.authUserId , "", false)).toStrictEqual({error: expect.any(String)});
   });
 }); 
-
 
 describe('Invalid channelsListV1', () => {
   test('Invalid authUserId - no users', () => {
