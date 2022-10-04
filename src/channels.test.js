@@ -1,32 +1,54 @@
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { authRegisterV1, authLoginV1 } from './auth';
 import { channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1 } from './channel';
-import { getData, setData } from './dataStore';
 import ClearV1 from './other';
 
+let userId;
+let userId1;
+let channel1; 
+
 beforeEach(() => {
-    ClearV1();
+  ClearV1();
+  userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
+  userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
+  channel1 = channelsCreateV1(userId.authUserId,'My Channel1',true);
 });
 
-describe('Invalid channelsListV1', () => {
-  test('Invalid authUserId - no users', () => {
-    expect(channelsListV1(1)).toStrictEqual({error: expect.any(String)});
-  });
-
-  test('Invalid authUserId - 1 user', () => {
-    const userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
+describe('tests for channelsCreateV1 function', () => { 
+  test('test 1: authUserId is invalid ', () => {
+ 
     let invaliduserId = 1;
-
     if (userId.authUserId === 1) {
       invaliduserId = 2;
     }
-    
-    expect(channelsListV1(invaliduserId)).toStrictEqual({error: expect.any(String)});
+
+    expect(channelsCreateV1(invaliduserId, "channel1", true)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 2: name is greater then 20 characters', () => {
+    expect(channelsCreateV1(userId.authUserId , "GreaterThentwentyCharacters", false)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 3: name is less then 1 ', () => {
+    expect(channelsCreateV1(userId.authUserId , "", false)).toStrictEqual({error: expect.any(String)});
+  });
+}); 
+
+
+
+
+
+
+
+
+
+describe('Invalid channelsListV1', () => {
+  test('Invalid authUserId - no users', () => {
+    ClearV1();
+    expect(channelsListV1(1)).toStrictEqual({error: expect.any(String)});
   });
 
   test('Invalid authUserId - multiple users', () => {
-    const userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
-    const userId1 = authRegisterV1('test1@gmail.com', 'Password', 'firstname1', 'lastname1');
     let invaliduserId = 1;
 
     if (userId.authUserId === 1 || userId1.authUserId === 1) {
@@ -37,15 +59,13 @@ describe('Invalid channelsListV1', () => {
       invaliduserId = 3;
     }
     
-    expect(channelsListV1(a)).toStrictEqual({error: expect.any(String)});
+    expect(channelsListV1(invaliduserId)).toStrictEqual({error: expect.any(String)});
   });
 });
 
 describe('Valid channelsListV1', () => {
   
   test('test 1 user in 1 course', () => {
-    const userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
-    const channel1 = channelsCreateV1(userId.authUserId,'test1',true);
 
     const outputarray = [];
     outputarray.push({channelId: channel1.channelId, name: 'My Channel1'});
@@ -57,9 +77,7 @@ describe('Valid channelsListV1', () => {
   });
 
   test('test 1 user in 2 courses', () => {
-    const userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
-    const channel1 = channelsCreateV1(userId.authUserId,'test1',true);
-    const channel2 = channelsCreateV1(userId.authUserId,'test2',true);
+    const channel2 = channelsCreateV1(userId.authUserId,'My Channel2',true);
 
     const outputarray = [];
     outputarray.push({channelId: channel1.channelId, name: 'My Channel1'});
@@ -72,10 +90,8 @@ describe('Valid channelsListV1', () => {
   });
 
   test('test 1 user in multiple courses', () => {
-    const userId = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
-    const channel1 = channelsCreateV1(userId.authUserId,'test1',true);
-    const channel2 = channelsCreateV1(userId.authUserId,'test2',true);
-    const channel3 = channelsCreateV1(userId.authUserId,'test3',true);
+    const channel2 = channelsCreateV1(userId.authUserId,'My Channel2',true);
+    const channel3 = channelsCreateV1(userId.authUserId,'My Channel3',true);
 
     const outputarray = [];
     outputarray.push({channelId: channel1.channelId, name: 'My Channel1'});

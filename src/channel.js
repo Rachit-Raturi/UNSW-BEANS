@@ -1,7 +1,33 @@
-import { getData, setData} from './dataStore.js'
+import { getData, setData } from './dataStore.js';
 
+function channelJoinV1( authUserId, channelId ) {
+  let data = getData();
 
-function channelJoinV1( authUserId, channelId ) { 
+  // invalid channelId error 
+  if (data.channels[channelId] === undefined) { 
+    return {
+      error: "channelId does not refer to a valid channel"
+    };
+  }
+  // already member error 
+
+  if (data.channels[channelId].members.includes(authUserId)) { 
+    return {
+      error: "User is already a member of this channel"
+    };
+  }
+  // private channel error 
+  if (data.channels[channelId].isPublic === false) { 
+    // global owner false 
+    if (authUserId > 0) { 
+      return {
+        error: `User(${authUserId}) cannot join a private channel`
+      };
+    }  
+  }
+  data.channels[channelId].members.push(authUserId); 
+  setData(data); 
+
   return {};
 }
 
@@ -28,18 +54,30 @@ function channelInviteV1( authUserId, channelId, uId ) {
         error: "invalid channel",
     };
   }
+  console.log(data.channels[channelId].members);
 
-  for (element of data.channels[channelId].allMembers) {
+  for (const element of data.channels[channelId].members) {
     if (element === authUserId) {
       return {
         error: "already a member",
-    };
+      };
     }
   }
 
+  let membersarray = data.channels.members;
+    membersarray.push(uId);
+  data.channels.members = membersarray;
 
   return {};
 }
+
+
+
+
+
+
+
+
 /**
  * Given a channel with ID channelId that the authorised user
  * is a member of, provides basic details about the channel.
