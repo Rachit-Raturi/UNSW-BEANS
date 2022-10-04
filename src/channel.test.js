@@ -6,11 +6,15 @@ import { authRegisterV1,
          channelMessagesV1 } from './channel';
 import ClearV1 from './other';
 
+let authUser;
+let user;
+let channel;
+
 beforeEach(() => {
   ClearV1();
-  const authUser = authRegisterV1('valid.email@gmail.com', 'aGo0dpAssw0rD', 'Mike', 'Hox');
-  const user = authRegisterV1('also.valid@yahoo.com.au', 'a83tt3rpW0rD', 'Barack', 'Obama');
-  const channel = channelsCreateV1(authUser.authUserId, 'Disney', true);
+  authUser = authRegisterV1('valid.email@gmail.com', 'aGo0dpAssw0rD', 'Mike', 'Hox');
+  user = authRegisterV1('also.valid@yahoo.com.au', 'a83tt3rpW0rD', 'Barack', 'Obama');
+  channel = channelsCreateV1(authUser.authUserId, 'Disney', true);
 });
 
 describe('Tests for channelDetailsV1', () => {
