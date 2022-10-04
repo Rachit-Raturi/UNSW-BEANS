@@ -26,8 +26,8 @@ function channelsCreateV1(authUserId, name, isPublic ) {
     channelId: data.channels.length,
     name: name,
     isPublic: isPublic,
-    ownerMembers: owners,
-    allMembers: members
+    owners: owners,
+    members: members
   };
 
   data.channels[data.channels.length] = channel;
