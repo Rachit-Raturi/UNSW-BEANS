@@ -3,7 +3,6 @@ import { getData, setData } from './dataStore';
 function channelsCreateV1(authUserId, name, isPublic ) {
   let data = getData();
   
->>>>>>> master
   // invalid userId
   if (data.users[authUserId] === undefined) { 
     return {
