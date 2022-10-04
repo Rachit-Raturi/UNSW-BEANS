@@ -18,17 +18,12 @@ function channelsCreateV1(authUserId, name, isPublic ) {
     };
   }
 
-  let channelId = 0; 
-  if (data.channels.length !== 0) { 
-    channelId = data.channels.length
-  }
-
   let members = []; 
   let owners = []; 
   owners.push(authUserId); 
 
   let channel = {
-    channelId: channelId,
+    channelId: data.channels.length,
     name: name,
     isPublic: isPublic,
     owners: owners,
