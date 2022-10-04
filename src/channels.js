@@ -6,6 +6,17 @@ function channelsCreateV1( authUserId, name, isPublic ) {
   };
 }
 
+/**
+  * Given a valid authUserId will return a list 
+  * of all the public channels the user is in.
+  *
+  *@param {number} authUserId - The authUserId of the user
+  *
+  *
+  *@returns {channels: {Array<{channelId: number, name: string}>}} 
+  * - returns array of public channels
+
+*/
 function channelsListV1(authUserId) {
   setData({
       'users': [
@@ -49,7 +60,7 @@ function channelsListV1(authUserId) {
   
   if (user === undefined) {
     return {
-        error: "invalid user";
+        error: "invalid user",
     };
   }
   
