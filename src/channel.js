@@ -1,3 +1,7 @@
+import { authRegisterV1, authLoginV1 } from './auth.js';
+import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels.js';
+import { getData, setData } from './dataStore.js';
+
 function channelJoinV1( authUserId, channelId ) { 
   return {};
 }
@@ -35,6 +39,31 @@ function channelDetailsV1 (authUserId, channelId) {
 }
 
 function channelMessagesV1(authUserId, channelId, start) {
+  const data = getData();
+  const isValidUser = data.users.find(a => a.authUserId === authUserId);
+  if (isValiduser === undefined) {
+    return { 
+      error: 'Invalid user',
+    };
+  }
+  
+  
+  const isValidChannel = data.channels.find(c => c.channelId === channelId);
+  if (isValidChannel === undefined) {
+    return {
+      error: 'Invalid channel',
+    };
+  }
+  
+  let members = allMembers.channelDetailsV1(channelId);
+  for (let j = 0; j < members.length; j++) {
+    if (j === members.length) {
+      return {
+        error: 'The authorised user is not a member of the channel',
+      };
+    }
+  }  
+  
   return {
     messages: [
       {
