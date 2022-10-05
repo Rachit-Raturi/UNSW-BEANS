@@ -27,10 +27,10 @@ describe('Invalid Channel invite', () => {
 
   test('Invalid authUserId', () => {
     let invaliduserId = 1;
-    if (userId.authUserId === 1) {
+    if (userId.authUserId === 1 || userId1.authUserId === 1) {
       invaliduserId = 2;
     }
-    if (userId1.authUserId === 2) {
+    if (userId.authUserId === 2 || userId1.authUserId === 2) {
       invaliduserId = 3;
     }
     expect(channelInviteV1(invaliduserId, channelId.channelId, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
@@ -38,10 +38,10 @@ describe('Invalid Channel invite', () => {
 
   test('Invalid uId', () => {
     let invaliduserId = 1;
-    if (userId.authUserId === 1) {
+    if (userId.authUserId === 1 || userId1.authUserId === 1) {
       invaliduserId = 2;
     }
-    if (userId1.authUserId === 2) {
+    if (userId.authUserId === 2 || userId1.authUserId === 2) {
       invaliduserId = 3;
     }
     expect(channelInviteV1(userId.authUserId, channelId.channelId, invaliduserId)).toStrictEqual({error: expect.any(String)});

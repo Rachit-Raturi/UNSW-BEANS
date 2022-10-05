@@ -16,13 +16,8 @@ beforeEach(() => {
 
 describe('tests for channelsCreateV1 function', () => { 
   test('test 1: authUserId is invalid ', () => {
- 
-    let invaliduserId = 1;
-    if (userId.authUserId === 1) {
-      invaliduserId = 2;
-    }
-
-    expect(channelsCreateV1(invaliduserId, "channel1", true)).toStrictEqual({error: expect.any(String)});
+    ClearV1();
+    expect(channelsCreateV1(1, "channel1", true)).toStrictEqual({error: expect.any(String)});
   });
 
   test('test 2: name is greater then 20 characters', () => {
