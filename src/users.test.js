@@ -26,10 +26,10 @@ describe('error tests for UserProfileV1', () => {
 
 describe('valid test for UserProfileV1', () => {
   let user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
-  test('test 1: invalid authuserid', () => {
+  test('test 1: valid authuserid', () => {
     expect(userProfileV1(user.authUserId, user1.authUserId)).toStrictEqual(
       {
-        uId: 1,
+        uId: user1.authUserId,
         email: 'test1@gmail.com',
         nameFirst: 'firstname1',
         nameLast: 'lastname1',
