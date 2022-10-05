@@ -32,7 +32,7 @@ function channelsCreateV1(authUserId, name, isPublic ) {
 
   data.channels[data.channels.length] = channel;
   setData(data); 
-  
+
   return { 
     channelId: data.channels.length - 1,
   };
@@ -81,14 +81,22 @@ function channelsListV1(authUserId) {
 }
 
 function channelsListAllV1( authUserId ) { 
-  return {
-    channels: [     
-      {
-        channelId: 1,          
-        name: 'My Channel',
-      }
-    ],
-  };
+  let data = getData();
+
+  if (data.users[authUserId] === undefined) { 
+    return {
+      error: "authUserId does not refer to a valid ID"
+    };
+  }
+
+  const allchannelsArray = data.channels;
+  let outputChannels = []
+    
+  for (const element of allchannelsArray) {
+    outputChannels.push({channelId: element.channelId, name: element.name})
+  }
+
+  return outputChannels; 
 }
 
 export {channelsCreateV1, channelsListV1, channelsListAllV1};
