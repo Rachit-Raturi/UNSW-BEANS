@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Invalid Channel invite', () => {
-  test('Invalid chanelId', () => {
+  test('Invalid channelId', () => {
     let   invalidchannelId = 1;
     if (channelId.channelId === 1) {
       invalidchannelId = 2;
@@ -63,9 +63,28 @@ describe('Invalid Channel invite', () => {
   });
 });
 
-describe('Valid Channel invite', () => {
-  test('valid member to add', () => {
-    expect(channelInviteV1(userId.authUserId, channelId.channelId, userId1.authUserId)).toStrictEqual({});
+describe('tests for channelMessagesV1 function', () => {
+  test('Invalid channelId', () => {
+    let invalidchannelId = 2;
+    expect(channelMessagesV1(userId.authUserId, invalidchannelId, start)).toStrictEqual({ error: expect.any(String) });
+  });
+  
+  test('Invalid authUserId', () => {
+    let invaliduserId = 2;
+    expect(channelMessagesV1(invaliduserId, channelId.channelId, start)).toStrictEqual({ error: expect.any(String) });
+  });
+  
+  test('authUserId not in channel', () => {
+    expect(channelMessagesV1(userId1.authUserUd, channelId.channelId, start)).toStrictEqual({ error: expect.any(String) });
+  });
+  
+  test('start > total messages in channel', () => {
+    let start = 1;
+    expect(channelMessagesV1(userId.authUserId, channelId.channelId, start)).toStrictEqual({ error: expect.any(String) });
+  });
+  
+  test('Successful message history', () => {
+    expect(channelMessagesV1(userId.authUserId, channelId.channelId, start)).toStrictEqual({ channelMessages(userId.authUserId, channel.channelId, 0) => { [messages], 0, -1} });
   });
 });
 
@@ -96,3 +115,4 @@ describe('tests for channelJoinV1 function', () => {
     expect(channelJoinV1(userId1.authUserId, channelId.channelId)).toStrictEqual({});
   });
 });
+
