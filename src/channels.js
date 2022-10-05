@@ -26,8 +26,8 @@ function channelsCreateV1(authUserId, name, isPublic ) {
     channelId: data.channels.length,
     name: name,
     isPublic: isPublic,
-    owners: owners,
-    members: members
+    ownerMembers: owners,
+    allMembers: members,
   };
 
   data.channels[data.channels.length] = channel;
@@ -69,7 +69,7 @@ function channelsListV1(authUserId) {
   }
 
   for (const element of publicChannelsArray) {
-    if ((element.members).includes(authUserId)) {
+    if ((element.allMembers).includes(authUserId)) {
       outputChannels.push({channelId: element.channelId, name: element.name})
     }
   }

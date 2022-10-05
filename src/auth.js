@@ -7,7 +7,7 @@ function authLoginV1(email, password) {
     if (users.email === email) {
       if (password === users.password) {
         return {
-          authUserId: users.authUserId,
+          authUserId: users.uId,
         };
       } else {
         return {
@@ -77,11 +77,11 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   // Register the user
   let user = {
     email: email,
-    authUserId: data.users.length,
+    uId: data.users.length,
     password: password,
     nameFirst: nameFirst,
     nameLast: nameLast,
-    userHandle: userHandle,
+    handleStr: userHandle,
   };
   data.users.push(user);
   
