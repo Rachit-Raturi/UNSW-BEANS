@@ -13,7 +13,7 @@ beforeEach(() => {
   userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channel1 = channelsCreateV1(userId.authUserId,'test',true);
 });
-
+/*
 describe('tests for channelsCreateV1 function', () => { 
   test('test 1: authUserId is invalid ', () => {
  
@@ -105,3 +105,56 @@ describe('Valid channelsListV1', () => {
     expect(recievedset).toStrictEqual(expectedset);
   });
 });
+*/
+describe('tests for channelsListAllV1 function', () => { 
+  test('test 1: authUserId is invalid ', () => {
+ 
+    let invaliduserId = 1;
+    if (userId.authUserId === 1) {
+      invaliduserId = 2;
+    }
+    if (userId1.authUserId === invaliduserId) { 
+      invaliduserId = 3;
+    }
+
+    expect(channelsListAllV1(invaliduserId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('test 2: Valid Case - 3 channels', () => {
+    const channel2 = channelsCreateV1(userId.authUserId,'My Channel2',true);
+    const channel3 = channelsCreateV1(userId.authUserId,'My Channel3',true);
+
+    const outputarray = [];
+    outputarray.push({channelId: channel1.channelId, name: 'test'});
+    outputarray.push({channelId: channel2.channelId, name: 'My Channel2'});
+    outputarray.push({channelId: channel3.channelId, name: 'My Channel3'});
+
+    let expectedset = outputarray
+    let recievedset = channelsListAllV1(userId.authUserId)
+
+    expect(expectedset).toStrictEqual(recievedset);
+  });
+
+  test('test 3: Valid Case - 6 channels', () => {
+    const channel2 = channelsCreateV1(userId.authUserId,'My Channel2',true);
+    const channel3 = channelsCreateV1(userId.authUserId,'My Channel3',true);
+    const channel4 = channelsCreateV1(userId.authUserId,'My Channel4',true);
+    const channel5 = channelsCreateV1(userId.authUserId,'My Channel5',true);
+    const channel6 = channelsCreateV1(userId.authUserId,'My Channel6',true);
+    const channel7 = channelsCreateV1(userId.authUserId,'My Channel7',true);
+
+    const outputarray = [];
+    outputarray.push({channelId: channel1.channelId, name: 'test'});
+    outputarray.push({channelId: channel2.channelId, name: 'My Channel2'});
+    outputarray.push({channelId: channel3.channelId, name: 'My Channel3'});
+    outputarray.push({channelId: channel4.channelId, name: 'My Channel4'});
+    outputarray.push({channelId: channel5.channelId, name: 'My Channel5'});
+    outputarray.push({channelId: channel6.channelId, name: 'My Channel6'});
+    outputarray.push({channelId: channel7.channelId, name: 'My Channel7'});
+
+    let expectedset = outputarray
+    let recievedset = channelsListAllV1(userId.authUserId)
+
+    expect(expectedset).toStrictEqual(recievedset);
+  });
+}); 
