@@ -84,7 +84,7 @@ describe('tests for channelMessagesV1 function', () => {
   });
   
   test('Successful message history', () => {
-    expect(channelMessagesV1(userId.authUserId, channelId.channelId, start)).toStrictEqual({ channelMessages(userId.authUserId, channel.channelId, 0) => { [messages], 0, -1} });
+    expect(channelMessagesV1(userId.authUserId, channelId.channelId, start)).toStrictEqual( [messages], 0, -1 );
   });
 });
 
