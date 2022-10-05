@@ -63,6 +63,12 @@ describe('Invalid Channel invite', () => {
   });
 });
 
+describe('Valid Channel invite', () => {
+  test('valid member to add', () => {
+    expect(channelInviteV1(userId.authUserId, channelId.channelId, userId1.authUserId)).toStrictEqual({});
+  });
+});
+
 describe('tests for channelJoinV1 function', () => {
   test('test 1: Join attempt with invalid channelId ', () => {
     let invalidchannelId = 1;
