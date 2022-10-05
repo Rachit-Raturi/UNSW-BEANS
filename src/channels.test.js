@@ -13,7 +13,7 @@ beforeEach(() => {
   userId1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channel1 = channelsCreateV1(userId.authUserId,'test',true);
 });
-/*
+
 describe('tests for channelsCreateV1 function', () => { 
   test('test 1: authUserId is invalid ', () => {
  
@@ -105,7 +105,7 @@ describe('Valid channelsListV1', () => {
     expect(recievedset).toStrictEqual(expectedset);
   });
 });
-*/
+
 describe('tests for channelsListAllV1 function', () => { 
   test('test 1: authUserId is invalid ', () => {
  
