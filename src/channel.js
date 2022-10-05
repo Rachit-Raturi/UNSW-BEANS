@@ -70,7 +70,6 @@ function channelInviteV1( authUserId, channelId, uId ) {
   return {};
 }
 
-
 /**
  * Given a channel with ID channelId that the authorised user
  * is a member of, provides basic details about the channel.
@@ -107,7 +106,6 @@ function channelMessagesV1(authUserId, channelId, start) {
       error: 'Invalid user',
     };
   }
-  
   
   const isValidChannel = data.channels.find(c => c.channelId === channelId);
   if (isValidChannel === undefined) {
