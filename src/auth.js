@@ -1,6 +1,18 @@
 import validator from 'validator';
 import { getData, setData} from './dataStore'
 
+/**
+  * Given a valid registered email and password the function
+  * will return the assigned authUserId unique to the user
+  *
+  *@param {string} email - The email of the user
+  *@param {string} password - The password of the user
+  *
+  *
+  *@returns {{authUserId: number}} - The authUserid of the user
+  * 
+*/
+
 function authLoginV1(email, password) {
   let data = getData();
   for (const users of data.users) {
@@ -20,6 +32,21 @@ function authLoginV1(email, password) {
     error: 'Email entered does not belong to a user',
   };
 }
+
+/**
+  * Given a valid email, password, first name and last name
+  * will return a generated authUserId unique to the user
+  *
+  *@param {string} email - The email of the user
+  *@param {string} password - The password of the user
+  *@param {string} nameFirst - The first name of the user
+  *@param {string} nameLast - The last name of the user
+  *
+  *
+  *@returns {{authUserId: number}} - The authUserId of the user
+  * 
+
+*/
 
 function authRegisterV1(email, password, nameFirst, nameLast) {
   let data = getData();
