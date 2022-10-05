@@ -116,9 +116,12 @@ function channelMessagesV1(authUserId, channelId, start) {
   
   let members = allMembers.channelDetailsV1(channelId);
   for (let j = 0; j < members.length; j++) {
+    if (members[j] === authUserId) {
+      break;
+    }
     if (j === members.length) {
       return {
-        error: 'The authorised user is not a member of the channel',
+        error: `The authorised user ${authUserId} is not a member of the channel`,
       };
     }
   }  
@@ -133,7 +136,7 @@ function channelMessagesV1(authUserId, channelId, start) {
       }
     ],
     start: 0,
-    end: 50,
+    end: -1,
   };
 }
 
