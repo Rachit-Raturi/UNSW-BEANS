@@ -1,4 +1,4 @@
-import { getData, setData } from './dataStore';
+import { getData, setData } from './dataStore.js';
 
 function channelJoinV1( authUserId, channelId ) {
   let data = getData();
@@ -10,12 +10,12 @@ function channelJoinV1( authUserId, channelId ) {
     };
   }
   // already member error 
+
   if (data.channels[channelId].members.includes(authUserId)) { 
     return {
       error: "User is already a member of this channel"
     };
   }
-
   // private channel error 
   if (data.channels[channelId].isPublic === false) { 
     // global owner false 
@@ -27,12 +27,49 @@ function channelJoinV1( authUserId, channelId ) {
   }
   data.channels[channelId].members.push(authUserId); 
   setData(data); 
+
   return {};
 }
 
 function channelInviteV1( authUserId, channelId, uId ) { 
+  const data = getData();
+
+  const isvalidAuthuser = data.users.find(a => a.authUserId === authUserId);  
+  if (isvalidAuthuser === undefined) {
+    return {
+        error: "invalid user",
+    };
+  }
+
+  const isvaliduser = data.users.find(a => a.authUserId === authUserId);  
+  if (isvaliduser === undefined) {
+    return {
+        error: "invalid user",
+    };
+  }
+
+  const isvalidchannel = data.channels.find(a => a.channelId === channelId);
+  if (isvalidchannel === undefined) {
+    return {
+        error: "invalid channel",
+    };
+  }
+  console.log(data.channels[channelId].members);
+
+  for (const element of data.channels[channelId].members) {
+    if (element === authUserId) {
+      return {
+        error: "already a member",
+      };
+    }
+  }
+
+  let membersarray = data.channels.members;
+    membersarray.push(uId);
+  data.channels.members = membersarray;
   return {};
 }
+
 
 /**
  * Given a channel with ID channelId that the authorised user
