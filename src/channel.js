@@ -133,13 +133,6 @@ function channelInviteV1( authUserId, channelId, uId ) {
     };
   }
 
-  const isvaliduId = data.channels.find(a => a.allMembers === uId);
-  if (isvaliduId === undefined) {
-    return {
-        error: 'Invalid authuser',
-    };
-  }
-
   let checkismember = data.channels[channelId].allMembers
   let isvalidmember = checkismember.find(a => a === authUserId);
   if (isvalidmember === undefined) {
