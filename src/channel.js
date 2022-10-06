@@ -3,6 +3,13 @@ import { getData, setData } from './dataStore.js';
 function channelJoinV1( authUserId, channelId ) {
   let data = getData();
 
+  // invalid authuserId
+  const isvalidAuthuser = data.users.find(a => a.uId === authUserId);
+  if (isvalidAuthuser === undefined) {
+    return {
+        error: "invalid user",
+    };
+  }
   // invalid channelId error 
   if (data.channels[channelId] === undefined) { 
     return {

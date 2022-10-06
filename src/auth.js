@@ -89,15 +89,12 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   // Generating the userhandle
   let userHandle = nameFirst.toLowerCase() + nameLast.toLowerCase();
   userHandle = userHandle.substring(0, Math.min(userHandle.length, 20));
+  let originaluserhandle = userHandle;
   let i = 0;
   for (let user of data.users) {
-    if (user.userHandle === userHandle) {
-      userHandle = userHandle + i.toString();
+    if (user.handleStr === userHandle) {
+      userHandle = originaluserhandle + i;
       i++;
-      if (i === 10) {
-        i = 0;
-      }
-      user = data.users[0];
     }
   }
 
