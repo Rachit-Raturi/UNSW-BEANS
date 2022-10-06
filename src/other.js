@@ -2,11 +2,11 @@ import { getData, setData} from './dataStore.js';
 
 function ClearV1() {
 let clearedData = {
-    users: [
-    ],
-    channels: [
-    ],
-};
+      users: [
+      ],
+      channels: [
+      ],
+    };
 
     setData(clearedData);
 }
