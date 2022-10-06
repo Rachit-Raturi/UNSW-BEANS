@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { getData, setData} from './dataStore'
+import { getData, setData} from './dataStore.js'
 
 /**
   * Given a valid registered email and password the function
@@ -115,7 +115,7 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   setData(data);
 
   return { 
-    authUserId: data.users[data.users.length - 1].authUserId,
+    authUserId: data.users.length - 1,
   };
 }
 
