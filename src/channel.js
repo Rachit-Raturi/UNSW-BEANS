@@ -8,7 +8,7 @@ import { getData, setData } from './dataStore.js';
  * @param {Number} channelId
  * @returns {Object} channel
  */
-function channelDetailsV1 (authUserId, channelId) {
+ function channelDetailsV1 (authUserId, channelId) {
   let data = getData();
 
   // invalid channelId error 
@@ -38,11 +38,11 @@ function channelDetailsV1 (authUserId, channelId) {
   let members = data.channels[channelId].allMembers
   let users = data.users;
 
-  let ownersarray = [];
-  let membersarray = [];
+  let ownersArray = [];
+  let membersArray = [];
 
   for (const element of owners) {
-    ownersarray.push({
+    ownersArray.push({
       uId: data.users[element].uId,
       email: data.users[element].email,
       nameFirst: data.users[element].nameFirst,
@@ -52,7 +52,7 @@ function channelDetailsV1 (authUserId, channelId) {
   }
 
   for (const element of members) {
-    membersarray.push({
+    membersArray.push({
       uId: data.users[element].uId,
       email: data.users[element].email,
       nameFirst: data.users[element].nameFirst,
@@ -64,8 +64,8 @@ function channelDetailsV1 (authUserId, channelId) {
   return {
     name: data.channels[channelId].name,
     isPublic: data.channels[channelId].isPublic,
-    ownerMembers: ownersarray,
-    allMembers: membersarray,
+    ownerMembers: ownersArray,
+    allMembers: membersArray,
   };
 }
 
@@ -73,10 +73,10 @@ function channelJoinV1( authUserId, channelId ) {
   let data = getData();
 
   // invalid authuserId
-  const isvalidAuthuser = data.users.find(a => a.uId === authUserId);
-  if (isvalidAuthuser === undefined) {
+  const isValidAuthUser = data.users.find(a => a.uId === authUserId);
+  if (isValidAuthUser === undefined) {
     return {
-        error: "invalid user",
+        error: 'Invalid user',
     };
   }
   // invalid channelId error 
@@ -110,26 +110,26 @@ function channelJoinV1( authUserId, channelId ) {
 function channelInviteV1( authUserId, channelId, uId ) { 
   const data = getData();
 
-  const isvalidAuthuser = data.users.find(a => a.uId === authUserId);
-  if (isvalidAuthuser === undefined) {
+  const isValidAuthUser = data.users.find(a => a.uId === authUserId);
+  if (isValidAuthUser === undefined) {
     return {
-        error: "invalid user",
+        error: 'Invalid user',
     };
   }
 
 
 
-  const isvalidchannel = data.channels.find(a => a.channelId === channelId);
-  if (isvalidchannel === undefined) {
+  const isValidChannel = data.channels.find(a => a.channelId === channelId);
+  if (isValidChannel === undefined) {
     return {
-        error: "invalid channel",
+        error: 'Invalid channel',
     };
   }
 
   const isvaliduId = data.channels.find(a => a.allMembers === uId);
   if (isvaliduId === undefined) {
     return {
-        error: "invalid authuser",
+        error: 'Invalid authuser',
     };
   }
 
@@ -137,21 +137,21 @@ function channelInviteV1( authUserId, channelId, uId ) {
   let isvalidmember = checkismember.find(a => a === authUserId);
   if (isvalidmember === undefined) {
     return {
-        error: "invalid authuser",
+        error: 'Invalid authuser',
     };
   }
 
   for (const element of data.channels[channelId].allMembers) {
     if (element === authUserId) {
       return {
-        error: "already a member",
+        error: 'Already a member',
       };
     }
   }
 
-  let membersarray = data.channels[channelId].allMembers;
-    membersarray.push(uId);
-  data.channels.allMembers = membersarray;
+  let membersArray = data.channels[channelId].allMembers;
+    membersArray.push(uId);
+  data.channels.allMembers = membersArray;
   return {};
 }
 

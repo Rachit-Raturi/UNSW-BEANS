@@ -7,62 +7,62 @@ beforeEach(() => {
 });
 
 describe('Tests for authLoginV1', () => {
-  test('Test 1: email doesnt belong to a user', () => {
+  test('Test 1: Email doesnt belong to a user', () => {
     let loginTest = authRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James');
-    expect(authLoginV1('Wrongemail@gmail.com', 'password')).toEqual({error: expect.any(String)});
+    expect(authLoginV1('Wrongemail@gmail.com', 'password')).toStrictEqual({error: expect.any(String)});
   });
 
-  test('Test 2: incorrect password is entered', () => {
+  test('Test 2: Incorrect password is entered', () => {
     let loginTest = authRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James');
-    expect(authLoginV1('Validemail@gmail.com', 'wrongPassword')).toEqual({error: expect.any(String)});
+    expect(authLoginV1('Validemail@gmail.com', 'wrongPassword')).toStrictEqual({error: expect.any(String)});
   });
 
-  test('Test 3: successful login test 1', () => {
+  test('Test 3: Successful login test 1', () => {
     let loginTest = authRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James');
-    expect(authLoginV1('Validemail@gmail.com', 'password')).toEqual({authUserId: expect.any(Number)});
+    expect(authLoginV1('Validemail@gmail.com', 'password')).toStrictEqual({authUserId: expect.any(Number)});
   });
 
-  test('Test 4: successful login test 2', () => {
+  test('Test 4: Successful login test 2', () => {
     let loginTest = authRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James');
-    expect(authLoginV1('Validemail@gmail.com', 'password')).toEqual({authUserId: expect.any(Number)});
+    expect(authLoginV1('Validemail@gmail.com', 'password')).toStrictEqual({authUserId: expect.any(Number)});
     let loginTest2 = authRegisterV1('second@gmail.com', 'sdjnasdnjkasnjdnj', 'Lebron', 'James');
-    expect(authLoginV1('second@gmail.com', 'sdjnasdnjkasnjdnj')).toEqual({authUserId: expect.any(Number)});
+    expect(authLoginV1('second@gmail.com', 'sdjnasdnjkasnjdnj')).toStrictEqual({authUserId: expect.any(Number)});
   });
 });
 
 
 
 describe('Tests for authRegisterV1', () => {
-  test('Test 1: invalid email', () => {
-    expect(authRegisterV1('Invalidemail@@gmail.com', 'password', 'Rachit', 'Raturi')).toEqual({error: expect.any(String)});
+  test('Test 1: Invalid email', () => {
+    expect(authRegisterV1('Invalidemail@@gmail.com', 'password', 'Rachit', 'Raturi')).toStrictEqual({error: expect.any(String)});
   });
 
-  test ('Test 2: email address already in use', () => {
+  test ('Test 2: Email address already in use', () => {
     let result = authRegisterV1('validemail@gmail.com', '123abc!@#', 'Jake', 'Renzella');
-    expect(authRegisterV1('validemail@gmail.com', '123abc!@#', 'Jake', 'Renzella')).toEqual({error: expect.any(String)});
+    expect(authRegisterV1('validemail@gmail.com', '123abc!@#', 'Jake', 'Renzella')).toStrictEqual({error: expect.any(String)});
   });
 
-  test('Test 3: password is not strong enough', () => {
-    expect(authRegisterV1('weakpassword@gmail.com', 'weak', 'Jackson', 'Smith')).toEqual({error: expect.any(String)});
+  test('Test 3: Password is not strong enough', () => {
+    expect(authRegisterV1('weakpassword@gmail.com', 'weak', 'Jackson', 'Smith')).toStrictEqual({error: expect.any(String)});
   });
 
-  test('Test 4: empty password', () => {
-    expect(authRegisterV1('nopassword@gmail.com', '', 'David', 'Jones')).toEqual({error: expect.any(String)});
+  test('Test 4: Empty password', () => {
+    expect(authRegisterV1('nopassword@gmail.com', '', 'David', 'Jones')).toStrictEqual({error: expect.any(String)});
   });
 
-  test('Test 5: first name isnt valid', () => {
+  test('Test 5: First name isnt valid', () => {
     expect(authRegisterV1('nofirst@gmail.com', 'pastword', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz',
-                          'Jameson')).toEqual({error: expect.any(String)});
+                          'Jameson')).toStrictEqual({error: expect.any(String)});
   });
 
-  test('Test 6: second name isnt valid', () => {
+  test('Test 6: Second name isnt valid', () => {
     expect(authRegisterV1('nolast@gmail.com', 'pastwords', 'colin',
-                          'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabc')).toEqual({error: expect.any(String)});
+                          'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabc')).toStrictEqual({error: expect.any(String)});
   });
 
-  test('Test 7: succesful use of authRegisterV1', () => {
-    expect(authRegisterV1('validemail@gmail.com', 'password', 'first', 'last')).toEqual({authUserId: expect.any(Number)});
-    expect(authRegisterV1('validemail1@gmail.com', 'password1', 'first', 'last')).toEqual({authUserId: expect.any(Number)});
-    expect(authRegisterV1('validemail2@gmail.com', 'password2', 'first', 'last')).toEqual({authUserId: expect.any(Number)});
+  test('Test 7: Successful use of authRegisterV1', () => {
+    expect(authRegisterV1('validemail@gmail.com', 'password', 'first', 'last')).toStrictEqual({authUserId: expect.any(Number)});
+    expect(authRegisterV1('validemail1@gmail.com', 'password1', 'first', 'last')).toStrictEqual({authUserId: expect.any(Number)});
+    expect(authRegisterV1('validemail2@gmail.com', 'password2', 'first', 'last')).toStrictEqual({authUserId: expect.any(Number)});
   });
 });
