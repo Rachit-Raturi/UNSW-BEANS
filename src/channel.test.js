@@ -45,6 +45,7 @@ describe('Tests for channelDetailsV1', () => {
   test('Test 4: Valid case', () => {
     expect(channelDetailsV1(user.authUserId, channel.channelId)).toStrictEqual({
       name: 'test',
+      isPublic: true,
       ownerMembers: [
         {
           uId: user.authUserId,
