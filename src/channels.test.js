@@ -35,6 +35,7 @@ describe('Tests for channelsCreateV1', () => {
 
 describe('Invalid channelsListV1 tests', () => {
   test('Test 1: Invalid authUserId - no users', () => {
+    clearV1();
     expect(channelsListV1(1)).toStrictEqual({error: expect.any(String)});
   });
 
