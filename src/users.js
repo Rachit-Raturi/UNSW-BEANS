@@ -18,11 +18,13 @@ function userProfileV1 (authUserId, uId) {
   let user = data.users[uId];
 
   return {
-    uId: user.uId, 
-    email: user.email, 
-    nameFirst: user.nameFirst, 
-    nameLast: user.nameLast, 
-    handleStr: user.handleStr,
+    user: {
+      uId: user.uId,
+      email: user.email,
+      nameFirst: user.nameFirst,
+      nameLast: user.nameLast,
+      handleStr: user.handleStr,
+    },
   }
 }
 
