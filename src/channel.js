@@ -117,19 +117,19 @@ function channelInviteV1( authUserId, channelId, uId ) {
     };
   }
 
+  const isvaliduId = data.users.find(a => a.uId === uId);
+  if (isvaliduId === undefined) {
+    return {
+        error: "invalid user",
+    };
+  }
+
 
 
   const isvalidchannel = data.channels.find(a => a.channelId === channelId);
   if (isvalidchannel === undefined) {
     return {
         error: "invalid channel",
-    };
-  }
-
-  const isvaliduId = data.channels.find(a => a.allMembers === uId);
-  if (isvaliduId === undefined) {
-    return {
-        error: "invalid authuser",
     };
   }
 
@@ -142,7 +142,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
   }
 
   for (const element of data.channels[channelId].allMembers) {
-    if (element === authUserId) {
+    if (element === uId) {
       return {
         error: "already a member",
       };

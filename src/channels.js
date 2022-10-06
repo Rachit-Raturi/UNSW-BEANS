@@ -70,12 +70,7 @@ function channelsListV1(authUserId) {
       outputChannels.push({channelId: element.channelId, name: element.name})
     }
   }
-  if (outputChannels[0] === undefined) {
-    return {
-      error: "no public channels",
-    };
-  }
-
+  
   return {
     channels: outputChannels,
   };
