@@ -6,7 +6,7 @@ let clearedData = {
     ],
     channels: [
     ],
-};
+    };
 
     setData(clearedData);
 }
