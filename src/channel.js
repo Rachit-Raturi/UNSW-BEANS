@@ -8,7 +8,7 @@ import { getData, setData } from './dataStore.js';
  * @param {Number} channelId
  * @returns {Object} channel
  */
-function channelDetailsV1 (authUserId, channelId) {
+ function channelDetailsV1 (authUserId, channelId) {
   let data = getData();
 
   // invalid channelId error 
@@ -19,7 +19,7 @@ function channelDetailsV1 (authUserId, channelId) {
   }
 
   // not a member error
-  if (data.channels[channelId].members.includes(authUserId) === false) { 
+  if (data.channels[channelId].allMembers.includes(authUserId) === false) { 
     return {
       error: 'User is not a member of this channel'
     };
@@ -35,8 +35,8 @@ function channelDetailsV1 (authUserId, channelId) {
   return {
     name: data.channels[channelId].name,
     isPublic: data.channels[channelId].isPublic,
-    owners: data.channels[channelId].owners,
-    members: data.channels[channelId].members
+    ownerMembers: data.channels[channelId].ownerMembers,
+    allMembers: data.channels[channelId].allMembers
   };
 }
 
