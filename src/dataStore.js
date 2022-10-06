@@ -6,11 +6,11 @@ let data = {
   ],
   channels: 
   [
+    {
+      messages: [
 
-  ],
-  messages:
-  [
-
+      ],
+    }
   ],
 };
 
