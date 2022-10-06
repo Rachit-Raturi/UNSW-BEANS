@@ -38,11 +38,11 @@ import { getData, setData } from './dataStore.js';
   let members = data.channels[channelId].allMembers
   let users = data.users;
 
-  let ownersarray = [];
-  let membersarray = [];
+  let ownersArray = [];
+  let membersArray = [];
 
   for (const element of owners) {
-    ownersarray.push({
+    ownersArray.push({
       uId: data.users[element].uId,
       email: data.users[element].email,
       nameFirst: data.users[element].nameFirst,
@@ -52,7 +52,7 @@ import { getData, setData } from './dataStore.js';
   }
 
   for (const element of members) {
-    membersarray.push({
+    membersArray.push({
       uId: data.users[element].uId,
       email: data.users[element].email,
       nameFirst: data.users[element].nameFirst,
@@ -64,8 +64,8 @@ import { getData, setData } from './dataStore.js';
   return {
     name: data.channels[channelId].name,
     isPublic: data.channels[channelId].isPublic,
-    ownerMembers: ownersarray,
-    allMembers: membersarray,
+    ownerMembers: ownersArray,
+    allMembers: membersArray,
   };
 }
 
@@ -149,9 +149,9 @@ function channelInviteV1( authUserId, channelId, uId ) {
     }
   }
 
-  let membersarray = data.channels[channelId].allMembers;
-    membersarray.push(uId);
-  data.channels.allMembers = membersarray;
+  let membersArray = data.channels[channelId].allMembers;
+    membersArray.push(uId);
+  data.channels.allMembers = membersArray;
   return {};
 }
 
