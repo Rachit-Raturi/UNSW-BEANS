@@ -30,6 +30,8 @@ beforeEach(() => {
 
 });
 
+
+
 describe('Invalid Channel invite', () => {
   test('Invalid channelId', () => {
     expect(channelInviteV1(userId.authUserId, invalidchannelId, userId1.authUserId)).toStrictEqual({error: expect.any(String)});
@@ -40,7 +42,9 @@ describe('Invalid Channel invite', () => {
   });
 
   test('Invalid uId', () => {
+    expect(invaliduserId).toStrictEqual(2);
     expect(channelInviteV1(userId.authUserId, channelId.channelId, invaliduserId)).toStrictEqual({error: expect.any(String)});
+    
   });
 
   test('Valid channelId + authId not a member', () => {
@@ -58,6 +62,9 @@ describe('Invalid Channel invite', () => {
     expect(channelInviteV1(userId.authUserId, channelId.channelId, userId2.authUserId)).toStrictEqual({error: expect.any(String)});
   });
 });
+
+
+
 
 describe('tests for channelMessagesV1 function', () => {
   test('Invalid channelId', () => {
