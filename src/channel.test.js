@@ -1,7 +1,7 @@
-import { authLoginV1, authRegisterV1 } from './auth';
-import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
-import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from './channel';
-import ClearV1 from './other';
+import { authLoginV1, authRegisterV1 } from './auth.js';
+import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels.js';
+import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from './channel.js';
+import clearV1 from './other.js';
 
 let user;
 let user1;
@@ -11,7 +11,7 @@ let invalidChannelId = 1;
 let start;
 
 beforeEach(() => {
-  ClearV1();
+  clearV1();
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channel = channelsCreateV1(user.authUserId, 'test', true);
@@ -26,7 +26,6 @@ beforeEach(() => {
   if (channel.channelId === 1) {
     invalidChannelId = 2;
   }
-
 });
 
 describe('Tests for channelDetailsV1', () => {
@@ -124,7 +123,7 @@ describe('Tests for channelInviteV1', () => {
     expect(channelInviteV1(user.authUserId, channel.channelId, user2.authUserId)).toStrictEqual({error: expect.any(String)});
   });
 
-  test('Test 7: valid input', () => {
+  test('Test 7: Valid input', () => {
     expect(channelInviteV1(user.authUserId, channel.channelId, user1.authUserId)).toStrictEqual({});
   });
 });

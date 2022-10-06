@@ -1,6 +1,6 @@
-import { getData, setData} from './dataStore.js';
+import { getData, setData } from './dataStore.js';
 
-function ClearV1() {
+function clearV1() {
 let clearedData = {
       users: [
       ],
@@ -11,4 +11,4 @@ let clearedData = {
     setData(clearedData);
 }
 
-export default ClearV1;
+export default clearV1;

@@ -55,11 +55,11 @@ function channelsListV1(authUserId) {
     };
   }
   
-  const allchannelsArray = data.channels;
+  const allChannelsArray = data.channels;
   const publicChannelsArray = [];
   const outputChannels = [];
     
-  for (const element of allchannelsArray) {
+  for (const element of allChannelsArray) {
     if (element.isPublic === true) {
       publicChannelsArray.push(element);
     }
@@ -86,10 +86,10 @@ function channelsListAllV1( authUserId ) {
     };
   }
 
-  const allchannelsArray = data.channels;
+  const allChannelsArray = data.channels;
   let outputChannels = []
     
-  for (const element of allchannelsArray) {
+  for (const element of allChannelsArray) {
     if ((element.allMembers).includes(authUserId)) {
       outputChannels.push({channelId: element.channelId, name: element.name})
     }
@@ -100,4 +100,4 @@ function channelsListAllV1( authUserId ) {
   };
 }
 
-export {channelsCreateV1, channelsListV1, channelsListAllV1};
+export { channelsCreateV1, channelsListV1, channelsListAllV1 };

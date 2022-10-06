@@ -1,9 +1,8 @@
-import { authLoginV1, authRegisterV1 } from './auth';
-import { getData, setData } from './dataStore';
-import ClearV1 from './other';
+import { authLoginV1, authRegisterV1 } from './auth.js';
+import clearV1 from './other.js';
 
 beforeEach(() => {
-  ClearV1();
+  clearV1();
 });
 
 describe('Tests for authLoginV1', () => {

@@ -1,14 +1,13 @@
-import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
-import { authLoginV1, authRegisterV1 } from './auth';
-import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from './channel';
-import ClearV1 from './other';
+import { authLoginV1, authRegisterV1 } from './auth.js';
+import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels.js';
+import clearV1 from './other.js';
 
 let user;
 let user1;
-let channel1; 
+let channel1;
 
 beforeEach(() => {
-  ClearV1();
+  clearV1();
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channel1 = channelsCreateV1(user.authUserId, 'My Channel1', true);
@@ -36,7 +35,7 @@ describe('Tests for channelsCreateV1', () => {
 
 describe('Invalid channelsListV1 tests', () => {
   test('Test 1: Invalid authUserId - no users', () => {
-    ClearV1();
+    clearV1();
     expect(channelsListV1(1)).toStrictEqual({error: expect.any(String)});
   });
 
