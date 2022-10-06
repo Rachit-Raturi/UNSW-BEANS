@@ -153,19 +153,13 @@ describe('Tests for channelMessagesV1', () => {
     expect(channelMessagesV1(user.authUserId, channel.channelId, start)).toStrictEqual({error: expect.any(String)});
   });
   
-  test('Test 5: Successful message history', () => {
+  test('Test 5: no messages in channel', () => {
+    let start = 0;
     expect(channelMessagesV1(user.authUserId, channel.channelId, start)).toStrictEqual(
       {
-      messages: [
-        {
-          messageId: 1,
-          uId: 1,
-          message: 'Hello world',
-          timeSent: 1582426789,
-        }
-      ],
+      messages: [],
       start: 0,
-      end: 50,
+      end: -1,
     }
     );
   });

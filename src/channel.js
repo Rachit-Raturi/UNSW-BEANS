@@ -171,29 +171,25 @@ function channelMessagesV1(authUserId, channelId, start) {
     };
   }
   
-  const members = channelDetailsV1(channelId).allMembers;
-  for (let j = 0; j < members.length; j++) {
-    if (members[j] === authUserId) {
-      break;
-    }
-    if (j === members.length) {
-      return {
-        error: `The authorised user ${authUserId} is not a member of the channel`,
-      };
-    }
-  }  
+  let checkIsMember = data.channels[channelId].allMembers
+  let isValidMember = checkismember.find(a => a === authUserId);
+  if (isValidMember === undefined) {
+    return {
+        error: `The authorised user ${authUserId} is not a member of the channel ${channelId}`,
+    };
+  }
   
-  const numberOfMessages = data.messages.length(); 
+  const numberOfMessages = data.messages.length; 
   const messages = data.messages;
   let end;
   if (start < 0) {
     return {
       error: 'Index cannot be negative as there are no messages after the most recent message',
     };
-  } else if (start === numberOfMessages) {
+  } else if (start === numberOfMessages || numberOfMessages === undefined) {
     return {
       messages: [],
-      start: `${start}`,
+      start: start,
       end: -1,
     };
   } else if (start >= 0 && start > numberOfMessages) {
@@ -215,8 +211,8 @@ function channelMessagesV1(authUserId, channelId, start) {
         console.log(`{ [messages], ${start}, ${end} }`)
         return {
           messages: [messages],
-          start: `${start}`,
-          end: `${end}`
+          start: start,
+          end: end,
         }
       }
     }
