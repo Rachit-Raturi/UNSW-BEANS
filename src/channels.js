@@ -1,4 +1,4 @@
-import { getData, setData } from './dataStore';
+import { getData, setData } from './dataStore.js';
 
 function channelsCreateV1(authUserId, name, isPublic ) {
   let data = getData();
@@ -26,8 +26,8 @@ function channelsCreateV1(authUserId, name, isPublic ) {
     channelId: data.channels.length,
     name: name,
     isPublic: isPublic,
-    owners: owners,
-    members: members
+    ownerMembers: owners,
+    allMembers: members,
   };
 
   data.channels[data.channels.length] = channel;
@@ -66,9 +66,14 @@ function channelsListV1(authUserId) {
   }
 
   for (const element of publicChannelsArray) {
-    if ((element.members).includes(authUserId)) {
+    if ((element.allMembers).includes(authUserId)) {
       outputChannels.push({channelId: element.channelId, name: element.name})
     }
+  }
+  if (outputChannels[0] === undefined) {
+    return {
+      error: "no public channels",
+    };
   }
 
   return {
@@ -90,10 +95,14 @@ function channelsListAllV1( authUserId ) {
   let outputChannels = []
     
   for (const element of allchannelsArray) {
-    outputChannels.push({channelId: element.channelId, name: element.name})
+    if ((element.allMembers).includes(authUserId)) {
+      outputChannels.push({channelId: element.channelId, name: element.name})
+    }
   }
 
-  return outputChannels; 
+  return {
+    channels: outputChannels,
+  };
 }
 
 export {channelsCreateV1, channelsListV1, channelsListAllV1};
