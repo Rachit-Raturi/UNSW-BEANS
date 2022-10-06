@@ -170,7 +170,7 @@ function channelMessagesV1(authUserId, channelId, start) {
   }
   
   let checkIsMember = data.channels[channelId].allMembers
-  let isValidMember = checkismember.find(a => a === authUserId);
+  let isValidMember = checkIsMember.find(a => a === authUserId);
   if (isValidMember === undefined) {
     return {
         error: `The authorised user ${authUserId} is not a member of the channel ${channelId}`,
