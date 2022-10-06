@@ -42,7 +42,6 @@ describe('Invalid Channel invite', () => {
   });
 
   test('Invalid uId', () => {
-    expect(invaliduserId).toStrictEqual(2);
     expect(channelInviteV1(userId.authUserId, channelId.channelId, invaliduserId)).toStrictEqual({error: expect.any(String)});
     
   });
