@@ -6,14 +6,14 @@ function channelsCreateV1(authUserId, name, isPublic ) {
   // invalid userId
   if (data.users[authUserId] === undefined) { 
     return {
-      error: "authUserId does not refer to a valid ID"
+      error: 'Invalid user'
     };
   }
 
   // name length invalid - between 1 and 20 (inclusive) 
   if (name.length < 1 || name.length > 20) {
     return {
-      error: 'name is not between 1 and 20 characters inclusive',
+      error: 'Name is not between 1 and 20 characters inclusive'
     };
   }
 
@@ -42,25 +42,22 @@ function channelsCreateV1(authUserId, name, isPublic ) {
   * Given a valid authUserId will return a list 
   * of all the public channels the user is in.
   *
-  *@param {number} authUserId - The authUserId of the user
-  *
-  *
-  *@returns {channels: {Array<{channelId: number, name: string}>}} 
+  * @param {number} authUserId - The authUserId of the user
+  * @returns {channels: {Array<{channelId: number, name: string}>}} 
   * - returns array of public channels
-
 */
 function channelsListV1(authUserId) {
   const data = getData();
   
   if (data.users[authUserId] === undefined) {
     return {
-        error: "invalid user",
+        error: 'Invalid user'
     };
   }
   
   const allchannelsArray = data.channels;
   const publicChannelsArray = [];
-  const outputChannels = []
+  const outputChannels = [];
     
   for (const element of allchannelsArray) {
     if (element.isPublic === true) {

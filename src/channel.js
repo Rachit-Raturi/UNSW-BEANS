@@ -1,5 +1,45 @@
 import { getData, setData } from './dataStore.js';
 
+/**
+ * Given a channel with ID channelId that the authorised user
+ * is a member of, provides basic details about the channel.
+ * 
+ * @param {Number} authUserId
+ * @param {Number} channelId
+ * @returns {Object} channel
+ */
+function channelDetailsV1 (authUserId, channelId) {
+  let data = getData();
+
+  // invalid channelId error 
+  if (data.channels[channelId] === undefined) { 
+    return {
+      error: 'Invalid channel'
+    };
+  }
+
+  // not a member error
+  if (data.channels[channelId].members.includes(authUserId) === false) { 
+    return {
+      error: 'User is not a member of this channel'
+    };
+  }
+
+  // invalid userId error
+  if (data.users[authUserId] === undefined) { 
+    return {
+      error: 'Invalid user'
+    };
+  }
+
+  return {
+    name: data.channels[channelId].name,
+    isPublic: data.channels[channelId].isPublic,
+    owners: data.channels[channelId].owners,
+    members: data.channels[channelId].members
+  };
+}
+
 function channelJoinV1( authUserId, channelId ) {
   let data = getData();
 
@@ -13,14 +53,14 @@ function channelJoinV1( authUserId, channelId ) {
   // invalid channelId error 
   if (data.channels[channelId] === undefined) { 
     return {
-      error: "channelId does not refer to a valid channel"
+      error: 'Invalid channel'
     };
   }
   // already member error 
 
   if (data.channels[channelId].allMembers.includes(authUserId)) { 
     return {
-      error: "User is already a member of this channel"
+      error: 'User is already a member of this channel'
     };
   }
   // private channel error 
@@ -78,34 +118,6 @@ function channelInviteV1( authUserId, channelId, uId ) {
   return {};
 }
 
-/**
- * Given a channel with ID channelId that the authorised user
- * is a member of, provides basic details about the channel.
- */
-function channelDetailsV1 (authUserId, channelId) {
-  return {
-    name: 'Hayden',
-    ownerMembers: [
-      {
-        uId: 1,
-        email: 'example@gmail.com',
-        nameFirst: 'Hayden',
-        nameLast: 'Jacobs',
-        handleStr: 'haydenjacobs',
-      }
-    ],
-    allMembers: [
-      {
-        uId: 1,
-        email: 'example@gmail.com',
-        nameFirst: 'Hayden',
-        nameLast: 'Jacobs',
-        handleStr: 'haydenjacobs',
-      }
-    ],
-  };
-}
-
 function channelMessagesV1(authUserId, channelId, start) {
   const data = getData();
   const isValiduser = data.users.find(a => a.uId === authUserId);
@@ -148,4 +160,4 @@ function channelMessagesV1(authUserId, channelId, start) {
   };
 }
 
-export {channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1};
+export {channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1};
