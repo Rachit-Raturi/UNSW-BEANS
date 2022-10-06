@@ -1,4 +1,4 @@
-import { getData, setData } from './dataStore';
+import { getData, setData } from './dataStore.js';
 
 function channelsCreateV1(authUserId, name, isPublic ) {
   let data = getData();
@@ -93,7 +93,9 @@ function channelsListAllV1( authUserId ) {
   let outputChannels = []
     
   for (const element of allchannelsArray) {
-    outputChannels.push({channelId: element.channelId, name: element.name})
+    if ((element.allMembers).includes(authUserId)) {
+      outputChannels.push({channelId: element.channelId, name: element.name})
+    }
   }
 
   return outputChannels; 

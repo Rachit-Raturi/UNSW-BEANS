@@ -34,24 +34,26 @@ function channelJoinV1( authUserId, channelId ) {
 function channelInviteV1( authUserId, channelId, uId ) { 
   const data = getData();
 
-  const isvalidAuthuser = data.users.find(a => a.uId === authUserId);  
+  const isvalidAuthuser = data.users.find(a => a.uId === authUserId);
   if (isvalidAuthuser === undefined) {
     return {
         error: "invalid user",
     };
   }
 
-  const isvaliduser = data.users.find(a => a.uId === authUserId);  
-  if (isvaliduser === undefined) {
-    return {
-        error: "invalid user",
-    };
-  }
+
 
   const isvalidchannel = data.channels.find(a => a.channelId === channelId);
   if (isvalidchannel === undefined) {
     return {
         error: "invalid channel",
+    };
+  }
+
+  const isvalidmember = data.channels.find(a => a.allMembers === authUserId);
+  if (isvalidmember === undefined) {
+    return {
+        error: "invalid authuser",
     };
   }
 
@@ -63,7 +65,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
     }
   }
 
-  let membersarray = data.channels.allMembers;
+  let membersarray = data.channels[channelId].allMembers;
     membersarray.push(uId);
   data.channels.allMembers = membersarray;
   return {};
@@ -99,7 +101,7 @@ function channelDetailsV1 (authUserId, channelId) {
 
 function channelMessagesV1(authUserId, channelId, start) {
   const data = getData();
-  const isValidUser = data.users.find(a => a.uId === authUserId);
+  const isValiduser = data.users.find(a => a.uId === authUserId);
   if (isValiduser === undefined) {
     return { 
       error: 'Invalid user',
@@ -113,7 +115,7 @@ function channelMessagesV1(authUserId, channelId, start) {
     };
   }
   
-  let members = allMembers.channelDetailsV1(channelId);
+  let members = channelDetailsV1(channelId).allMembers;
   for (let j = 0; j < members.length; j++) {
     if (members[j] === authUserId) {
       break;
