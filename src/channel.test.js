@@ -123,6 +123,10 @@ describe('Tests for channelInviteV1', () => {
     channelJoinV1(user2.authUserId, channel.channelId);
     expect(channelInviteV1(user.authUserId, channel.channelId, user2.authUserId)).toStrictEqual({error: expect.any(String)});
   });
+
+  test('Test 7: valid input', () => {
+    expect(channelInviteV1(user.authUserId, channel.channelId, user1.authUserId)).toStrictEqual({});
+  });
 });
 
 
