@@ -101,7 +101,7 @@ function channelDetailsV1 (authUserId, channelId) {
 
 function channelMessagesV1(authUserId, channelId, start) {
   const data = getData();
-  const isValidUser = data.users.find(a => a.uId === authUserId);
+  const isValiduser = data.users.find(a => a.uId === authUserId);
   if (isValiduser === undefined) {
     return { 
       error: 'Invalid user',
