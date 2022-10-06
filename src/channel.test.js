@@ -45,6 +45,7 @@ describe('Tests for channelDetailsV1', () => {
   test('Test 4: Valid case', () => {
     expect(channelDetailsV1(user.authUserId, channel.channelId)).toStrictEqual({
       name: 'test',
+      isPublic: true,
       ownerMembers: [
         {
           uId: user.authUserId,
@@ -121,6 +122,10 @@ describe('Tests for channelInviteV1', () => {
     const user2 = authRegisterV1('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
     channelJoinV1(user2.authUserId, channel.channelId);
     expect(channelInviteV1(user.authUserId, channel.channelId, user2.authUserId)).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('Test 7: valid input', () => {
+    expect(channelInviteV1(user.authUserId, channel.channelId, user1.authUserId)).toStrictEqual({});
   });
 });
 
