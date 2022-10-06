@@ -17,7 +17,7 @@ beforeEach(() => {
 describe('Tests for channelsCreateV1', () => { 
   test('Test 1: Invalid authUserId', () => {
     let invalidUserId = 1;
-    if (user.authUserId === 1) {
+    if (user.authUserId === 1 || user1.authUserId === 1) {
       invalidUserId = 2;
     }
     expect(channelsCreateV1(invalidUserId, 'channel1', true)).toStrictEqual({error: expect.any(String)});
@@ -120,8 +120,8 @@ describe('Tests for channelsListAllV1 function', () => {
     outputArray.push({channelId: channel2.channelId, name: 'My Channel2'});
     outputArray.push({channelId: channel3.channelId, name: 'My Channel3'});
 
-    let expectedSet = outputArray
-    let receivedSet = channelsListAllV1(user.authUserId)
+    let expectedSet = new Set(outputArray);
+    let receivedSet = new Set(channelsListAllV1(user.authUserId).channels);
 
     expect(expectedSet).toStrictEqual(receivedSet);
   });
@@ -143,8 +143,8 @@ describe('Tests for channelsListAllV1 function', () => {
     outputArray.push({channelId: channel6.channelId, name: 'My Channel6'});
     outputArray.push({channelId: channel7.channelId, name: 'My Channel7'});
 
-    let expectedSet = outputArray
-    let receivedSet = channelsListAllV1(user.authUserId)
+    let expectedSet = new Set(outputArray);
+    let receivedSet = new Set(channelsListAllV1(user.authUserId).channels);
 
     expect(expectedSet).toStrictEqual(receivedSet);
   });
