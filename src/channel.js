@@ -193,7 +193,7 @@ function channelMessagesV1(authUserId, channelId, start) {
   } else if (start === numberOfMessages) {
     return {
       messages: [],
-      start: `${start}`,
+      start: start,
       end: -1,
     };
   } else if (start >= 0 && start > numberOfMessages) {
@@ -215,8 +215,8 @@ function channelMessagesV1(authUserId, channelId, start) {
         console.log(`{ [messages], ${start}, ${end} }`)
         return {
           messages: [messages],
-          start: `${start}`,
-          end: `${end}`
+          start: start,
+          end: end,
         }
       }
     }
