@@ -171,17 +171,13 @@ function channelMessagesV1(authUserId, channelId, start) {
     };
   }
   
-  const members = channelDetailsV1(channelId).allMembers;
-  for (let j = 0; j < members.length; j++) {
-    if (members[j] === authUserId) {
-      break;
-    }
-    if (j === members.length) {
-      return {
-        error: `The authorised user ${authUserId} is not a member of the channel`,
-      };
-    }
-  }  
+  let checkIsMember = data.channels[channelId].allMembers
+  let isValidMember = checkismember.find(a => a === authUserId);
+  if (isValidMember === undefined) {
+    return {
+        error: `The authorised user ${authUserId} is not a member of the channel ${channelId}`,
+    };
+  }
   
   const numberOfMessages = data.messages.length; 
   const messages = data.messages;
