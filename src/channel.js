@@ -63,6 +63,7 @@ function channelDetailsV1 (authUserId, channelId) {
 
   return {
     name: data.channels[channelId].name,
+    isPublic: data.channels[channelId].isPublic,
     ownerMembers: ownersarray,
     allMembers: membersarray,
   };
