@@ -19,9 +19,11 @@ function channelDetailsV1 (authUserId, channelId) {
   }
 
   // not a member error
-  if (data.channels[channelId].members.includes(authUserId) === false) { 
+  let checkismember = data.channels[channelId].allMembers
+  let isvalidmember = checkismember.find(a => a === authUserId);
+  if (isvalidmember === undefined) {
     return {
-      error: 'User is not a member of this channel'
+        error: "invalid authuser",
     };
   }
 
@@ -31,12 +33,38 @@ function channelDetailsV1 (authUserId, channelId) {
       error: 'Invalid user'
     };
   }
+  
+  let owners = data.channels[channelId].ownerMembers
+  let members = data.channels[channelId].allMembers
+  let users = data.users;
+
+  let ownersarray = [];
+  let membersarray = [];
+
+  for (const element of owners) {
+    ownersarray.push({
+      uId: data.users[element].uId,
+      email: data.users[element].email,
+      nameFirst: data.users[element].nameFirst,
+      nameLast: data.users[element].nameLast,
+      handleStr: data.users[element].handleStr,
+    });
+  }
+
+  for (const element of members) {
+    membersarray.push({
+      uId: data.users[element].uId,
+      email: data.users[element].email,
+      nameFirst: data.users[element].nameFirst,
+      nameLast: data.users[element].nameLast,
+      handleStr: data.users[element].handleStr,
+    });
+  }
 
   return {
     name: data.channels[channelId].name,
-    isPublic: data.channels[channelId].isPublic,
-    owners: data.channels[channelId].owners,
-    members: data.channels[channelId].members
+    ownerMembers: ownersarray,
+    allMembers: membersarray,
   };
 }
 
@@ -97,7 +125,15 @@ function channelInviteV1( authUserId, channelId, uId ) {
     };
   }
 
-  const isvalidmember = data.channels.find(a => a.allMembers === authUserId);
+  const isvaliduId = data.channels.find(a => a.allMembers === uId);
+  if (isvaliduId === undefined) {
+    return {
+        error: "invalid authuser",
+    };
+  }
+
+  let checkismember = data.channels[channelId].allMembers
+  let isvalidmember = checkismember.find(a => a === authUserId);
   if (isvalidmember === undefined) {
     return {
         error: "invalid authuser",
