@@ -48,20 +48,20 @@ describe('Tests for channelDetailsV1', () => {
       isPublic: true,
       ownerMembers: [
         {
-          authUserId: user.authUserId,
+          uId: user.authUserId,
           email: 'test@gmail.com',
           nameFirst: 'firstname',
           nameLast: 'lastname',
-          userHandle: user.userHandle
+          handleStr: 'firstnamelastname',
         }
       ],
       allMembers: [
         {
-          authUserId: user.authUserId,
+          uId: user.authUserId,
           email: 'test@gmail.com',
           nameFirst: 'firstname',
           nameLast: 'lastname',
-          userHandle: user.userHandle
+          handleStr: 'firstnamelastname'
         }
       ],
     });
