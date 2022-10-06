@@ -183,8 +183,8 @@ function channelMessagesV1(authUserId, channelId, start) {
     }
   }  
   
-  const numberOfMessages = data.channels.messages.length; 
-  const messages = data.channels.messages;
+  const numberOfMessages = data.messages.length; 
+  const messages = data.messages;
   let end;
   if (start < 0) {
     return {
