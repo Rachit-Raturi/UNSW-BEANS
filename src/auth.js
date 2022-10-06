@@ -1,5 +1,17 @@
 import validator from 'validator';
-import { getData, setData} from './dataStore'
+import { getData, setData} from './dataStore.js'
+
+/**
+  * Given a valid registered email and password the function
+  * will return the assigned authUserId unique to the user
+  *
+  *@param {string} email - The email of the user
+  *@param {string} password - The password of the user
+  *
+  *
+  *@returns {{authUserId: number}} - The authUserid of the user
+  * 
+*/
 
 function authLoginV1(email, password) {
   let data = getData();
@@ -7,7 +19,7 @@ function authLoginV1(email, password) {
     if (users.email === email) {
       if (password === users.password) {
         return {
-          authUserId: users.authUserId,
+          authUserId: users.uId,
         };
       } else {
         return {
@@ -20,6 +32,21 @@ function authLoginV1(email, password) {
     error: 'Email entered does not belong to a user',
   };
 }
+
+/**
+  * Given a valid email, password, first name and last name
+  * will return a generated authUserId unique to the user
+  *
+  *@param {string} email - The email of the user
+  *@param {string} password - The password of the user
+  *@param {string} nameFirst - The first name of the user
+  *@param {string} nameLast - The last name of the user
+  *
+  *
+  *@returns {{authUserId: number}} - The authUserId of the user
+  * 
+
+*/
 
 function authRegisterV1(email, password, nameFirst, nameLast) {
   let data = getData();
@@ -62,33 +89,30 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   // Generating the userhandle
   let userHandle = nameFirst.toLowerCase() + nameLast.toLowerCase();
   userHandle = userHandle.substring(0, Math.min(userHandle.length, 20));
+  let originaluserhandle = userHandle;
   let i = 0;
   for (let user of data.users) {
-    if (user.userHandle === userHandle) {
-      userHandle = userHandle + i.toString();
+    if (user.handleStr === userHandle) {
+      userHandle = originaluserhandle + i;
       i++;
-      if (i === 10) {
-        i = 0;
-      }
-      user = data.users[0];
     }
   }
 
   // Register the user
   let user = {
     email: email,
-    authUserId: data.users.length,
+    uId: data.users.length,
     password: password,
     nameFirst: nameFirst,
     nameLast: nameLast,
-    userHandle: userHandle,
+    handleStr: userHandle,
   };
   data.users.push(user);
   
   setData(data);
 
   return { 
-    authUserId: data.users[data.users.length - 1].authUserId,
+    authUserId: data.users.length - 1,
   };
 }
 
