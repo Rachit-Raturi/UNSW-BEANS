@@ -1,13 +1,7 @@
 // YOU SHOULD MODIFY THIS OBJECT BELOW
 let data = {
-  users: 
-  [
-
-  ],
-  channels: 
-  [
-
-  ],
+  users: [],
+  channels: [],
 };
 
 /*

@@ -1,7 +1,7 @@
-import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
-import { authRegisterV1, authLoginV1 } from './auth';
-import { channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1 } from './channel';
-import ClearV1 from './other';
+import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels.js';
+import { authRegisterV1, authLoginV1 } from './auth.js';
+import { channelJoinV1, channelInviteV1, channelDetailsV1, channelMessagesV1 } from './channel.js';
+import ClearV1 from './other.js';
 
 let userId;
 let userId1;
@@ -125,8 +125,8 @@ describe('tests for channelsListAllV1 function', () => {
     outputarray.push({channelId: channel2.channelId, name: 'Channel2'});
     outputarray.push({channelId: channel3.channelId, name: 'Channel3'});
 
-    let expectedset = outputarray
-    let recievedset = channelsListAllV1(userId.authUserId)
+    let expectedset = new Set(outputarray);
+    let recievedset = new Set(channelsListAllV1(userId.authUserId).channels);
 
     expect(expectedset).toStrictEqual(recievedset);
   });
@@ -148,8 +148,8 @@ describe('tests for channelsListAllV1 function', () => {
     outputarray.push({channelId: channel6.channelId, name: 'Channel6'});
     outputarray.push({channelId: channel7.channelId, name: 'Channel7'});
 
-    let expectedset = outputarray
-    let recievedset = channelsListAllV1(userId.authUserId)
+    let expectedset = new Set(outputarray);
+    let recievedset = new Set(channelsListAllV1(userId.authUserId).channels);
 
     expect(expectedset).toStrictEqual(recievedset);
   });

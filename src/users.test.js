@@ -29,13 +29,16 @@ describe('valid test for UserProfileV1', () => {
   test('test 1: valid authuserid', () => {
     let user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
     expect(userProfileV1(user.authUserId, user1.authUserId)).toStrictEqual(
-      {
-        uId: user1.authUserId,
-        email: 'test1@gmail.com',
-        nameFirst: 'firstname1',
-        nameLast: 'lastname1',
-        handleStr: 'firstname1lastname1',
-      });
+    {user: {
+      uId: user1.authUserId,
+      email: 'test1@gmail.com',
+      nameFirst: 'firstname1',
+      nameLast: 'lastname1',
+      handleStr: 'firstname1lastname1',
+      }
+    }
+    );
+     
   });
 });
 
