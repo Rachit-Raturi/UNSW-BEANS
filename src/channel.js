@@ -8,7 +8,7 @@ import { getData, setData } from './dataStore.js';
  * @param {Number} channelId
  * @returns {Object} channel
  */
- function channelDetailsV1 (authUserId, channelId) {
+function channelDetailsV1 (authUserId, channelId) {
   let data = getData();
 
   // invalid channelId error 
@@ -113,7 +113,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
   const isValidAuthUser = data.users.find(a => a.uId === authUserId);
   if (isValidAuthUser === undefined) {
     return {
-        error: 'Invalid user',
+      error: 'Invalid user',
     };
   }
 
@@ -178,7 +178,7 @@ function channelMessagesV1(authUserId, channelId, start) {
     };
   }
   
-  let members = channelDetailsV1(channelId).allMembers;
+  const members = channelDetailsV1(channelId).allMembers;
   for (let j = 0; j < members.length; j++) {
     if (members[j] === authUserId) {
       break;
@@ -189,19 +189,45 @@ function channelMessagesV1(authUserId, channelId, start) {
       };
     }
   }  
-
-  return {
-    messages: [
-      {
-        messageId: 1,
-        uId: 1,
-        message: 'Hello world',
-        timeSent: 1582426789,
+  
+  const numberOfMessages = data.messages.length(); 
+  const messages = data.messages;
+  let end;
+  if (start < 0) {
+    return {
+      error: 'Index cannot be negative as there are no messages after the most recent message',
+    };
+  } else if (start === numberOfMessages) {
+    return {
+      messages: [],
+      start: `${start}`,
+      end: -1,
+    };
+  } else if (start >= 0 && start > numberOfMessages) {
+    return {
+      error: `The starting index, ${start}, is greater than the number of messages in the channel, ${numberOfMessages}`
+    };
+  } else if (start >= 0 && start < numberOfMessages) {
+    while (start < numberOfMessages) {
+      if (start % 50 === 0 && start < numberOfMessages) {
+        end = start + 50;
+        console.log(`{ [messages], ${start}, ${end} }`);
+        start += 50;
+      } else if (start % 50 !== 0 && start < numberOfMessages) {
+        end = start / 50 * 50 + 50; // e.g start = 120 -> 120 / 50 * 50 + 50 = 150
+        console.log(`{ [messages], ${start}, ${end} }`);
+        start = end;
+      } else if (start + 50 >= numberOfMessages) {
+        end = -1;
+        console.log(`{ [messages], ${start}, ${end} }`)
+        return {
+          messages: [messages],
+          start: `${start}`,
+          end: `${end}`
+        }
       }
-    ],
-    start: 0,
-    end: -1,
-  };
+    }
+  }
 }
 
 export {channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1};
