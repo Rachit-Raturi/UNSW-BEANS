@@ -186,7 +186,7 @@ function channelMessagesV1(authUserId, channelId, start) {
     return {
       error: 'Index cannot be negative as there are no messages after the most recent message',
     };
-  } else if (start === numberOfMessages) {
+  } else if (start === numberOfMessages || numberOfMessages === undefined) {
     return {
       messages: [],
       start: start,
