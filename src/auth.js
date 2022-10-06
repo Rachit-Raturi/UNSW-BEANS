@@ -12,7 +12,6 @@ import { getData, setData} from './dataStore.js'
   *@returns {{authUserId: number}} - The authUserid of the user
   * 
 */
-
 function authLoginV1(email, password) {
   let data = getData();
   for (const users of data.users) {
@@ -47,7 +46,6 @@ function authLoginV1(email, password) {
   * 
 
 */
-
 function authRegisterV1(email, password, nameFirst, nameLast) {
   let data = getData();
   // Test for whether or not the email is invalid
@@ -116,4 +114,4 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   };
 }
 
-export { authRegisterV1, authLoginV1 };
+export { authLoginV1, authRegisterV1 };
