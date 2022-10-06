@@ -1,5 +1,4 @@
 import { getData, setData } from './dataStore.js';
-import { authRegisterV1, authLoginV1 } from './auth.js';
 
 function userProfileV1 (authUserId, uId) {
   let data = getData();
