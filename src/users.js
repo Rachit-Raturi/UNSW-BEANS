@@ -2,7 +2,7 @@ import { getData, setData } from './dataStore.js';
 
 /**
  * Given a valid authUserId and uId, creates and returns a 
- * new user with its associated details 
+ * new user with its details 
  * 
  * @param {Number} authUserId
  * @param {Number} uId
