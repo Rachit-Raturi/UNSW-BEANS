@@ -1,12 +1,12 @@
 import { authRegisterV1, authLoginV1 } from './auth';
 import { userProfileV1 } from './users';
-import ClearV1 from './other';
+import {clearV1} from './other';
 
 let user;
 let invalid_id = 1;
 
 beforeEach(() => {
-  ClearV1();
+  clearV1();
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   if (user.authUserId === 1) {
     invalid_id === 2;

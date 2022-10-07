@@ -1,6 +1,6 @@
 import { authLoginV1, authRegisterV1 } from './auth.js';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels.js';
-import clearV1 from './other.js';
+import {clearV1} from './other.js';
 
 let user;
 let user1;
