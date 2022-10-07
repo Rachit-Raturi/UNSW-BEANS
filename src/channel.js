@@ -183,11 +183,22 @@ function channelInviteV1( authUserId, channelId, uId ) {
 }
 
 
-
+/**
+ * Given a channel that the authorised user is apart of 
+ * checks the channels message history given a starting index 
+ * where the most recent message has an index of 0
+ * 
+ * @param {Number} authUserId - the id of the person checking the message history
+ * @param {Number} channelId - the id of the channel that the messages are in
+ * @param {Number} start - the index of the message at which the message history is being determined from
+ * @returns {Array} messages - returns an array of messages either empty or with messages
+ * @returns {Number} start - returns the start value passed in
+ * @returns {Number} end - returns -1 indicating no more messages after this return
+ */
 
 function channelMessagesV1(authUserId, channelId, start) {
   const data = getData();
-  
+  let beginning = start;
   // check authuserid is valid
   const isValiduser = data.users.find(a => a.uId === authUserId);
   if (isValiduser === undefined) {
@@ -250,6 +261,7 @@ function channelMessagesV1(authUserId, channelId, start) {
         start = end;
       } else if (start + 50 >= numberOfMessages) {
         // If there is < 50 messages left in the channel history, end pagination
+        start = beginning;
         end = -1;
         console.log(`{ [messages], ${start}, ${end} }`)
         return {
