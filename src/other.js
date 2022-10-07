@@ -1,5 +1,11 @@
 import { getData, setData } from './dataStore.js';
 
+/**
+ * Completely resets the datastore
+ * 
+ * @returns {}
+ */
+
 function clearV1() {
 let clearedData = {
       users: [
