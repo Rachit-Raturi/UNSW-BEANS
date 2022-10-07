@@ -92,7 +92,7 @@ describe('Tests for channelJoinV1', () => {
     expect(channelJoinV1(user1.authUserId, channel.channelId)).toStrictEqual({});
   });
 
-  test('Test 3: Global owner joins private channel', () => {
+  test('Test 5: Global owner joins private channel', () => {
     const newPrivateChannel = channelsCreateV1(user1.authUserId, 'Channel1', false); 
     expect(channelJoinV1(user.authUserId, newPrivateChannel.channelId)).toStrictEqual({});
   });
