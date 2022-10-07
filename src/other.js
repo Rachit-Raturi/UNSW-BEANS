@@ -6,9 +6,6 @@ let clearedData = {
       ],
       channels: [
       ],
-      messages: [
-    
-      ],
     };
 
     setData(clearedData);
