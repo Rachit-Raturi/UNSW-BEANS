@@ -34,13 +34,13 @@ function channelDetailsV1 (authUserId, channelId) {
     };
   }
   
+  
   let owners = data.channels[channelId].ownerMembers
   let members = data.channels[channelId].allMembers
-  let users = data.users;
-
   let ownersArray = [];
   let membersArray = [];
 
+  // Create ownerMembers array output
   for (const element of owners) {
     ownersArray.push({
       uId: data.users[element].uId,
@@ -51,6 +51,7 @@ function channelDetailsV1 (authUserId, channelId) {
     });
   }
 
+  // Create allMembers array output
   for (const element of members) {
     membersArray.push({
       uId: data.users[element].uId,
@@ -69,6 +70,14 @@ function channelDetailsV1 (authUserId, channelId) {
   };
 }
 
+/**
+ * Given a channel with channelId that the authorised user
+ * can join, adds them to the allMembers array.
+ * 
+ * @param {Number} authUserId - the id of the user joining the channel
+ * @param {Number} channelId - the id of the course the user is trying to join
+ * @returns {} - empty object
+ */
 function channelJoinV1( authUserId, channelId ) {
   let data = getData();
 
@@ -79,19 +88,21 @@ function channelJoinV1( authUserId, channelId ) {
         error: 'Invalid user',
     };
   }
-  // invalid channelId error 
+
+  // invalid channelId error
   if (data.channels[channelId] === undefined) { 
     return {
       error: 'Invalid channel'
     };
   }
-  // already member error 
 
+  // already member error
   if (data.channels[channelId].allMembers.includes(authUserId)) { 
     return {
       error: 'User is already a member of this channel'
     };
   }
+
   // private channel error 
   if (data.channels[channelId].isPublic === false) { 
     // global owner false 
@@ -101,15 +112,27 @@ function channelJoinV1( authUserId, channelId ) {
       };
     }  
   }
+
+  // add member to channel
   data.channels[channelId].allMembers.push(authUserId); 
   setData(data); 
 
   return {};
 }
 
+/**
+ * Given a channel with channelId that the authorised user
+ * can join, adds them to the allMembers array.
+ * 
+ * @param {Number} authUserId - the id of the user creating the invite
+ * @param {Number} channelId - the id of the course the user is trying to join
+ * @param {Number} uId - the id of the user being invited to the channel
+ * @returns {} - empty object
+ */
 function channelInviteV1( authUserId, channelId, uId ) { 
   const data = getData();
 
+  // invalid authuserid error
   const isValidAuthUser = data.users.find(a => a.uId === authUserId);
   if (isValidAuthUser === undefined) {
     return {
@@ -117,6 +140,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
     };
   }
 
+  // invalid uid to invite error
   const isvaliduId = data.users.find(a => a.uId === uId);
   if (isvaliduId === undefined) {
     return {
@@ -124,6 +148,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
     };
   }
 
+  // invalid channel id error
   const isValidChannel = data.channels.find(a => a.channelId === channelId);
   if (isValidChannel === undefined) {
     return {
@@ -131,6 +156,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
     };
   }
 
+  // check authuser is a member of the channel
   let checkIsMember = data.channels[channelId].allMembers
   let isValidMember = checkIsMember.find(a => a === authUserId);
   if (isValidMember === undefined) {
@@ -139,6 +165,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
     };
   }
 
+  // check member to invite is not already a member
   for (const element of data.channels[channelId].allMembers) {
     if (element === uId) {
       return {
@@ -147,6 +174,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
     }
   }
 
+  // add uid to members
   let membersArray = data.channels[channelId].allMembers;
   membersArray.push(uId);
   data.channels.allMembers = membersArray;
@@ -154,8 +182,13 @@ function channelInviteV1( authUserId, channelId, uId ) {
   return {};
 }
 
+
+
+
 function channelMessagesV1(authUserId, channelId, start) {
   const data = getData();
+  
+  // check authuserid is valid
   const isValiduser = data.users.find(a => a.uId === authUserId);
   if (isValiduser === undefined) {
     return { 
@@ -163,6 +196,7 @@ function channelMessagesV1(authUserId, channelId, start) {
     };
   }
   
+  // check channelid is valid
   const isValidChannel = data.channels.find(c => c.channelId === channelId);
   if (isValidChannel === undefined) {
     return {
@@ -170,6 +204,7 @@ function channelMessagesV1(authUserId, channelId, start) {
     };
   }
   
+  // check authuserid is a member of the channel
   let checkIsMember = data.channels[channelId].allMembers
   let isValidMember = checkIsMember.find(a => a === authUserId);
   if (isValidMember === undefined) {
