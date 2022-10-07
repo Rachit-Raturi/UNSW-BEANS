@@ -15,4 +15,4 @@ let clearedData = {
     return {};
 }
 
-export default clearV1;
+export {clearV1}
