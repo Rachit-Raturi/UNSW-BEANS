@@ -12,6 +12,7 @@ let clearedData = {
     };
 
     setData(clearedData);
+    return {};
 }
 
 export default clearV1;
