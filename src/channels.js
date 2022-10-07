@@ -43,12 +43,13 @@ function channelsCreateV1(authUserId, name, isPublic ) {
   * of all the public channels the user is in.
   *
   * @param {number} authUserId - The authUserId of the user
-  * @returns {channels: {Array<{channelId: number, name: string}>}} 
+  * @returns {array} channels - list of channels
   * - returns array of public channels
 */
 function channelsListV1(authUserId) {
   const data = getData();
-  
+
+  // check authuser is valid
   if (data.users[authUserId] === undefined) {
     return {
         error: 'Invalid user'
@@ -58,13 +59,15 @@ function channelsListV1(authUserId) {
   const allChannelsArray = data.channels;
   const publicChannelsArray = [];
   const outputChannels = [];
-    
+  
+  // create array of public channels
   for (const element of allChannelsArray) {
     if (element.isPublic === true) {
       publicChannelsArray.push(element);
     }
   }
 
+  // sort public channels into ones that contain the user
   for (const element of publicChannelsArray) {
     if ((element.allMembers).includes(authUserId)) {
       outputChannels.push({channelId: element.channelId, name: element.name})
@@ -74,12 +77,20 @@ function channelsListV1(authUserId) {
   return {
     channels: outputChannels,
   };
-
 }
 
+/**
+  * Given a valid authUserId will return a list 
+  * of all channels the user is in.
+  *
+  * @param {number} authUserId - The authUserId of the user
+  * @returns {array} channels - list of channels
+  * - returns array of all channels
+*/
 function channelsListAllV1( authUserId ) { 
   let data = getData();
 
+  // check authuser is valid
   if (data.users[authUserId] === undefined) { 
     return {
       error: "authUserId does not refer to a valid ID"
@@ -88,7 +99,8 @@ function channelsListAllV1( authUserId ) {
 
   const allChannelsArray = data.channels;
   let outputChannels = []
-    
+  
+  // create array of channels the user is in
   for (const element of allChannelsArray) {
     if ((element.allMembers).includes(authUserId)) {
       outputChannels.push({channelId: element.channelId, name: element.name})
