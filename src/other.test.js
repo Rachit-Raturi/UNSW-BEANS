@@ -9,8 +9,11 @@ describe('test for ClearV1', () => {
     let channel = channelsCreateV1(user.authUserId,'channel',false);
     let channel1 = channelsCreateV1(user.authUserId,'channel1',true);
     clearV1();
-    expect(authLoginV1('person@gmail.com', 'password')).toEqual({error: expect.any(String)});
-    expect(channelDetailsV1(user.authUserId,channel.channelId)).toEqual({error: expect.any(String)});
-    expect(channelDetailsV1(user.authUserId,channel.channel1Id)).toEqual({error: expect.any(String)});
+    expect(authLoginV1('person@gmail.com', 'password'))
+                                      .toEqual({error: expect.any(String)});
+    expect(channelDetailsV1(user.authUserId,channel.channelId))
+                                      .toEqual({error: expect.any(String)});
+    expect(channelDetailsV1(user.authUserId,channel.channel1Id))
+                                      .toEqual({error: expect.any(String)});
   });
 });
