@@ -1,5 +1,15 @@
 import { getData, setData } from './dataStore.js';
 
+/**
+ * Given a valid authUserId and channel name, creates and 
+ * returns a new channel with its details 
+ * 
+ * @param {Number} authUserId
+ * @param {String} name
+ * @param {Boolean} isPublic
+ * @returns {Object} channel
+ */
+
 function channelsCreateV1(authUserId, name, isPublic ) {
   let data = getData();
   

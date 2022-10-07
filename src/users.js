@@ -1,5 +1,13 @@
 import { getData, setData } from './dataStore.js';
 
+/**
+ * Given a valid authUserId and uId, creates and returns a 
+ * new user with its details 
+ * 
+ * @param {Number} authUserId
+ * @param {Number} uId
+ * @returns {Object} user
+ */
 function userProfileV1 (authUserId, uId) {
   let data = getData();
 

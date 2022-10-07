@@ -28,6 +28,7 @@ beforeEach(() => {
   }
 });
 
+
 describe('Tests for channelDetailsV1', () => {
   test('Test 1: Invalid channelId', () => {
     expect(channelDetailsV1(user.authUserId, channel.channelId + 1)).toStrictEqual({error: expect.any(String)});
@@ -68,7 +69,6 @@ describe('Tests for channelDetailsV1', () => {
 });
 
 
-
 describe('Tests for channelJoinV1', () => {
   test('Test 1: Join attempt with invalid channelId ', () => {
     let invalidChannelId = 1;
@@ -91,8 +91,13 @@ describe('Tests for channelJoinV1', () => {
   test('Test 4: Valid Case', () => {
     expect(channelJoinV1(user1.authUserId, channel.channelId)).toStrictEqual({});
   });
-});
 
+  test('Test 5: Global owner joins private channel', () => {
+    const newPrivateChannel = channelsCreateV1(user1.authUserId, 'Channel1', false); 
+    expect(channelJoinV1(user.authUserId, newPrivateChannel.channelId)).toStrictEqual({});
+  });
+
+});
 
 
 describe('Tests for channelInviteV1', () => {
