@@ -1,7 +1,7 @@
 import { authLoginV1, authRegisterV1 } from './auth.js';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels.js';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from './channel.js';
-import clearV1 from './other.js';
+import {clearV1} from './other.js';
 
 let user;
 let user1;
