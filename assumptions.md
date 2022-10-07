@@ -1,5 +1,5 @@
 channelMessages:
-- I have assumed that should start be less than 0, it is trying to index past the most recent message. Thus as the most recent message is given the index 0, and subsequent messages are + 1 indexed, I have assumed that an error will occur.
+- We have assumed that should start be less than 0, it is trying to index past the most recent message. Thus as the most recent message is given the index 0, and subsequent messages are + 1 indexed, we have assumed that an error will occur.
 
 channelsListAll: + ChannelsList:
 - no specified output for when a valid user is not in any channels. Decided to return the empty channels array

@@ -216,31 +216,40 @@ function channelMessagesV1(authUserId, channelId, start) {
   const numberOfMessages = data.messages.length; 
   const messages = data.messages;
   let end;
+  // Check whether the starting index is < 0
   if (start < 0) {
     return {
       error: 'Index cannot be negative as there are no messages after the most recent message',
     };
   } else if (start === numberOfMessages || numberOfMessages === undefined) {
+    /* If there are no messages in the channel or if the starting index is = number of messages
+       If start = messages in channel return empty array -> earliest message (i.e highest index) is 
+       number of messages - 1, no messages in history from that index
+    */
     return {
       messages: [],
       start: start,
       end: -1,
     };
   } else if (start >= 0 && start > numberOfMessages) {
+    // If starting index is greater than the number of messages sent in the channel
     return {
       error: `The starting index, ${start}, is greater than the number of messages in the channel, ${numberOfMessages}`
     };
   } else if (start >= 0 && start < numberOfMessages) {
     while (start < numberOfMessages) {
+      // If starting index is 0 or a multiple of 50
       if (start % 50 === 0 && start < numberOfMessages) {
         end = start + 50;
         console.log(`{ [messages], ${start}, ${end} }`);
         start += 50;
       } else if (start % 50 !== 0 && start < numberOfMessages) {
+        // If starting index is not a multiple of 50
         end = start / 50 * 50 + 50; // e.g start = 120 -> 120 / 50 * 50 + 50 = 150
         console.log(`{ [messages], ${start}, ${end} }`);
         start = end;
       } else if (start + 50 >= numberOfMessages) {
+        // If there is < 50 messages left in the channel history, end pagination
         end = -1;
         console.log(`{ [messages], ${start}, ${end} }`)
         return {
