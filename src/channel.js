@@ -261,9 +261,9 @@ function channelMessagesV1(authUserId, channelId, start) {
         start = end;
       } else if (start + 50 >= numberOfMessages) {
         // If there is < 50 messages left in the channel history, end pagination
-        start = beginning;
         end = -1;
         console.log(`{ [messages], ${start}, ${end} }`)
+        start = beginning;
         return {
           messages: [messages],
           start: start,
