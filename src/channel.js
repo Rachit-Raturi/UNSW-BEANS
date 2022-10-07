@@ -150,6 +150,7 @@ function channelInviteV1( authUserId, channelId, uId ) {
   let membersArray = data.channels[channelId].allMembers;
   membersArray.push(uId);
   data.channels.allMembers = membersArray;
+  setData(data);
   return {};
 }
 
