@@ -1,6 +1,6 @@
 import { authRegisterV1, authLoginV1 } from './auth';
 import { userProfileV1 } from './users';
-import {clearV1} from './other';
+import { clearV1 } from './other';
 
 let user;
 let invalid_id = 1;
@@ -117,10 +117,6 @@ describe('tests for user/profile/setemail/v1', () => {
 });
 
 
-
-
-
-
 describe('tests for user/profile/setemail/v1', () => {
   test('invalid nameFirst length', () => {
     /* call authregister with a 
@@ -151,5 +147,4 @@ describe('tests for user/profile/setemail/v1', () => {
   });
 
 });
-
 
