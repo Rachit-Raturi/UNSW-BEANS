@@ -116,3 +116,40 @@ describe('tests for user/profile/setemail/v1', () => {
 
 });
 
+
+
+
+
+
+describe('tests for user/profile/setemail/v1', () => {
+  test('invalid nameFirst length', () => {
+    /* call authregister with a 
+    user: {
+      uId: user1.authUserId,
+      email: 'test1@gmail.com',
+      nameFirst: 'firstname1',
+      nameLast: 'lastname1',
+      handleStr: 'firstname1lastname1',
+      token: string
+    }
+    */
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, '', 'apples')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj', 'apples')).toStrictEqual(errorMessage);
+  });
+
+  test('invalid nameLast length', () => {
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'apples', '')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'apples', 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj')).toStrictEqual(errorMessage);
+  });
+
+  test('invalid token', () => {
+    expect(requestuserprofilesetemail(/*invalidtokenplaceholder*/, 'apples', 'oranges')).toStrictEqual(errorMessage);
+  });
+
+  test('valid input', () => {
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'apples', 'oranges')).toStrictEqual({});
+  });
+
+});
+
+
