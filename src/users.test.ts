@@ -6,12 +6,14 @@ let user;
 let invalid_id = 1;
 const errorMessage: object = {error: expect.any(String)};
 
-function requestuserprofilesetemail(token: number, nameFirst: string, nameLast: string) {
+function requestuserprofilesetname(token: number, nameFirst: string, nameLast: string) {
   const res = request(
     'PUT',
-    SERVER_URL + 'user/profile/setemail/v1',
+    SERVER_URL + 'user/profile/setname/v1',
     {
-      json: {}
+      json: {
+        token, nameFirst, nameLast
+      }
     }
   );
   return JSON.parse(res.getBody() as string);
@@ -110,6 +112,38 @@ describe('tests for user/profile/setemail/v1', () => {
 
   test('valid input', () => {
     expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'test999@gmail.com')).toStrictEqual({});
+  });
+
+});
+
+
+describe('tests for user/profile/setname/v1', () => {
+  test('invalid nameFirst length', () => {
+    /* call authregister with a 
+    user: {
+      uId: user1.authUserId,
+      email: 'test1@gmail.com',
+      nameFirst: 'firstname1',
+      nameLast: 'lastname1',
+      handleStr: 'firstname1lastname1',
+      token: string
+    }
+    */
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, '', 'apples')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj', 'apples')).toStrictEqual(errorMessage);
+  });
+
+  test('invalid nameLast length', () => {
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, 'apples', '')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, 'apples', 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj')).toStrictEqual(errorMessage);
+  });
+
+  test('invalid token', () => {
+    expect(requestuserprofilesetname(/*invalidtokenplaceholder*/, 'apples', 'oranges')).toStrictEqual(errorMessage);
+  });
+
+  test('valid input', () => {
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, 'apples', 'oranges')).toStrictEqual({});
   });
 
 });
