@@ -6,15 +6,29 @@ let user;
 let invalid_id = 1;
 const errorMessage: object = {error: expect.any(String)};
 
-function requestuserprofilesetemail(token: number, email: string) {
+function requestuserprofilesetemail(token: number, nameFirst: string, nameLast: string) {
   const res = request(
     'PUT',
     SERVER_URL + 'user/profile/setemail/v1',
-    { json: {} }
+    {
+      json: {}
+    }
   );
   return JSON.parse(res.getBody() as string);
 }
 
+function requestuserprofilesetemail(token: number, email: string) {
+  const res = request(
+    'PUT',
+    SERVER_URL + 'user/profile/setemail/v1',
+    { 
+      json: {
+        token, email
+      }
+    }
+  );
+  return JSON.parse(res.getBody() as string);
+}
 
 beforeEach(() => {
   clearV1();
@@ -53,6 +67,10 @@ describe('valid test for UserProfileV1', () => {
   });
 });
 
+
+
+
+
 describe('tests for user/profile/setemail/v1', () => {
   test('invalid email', () => {
     /* call authregister with a 
@@ -65,11 +83,11 @@ describe('tests for user/profile/setemail/v1', () => {
       token: string
     }
     */
-    expect(requestuserprofilesetemail(tokenplaceholder, 'invalidemail')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'invalidemail')).toStrictEqual(errorMessage);
   });
 
   test('same email entered', () => {
-    expect(requestuserprofilesetemail(tokenplaceholder, 'test1@gmail.com')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'test1@gmail.com')).toStrictEqual(errorMessage);
   });
 
   test('email used by another user', () => {
@@ -83,13 +101,16 @@ describe('tests for user/profile/setemail/v1', () => {
       token: string
     }
     */
-    expect(requestuserprofilesetemail(tokenplaceholder, 'test2@gmail.com')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'test2@gmail.com')).toStrictEqual(errorMessage);
   });
+
   test('invalid token', () => {
-    expect(requestuserprofilesetemail(invalidtokenplaceholder, 'test1@gmail.com')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetemail(/*invalidtokenplaceholder*/, 'test1@gmail.com')).toStrictEqual(errorMessage);
   });
-  test('valid token', () => {
-    expect(requestuserprofilesetemail(tokenplaceholder, 'test999@gmail.com')).toStrictEqual({});
+
+  test('valid input', () => {
+    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'test999@gmail.com')).toStrictEqual({});
   });
 
 });
+
