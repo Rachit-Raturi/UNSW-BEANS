@@ -6,12 +6,14 @@ let user;
 let invalid_id = 1;
 const errorMessage: object = {error: expect.any(String)};
 
-function requestuserprofilesetemail(token: number, nameFirst: string, nameLast: string) {
+function requestuserprofilesetname(token: number, nameFirst: string, nameLast: string) {
   const res = request(
     'PUT',
-    SERVER_URL + 'user/profile/setemail/v1',
+    SERVER_URL + 'user/profile/setname/v1',
     {
-      json: {}
+      json: {
+        token, nameFirst, nameLast
+      }
     }
   );
   return JSON.parse(res.getBody() as string);
