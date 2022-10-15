@@ -117,7 +117,7 @@ describe('tests for user/profile/setemail/v1', () => {
 });
 
 
-describe('tests for user/profile/setemail/v1', () => {
+describe('tests for user/profile/setname/v1', () => {
   test('invalid nameFirst length', () => {
     /* call authregister with a 
     user: {
@@ -129,21 +129,21 @@ describe('tests for user/profile/setemail/v1', () => {
       token: string
     }
     */
-    expect(requestuserprofilesetemail(/*tokenplaceholder*/, '', 'apples')).toStrictEqual(errorMessage);
-    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj', 'apples')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, '', 'apples')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj', 'apples')).toStrictEqual(errorMessage);
   });
 
   test('invalid nameLast length', () => {
-    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'apples', '')).toStrictEqual(errorMessage);
-    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'apples', 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, 'apples', '')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, 'apples', 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj')).toStrictEqual(errorMessage);
   });
 
   test('invalid token', () => {
-    expect(requestuserprofilesetemail(/*invalidtokenplaceholder*/, 'apples', 'oranges')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesetname(/*invalidtokenplaceholder*/, 'apples', 'oranges')).toStrictEqual(errorMessage);
   });
 
   test('valid input', () => {
-    expect(requestuserprofilesetemail(/*tokenplaceholder*/, 'apples', 'oranges')).toStrictEqual({});
+    expect(requestuserprofilesetname(/*tokenplaceholder*/, 'apples', 'oranges')).toStrictEqual({});
   });
 
 });
