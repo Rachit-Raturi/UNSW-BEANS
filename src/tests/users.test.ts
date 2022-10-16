@@ -1,6 +1,6 @@
-import { authRegisterV1, authLoginV1 } from './auth';
-import { userProfileV1 } from './users';
-import { clearV1 } from './other';
+import { authRegisterV1, authLoginV1 } from '../auth.js';
+import { userProfileV1 } from '../users.js';
+import { clearV1 } from '../other.js';
 
 let user;
 let invalid_id = 1;
