@@ -1,29 +1,29 @@
-import { getData, setData } from './dataStore.js';
+import { getData } from './dataStore.js';
 
 /**
- * Given a valid authUserId and uId, creates and returns a 
- * new user with its details 
- * 
+ * Given a valid authUserId and uId, creates and returns a
+ * new user with its details
+ *
  * @param {Number} authUserId
  * @param {Number} uId
  * @returns {Object} user
  */
 function userProfileV1 (authUserId, uId) {
-  let data = getData();
+  const data = getData();
 
-  if ((data.users[authUserId]) === undefined) { 
+  if ((data.users[authUserId]) === undefined) {
     return {
-      error: "authUserId does not refer to a valid ID",
+      error: 'authUserId does not refer to a valid ID',
     };
   }
 
   if ((data.users[uId]) === undefined) {
     return {
-      error: "uId does not refer to a valid ID",
+      error: 'uId does not refer to a valid ID',
     };
   }
 
-  let user = data.users[uId];
+  const user = data.users[uId];
 
   return {
     user: {
@@ -33,7 +33,7 @@ function userProfileV1 (authUserId, uId) {
       nameLast: user.nameLast,
       handleStr: user.handleStr,
     },
-  }
+  };
 }
 
-export {userProfileV1};
+export { userProfileV1 };
