@@ -6,7 +6,7 @@ let user;
 let invalid_id = 1;
 const errorMessage: object = {error: expect.any(String)};
 
-function requestuserprofilesetname(token: number, nameFirst: string, nameLast: string) {
+function requestuserprofilesetname(token: string, nameFirst: string, nameLast: string) {
   const res = request(
     'PUT',
     SERVER_URL + 'user/profile/setname/v1',
@@ -19,7 +19,7 @@ function requestuserprofilesetname(token: number, nameFirst: string, nameLast: s
   return JSON.parse(res.getBody() as string);
 }
 
-function requestuserprofilesetemail(token: number, email: string) {
+function requestuserprofilesetemail(token: string, email: string) {
   const res = request(
     'PUT',
     SERVER_URL + 'user/profile/setemail/v1',
@@ -32,7 +32,7 @@ function requestuserprofilesetemail(token: number, email: string) {
   return JSON.parse(res.getBody() as string);
 }
 
-function requestuserprofilesethandle(token: number, handleStr: string) {
+function requestuserprofilesethandle(token: string, handleStr: string) {
   const res = request(
     'PUT',
     SERVER_URL + 'user/profile/setemail/v1',
