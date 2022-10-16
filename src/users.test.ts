@@ -32,6 +32,19 @@ function requestuserprofilesetemail(token: number, email: string) {
   return JSON.parse(res.getBody() as string);
 }
 
+function requestuserprofilesethandle(token: number, handleStr: string) {
+  const res = request(
+    'PUT',
+    SERVER_URL + 'user/profile/setemail/v1',
+    { 
+      json: {
+        token, handleStr
+      }
+    }
+  );
+  return JSON.parse(res.getBody() as string);
+}
+
 beforeEach(() => {
   clearV1();
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
@@ -147,4 +160,55 @@ describe('tests for user/profile/setname/v1', () => {
   });
 
 });
+
+
+
+describe('tests for user/profile/sethandle/v1', () => {
+  test('invalid handleStr length', () => {
+    /* call authregister with a 
+    user: {
+      uId: user1.authUserId,
+      email: 'test1@gmail.com',
+      nameFirst: 'firstname1',
+      nameLast: 'lastname1',
+      handleStr: 'firstname1lastname1',
+      token: string
+    }
+    */
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, 'overtwentycharactersincl')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, 'be')).toStrictEqual(errorMessage);
+  });
+
+  test('same handleStr', () => {
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, 'firstname1lastname1')).toStrictEqual(errorMessage);
+  });
+
+  test('handleStr already used', () => {
+    /* call authregister with a 
+    user: {
+      uId: user2.authUserId,
+      email: 'test2@gmail.com',
+      nameFirst: 'firstname2',
+      nameLast: 'lastname2',
+      handleStr: 'firstname2lastname2',
+      token: string
+    }
+    */
+    expect(requestuserprofilesethandle(/*tokenplaceholder for user1*/, 'firstname2lastname2')).toStrictEqual(errorMessage);
+  });
+
+  test('invalid characters', () => {
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, '%invalid_handle$')).toStrictEqual(errorMessage);
+  });
+
+  test('invalid token', () => {
+    expect(requestuserprofilesethandle(/*invalidtokenplaceholder*/, 'firstname1lastname1')).toStrictEqual(errorMessage);
+  });
+
+  test('valid input', () => {
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, 'givemeyourstring1')).toStrictEqual({});
+  });
+
+});
+
 
