@@ -35,7 +35,7 @@ function requestuserprofilesetemail(token: string, email: string) {
 function requestuserprofilesethandle(token: string, handleStr: string) {
   const res = request(
     'PUT',
-    SERVER_URL + 'user/profile/setemail/v1',
+    SERVER_URL + 'user/profile/sethandle/v1',
     { 
       json: {
         token, handleStr
