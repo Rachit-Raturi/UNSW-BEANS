@@ -176,12 +176,6 @@ describe('tests for user/profile/setname/v1', () => {
 });
 
 
-
-describe('tests for users/all/v1', () => {
-  test('invalid token', () => {
-        /* call authregister with a 
-
-
 describe('tests for user/profile/sethandle/v1', () => {
   test('invalid handleStr length', () => {
     /* call authregister with a 
