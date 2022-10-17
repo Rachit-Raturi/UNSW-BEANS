@@ -1,12 +1,12 @@
-import { authRegisterV1, authLoginV1 } from './auth';
-import { userProfileV1 } from './users';
-import { clearV1 } from './other';
+import { authRegisterV1, authLoginV1 } from '../auth.js';
+import { userProfileV1 } from '../users.js';
+import { clearV1 } from '../other.js';
 
 let user;
 let invalid_id = 1;
 const errorMessage: object = {error: expect.any(String)};
 
-function requestuserprofilesetname(token: number, nameFirst: string, nameLast: string) {
+function requestuserprofilesetname(token: string, nameFirst: string, nameLast: string) {
   const res = request(
     'PUT',
     SERVER_URL + 'user/profile/setname/v1',
@@ -19,7 +19,7 @@ function requestuserprofilesetname(token: number, nameFirst: string, nameLast: s
   return JSON.parse(res.getBody() as string);
 }
 
-function requestuserprofilesetemail(token: number, email: string) {
+function requestuserprofilesetemail(token: string, email: string) {
   const res = request(
     'PUT',
     SERVER_URL + 'user/profile/setemail/v1',
@@ -32,6 +32,7 @@ function requestuserprofilesetemail(token: number, email: string) {
   return JSON.parse(res.getBody() as string);
 }
 
+
 function requestusersall(token: number) {
   const res = request(
     'GET',
@@ -39,6 +40,19 @@ function requestusersall(token: number) {
     { 
       qs: {
         token
+      }
+    }
+  );
+  return JSON.parse(res.getBody() as string);
+}
+
+function requestuserprofilesethandle(token: string, handleStr: string) {
+  const res = request(
+    'PUT',
+    SERVER_URL + 'user/profile/sethandle/v1',
+    { 
+      json: {
+        token, handleStr
       }
     }
   );
@@ -162,9 +176,15 @@ describe('tests for user/profile/setname/v1', () => {
 });
 
 
+
 describe('tests for users/all/v1', () => {
   test('invalid token', () => {
         /* call authregister with a 
+
+
+describe('tests for user/profile/sethandle/v1', () => {
+  test('invalid handleStr length', () => {
+    /* call authregister with a 
     user: {
       uId: user1.authUserId,
       email: 'test1@gmail.com',
@@ -174,6 +194,58 @@ describe('tests for users/all/v1', () => {
       token: string
     }
     */
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, 'overtwentycharactersincl')).toStrictEqual(errorMessage);
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, 'be')).toStrictEqual(errorMessage);
+  });
+
+  test('same handleStr', () => {
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, 'firstname1lastname1')).toStrictEqual(errorMessage);
+  });
+
+  test('handleStr already used', () => {
+    /* call authregister with a 
+    user: {
+      uId: user2.authUserId,
+      email: 'test2@gmail.com',
+      nameFirst: 'firstname2',
+      nameLast: 'lastname2',
+      handleStr: 'firstname2lastname2',
+      token: string
+    }
+    */
+
+    expect(requestuserprofilesethandle(/*tokenplaceholder for user1*/, 'firstname2lastname2')).toStrictEqual(errorMessage);
+  });
+
+  test('invalid characters', () => {
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, '%invalid_handle$')).toStrictEqual(errorMessage);
+  });
+
+  test('invalid token', () => {
+    expect(requestuserprofilesethandle(/*invalidtokenplaceholder*/, 'firstname1lastname1')).toStrictEqual(errorMessage);
+  });
+
+  test('valid input', () => {
+    expect(requestuserprofilesethandle(/*tokenplaceholder*/, 'givemeyourstring1')).toStrictEqual({});
+  });
+
+});
+
+
+
+describe('tests for users/all/v1', () => {
+  test('invalid token', () => {
+        /* call authregister with a
+        user: {
+      uId: user1.authUserId,
+      email: 'test1@gmail.com',
+      nameFirst: 'firstname1',
+      nameLast: 'lastname1',
+      handleStr: 'firstname1lastname1',
+      token: string
+    }
+    */
+
     expect(requestusersall(/*invalidtokenplaceholder*/)).toStrictEqual(errorMessage);
   });
 
@@ -194,16 +266,6 @@ describe('tests for users/all/v1', () => {
   });
 
   test('valid input multiple users', () => {
-    /* call authregister with a 
-    user: {
-      uId: user2.authUserId,
-      email: 'test2@gmail.com',
-      nameFirst: 'firstname2',
-      nameLast: 'lastname2',
-      handleStr: 'firstname2lastname2',
-      token: string
-    }
-    */
     const outputarray = [];
     outputarray.push(
       {
@@ -230,4 +292,3 @@ describe('tests for users/all/v1', () => {
     expect(inputSet).toStrictEqual(outputSet);
   });
 });
-

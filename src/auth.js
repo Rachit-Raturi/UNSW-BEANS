@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { getData, setData } from './dataStore.js'
+import { getData, setData } from './dataStore.js';
 
 /**
  * Given a valid registered email and password the function
@@ -10,7 +10,7 @@ import { getData, setData } from './dataStore.js'
  * @returns {Number} authUserId - The authUserid of the user
  */
 function authLoginV1(email, password) {
-  let data = getData();
+  const data = getData();
   for (const users of data.users) {
     if (users.email === email) {
       if (password === users.password) {
@@ -24,7 +24,7 @@ function authLoginV1(email, password) {
       }
     }
   }
-  return { 
+  return {
     error: 'Email entered does not belong to a user',
   };
 }
@@ -40,7 +40,7 @@ function authLoginV1(email, password) {
  * @returns {Number} authUserId - The authUserId of the user
  */
 function authRegisterV1(email, password, nameFirst, nameLast) {
-  let data = getData();
+  const data = getData();
   // Test for whether or not the email is invalid
   if (!validator.isEmail(email)) {
     return {
@@ -80,9 +80,9 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   // Generating the userhandle
   let userHandle = nameFirst.toLowerCase() + nameLast.toLowerCase();
   userHandle = userHandle.substring(0, Math.min(userHandle.length, 20));
-  let originaluserhandle = userHandle;
+  const originaluserhandle = userHandle;
   let i = 0;
-  for (let user of data.users) {
+  for (const user of data.users) {
     if (user.handleStr === userHandle) {
       userHandle = originaluserhandle + i;
       i++;
@@ -90,7 +90,7 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   }
 
   // Register the user
-  let user = {
+  const user = {
     email: email,
     uId: data.users.length,
     password: password,
@@ -99,10 +99,10 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
     handleStr: userHandle,
   };
   data.users.push(user);
-  
+
   setData(data);
 
-  return { 
+  return {
     authUserId: data.users.length - 1,
   };
 }

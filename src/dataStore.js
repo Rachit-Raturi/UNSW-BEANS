@@ -1,10 +1,10 @@
 // YOU SHOULD MODIFY THIS OBJECT BELOW
 let data = {
-  users: 
+  users:
   [
 
   ],
-  channels: 
+  channels:
   [
 
   ],
