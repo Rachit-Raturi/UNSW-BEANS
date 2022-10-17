@@ -32,6 +32,19 @@ function requestuserprofilesetemail(token: number, email: string) {
   return JSON.parse(res.getBody() as string);
 }
 
+function requestusersall(token: number) {
+  const res = request(
+    'GET',
+    SERVER_URL + 'users/all/v1',
+    { 
+      qs: {
+        token
+      }
+    }
+  );
+  return JSON.parse(res.getBody() as string);
+}
+
 beforeEach(() => {
   clearV1();
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
@@ -146,5 +159,75 @@ describe('tests for user/profile/setname/v1', () => {
     expect(requestuserprofilesetname(/*tokenplaceholder*/, 'apples', 'oranges')).toStrictEqual({});
   });
 
+});
+
+
+describe('tests for users/all/v1', () => {
+  test('invalid token', () => {
+        /* call authregister with a 
+    user: {
+      uId: user1.authUserId,
+      email: 'test1@gmail.com',
+      nameFirst: 'firstname1',
+      nameLast: 'lastname1',
+      handleStr: 'firstname1lastname1',
+      token: string
+    }
+    */
+    expect(requestusersall(/*invalidtokenplaceholder*/)).toStrictEqual(errorMessage);
+  });
+
+  test('valid input 1 user', () => {
+    expect(requestusersall(/*tokenplaceholder*/)).toStrictEqual(
+      {
+        users: [
+          {
+            uId: user1.authUserId,
+            email: 'test1@gmail.com',
+            nameFirst: 'firstname1',
+            nameLast: 'lastname1',
+            handleStr: 'firstname1lastname1',
+          }
+        ]
+      }
+    );
+  });
+
+  test('valid input multiple users', () => {
+    /* call authregister with a 
+    user: {
+      uId: user2.authUserId,
+      email: 'test2@gmail.com',
+      nameFirst: 'firstname2',
+      nameLast: 'lastname2',
+      handleStr: 'firstname2lastname2',
+      token: string
+    }
+    */
+    const outputarray = [];
+    outputarray.push(
+      {
+        uId: user1.authUserId,
+        email: 'test1@gmail.com',
+        nameFirst: 'firstname1',
+        nameLast: 'lastname1',
+        handleStr: 'firstname1lastname1',
+      }
+    )
+    outputarray.push(
+      {
+        uId: user2.authUserId,
+        email: 'test2@gmail.com',
+        nameFirst: 'firstname2',
+        nameLast: 'lastname2',
+        handleStr: 'firstname2lastname2',
+      }
+    )
+
+    const outputSet = new Set(outputarray);
+    const inputSet = new Set(requestusersall(/*tokenplaceholder*/).users);
+
+    expect(inputSet).toStrictEqual(outputSet);
+  });
 });
 
