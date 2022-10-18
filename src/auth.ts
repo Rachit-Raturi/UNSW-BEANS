@@ -9,7 +9,7 @@ import { getData, setData } from './dataStore.js';
  * @param {String} password - The password of the user
  * @returns {Number} authUserId - The authUserid of the user
  */
-function authLoginV1(email, password) {
+function authLoginV1(email: string, password: string) {
   const data = getData();
   for (const users of data.users) {
     if (users.email === email) {
@@ -39,7 +39,7 @@ function authLoginV1(email, password) {
  * @param {String} nameLast - The last name of the user
  * @returns {Number} authUserId - The authUserId of the user
  */
-function authRegisterV1(email, password, nameFirst, nameLast) {
+function authRegisterV1(email: string, password: string, nameFirst: string, nameLast:string) {
   const data = getData();
   // Test for whether or not the email is invalid
   if (!validator.isEmail(email)) {

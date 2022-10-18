@@ -1,4 +1,4 @@
-import { authLoginV1, authRegisterV1 } from '../auth.js';
+import { authLoginV1, authRegisterV1 } from '../auth.ts';
 import { clearV1 } from '../other.js';
 
 beforeEach(() => {
