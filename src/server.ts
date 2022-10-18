@@ -1,5 +1,6 @@
 import express, { json, Request, Response } from 'express';
 import { echo } from './echo';
+import { messageSend } from './message'
 import morgan from 'morgan';
 import config from './config.json';
 import cors from 'cors';
@@ -36,4 +37,12 @@ const server = app.listen(PORT, HOST, () => {
 // For coverage, handle Ctrl+C gracefully
 process.on('SIGINT', () => {
   server.close(() => console.log('Shutting down server gracefully.'));
+});
+
+app.post('/message/send/v1', (req: Request, res: Response) => {
+  console.log("Message Sent"); 
+ 
+  const { token, channelId, message} = req.body;
+  
+  res.json(messageSend(token, channelId, message)); 
 });
