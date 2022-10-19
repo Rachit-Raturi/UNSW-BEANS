@@ -8,13 +8,56 @@ let data = {
   [
 
   ],
-  messages:
+  dms:
   [
 
   ],
 };
 
 // YOU SHOULDNT NEED TO MODIFY THE FUNCTIONS BELOW IN ITERATION 1
+/*
+// Example data structure
+
+  Users: [
+    uId: number
+    email: string
+    password: string
+    nameFirst: string
+    nameLast: string    
+    handleStr: string
+    token: string
+  ]
+  
+  Channels: [
+    channelId: number
+    name: string
+    allMembers: [number]
+    allOwners: [number]
+    isPublic: boolean
+    messages: [
+      { 
+        messageId: number
+        uId : number
+        message: string
+        timeSent: date
+      }
+    ]
+  ]
+
+  dms: [
+    dmId: number
+    Owner:
+    allMembers:
+    messages: [
+      { 
+        messageId: number
+        uId : number
+        message: string
+        timeSent: date
+      }
+    ]
+  ]
+*/
 
 /*
 Example usage
