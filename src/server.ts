@@ -1,6 +1,7 @@
 import express, { json, Request, Response } from 'express';
 import { echo } from './echo';
 import morgan from 'morgan';
+import { messageSend } from './message'
 import config from './config.json';
 import cors from 'cors';
 
@@ -12,7 +13,7 @@ app.use(json());
 app.use(cors());
 
 const PORT: number = parseInt(process.env.PORT || config.port);
-const HOST: string = process.env.IP || 'localhost';
+const HOST: string = process.env.IP || '127.0.0.1';
 
 // Example get request
 app.get('/echo', (req: Request, res: Response, next) => {
@@ -36,4 +37,12 @@ const server = app.listen(PORT, HOST, () => {
 // For coverage, handle Ctrl+C gracefully
 process.on('SIGINT', () => {
   server.close(() => console.log('Shutting down server gracefully.'));
+});
+
+app.post('/message/send/v1', (req: Request, res: Response) => {
+  console.log("Message Sent"); 
+ 
+  const { token, channelId, message} = req.body;
+  
+  res.json(messageSend(token, channelId, message)); 
 });
