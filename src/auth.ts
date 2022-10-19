@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { getData, setData } from './dataStore.js';
+import { getData, setData } from './dataStore';
 
 /**
  * Given a valid registered email and password the function

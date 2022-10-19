@@ -1,4 +1,4 @@
-import { getData, setData } from './dataStore.js';
+import { getData, setData } from './dataStore';
 
 /**
  * Given a channel with ID channelId that the authorised user
@@ -61,6 +61,7 @@ function channelDetailsV1 (authUserId, channelId) {
     });
   }
 
+  
   return {
     name: data.channels[channelId].name,
     isPublic: data.channels[channelId].isPublic,
@@ -176,7 +177,7 @@ function channelInviteV1(authUserId, channelId, uId) {
   // add uid to members
   const membersArray = data.channels[channelId].allMembers;
   membersArray.push(uId);
-  data.channels.allMembers = membersArray;
+  data.channels[channelId].allMembers = membersArray;
   setData(data);
   return {};
 }

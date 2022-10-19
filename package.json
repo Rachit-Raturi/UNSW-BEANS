@@ -30,6 +30,6 @@
         "eslint-plugin-jest": "^26.1.5",
         "jest": "^28.1.0",
         "sync-request": "^6.1.0",
-        "ts-jest": "^28.0.2"
+        "ts-jest": "^28.0.8"
     }
 }
