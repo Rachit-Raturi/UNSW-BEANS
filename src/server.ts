@@ -1,7 +1,7 @@
 import express, { json, Request, Response } from 'express';
 import { echo } from './echo';
 import morgan from 'morgan';
-import { messageSend } from './message'
+import { messageSend } from './message';
 import config from './config.json';
 import cors from 'cors';
 
@@ -40,9 +40,9 @@ process.on('SIGINT', () => {
 });
 
 app.post('/message/send/v1', (req: Request, res: Response) => {
-  console.log("Message Sent"); 
- 
-  const { token, channelId, message} = req.body;
-  
-  res.json(messageSend(token, channelId, message)); 
+  console.log('Message Sent');
+
+  const { token, channelId, message } = req.body;
+
+  res.json(messageSend(token, channelId, message));
 });

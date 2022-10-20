@@ -1,9 +1,9 @@
 import request from 'sync-request';
 
-import { port, url } from '../config.json'
+import { port, url } from '../config.json';
 import { clearV1 } from '../other';
-import {channelsCreateV1} from '../channels'
-import {authRegisterV1} from '../auth'
+import { channelsCreateV1 } from '../channels';
+import { authRegisterV1 } from '../auth';
 
 const SERVER_URL = `${url}:${port}`;
 
@@ -24,7 +24,7 @@ function requestMessageSendV1(token: string, channelId: number, message: string)
   const res = request(
     'POST',
     SERVER_URL + '/message/send/v1',
-    { 
+    {
       json: {
         token,
         channelId,
@@ -40,19 +40,19 @@ function requestMessageSendV1(token: string, channelId: number, message: string)
 // });
 
 test('Successful case - Ids are unique', () => {
-  let arr: Number[];
-  arr = []; 
-  for (let i = 0; i < 10; i++) { 
-    arr.push(requestMessageSendV1(user.token, channel1.channelId, "Message")); 
+  let arr: number[];
+  arr = [];
+  for (let i = 0; i < 10; i++) {
+    arr.push(requestMessageSendV1(user.token, channel1.channelId, 'Message'));
   }
 
-  const unique = Array.from(new Set(arr)); 
+  const unique = Array.from(new Set(arr));
   expect(unique.length).toStrictEqual(10);
 });
 
 test('Invalid ChannelId', () => {
-  let invalidChannelId = channel1.channelId + 1;
-  expect(requestMessageSendV1(user.token, invalidChannelId, "Message")).toStrictEqual({error: expect.any(String)});
+  const invalidChannelId = channel1.channelId + 1;
+  expect(requestMessageSendV1(user.token, invalidChannelId, 'Message')).toStrictEqual({ error: expect.any(String) });
 });
 
 // test('Invalid Token', () => {
@@ -61,16 +61,16 @@ test('Invalid ChannelId', () => {
 // });
 
 test('User is not a Member', () => {
-  expect(requestMessageSendV1(user1.token, channel1.channelId, "Message")).toStrictEqual({error: expect.any(String)});
+  expect(requestMessageSendV1(user1.token, channel1.channelId, 'Message')).toStrictEqual({ error: expect.any(String) });
 });
 
 test('Invalid message lengths', () => {
-  let longString: string;  
-  for (let i = 0; i <= 1000; i++) { 
-    longString += 'a'; 
+  let longString: string;
+  for (let i = 0; i <= 1000; i++) {
+    longString += 'a';
   }
-  
-  let emptyString = ' '; 
-  expect(requestMessageSendV1(user.token, channel1.channelId, longString)).toStrictEqual({error: expect.any(String)});
-  expect(requestMessageSendV1(user.token, channel1.channelId, emptyString)).toStrictEqual({error: expect.any(String)});
+
+  const emptyString = ' ';
+  expect(requestMessageSendV1(user.token, channel1.channelId, longString)).toStrictEqual({ error: expect.any(String) });
+  expect(requestMessageSendV1(user.token, channel1.channelId, emptyString)).toStrictEqual({ error: expect.any(String) });
 });

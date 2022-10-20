@@ -11,40 +11,40 @@ import { getData, setData } from './dataStore';
  */
 
 function messageSend(token: string, channelId: number, message: string) {
-    let data = getData() 
-    if (data.channels[channelId] === undefined) { 
-        return {error: `channelId(${channelId}) does not refer to a valid channel`};
-    }
+  const data = getData();
+  if (data.channels[channelId] === undefined) {
+    return { error: `channelId(${channelId}) does not refer to a valid channel` };
+  }
 
-    if (message.length < 1 || message.length > 1000) { 
-        return {error: `message length(${message.length}) is too long or too short`};
-    }
+  if (message.length < 1 || message.length > 1000) {
+    return { error: `message length(${message.length}) is too long or too short` };
+  }
 
-    const user = data.users.find(a => a.token === token);
-    const checkIsMember = data.channels[channelId].allMembers; 
+  const user = data.users.find(a => a.token === token);
+  const checkIsMember = data.channels[channelId].allMembers;
 
-    if (!checkIsMember.includes(user.uId)) {
-        return {error: `user(${token}) is not a member of channel(${channelId})`};
-    }
+  if (!checkIsMember.includes(user.uId)) {
+    return { error: `user(${token}) is not a member of channel(${channelId})` };
+  }
 
-    if (user.token === undefined) { 
-        return {error: `token(${token}) does not refer to a valid user`};
-    }    
+  if (user.token === undefined) {
+    return { error: `token(${token}) does not refer to a valid user` };
+  }
 
-    let messageId = (new Date()).getTime() + Math.round(Math.random())
-    let time = Math.floor(Date.now() / 1000); 
+  const messageId = (new Date()).getTime() + Math.round(Math.random());
+  const time = Math.floor(Date.now() / 1000);
 
-    let newMessage = { 
-        messageId: messageId, 
-        uId: user.uId,
-        message: message,
-        timeSent: time
-        
-    }
-    data.channels[channelId].messages.push(newMessage)
-    setData(data);
+  const newMessage = {
+    messageId: messageId,
+    uId: user.uId,
+    message: message,
+    timeSent: time
 
-    return messageId;
+  };
+  data.channels[channelId].messages.push(newMessage);
+  setData(data);
+
+  return messageId;
 }
 
-export { messageSend }
+export { messageSend };

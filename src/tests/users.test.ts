@@ -28,7 +28,7 @@
 //   const res = request(
 //     'PUT',
 //     SERVER_URL + 'user/profile/setemail/v1',
-//     { 
+//     {
 //       json: {
 //         token, email
 //       }
@@ -37,12 +37,11 @@
 //   return JSON.parse(res.getBody() as string);
 // }
 
-
 // function requestusersall(token: number) {
 //   const res = request(
 //     'GET',
 //     SERVER_URL + 'users/all/v1',
-//     { 
+//     {
 //       qs: {
 //         token
 //       }
@@ -55,7 +54,7 @@
 //   const res = request(
 //     'PUT',
 //     SERVER_URL + 'user/profile/sethandle/v1',
-//     { 
+//     {
 //       json: {
 //         token, handleStr
 //       }
@@ -85,7 +84,7 @@
 
 // describe('valid test for UserProfileV1', () => {
 //   test('test 1: valid authuserid', () => {
-//     let user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 
+//     let user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1',
 //                                                                 'lastname1');
 //     expect(userProfileV1(user.authUserId, user1.authUserId)).toStrictEqual(
 //       {
@@ -101,13 +100,9 @@
 //   });
 // });
 
-
-
-
-
 // describe('tests for user/profile/setemail/v1', () => {
 //   test('invalid email', () => {
-//     /* call authregister with a 
+//     /* call authregister with a
 //     user: {
 //       uId: user1.authUserId,
 //       email: 'test1@gmail.com',
@@ -125,7 +120,7 @@
 //   });
 
 //   test('email used by another user', () => {
-//         /*additionally call authregister with a 
+//         /*additionally call authregister with a
 //     user: {
 //       uId: user2.authUserId,
 //       email: 'test2@gmail.com',
@@ -148,10 +143,9 @@
 
 // });
 
-
 // describe('tests for user/profile/setname/v1', () => {
 //   test('invalid nameFirst length', () => {
-//     /* call authregister with a 
+//     /* call authregister with a
 //     user: {
 //       uId: user1.authUserId,
 //       email: 'test1@gmail.com',
@@ -180,10 +174,9 @@
 
 // });
 
-
 // describe('tests for user/profile/sethandle/v1', () => {
 //   test('invalid handleStr length', () => {
-//     /* call authregister with a 
+//     /* call authregister with a
 //     user: {
 //       uId: user1.authUserId,
 //       email: 'test1@gmail.com',
@@ -202,7 +195,7 @@
 //   });
 
 //   test('handleStr already used', () => {
-//     /* call authregister with a 
+//     /* call authregister with a
 //     user: {
 //       uId: user2.authUserId,
 //       email: 'test2@gmail.com',
@@ -229,8 +222,6 @@
 //   });
 
 // });
-
-
 
 // describe('tests for users/all/v1', () => {
 //   test('invalid token', () => {
