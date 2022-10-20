@@ -1,9 +1,9 @@
 import request from 'sync-request';
 
-import { port, url } from '../config.json';
-import { clearV1 } from '../other';
-import { channelsCreateV1 } from '../channels';
-import { authRegisterV1 } from '../auth';
+import { port, url } from '../src/config.json';
+import { clearV1 } from '../src/other';
+import { channelsCreateV1 } from '../src/channels';
+import { authRegisterV1 } from '../src/auth';
 
 const SERVER_URL = `${url}:${port}`;
 
