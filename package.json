@@ -2,8 +2,8 @@
     "scripts": {
         "test": "jest --testMatch '**/?(*.)+(test).ts'",
         "tsc": "tsc --noImplicitAny",
-        "lint": "eslint src/**/*.{ts,js}",
-        "lint-fix": "eslint --fix src/**/*.{ts,js}",
+        "lint": "eslint tests/*.ts",
+        "lint-fix": "eslint --fix tests/*.ts",
         "start": "ts-node -T src/server.ts",
         "posttest": "pkill -f 'node_modules/sync-rpc/lib/worker.js' > /dev/null 2>&1"
     },
@@ -30,6 +30,6 @@
         "eslint-plugin-jest": "^26.1.5",
         "jest": "^28.1.0",
         "sync-request": "^6.1.0",
-        "ts-jest": "^28.0.2"
+        "ts-jest": "^28.0.8"
     }
 }

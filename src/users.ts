@@ -1,4 +1,4 @@
-import { getData } from './dataStore.js';
+import { getData } from './dataStore';
 
 /**
  * Given a valid authUserId and uId, creates and returns a

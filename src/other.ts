@@ -1,4 +1,4 @@
-import { setData } from './dataStore.js';
+import { setData } from './dataStore';
 
 /**
  * Completely resets the datastore

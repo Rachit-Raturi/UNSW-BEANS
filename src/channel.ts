@@ -1,4 +1,4 @@
-import { getData, setData } from './dataStore.js';
+import { getData, setData } from './dataStore';
 
 /**
  * Given a channel with ID channelId that the authorised user
@@ -176,7 +176,7 @@ function channelInviteV1(authUserId, channelId, uId) {
   // add uid to members
   const membersArray = data.channels[channelId].allMembers;
   membersArray.push(uId);
-  data.channels.allMembers = membersArray;
+  data.channels[channelId].allMembers = membersArray;
   setData(data);
   return {};
 }
