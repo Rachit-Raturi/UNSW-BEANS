@@ -1,7 +1,7 @@
-import { channelDetailsV1 } from '../channel';
-import { channelsCreateV1 } from '../channels';
-import { authRegisterV1, authLoginV1 } from '../auth';
-import { clearV1 } from '../other';
+import { channelDetailsV1 } from '../src/channel';
+import { channelsCreateV1 } from '../src/channels';
+import { authRegisterV1, authLoginV1 } from '../src/auth';
+import { clearV1 } from '../src/other';
 
 describe('Test for ClearV1', () => {
   test('Valid test', () => {

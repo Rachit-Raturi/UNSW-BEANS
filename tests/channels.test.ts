@@ -1,6 +1,6 @@
-import { authRegisterV1 } from '../auth';
-import { channelsCreateV1, channelsListV1, channelsListAllV1 } from '../channels';
-import { clearV1 } from '../other';
+import { authRegisterV1 } from '../src/auth';
+import { channelsCreateV1, channelsListV1, channelsListAllV1 } from '../src/channels';
+import { clearV1 } from '../src/other';
 
 let user;
 let user1;

@@ -1,6 +1,6 @@
 
-import { authLoginV1, authRegisterV1 } from '../auth';
-import { clearV1 } from '../other';
+import { authLoginV1, authRegisterV1 } from '../src/auth';
+import { clearV1 } from '../src/other';
 
 beforeEach(() => {
   clearV1();

@@ -1,7 +1,7 @@
-import { authRegisterV1 } from '../auth';
-import { channelsCreateV1 } from '../channels';
-import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from '../channel';
-import { clearV1 } from '../other';
+import { authRegisterV1 } from '../src/auth';
+import { channelsCreateV1 } from '../src/channels';
+import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from '../src/channel';
+import { clearV1 } from '../src/other';
 
 let user;
 let user1;
