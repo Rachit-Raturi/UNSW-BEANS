@@ -1,14 +1,22 @@
 import { getData, setData } from './dataStore';
 
+interface user {
+  uId: number
+  email: string
+  nameFirst: string,
+  nameLast: string,
+  handleStr: string
+}
+
 /**
  * Given a channel with ID channelId that the authorised user
  * is a member of, provides basic details about the channel.
  *
- * @param {Number} authUserId
+ * @param {String} token
  * @param {Number} channelId
  * @returns {Object} channel
  */
-function channelDetailsV1 (authUserId, channelId) {
+function channelDetailsV1 (token: string, channelId: number): object {
   const data = getData();
 
   // invalid channelId error
@@ -19,45 +27,50 @@ function channelDetailsV1 (authUserId, channelId) {
   }
 
   // not a member error
-  const checkIsMember = data.channels[channelId].allMembers;
-  const isValidMember = checkIsMember.find(a => a === authUserId);
-  if (isValidMember === undefined) {
+  let isMember: boolean = false;
+  for (const member of data.channels[channelId].allMembers) {
+    if (member.token === token) {
+      isMember = true;
+    } 
+  }
+
+  if (isMember === false) {
     return {
-      error: 'Invalid authUser',
+      error: 'User is not a member of the channel'
     };
   }
 
-  // invalid userId error
-  if (data.users[authUserId] === undefined) {
+  // invalid token error
+  if (data.users[token] === undefined) {
     return {
-      error: 'Invalid user'
+      error: 'Invalid token'
     };
   }
 
-  const owners = data.channels[channelId].ownerMembers;
-  const members = data.channels[channelId].allMembers;
-  const ownersArray = [];
-  const membersArray = [];
+  const owners: Array<user>  = data.channels[channelId].ownerMembers;
+  const members: Array<user>  = data.channels[channelId].allMembers;
+  const ownersArray: Array<user> = [];
+  const membersArray: Array<user> = [];
 
   // Create ownerMembers array output
   for (const owner of owners) {
     ownersArray.push({
-      uId: data.users[owner].uId,
-      email: data.users[owner].email,
-      nameFirst: data.users[owner].nameFirst,
-      nameLast: data.users[owner].nameLast,
-      handleStr: data.users[owner].handleStr,
+      uId: owner.uId,
+      email: owner.email,
+      nameFirst: owner.nameFirst,
+      nameLast: owner.nameLast,
+      handleStr: owner.handleStr,
     });
   }
 
   // Create allMembers array output
   for (const member of members) {
     membersArray.push({
-      uId: data.users[member].uId,
-      email: data.users[member].email,
-      nameFirst: data.users[member].nameFirst,
-      nameLast: data.users[member].nameLast,
-      handleStr: data.users[member].handleStr,
+      uId: member.uId,
+      email: member.email,
+      nameFirst: member.nameFirst,
+      nameLast: member.nameLast,
+      handleStr: member.handleStr,
     });
   }
 
@@ -84,7 +97,7 @@ function channelJoinV1(authUserId, channelId) {
   const isValidAuthUser = data.users.find(a => a.uId === authUserId);
   if (isValidAuthUser === undefined) {
     return {
-      error: 'Invalid user',
+      error: 'Invalid user'
     };
   }
 
