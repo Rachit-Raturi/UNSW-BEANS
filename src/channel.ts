@@ -276,7 +276,7 @@ function channelLeaveV1(token: string, channelId: number) {
   return {};
 }
 
-function channelAddOwnerV1(token: string, channelIdL: number, uId: number) {
+function channelAddOwnerV1(token: string, channelId: number, uId: number) {
   return{};
 }
 
