@@ -8,13 +8,15 @@ import { getData, setData } from './dataStore';
  * @param {String} email - The email of the user
  * @param {String} password - The password of the user
  * @returns {Number} authUserId - The authUserid of the user
+ * @returns {string} token - the token to mark the users 
  */
-function authLoginV1(email, password) {
+function authLoginV1(email: string, password: string) {
   const data = getData();
   for (const users of data.users) {
     if (users.email === email) {
       if (password === users.password) {
         return {
+          // token: token, 
           authUserId: users.uId,
         };
       } else {
@@ -39,7 +41,7 @@ function authLoginV1(email, password) {
  * @param {String} nameLast - The last name of the user
  * @returns {Number} authUserId - The authUserId of the user
  */
-function authRegisterV1(email, password, nameFirst, nameLast) {
+function authRegisterV1(email: string, password: string, nameFirst: string, nameLast: string) {
   const data = getData();
   // Test for whether or not the email is invalid
   if (!validator.isEmail(email)) {
@@ -103,8 +105,14 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   setData(data);
 
   return {
+    // token: token
     authUserId: data.users.length - 1,
   };
 }
 
-export { authLoginV1, authRegisterV1 };
+function authLogoutV1(token: string) {
+  return {};
+}
+
+export { authLoginV1, authRegisterV1, authLogoutV1 };
+

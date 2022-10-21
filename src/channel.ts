@@ -285,4 +285,16 @@ function channelMessagesV1(authUserId, channelId, start) {
   }
 }
 
-export { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 };
+function channelLeaveV1(token: string, channelId: number) {
+  return {};
+}
+
+function channelAddOwnerV1(token: string, channelId: number, uId: number) {
+  return{};
+}
+
+function channelRemoveOwnerV1(token: string, channelId: number, uId: number) {
+  return {};
+}
+
+export { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1, channelLeaveV1, channelAddOwnerV1, channelRemoveOwnerV1 };
