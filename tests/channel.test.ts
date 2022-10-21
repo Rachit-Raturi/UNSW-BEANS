@@ -59,9 +59,9 @@ beforeEach(() => {
   requestClear();
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
-  channel = channelsCreateV1(user.authUserId, 'test', true);
+  channel = channelsCreateV1(user.token, 'test', true);
   start = 0;
-
+  
   if (user.authUserId === 1 || user1.authUserId === 1) {
     invalidUserId = 2;
   }
@@ -75,19 +75,23 @@ beforeEach(() => {
 
 describe('/channel/details/v2', () => {
   test('Test 1: Invalid channelId', () => {
-    expect(requestChannelDetails(user.authUserId, channel.channelId + 1)).toStrictEqual(ERROR);
+    expect(requestChannelDetails(user.token, channel.channelId + 1)).toStrictEqual(ERROR);
   });
 
-  test('Test 2: Invalid authUserId', () => {
-    expect(requestChannelDetails(user.authUserId + 1, channel.channelId)).toStrictEqual(ERROR);
+  test('Test 2: Invalid token - extra characters', () => {
+    expect(requestChannelDetails(user.token + 'AA', channel.channelId)).toStrictEqual(ERROR);
   });
 
-  test('Test 3: User is not a member of the channel', () => {
-    expect(requestChannelDetails(user1.authUserId, channel.channelId)).toStrictEqual(ERROR);
+  test('Test 3: Invalid token - missing characters', () => {
+    expect(requestChannelDetails(user.token.slice(0, -2), channel.channelId)).toStrictEqual(ERROR);
   });
 
-  test('Test 4: Valid case', () => {
-    expect(requestChannelDetails(user.authUserId, channel.channelId)).toStrictEqual({
+  test('Test 4: User is not a member of the channel', () => {
+    expect(requestChannelDetails(user1.token, channel.channelId)).toStrictEqual(ERROR);
+  });
+
+  test('Test 5: Valid case', () => {
+    expect(requestChannelDetails(user.token, channel.channelId)).toStrictEqual({
       name: 'test',
       isPublic: true,
       ownerMembers: [
