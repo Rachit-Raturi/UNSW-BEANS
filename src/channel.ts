@@ -40,24 +40,24 @@ function channelDetailsV1 (authUserId, channelId) {
   const membersArray = [];
 
   // Create ownerMembers array output
-  for (const element of owners) {
+  for (const owner of owners) {
     ownersArray.push({
-      uId: data.users[element].uId,
-      email: data.users[element].email,
-      nameFirst: data.users[element].nameFirst,
-      nameLast: data.users[element].nameLast,
-      handleStr: data.users[element].handleStr,
+      uId: data.users[owner].uId,
+      email: data.users[owner].email,
+      nameFirst: data.users[owner].nameFirst,
+      nameLast: data.users[owner].nameLast,
+      handleStr: data.users[owner].handleStr,
     });
   }
 
   // Create allMembers array output
-  for (const element of members) {
+  for (const member of members) {
     membersArray.push({
-      uId: data.users[element].uId,
-      email: data.users[element].email,
-      nameFirst: data.users[element].nameFirst,
-      nameLast: data.users[element].nameLast,
-      handleStr: data.users[element].handleStr,
+      uId: data.users[member].uId,
+      email: data.users[member].email,
+      nameFirst: data.users[member].nameFirst,
+      nameLast: data.users[member].nameLast,
+      handleStr: data.users[member].handleStr,
     });
   }
 

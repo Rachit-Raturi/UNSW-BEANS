@@ -80,11 +80,11 @@ function authRegisterV1(email, password, nameFirst, nameLast) {
   // Generating the userhandle
   let userHandle = nameFirst.toLowerCase() + nameLast.toLowerCase();
   userHandle = userHandle.substring(0, Math.min(userHandle.length, 20));
-  const originaluserhandle = userHandle;
+  const originalUserHandle = userHandle;
   let i = 0;
   for (const user of data.users) {
     if (user.handleStr === userHandle) {
-      userHandle = originaluserhandle + i;
+      userHandle = originalUserHandle + i;
       i++;
     }
   }
