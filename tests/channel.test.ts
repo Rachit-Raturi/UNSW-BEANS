@@ -1,7 +1,6 @@
 import { authRegisterV1 } from '../src/auth';
 import { channelsCreateV1 } from '../src/channels';
-import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from '../src/channel';
-import { clearV1 } from '../src/other';
+import { channelJoinV1 } from '../src/channel';
 
 import request, { HttpVerb } from 'sync-request';
 
@@ -57,7 +56,7 @@ let invalidChannelId = 1;
 let start;
 
 beforeEach(() => {
-  clearV1();
+  requestClear();
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channel = channelsCreateV1(user.authUserId, 'test', true);
