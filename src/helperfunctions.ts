@@ -16,7 +16,7 @@ function validEmail(email: string): boolean {
   return true;
 }
 
-function validtoken(token: string): boolean {
+function validToken(token: string): boolean {
   let data = getData();
   const isValidToken = data.users.find(a => a.token === token);
   if (isValidToken === undefined) {
@@ -27,5 +27,5 @@ function validtoken(token: string): boolean {
 }
 
 
-export { validEmail, validtoken };
+export { validEmail, validToken };
 
