@@ -1,3 +1,4 @@
+
 import validator from 'validator';
 import { getData, setData } from './dataStore';
 
@@ -25,7 +26,6 @@ function validToken(token: string): boolean {
   console.log(isValidToken);
   return true;
 }
-
 
 function findUser(token: string): object {
   let data = getData();
