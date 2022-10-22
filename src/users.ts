@@ -36,4 +36,35 @@ function userProfileV1 (authUserId, uId) {
   };
 }
 
+function userSetNameV1 (token: string, nameFirst: string, nameLast: string) {
+  let data = getData();
+  if (validToken(token) === false) {
+    return {
+      error: 'invalid token',
+    }
+  }
+  
+  if (validName(nameFirst) === false) {
+    return {
+      error: 'invalid userhandle',
+    }
+  }
+
+  if (validName(nameLast) === false) {
+    return {
+      error: 'invalid userhandle',
+    }
+  }
+
+  const authUserId = findUser(token).uId;
+  data.users[authUserId].nameFirst = nameFirst;
+  data.users[authUserId].nameLast = nameLast;
+  setData(data);
+  return {};
+}
+
+
+
+
+
 export { userProfileV1 };

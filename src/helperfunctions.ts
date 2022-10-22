@@ -31,6 +31,19 @@ function validToken(token: string): boolean {
   return false;
 }
 
+function validName(name: string): boolean {
+  if (name.length < 1 || name.length > 50) {
+    return false;
+  }
+
+  return true;
+}
+
+
+
+
+
+
 function findUser(token: string): object {
   let data = getData();
   let userObject: object;
