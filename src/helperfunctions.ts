@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { getData } from './dataStore';
+import { getData, setData } from './dataStore';
 
 function validEmail(email: string): boolean {
   let data = getData();
@@ -16,16 +16,27 @@ function validEmail(email: string): boolean {
   return true;
 }
 
-function validtoken(token: string): boolean {
+function validToken(token: string): boolean {
   let data = getData();
   const isValidToken = data.users.find(a => a.token === token);
   if (isValidToken === undefined) {
     return false;
   }
-
+  console.log(isValidToken);
   return true;
 }
 
 
-export { validEmail, validtoken };
+function findUser(token: string): object {
+  let data = getData();
+  let userObject: object;
+  for (const element of data.users) {
+    if (element.token === token) {
+      userObject = element;
+    }
+  }
+  return userObject;
+}
+
+export { validEmail, validToken, findUser };
 
