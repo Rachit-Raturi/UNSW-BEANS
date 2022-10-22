@@ -6,6 +6,10 @@ import { userProfileV1, userSetEmailV1 } from './users';
 import config from './config.json';
 import cors from 'cors';
 
+import { authLoginV1, authRegisterV1 } from './auth';
+import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
+import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from './channel';
+
 // Set up web app
 const app = express();
 // Use middleware that allows us to access the JSON body of requests
@@ -38,6 +42,12 @@ const server = app.listen(PORT, HOST, () => {
 // For coverage, handle Ctrl+C gracefully
 process.on('SIGINT', () => {
   server.close(() => console.log('Shutting down server gracefully.'));
+});
+
+app.get('/channel/details/v2', (req: Request, res: Response) => {
+  const token = req.query.token as string;
+  const channelId = parseInt(req.query.channelId as string);
+  res.json(channelDetailsV1(token, channelId));
 });
 
 app.post('/message/send/v1', (req: Request, res: Response) => {
