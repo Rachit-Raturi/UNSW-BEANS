@@ -8,14 +8,20 @@ import { setData } from './dataStore';
 
 function clearV1() {
   const clearedData = {
-    users: [
+    users:
+    [
+    
     ],
-    channels: [
+    channels:
+    [
+    
     ],
-    messages: [
-
+    dms:
+    [
+    
     ],
   };
+
 
   setData(clearedData);
   return {};
