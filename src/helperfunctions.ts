@@ -27,5 +27,5 @@ function validtoken(token: string): boolean {
 }
 
 
-export { validEmail };
+export { validEmail, validtoken };
 
