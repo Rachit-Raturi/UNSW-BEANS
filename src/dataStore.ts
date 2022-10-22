@@ -26,7 +26,7 @@ let data = {
     nameLast: string
     handleStr: string
     tokens: [
-      token: string
+      {token: string}
     ]
   ]
   

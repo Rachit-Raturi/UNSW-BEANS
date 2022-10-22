@@ -1,4 +1,5 @@
 import { getData } from './dataStore';
+import { validEmail, validtoken, validHandleStr, findUser } from './helperfunctions'
 
 /**
  * Given a valid authUserId and uId, creates and returns a
@@ -35,5 +36,28 @@ function userProfileV1 (authUserId, uId) {
     },
   };
 }
+
+function userSetHandleV1 (token: string, handleStr: string) {
+  let data = getData();
+  if (validToken(token) === false) {
+    return {
+      error: 'invalid token',
+    }
+  }
+  
+  if (validHandleStr(token) === false) {
+    return {
+      error: 'invalid userhandle',
+    }
+  }
+
+  const authUserId = findUser(token).uId;
+  data.users[authUserId].handleStr = handleStr;
+  setData(data);
+  return {};
+}
+
+
+
 
 export { userProfileV1 };
