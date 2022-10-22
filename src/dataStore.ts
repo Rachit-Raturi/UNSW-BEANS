@@ -23,9 +23,11 @@ let data = {
     email: string
     password: string
     nameFirst: string
-    nameLast: string    
+    nameLast: string
     handleStr: string
-    token: string
+    tokens: [
+      token: string
+    ]
   ]
   
   Channels: [

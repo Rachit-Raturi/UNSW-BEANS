@@ -19,22 +19,30 @@ function validEmail(email: string): boolean {
 
 function validToken(token: string): boolean {
   let data = getData();
-  const isValidToken = data.users.find(a => a.token === token);
-  if (isValidToken === undefined) {
-    return false;
+  let isValidToken;
+
+  for (const element of data.users) {
+    isValidToken = element.tokens.find(a => a.token === token);
+    if (isValidToken !== undefined) {
+      return true;
+    }
   }
-  console.log(isValidToken);
-  return true;
+
+  return false;
 }
 
 function findUser(token: string): object {
   let data = getData();
   let userObject: object;
+
   for (const element of data.users) {
-    if (element.token === token) {
-      userObject = element;
+    for (const tokens of element.tokens) {
+      if (tokens.token === token) {
+        userObject = element;
+      }
     }
   }
+
   return userObject;
 }
 
