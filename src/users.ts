@@ -1,4 +1,5 @@
-import { getData } from './dataStore';
+import { getData, setData } from './dataStore';
+import { validEmail, validtoken, findUser } from './helperfunctions'
 
 /**
  * Given a valid authUserId and uId, creates and returns a
@@ -36,4 +37,25 @@ function userProfileV1 (authUserId, uId) {
   };
 }
 
-export { userProfileV1 };
+function userSetEmailV1 (token: string, email: string) {
+  let data = getData();
+  if (validtoken(token) === false) {
+    return {
+      error: 'invalid token',
+    }
+  }
+  
+  if (validEmail(token) === false) {
+    return {
+      error: 'invalid token',
+    }
+  }
+
+  const authUserId = findUser(token).uId;
+  data.users[authUserId].email = email;
+  setData(data);
+  return {};
+}
+
+
+export { userProfileV1, userSetEmailV1 };
