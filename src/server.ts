@@ -2,7 +2,6 @@ import express, { json, Request, Response } from 'express';
 import { echo } from './echo';
 import morgan from 'morgan';
 import { messageSend } from './message';
-import { userProfileV1, userSetEmailV1 } from './users';
 import config from './config.json';
 import cors from 'cors';
 
@@ -56,9 +55,4 @@ app.post('/message/send/v1', (req: Request, res: Response) => {
   const { token, channelId, message } = req.body;
 
   res.json(messageSend(token, channelId, message));
-});
-
-app.put('user/profile/setemail/v1', (req: Request, res: Response) => {
-  const { token, email } = req.body;
-  res.json(userSetEmail(token, email));
 });
