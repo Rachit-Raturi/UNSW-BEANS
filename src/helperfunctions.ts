@@ -54,14 +54,40 @@ function validHandleStr(handleStr: string): boolean {
   }
 
   const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
-
-  return isAlphaNumeric;
+  return isAlphaNumeric(handleStr);
 }
 
 
+function extractUser(uId?: number) {
+  let data = getData();
 
+  if (uId === undefined) {
+    const usersArray = [];
+    
+    for (const element of data.users) {
+      usersArray.push(
+        {
+          uId: element.uId,
+          email: element.email,
+          nameFirst: element.nameFirst,
+          nameLast: element.nameLast,
+          handleStr: element.handleStr,
+        }
+      );
+    }
 
+    return usersArray;
 
+  } else {
+    return {
+      uId: data.users[uId].uId,
+      email: data.users[uId].email,
+      nameFirst: data.users[uId].nameFirst,
+      nameLast: data.users[uId].nameLast,
+      handleStr: data.users[uId].handleStr,
+    }
+  }
+}
 
 function findUser(token: string): object {
   let data = getData();
@@ -78,5 +104,47 @@ function findUser(token: string): object {
   return userObject;
 }
 
-export { validEmail, validToken, validName, validHandleStr, findUser };
+
+setData(
+  {users: [
+    {
+      uId: 0,
+      email: 'bot@hotmail.com',
+      password: '12345',
+      nameFirst: 'Beep',
+      nameLast: 'Boop',
+      handleStr: 'beepboop',
+    },
+    {
+      uId: 1,
+      email: 'robot@gmail.com',
+      password: 'qwerty',
+      nameFirst: 'Beep',
+      nameLast: 'Boop',
+      handleStr: 'beepboop0',
+    },
+    {
+      uId: 2,
+      email: 'random@outlook.com',
+      password: 'a8#r2fah51sD',
+      nameFirst: 'this-is@-very',
+      nameLast: 'ab%l0ne',
+      handleStr: 'thisisveryablne',
+    },
+    {
+      uId: 3,
+      email: 'sumeru@gmail.com',
+      password: 'hEter0chTom@tic',
+      nameFirst: 'Candace',
+      nameLast: 'Deshret',
+      handleStr: 'candacedeshret',
+    }
+  ]
+}
+)
+console.log(validHandleStr('app#'));
+console.log(extractUser(0));
+console.log(extractUser());
+
+export { validEmail, validToken, validName, validHandleStr, extractUser, findUser };
 
