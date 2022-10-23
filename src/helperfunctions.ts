@@ -31,6 +31,38 @@ function validToken(token: string): boolean {
   return false;
 }
 
+function validName(name: string): boolean {
+
+  if (name.length < 1 || name.length > 50) {
+    return false;
+  }
+
+  return true;
+}
+
+function validHandleStr(handleStr: string): boolean {
+  let data = getData();
+
+  if (handleStr.length < 3 || handleStr.length > 20) {
+    return false;
+  }
+
+  for (const users of data.users) {
+    if (users.handleStr === handleStr) {
+      return false;
+    }
+  }
+
+  const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
+
+  return isAlphaNumeric;
+}
+
+
+
+
+
+
 function findUser(token: string): object {
   let data = getData();
   let userObject: object;
@@ -46,5 +78,5 @@ function findUser(token: string): object {
   return userObject;
 }
 
-export { validEmail, validToken, findUser };
+export { validEmail, validToken, validName, validHandleStr, findUser };
 
