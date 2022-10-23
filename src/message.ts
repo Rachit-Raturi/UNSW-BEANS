@@ -10,6 +10,8 @@ import { getData, setData } from './dataStore';
  * @returns {number} messageId
  */
 
+
+
 function messageSend(token: string, channelId: number, message: string) {
   const data = getData();
   if (data.channels[channelId] === undefined) {
@@ -31,7 +33,7 @@ function messageSend(token: string, channelId: number, message: string) {
     return { error: `token(${token}) does not refer to a valid user` };
   }
 
-  const messageId = (new Date()).getTime() + Math.round(Math.random());
+  let messageId = data.channels[channelId].messages.length() * 2; 
   const time = Math.floor(Date.now() / 1000);
 
   const newMessage = {
