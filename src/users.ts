@@ -1,5 +1,5 @@
 import { getData } from './dataStore';
-import { validToken, extractUser } from './helperfunctions'
+import { validToken, validUId, extractUser } from './helperfunctions'
 
 interface user {
   uId: number,
@@ -29,4 +29,4 @@ function usersAllV1 (token: string): user[] {
   return { users: extractUser()};
 }
 
-export { userProfileV1 };
+export { userProfileV1, usersAllV1 };
