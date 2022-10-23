@@ -23,12 +23,24 @@ function validToken(token: string): boolean {
 
   for (const element of data.users) {
     isValidToken = element.tokens.find(a => a.token === token);
-    if (isValidToken !== undefined) {
-      return true;
+    if (isValidToken === undefined) {
+      return false;
     }
   }
 
-  return false;
+  return true;
+}
+
+function validUId(uId: number): boolean {
+  let data = getData();
+
+  const isValidUId = data.users.find(a => a.uId === uId);
+
+    if (isValidUId === undefined) {
+      return false;
+    }
+
+  return true;
 }
 
 function validName(name: string): boolean {
@@ -56,7 +68,6 @@ function validHandleStr(handleStr: string): boolean {
   const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
   return isAlphaNumeric(handleStr);
 }
-
 
 function extractUser(uId?: number) {
   let data = getData();
@@ -104,5 +115,5 @@ function findUser(token: string): object {
   return userObject;
 }
 
-export { validEmail, validToken, validName, validHandleStr, extractUser, findUser };
+export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser };
 
