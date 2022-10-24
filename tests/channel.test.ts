@@ -52,6 +52,7 @@ let user;
 let user1;
 let channel;
 let invalidUserId = 1;
+let invalidtoken = 'invalid';
 let invalidChannelId = 1;
 let start;
 
@@ -67,6 +68,12 @@ beforeEach(() => {
   }
   if (user.authUserId === 2 || user1.authUserId === 2) {
     invalidUserId = 3;
+  }
+  if (user.token === invalidtoken || user1.token === invalidtoken) {
+    invalidtoken = 'invalid1';
+  }
+  if (user.token === invalidtoken || user1.token === invalidtoken) {
+    invalidtoken = 'invalid2';
   }
   if (channel.channelId === 1) {
     invalidChannelId = 2;
@@ -147,40 +154,40 @@ describe('/channel/join/v2', () => {
 
 describe('/channel/invite/v2', () => {
   test('Test 1: Invalid channelId', () => {
-    expect(requestChannelInvite(user.authUserId, invalidChannelId, user1.authUserId))
+    expect(requestChannelInvite(user.token, invalidChannelId, user1.authUserId))
       .toStrictEqual(ERROR);
   });
 
   test('Test 2: Invalid authUserId', () => {
-    expect(requestChannelInvite(invalidUserId, channel.channelId, user1.authUserId))
+    expect(requestChannelInvite(invalidtoken, channel.channelId, user1.authUserId))
       .toStrictEqual(ERROR);
   });
 
   test('Test 3: Invalid uId', () => {
-    expect(requestChannelInvite(user.authUserId, channel.channelId, invalidUserId))
+    expect(requestChannelInvite(user.token, channel.channelId, invalidUserId))
       .toStrictEqual(ERROR);
   });
 
   test('Test 4: Valid channelId + user not a member', () => {
     const user2 = authRegisterV1('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
-    expect(requestChannelInvite(user1.authUserId, channel.channelId, user2.authUserId))
+    expect(requestChannelInvite(user1.token, channel.channelId, user2.authUserId))
       .toStrictEqual(ERROR);
   });
 
   test('Test 5: User already in channel - 1 member in channel', () => {
-    expect(requestChannelInvite(user.authUserId, channel.channelId, user.authUserId))
+    expect(requestChannelInvite(user.token, channel.channelId, user.authUserId))
       .toStrictEqual(ERROR);
   });
 
   test('Test 6: User already in channel - 2 members in channel', () => {
     const user2 = authRegisterV1('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
     channelJoinV1(user2.authUserId, channel.channelId);
-    expect(requestChannelInvite(user.authUserId, channel.channelId, user2.authUserId))
+    expect(requestChannelInvite(user.token, channel.channelId, user2.authUserId))
       .toStrictEqual(ERROR);
   });
 
   test('Test 7: Valid input', () => {
-    expect(requestChannelInvite(user.authUserId, channel.channelId, user1.authUserId))
+    expect(requestChannelInvite(user.token, channel.channelId, user1.authUserId))
       .toStrictEqual({});
   });
 });
@@ -189,31 +196,31 @@ describe('/channel/messages/v2', () => {
   test('Test 1: Invalid channelId', () => {
     const invalidChannelId = 2;
     if (channel.channelId === 1) {
-      expect(requestChannelMessages(user.authUserId, invalidChannelId, start))
+      expect(requestChannelMessages(user.token, invalidChannelId, start))
         .toStrictEqual(ERROR);
     }
   });
 
   test('Test 2: Invalid authUserId', () => {
     const invalidUserId = 2;
-    expect(requestChannelMessages(invalidUserId, channel.channelId, start))
+    expect(requestChannelMessages(invalidtoken, channel.channelId, start))
       .toStrictEqual(ERROR);
   });
 
   test('Test 3: User not in channel', () => {
-    expect(requestChannelMessages(user1.authUserUd, channel.channelId, start))
+    expect(requestChannelMessages(user1.token, channel.channelId, start))
       .toStrictEqual(ERROR);
   });
 
   test('Test 4: start > total messages in channel', () => {
     const start = 1;
-    expect(requestChannelMessages(user.authUserId, channel.channelId, start))
+    expect(requestChannelMessages(user.token, channel.channelId, start))
       .toStrictEqual(ERROR);
   });
 
   test('Test 5: no messages in channel', () => {
     const start = 0;
-    expect(requestChannelMessages(user.authUserId, channel.channelId, start))
+    expect(requestChannelMessages(user.token, channel.channelId, start))
       .toStrictEqual(
         {
           messages: [],

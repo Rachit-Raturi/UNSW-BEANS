@@ -1,13 +1,52 @@
-import { authRegisterV1 } from '../src/auth';
-import { channelsCreateV1, channelsListV1, channelsListAllV1 } from '../src/channels';
-import { clearV1 } from '../src/other';
+import request, { HttpVerb } from 'sync-request';
+
+import { port, url } from '../src/config.json';
+
+const SERVER_URL = `${url}:${port}`;
+const ERROR = { error: expect.any(String) };
+
+function requestHelper(method: HttpVerb, path: string, payload: object) {
+  let qs = {};
+  let json = {};
+  if (['GET', 'DELETE'].includes(method)) {
+    qs = payload;
+  } else {
+    // PUT/POST
+    json = payload;
+  }
+  const res = request(method, SERVER_URL + path, { qs, json });
+  return JSON.parse(res.getBody('utf-8'));
+}
+
+// ========================================================================= //
+
+// Wrapper functions
+
+function requestchannelsCreate (token: string, name: string, channelId: number) {
+  return requestHelper('POST', '/channel/details/v2', { token, channelId });
+}
+
+function requestchannelsList(token: string, channelId: number) {
+  return requestHelper('GET', '/channel/join/v2', { token, channelId });
+}
+
+function requestChannelsListAll(token: string, channelId: number) {
+  return requestHelper('GET', '/channel/invite/v2', { token, channelId, uId });
+}
+
+function requestClear() {
+  return requestHelper('DELETE', '/clear', {});
+}
+
+// ========================================================================= //
+
 
 let user;
 let user1;
 let channel1;
 
 beforeEach(() => {
-  clearV1();
+  requestClear();
   user = authRegisterV1('test@gmail.com', 'password',
     'firstname', 'lastname');
   user1 = authRegisterV1('test1@gmail.com', 'password1',
@@ -38,33 +77,19 @@ describe('Tests for channelsCreateV1', () => {
 
 describe('Invalid channelsListV1 tests', () => {
   test('Test 1: Invalid authUserId - no users', () => {
-    clearV1();
-    expect(channelsListV1(1)).toStrictEqual({ error: expect.any(String) });
-  });
-
-  test('Test 2: Invalid authUserId - multiple users', () => {
-    let invalidUserId = 1;
-
-    if (user.authUserId === 1 || user1.authUserId === 1) {
-      invalidUserId = 2;
-    }
-
-    if (user.authUserId === 2 || user1.authUserId === 2) {
-      invalidUserId = 3;
-    }
-
-    expect(channelsListV1(invalidUserId)).toStrictEqual({ error: expect.any(String) });
+    requestClear();
+    expect(requestchannelsList(1)).toStrictEqual({ error: expect.any(String) });
   });
 });
 
 describe('Valid channelsListV1 tests', () => {
   test('Test 1: user in 1 course', () => {
-    expect(channelsListV1(user.authUserId))
+    expect(requestchannelsList(user.authUserId))
       .toStrictEqual({ channels: [{ channelId: channel1.channelId, name: 'My Channel1' }] });
   });
 
   test('Test 2: user in 0 courses', () => {
-    expect(channelsListV1(user1.authUserId))
+    expect(requestchannelsList(user1.authUserId))
       .toStrictEqual({ channels: [] });
   });
 
@@ -74,8 +99,7 @@ describe('Valid channelsListV1 tests', () => {
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(channelsListV1(user.authUserId).channels);
-
+    const receivedSet = new Set(requestchannelsList(user.authUserId).channels);
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 
@@ -88,7 +112,7 @@ describe('Valid channelsListV1 tests', () => {
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(channelsListV1(user.authUserId).channels);
+    const receivedSet = new Set(requestchannelsList(user.authUserId).channels);
 
     expect(receivedSet).toStrictEqual(expectedSet);
   });
