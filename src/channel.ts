@@ -207,12 +207,12 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
  * @returns {Number} end - returns -1 indicating no more messages after this return
  */
 
-function channelMessagesV1(authUserId, channelId, start) {
+function channelMessagesV1(authUserId: number, channelId: number, start: number): object {
   const data = getData();
   const beginning = start;
   // check authuserid is valid
   const isValiduser = data.users.find(a => a.uId === authUserId);
-  if (isValiduser === undefined) {
+  if (validUId === false) {
     return {
       error: 'Invalid user',
     };
