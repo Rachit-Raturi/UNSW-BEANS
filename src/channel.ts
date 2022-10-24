@@ -241,8 +241,8 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
     };
   }
 
-  const numberOfMessages = data.messages.length;
-  const messages = data.messages;
+  const numberOfMessages = data.channels.messages.length;
+  const messages = data.channels.messages;
   let end;
   // Check whether the starting index is < 0
   if (start < 0) {
