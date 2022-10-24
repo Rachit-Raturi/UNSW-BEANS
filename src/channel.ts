@@ -30,9 +30,11 @@ function channelDetailsV1 (token: string, channelId: number): object {
   // not a member error
   let isMember: boolean = false;
   for (const member of data.channels[channelId].allMembers) {
-    if (member.token === token) {
-      isMember = true;
-    } 
+    for (const tokens of member.tokens) {
+      if (tokens.token === token) {
+        isMember = true;
+      }
+    }
   }
 
   if (isMember === false) {
@@ -42,7 +44,7 @@ function channelDetailsV1 (token: string, channelId: number): object {
   }
 
   // invalid token error
-  if (data.users[token] === undefined) {
+  if (validToken(token) === false) {
     return {
       error: 'Invalid token'
     };

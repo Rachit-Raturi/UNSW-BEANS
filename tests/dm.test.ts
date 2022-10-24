@@ -68,7 +68,6 @@ beforeEach(() => {
   requestClear();
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
-  channel = channelsCreateV1(user.token, 'test', true);
   start = 0;
 });
 
@@ -108,3 +107,41 @@ describe('dm/messages/v1', () => {
     expect(requestDmMessages(user1.token, data.dm, start)).toStrictEqual(ERROR);
   });
 });
+
+describe('/dm/list/v1', () => {
+  test('Test 1: Invalid token - extra characters', () => {
+    expect(requestDmList(user.token + 'AA')).toStrictEqual(ERROR);
+  });
+
+  test('Test 2: Invalid token - missing characters', () => {
+    expect(requestDmList(user.token.slice(0, -2))).toStrictEqual(ERROR);
+  });
+
+  // test('Test 3: Valid case', () => {
+  //   expect(requestDmList(user.token)).toStrictEqual({ 
+  //     dms: [
+  //       {
+  //         dmId:
+  //         name:
+  //       }
+  //     ]
+  //    })
+  // });
+
+});
+
+// describe('/dm/remove/v1', () => {
+//   test('Test 1: Invalid token - extra characters', () => {
+//     expect(requestDmRemove(user.token + 'AA',)).toStrictEqual(ERROR);
+//   });
+
+//   test('Test 2: Invalid token - missing characters', () => {
+//     expect(requestDmRemove(user.token.slice(0, -2))).toStrictEqual(ERROR);
+//   });
+
+//   test('Test 3: Valid case', () => {
+//     expect(requestDmRemove(user.token)).toStrictEqual({})
+//   });
+
+// });
+
