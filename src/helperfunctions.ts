@@ -100,6 +100,11 @@ function extractUser(uId?: number) {
   }
 }
 
+function extractchannels(all?: boolean) {
+  let data = getData();
+}
+
+
 function findUser(token: string): object {
   let data = getData();
   let userObject: object;

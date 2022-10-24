@@ -1,4 +1,5 @@
 import { getData, setData } from './dataStore';
+import { findUser, validToken, validUId } from './helperfunctions';
 
 interface user {
   uId: number
@@ -141,20 +142,19 @@ function channelJoinV1(authUserId, channelId) {
  * @param {Number} uId - the id of the user being invited to the channel
  * @returns {} - empty object
  */
-function channelInviteV1(authUserId, channelId, uId) {
+function channelInviteV1(token: string, channelId: number, uId: number) {
   const data = getData();
+  const currentUser = findUser(token);
 
-  // invalid authuserid error
-  const isValidAuthUser = data.users.find(a => a.uId === authUserId);
-  if (isValidAuthUser === undefined) {
+  // invalid token error
+  if (validToken(token) === false) {
     return {
-      error: 'Invalid user',
+      error: 'Invalid token',
     };
   }
 
   // invalid uid to invite error
-  const isvaliduId = data.users.find(a => a.uId === uId);
-  if (isvaliduId === undefined) {
+  if (validUId(uId) === false) {
     return {
       error: 'invalid user',
     };
@@ -170,10 +170,10 @@ function channelInviteV1(authUserId, channelId, uId) {
 
   // check authuser is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
-  const isValidMember = checkIsMember.find(a => a === authUserId);
+  const isValidMember = checkIsMember.find(a => a === currentUser.uId);
   if (isValidMember === undefined) {
     return {
-      error: 'Invalid authuser',
+      error: 'You are not a member of this channel',
     };
   }
 
@@ -181,7 +181,7 @@ function channelInviteV1(authUserId, channelId, uId) {
   for (const element of data.channels[channelId].allMembers) {
     if (element === uId) {
       return {
-        error: 'Already a member',
+        error: 'You are already a member',
       };
     }
   }
