@@ -1,5 +1,6 @@
 import validator from 'validator';
 import { getData, setData } from './dataStore';
+import uniqid from 'uniqid';
 
 /**
  * Given a valid registered email and password the function
@@ -11,12 +12,16 @@ import { getData, setData } from './dataStore';
  * @returns {string} token - the token to mark the users 
  */
 function authLoginV1(email: string, password: string) {
-  const data = getData();
+  let data = getData();
   for (const users of data.users) {
     if (users.email === email) {
       if (password === users.password) {
+        // Generate the token for the session
+        const token = uniqid();
+        users.tokens.push(token);
+        setData(data);
         return {
-          // token: token, 
+          token: token, 
           authUserId: users.uId,
         };
       } else {
@@ -42,7 +47,7 @@ function authLoginV1(email: string, password: string) {
  * @returns {Number} authUserId - The authUserId of the user
  */
 function authRegisterV1(email: string, password: string, nameFirst: string, nameLast: string) {
-  const data = getData();
+  let data = getData();
   // Test for whether or not the email is invalid
   if (!validator.isEmail(email)) {
     return {
@@ -92,7 +97,9 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   }
 
   // Generating the session token
-
+  let token = [
+    {token: uniqid()}
+  ]
   // Register the user
   const user = {
     email: email,
@@ -101,19 +108,31 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
     nameFirst: nameFirst,
     nameLast: nameLast,
     handleStr: userHandle,
+    tokens: token
   };
   data.users.push(user);
 
   setData(data);
 
   return {
-    token: 'dsdsad',
+    token: token[0].token,
     authUserId: data.users.length - 1,
   };
 }
 
 function authLogoutV1(token: string) {
-  return {};
+  let data = getData();
+  for (const users of data.users) {
+    for (const tokens of users.tokens) {
+      if (tokens === token) {
+        const index = users.tokens.indexOf(token);
+        users.tokens.splice(index, 1);
+        setData(data);
+        return {};
+      }
+    }
+  }
+  return {error: 'Token entered was invalid'};
 }
 
 export { authLoginV1, authRegisterV1, authLogoutV1 };
