@@ -59,6 +59,9 @@ function requestClear() {
 let user;
 let user1;
 let channel;
+let invalidUserId = 1;
+let invalidtoken = 'invalid';
+let invalidDm = -1;
 let start;
 
 beforeEach(() => {
@@ -67,4 +70,41 @@ beforeEach(() => {
   user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channel = channelsCreateV1(user.token, 'test', true);
   start = 0;
+});
+
+describe('dm/create/v1', () => {
+  test('any uId that does not refer to valid user', () => {
+    expect(requestDmCreate(user.token, invalidUserId)).toStrictEqual(ERROR);
+  });
+
+  test('duplicate uIds', () => {
+    expect(requestDmCreate(user.token, user.authUserId)).toStrictEqual(ERROR);
+  });
+
+  test('invalid token', () => {
+    expect(requestDmCreate(invalidtoken, user.authUserId)).toStrictEqual(ERROR);
+  });
+
+  test('Successful dm', () => {
+    expect(requestDmCreate(user.token, user.authUserId)).toStrictEqual(ERROR);
+  });
+});
+
+describe('dm/messages/v1', () => {
+  test('invalid dmId', () => {
+    expect(requestDmMessages(user.token, invalidDm, start)).toStrictEqual(ERROR);
+  });
+
+  test('invalid token', () => {
+    expect(requestDmMessages(invalidtoken, data.dm, start)).toStrictEqual(ERROR);
+  });
+
+  test('start is greater than num of messages', () => {
+    start = 1;
+    expect(requestDmMessages(user.token, data.dm, start)).toStrictEqual(ERROR);
+  });
+
+  test('user is not in dm', () => {
+    expect(requestDmMessages(user1.token, data.dm, start)).toStrictEqual(ERROR);
+  });
 });
