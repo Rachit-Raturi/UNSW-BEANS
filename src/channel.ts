@@ -212,14 +212,17 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
  * @returns {Number} end - returns -1 indicating no more messages after this return
  */
 
-function channelMessagesV1(authUserId, channelId, start) {
+function channelMessagesV1(token: string, channelId: number, start: number): object {
   const data = getData();
   const beginning = start;
-  // check authuserid is valid
-  const isValiduser = data.users.find(a => a.uId === authUserId);
-  if (isValiduser === undefined) {
+  const currentUser = findUser(token);
+  type uIdKey = keyof typeof currentUser;
+  const uIdVar = 'uId' as uIdKey;
+  const authUserId: number = currentUser[uIdVar];
+  // invalid token
+  if (validToken(token) === false) {
     return {
-      error: 'Invalid user',
+      error: 'Invalid token',
     };
   }
 
@@ -240,8 +243,8 @@ function channelMessagesV1(authUserId, channelId, start) {
     };
   }
 
-  const numberOfMessages = data.messages.length;
-  const messages = data.messages;
+  const numberOfMessages = data.channels.messages.length;
+  const messages = data.channels.messages;
   let end;
   // Check whether the starting index is < 0
   if (start < 0) {
