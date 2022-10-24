@@ -91,6 +91,8 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
     }
   }
 
+  // Generating the session token
+
   // Register the user
   const user = {
     email: email,
@@ -105,7 +107,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   setData(data);
 
   return {
-    // token: token
+    token: 'dsdsad',
     authUserId: data.users.length - 1,
   };
 }
