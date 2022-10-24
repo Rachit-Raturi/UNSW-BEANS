@@ -145,6 +145,9 @@ function channelJoinV1(authUserId, channelId) {
 function channelInviteV1(token: string, channelId: number, uId: number) {
   const data = getData();
   const currentUser = findUser(token);
+  type uIdKey = keyof typeof currentUser;
+  const uIdVar = 'uId' as uIdKey;
+  const authUId: number = currentUser[uIdVar];
 
   // invalid token error
   if (validToken(token) === false) {
@@ -170,7 +173,7 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
 
   // check authuser is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
-  const isValidMember = checkIsMember.find(a => a === currentUser.uId);
+  const isValidMember = checkIsMember.find(a => a === authUId);
   if (isValidMember === undefined) {
     return {
       error: 'You are not a member of this channel',
