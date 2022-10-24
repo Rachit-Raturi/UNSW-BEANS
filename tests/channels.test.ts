@@ -1,6 +1,45 @@
-import { authRegisterV1 } from '../src/auth';
-import { channelsCreateV1, channelsListV1, channelsListAllV1 } from '../src/channels';
-import { clearV1 } from '../src/other';
+import request, { HttpVerb } from 'sync-request';
+
+import { port, url } from '../src/config.json';
+
+const SERVER_URL = `${url}:${port}`;
+const ERROR = { error: expect.any(String) };
+
+function requestHelper(method: HttpVerb, path: string, payload: object) {
+  let qs = {};
+  let json = {};
+  if (['GET', 'DELETE'].includes(method)) {
+    qs = payload;
+  } else {
+    // PUT/POST
+    json = payload;
+  }
+  const res = request(method, SERVER_URL + path, { qs, json });
+  return JSON.parse(res.getBody('utf-8'));
+}
+
+// ========================================================================= //
+
+// Wrapper functions
+
+function requestchannelsCreate (token: string, channelId: number) {
+  return requestHelper('GET', '/channel/details/v2', { token, channelId });
+}
+
+function requestchannelsList(token: string, channelId: number) {
+  return requestHelper('POST', '/channel/join/v2', { token, channelId });
+}
+
+function requestChannelsListAll(token: string, channelId: number, uId: number) {
+  return requestHelper('POST', '/channel/invite/v2', { token, channelId, uId });
+}
+
+function requestClear() {
+  return requestHelper('DELETE', '/clear', {});
+}
+
+// ========================================================================= //
+
 
 let user;
 let user1;
