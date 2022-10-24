@@ -105,7 +105,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   setData(data);
 
   return {
-    // token: token
+    token: 'dsdsad',
     authUserId: data.users.length - 1,
   };
 }

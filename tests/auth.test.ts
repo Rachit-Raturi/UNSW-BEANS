@@ -1,4 +1,4 @@
-import { authLoginV1, authRegisterV1, authLogoutV1 } from '..src/auth';
+import { authLoginV1, authRegisterV1, authLogoutV1 } from '../src/auth';
 
 import request, { HttpVerb } from 'sync-request';
 
@@ -46,7 +46,7 @@ describe('tests for /auth/login/v2', () => {
     test('Test 1: Email doesnt belong to a user', () => {
         expect(requestAuthRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James'))
           .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
         expect(requestAuthLoginV1('Wrongemail@gmail.com', 'password'))
           .toStrictEqual({ error: expect.any(String) });
@@ -55,7 +55,7 @@ describe('tests for /auth/login/v2', () => {
       test('Test 2: Incorrect password is entered', () => {
         expect(requestAuthRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James'))
           .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
         expect(requestAuthLoginV1('Validemail@gmail.com', 'wrongPassword'))
           .toStrictEqual({ error: expect.any(String) });
@@ -64,30 +64,30 @@ describe('tests for /auth/login/v2', () => {
       test('Test 3: Successful login test 1', () => {
         expect(requestAuthRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James'))
           .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
         expect(requestAuthLoginV1('Validemail@gmail.com', 'password'))
           .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
       });
     
       test('Test 4: Successful login test 2', () => {
         expect(requestAuthRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James'))
           .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
         expect(requestAuthLoginV1('Validemail@gmail.com', 'password'))
           .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
         expect(requestAuthRegisterV1('second@gmail.com', 'sdjnasdnjkasnjdnj', 'Lebron', 'James'))
           .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
         expect(requestAuthLoginV1('second@gmail.com', 'sdjnasdnjkasnjdnj'))
           .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
       });
 });
@@ -102,7 +102,7 @@ describe('Tests for /auth/register/v1', () => {
     test('Test 2: Email address already in use', () => {
       expect(requestAuthRegisterV1('validemail@gmail.com', '123abc!@#', 'Jake', 'Renzella'))
         .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
       expect(requestAuthRegisterV1('validemail@gmail.com', '123abc!@#', 'Jake', 'Renzella'))
         .toStrictEqual({ error: expect.any(String) });
@@ -133,11 +133,11 @@ describe('Tests for /auth/register/v1', () => {
     test('Test 7: Successful use of authRegisterV1', () => {
       expect(requestAuthRegisterV1('validemail@gmail.com', 'password', 'first', 'last'))
         .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
       expect(requestAuthRegisterV1('validemail1@gmail.com', 'password1', 'first', 'last'))
         .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
     });
   });
@@ -146,19 +146,20 @@ describe('Tests for /auth/logout/v1', () => {
     test('Test 1: invalid token entered ', () => {
         expect(requestAuthRegisterV1('validemail@gmail.com', 'password', 'first', 'last'))
         .toStrictEqual({ 
-            token: expect.any(string),
+            token: expect.any(String),
             authUserId: expect.any(Number) });
         expect(requestAuthLogoutV1('0')).toStrictEqual({ error: expect.any(String) });
     });
 
     test('Test 2: valid token entered', () => {
-      const user = requestAuthRegisterV1('validemail@gmail.com', 'password', 'first', 'last');
-      expect(user)
+      const user_new = requestAuthRegisterV1('validemail@gmail.com', 'password', 'first', 'last');
+      expect(user_new)
       .toStrictEqual({ 
-        token: expect.any(string),
+        token: expect.any(String),
         authUserID: expect.any(Number)});
+      expect(requestAuthLogoutV1(user_new.token))
+      .toStrictEqual({});
     });
 
-    expect(requestAuthLogoutV1(user.token))
-    .toStrictEqual({});
+    
 });
