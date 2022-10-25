@@ -63,9 +63,6 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
 function channelsListV1(token: string) {
   const data = getData();
   const currentUser = findUser(token);
-  type uIdKey = keyof typeof currentUser;
-  const uIdVar = 'uId' as uIdKey;
-  const authuId: number = currentUser[uIdVar];
 
   // check authuser is valid
   if (!validToken(token) === false) {
@@ -78,7 +75,7 @@ function channelsListV1(token: string) {
 
   // create array of public channels
   for (const element of data.channels) {
-    if (element.isPublic === true && (element.allMembers).includes(authuId)) {
+    if (element.isPublic === true && (element.allMembers).includes(currentUser.uId)) {
       outputChannels.push({ channelId: element.channelId, name: element.name });
     }
   }
