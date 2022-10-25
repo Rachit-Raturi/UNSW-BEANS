@@ -72,7 +72,7 @@ app.post('/auth/register/v2', (req: Request, res: Response) => {
   res.json(authRegisterV1(email, password, nameFirst, nameLast));
 });
 
-app.post('/auth/login/v2', (req: Request, res: Response) => {
+app.post('/auth/logout/v1', (req: Request, res: Response) => {
 
   const { token } = req.body;
 

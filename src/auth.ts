@@ -45,6 +45,7 @@ function authLoginV1(email: string, password: string) {
  * @param {String} nameFirst - The first name of the user
  * @param {String} nameLast - The last name of the user
  * @returns {Number} authUserId - The authUserId of the user
+ * @return {String} token - the token of the session
  */
 function authRegisterV1(email: string, password: string, nameFirst: string, nameLast: string) {
   let data = getData();
@@ -97,9 +98,11 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   }
 
   // Generating the session token
+  const session = uniqid();
+
   let token = [
-    {token: uniqid()}
-  ]
+    session
+  ];
   // Register the user
   const user = {
     email: email,
@@ -115,22 +118,21 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   setData(data);
 
   return {
-    token: token[0].token,
+    token: token[0],
     authUserId: data.users.length - 1,
   };
 }
 
 function authLogoutV1(token: string) {
   let data = getData();
+  console.log(data.users);
   for (const users of data.users) {
-    for (const tokens of users.tokens) {
-      if (tokens === token) {
+      if (users.tokens.includes(token)) {
         const index = users.tokens.indexOf(token);
         users.tokens.splice(index, 1);
         setData(data);
         return {};
       }
-    }
   }
   return {error: 'Token entered was invalid'};
 }
