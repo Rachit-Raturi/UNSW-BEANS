@@ -18,7 +18,7 @@ let data = {
 /*
 // Example data structure
 
-  Users: [
+  users: [
     uId: number
     email: string
     password: string
@@ -30,14 +30,14 @@ let data = {
     ]
   ]
   
-  Channels: [
+  channels: [
     channelId: number
     name: string
     allMembers: [users]
-    allOwners: [users]
+    ownerMembers: [users]
     isPublic: boolean
     messages: [
-      { 
+      {
         messageId: number
         uId : number
         message: string

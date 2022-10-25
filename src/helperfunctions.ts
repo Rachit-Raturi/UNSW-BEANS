@@ -22,13 +22,13 @@ function validToken(token: string): boolean {
   let isValidToken;
 
   for (const element of data.users) {
-    isValidToken = element.tokens.find(a => a.token === token);
-    if (isValidToken === undefined) {
-      return false;
+    isValidToken = element.tokens.find(a => a === token);
+    if (isValidToken !== undefined) {
+      return true;
     }
   }
 
-  return true;
+  return false;
 }
 
 function validUId(uId: number): boolean {
@@ -111,7 +111,7 @@ function findUser(token: string): object {
 
   for (const element of data.users) {
     for (const tokens of element.tokens) {
-      if (tokens.token === token) {
+      if (tokens === token) {
         userObject = element;
       }
     }
@@ -119,6 +119,47 @@ function findUser(token: string): object {
 
   return userObject;
 }
+
+setData({
+  users: [
+    {
+      uId: 0,
+      email: 'bot@hotmail.com',
+      password: '12345',
+      nameFirst: 'Beep',
+      nameLast: 'Boop',
+      handleStr: 'beepboop',
+      tokens: ['token','lmao']
+    },
+    {
+      uId: 1,
+      email: 'robot@gmail.com',
+      password: 'qwerty',
+      nameFirst: 'Beep',
+      nameLast: 'Boop',
+      handleStr: 'beepboop0',
+      tokens: ['token1','lmao1']
+    },
+    {
+      uId: 2,
+      email: 'random@outlook.com',
+      password: 'a8#r2fah51sD',
+      nameFirst: 'this-is@-very',
+      nameLast: 'ab%l0ne',
+      handleStr: 'thisisveryablne',
+      tokens: ['token2','lmao2']
+    },
+    {
+      uId: 3,
+      email: 'sumeru@gmail.com',
+      password: 'hEter0chTom@tic',
+      nameFirst: 'Candace',
+      nameLast: 'Deshret',
+      handleStr: 'candacedeshret',
+      tokens: ['token3','lmao3']
+    },
+  ],
+});
 
 export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser };
 
