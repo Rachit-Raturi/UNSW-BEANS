@@ -31,11 +31,11 @@ function requestAuthRegisterV1(email: string, password: string, nameFirst: strin
 }
 
 function requestAuthLogoutV1(token: string) {
-    return requestHelper('POST', '/auth/logout/V1', { token });
+    return requestHelper('POST', '/auth/logout/v1', { token });
 }
 
 function requestClearV1() {
-    return requestHelper('DELETE', '/clear', {});
+    return requestHelper('DELETE', '/clear/v1', {});
 }
 
 beforeEach(() => {
@@ -51,6 +51,7 @@ describe('tests for /auth/login/v2', () => {
         expect(requestAuthLoginV1('Wrongemail@gmail.com', 'password'))
           .toStrictEqual({ error: expect.any(String) });
       });
+    });
     
       test('Test 2: Incorrect password is entered', () => {
         expect(requestAuthRegisterV1('Validemail@gmail.com', 'password', 'Lebron', 'James'))
@@ -90,7 +91,6 @@ describe('tests for /auth/login/v2', () => {
             token: expect.any(String),
             authUserId: expect.any(Number) });
       });
-});
 
 describe('Tests for /auth/register/v1', () => {
     test('Test 1: Invalid email', () => {
@@ -156,7 +156,7 @@ describe('Tests for /auth/logout/v1', () => {
       expect(user_new)
       .toStrictEqual({ 
         token: expect.any(String),
-        authUserID: expect.any(Number)});
+        authUserId: expect.any(Number)});
       expect(requestAuthLogoutV1(user_new.token))
       .toStrictEqual({});
     });
