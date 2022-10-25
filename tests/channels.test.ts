@@ -6,44 +6,26 @@ import {
   requestChannelsList, 
   requestClear
 } from './helper'
-import { port, url } from '../src/config.json';
-
-const SERVER_URL = `${url}:${port}`;
-const ERROR = { error: expect.any(String) };
-
-function requestHelper(method: HttpVerb, path: string, payload: object) {
-  let qs = {};
-  let json = {};
-  if (['GET', 'DELETE'].includes(method)) {
-    qs = payload;
-  } else {
-    // PUT/POST
-    json = payload;
-  }
-  const res = request(method, SERVER_URL + path, { qs, json });
-  return JSON.parse(res.getBody('utf-8'));
-}
-
-// ========================================================================= //
-
-// Wrapper functions
-
-// ========================================================================= //
-
 
 let user;
 let user1;
 let channel1;
+let invalidtoken = 'invalid';
+const ERROR = { error: expect.any(String) };
 
 beforeEach(() => {
   requestClear();
   user = requestauthRegister('test@gmail.com', 'password',
-    'firstname', 'lastname');
-
-  
+    'firstname', 'lastname');  
   user1 = requestauthRegister('test1@gmail.com', 'password1',
     'firstname1', 'lastname1');
   channel1 = requestChannelsCreate(user.token, 'My Channel1', true);
+  if (user.token === invalidtoken || user1.token === invalidtoken) {
+    invalidtoken = 'invalid1';
+  }
+  if (user.token === invalidtoken || user1.token === invalidtoken) {
+    invalidtoken = 'invalid2';
+  }
 });
 
 describe('Tests for requestChannelsCreate', () => {
@@ -57,24 +39,23 @@ describe('Tests for requestChannelsCreate', () => {
   test('Invalid case - Invalid token', () => {
     let invalidToken = "0"
     expect(requestChannelsCreate(invalidToken, 'channel1', true))
-      .toStrictEqual({ error: expect.any(String) });
+      .toStrictEqual(ERROR);
   });
 
   test('Invalid case - Name is greater then 20 characters', () => {
     expect(requestChannelsCreate(user.uId, 'GreaterThentwentyCharacters', false))
-      .toStrictEqual({ error: expect.any(String) });
+      .toStrictEqual(ERROR);
   });
 
   test('Invalid case - Name is less then 1', () => {
     expect(requestChannelsCreate(user.uId, '', false))
-      .toStrictEqual({ error: expect.any(String) });
+      .toStrictEqual(ERROR);
   });
 });
 
 describe('channelsListV1 tests', () => {
   test('Invalid Test 1: no user', () => {
-    requestClear();
-   expect(requestChannelsList('invalid')).toStrictEqual(ERROR);
+    expect(requestChannelsList(invalidtoken)).toStrictEqual(ERROR);
   });
   test('Test 1: user in 1 channel', () => {
     expect(requestChannelsList(user.token))
@@ -97,8 +78,8 @@ describe('channelsListV1 tests', () => {
   });
 
   test('Test 4: user in multiple courses + test it ignores private channel', () => {
-    const channel2 = requestChannelsCreate(user.authUserId, 'My Channel2', true);
-    expect(requestChannelsCreate(user.authUserId, 'My Channel3', false))
+    const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
+    expect(requestChannelsCreate(user.token, 'My Channel3', false))
       .toStrictEqual({ channelId: expect.any(Number) });
     const outputArray = [];
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
@@ -121,7 +102,7 @@ describe('Tests for channelsList AllV1 function', () => {
     }
 
     expect(requestChannelsListAll("invalidUserId")) 
-      .toStrictEqual({ error: expect.any(String) });
+      .toStrictEqual(ERROR);
   });
 
   test('Test 2: user in 0 courses', () => {

@@ -62,15 +62,14 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
 */
 function channelsListV1(token: string) {
   const data = getData();
-  const currentUser = findUser(token);
-
   // check authuser is valid
-  if (!validToken(token)) {
+  if (validToken(token) === false) {
     return {
       error: 'Invalid token'
     };
   }
-
+  
+  const currentUser = findUser(token);
   const outputChannels = [];
 
   // create array of public channels

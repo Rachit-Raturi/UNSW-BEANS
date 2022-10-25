@@ -70,9 +70,13 @@ app.get('/channels/list/v2', (req: Request, res: Response) => {
 });
 
 app.post('/channel/invite/v2', (req: Request, res: Response) => {
-  console.log('Message Sent');
   const { token, channelId, uId } = req.body;
   res.json(channelInviteV1(token, channelId, uId));
+});
+
+app.post('/channel/join/v2', (req: Request, res: Response) => {
+  const { token, channelId, } = req.body;
+  res.json(channelJoinV1(token, channelId));
 });
 
 app.get('/channel/details/v2', (req: Request, res: Response) => {
