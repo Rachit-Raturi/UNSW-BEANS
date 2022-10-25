@@ -1,5 +1,11 @@
 import request, { HttpVerb } from 'sync-request';
-
+import { 
+  requestChannelsCreate,
+  requestChannelsListAll,
+  requestauthRegister, 
+  requestChannelsList, 
+  requestClear
+} from './helper'
 import { port, url } from '../src/config.json';
 
 const SERVER_URL = `${url}:${port}`;
@@ -22,22 +28,6 @@ function requestHelper(method: HttpVerb, path: string, payload: object) {
 
 // Wrapper functions
 
-function requestchannelsCreate (token: string, name: string, channelId: number) {
-  return requestHelper('POST', '/channel/details/v2', { token, name, isPublic });
-}
-
-function requestchannelsList(token: string, channelId: number) {
-  return requestHelper('GET', '/channel/join/v2', { token });
-}
-
-function requestChannelsListAll(token: string, channelId: number) {
-  return requestHelper('GET', '/channel/invite/v2', { token });
-}
-
-function requestClear() {
-  return requestHelper('DELETE', '/clear', {});
-}
-
 // ========================================================================= //
 
 
@@ -47,30 +37,36 @@ let channel1;
 
 beforeEach(() => {
   requestClear();
-  user = authRegisterV1('test@gmail.com', 'password',
+  user = requestauthRegister('test@gmail.com', 'password',
     'firstname', 'lastname');
-  user1 = authRegisterV1('test1@gmail.com', 'password1',
+
+  
+  user1 = requestauthRegister('test1@gmail.com', 'password1',
     'firstname1', 'lastname1');
-  channel1 = channelsCreateV1(user.authUserId, 'My Channel1', true);
+  channel1 = requestChannelsCreate(user.token, 'My Channel1', true);
 });
 
 describe('Tests for channelsCreateV1', () => {
-  test('Test 1: Invalid authUserId', () => {
-    let invalidUserId = 1;
-    if (user.authUserId === 1 || user1.authUserId === 1) {
-      invalidUserId = 2;
-    }
-    expect(channelsCreateV1(invalidUserId, 'channel1', true))
+  test('Valid Case ', () => {
+  
+    expect(requestChannelsCreate(user.token, 'channel1', true))
+      .toStrictEqual({ channelId: expect.any(Number) });
+  });
+
+
+  test('Invalid case - Invalid token', () => {
+    let invalidToken = "0"
+    expect(requestChannelsCreate(invalidToken, 'channel1', true))
       .toStrictEqual({ error: expect.any(String) });
   });
 
-  test('Test 2: Name is greater then 20 characters', () => {
-    expect(channelsCreateV1(user.authUserId, 'GreaterThentwentyCharacters', false))
+  test('Invalid case - Name is greater then 20 characters', () => {
+    expect(requestChannelsCreate(user.uId, 'GreaterThentwentyCharacters', false))
       .toStrictEqual({ error: expect.any(String) });
   });
 
-  test('Test 3: Name is less then 1', () => {
-    expect(channelsCreateV1(user.authUserId, '', false))
+  test('Invalid case - Name is less then 1', () => {
+    expect(requestChannelsCreate(user.uId, '', false))
       .toStrictEqual({ error: expect.any(String) });
   });
 });
@@ -78,18 +74,18 @@ describe('Tests for channelsCreateV1', () => {
 describe('Invalid channelsListV1 tests', () => {
   test('Test 1: Invalid authUserId - no users', () => {
     requestClear();
-    expect(requestchannelsList(1)).toStrictEqual({ error: expect.any(String) });
+    expect(requestChannelsList(1)).toStrictEqual({ error: expect.any(String) });
   });
 });
 
 describe('Valid channelsListV1 tests', () => {
   test('Test 1: user in 1 course', () => {
-    expect(requestchannelsList(user.authUserId))
+    expect(requestChannelsList(user.authUserId))
       .toStrictEqual({ channels: [{ channelId: channel1.channelId, name: 'My Channel1' }] });
   });
 
   test('Test 2: user in 0 courses', () => {
-    expect(requestchannelsList(user1.authUserId))
+    expect(requestChannelsList(user1.authUserId))
       .toStrictEqual({ channels: [] });
   });
 
@@ -99,7 +95,7 @@ describe('Valid channelsListV1 tests', () => {
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(requestchannelsList(user.authUserId).channels);
+    const receivedSet = new Set(requestChannelsList(user.authUserId).channels);
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 
@@ -112,13 +108,13 @@ describe('Valid channelsListV1 tests', () => {
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(requestchannelsList(user.authUserId).channels);
+    const receivedSet = new Set(requestChannelsList(user.authUserId).channels);
 
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 });
 
-describe('Tests for channelsListAllV1 function', () => {
+describe('Tests for channelsList AllV1 function', () => {
   test('Test 1: Invalid authUserId', () => {
     let invalidUserId = 1;
     if (user.authUserId === 1) {
@@ -128,23 +124,25 @@ describe('Tests for channelsListAllV1 function', () => {
       invalidUserId = 3;
     }
 
-    expect(channelsListAllV1(invalidUserId))
+    expect(requestChannelsListAll("invalidUserId")) 
       .toStrictEqual({ error: expect.any(String) });
   });
 
   test('Test 2: user in 0 courses', () => {
-    expect(channelsListAllV1(user1.authUserId))
+    let user3 = requestauthRegister('3test@gmail.com', '3password',
+    '3firstname', '3lastname');
+    expect(requestChannelsListAll(user3.token))
       .toStrictEqual({ channels: [] });
   });
 
   test('Test 3: Valid Case - 1 channels', () => {
-    expect(channelsListAllV1(user.authUserId))
+    expect(requestChannelsListAll(user.token))
       .toStrictEqual({ channels: [{ channelId: channel1.channelId, name: 'My Channel1' }] });
   });
 
   test('Test 4: Valid Case - 3 channels', () => {
-    const channel2 = channelsCreateV1(user.authUserId, 'My Channel2', true);
-    const channel3 = channelsCreateV1(user.authUserId, 'My Channel3', true);
+    const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
+    const channel3 = requestChannelsCreate(user.token, 'My Channel3', true);
 
     const outputArray = [];
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
@@ -152,18 +150,18 @@ describe('Tests for channelsListAllV1 function', () => {
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
 
     const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(channelsListAllV1(user.authUserId).channels);
+    const receivedSet = new Set(requestChannelsListAll(user.token).channels);
 
     expect(expectedSet).toStrictEqual(receivedSet);
   });
 
   test('Test 5: Valid Case - 6 channels', () => {
-    const channel2 = channelsCreateV1(user.authUserId, 'My Channel2', true);
-    const channel3 = channelsCreateV1(user.authUserId, 'My Channel3', true);
-    const channel4 = channelsCreateV1(user.authUserId, 'My Channel4', true);
-    const channel5 = channelsCreateV1(user.authUserId, 'My Channel5', true);
-    const channel6 = channelsCreateV1(user.authUserId, 'My Channel6', true);
-    const channel7 = channelsCreateV1(user.authUserId, 'My Channel7', true);
+    const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
+    const channel3 = requestChannelsCreate(user.token, 'My Channel3', true);
+    const channel4 = requestChannelsCreate(user.token, 'My Channel4', true);
+    const channel5 = requestChannelsCreate(user.token, 'My Channel5', true);
+    const channel6 = requestChannelsCreate(user.token, 'My Channel6', true);
+    const channel7 = requestChannelsCreate(user.token, 'My Channel7', true);
 
     const outputArray = [];
     outputArray.push({ channelId: channel3.channelId, name: 'My Channel3' });
@@ -175,7 +173,7 @@ describe('Tests for channelsListAllV1 function', () => {
     outputArray.push({ channelId: channel7.channelId, name: 'My Channel7' });
 
     const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(channelsListAllV1(user.authUserId).channels);
+    const receivedSet = new Set(requestChannelsListAll(user.token).channels);
 
     expect(expectedSet).toStrictEqual(receivedSet);
   });

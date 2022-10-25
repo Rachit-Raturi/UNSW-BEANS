@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken } from './helperfunctions';
+import { findUser, validToken, extractUser } from './helperfunctions';
 
 /**
  * Given a valid authUserId and channel name, creates and
@@ -11,11 +11,11 @@ import { findUser, validToken } from './helperfunctions';
  * @returns {Object} channel
  */
 
-function channelsCreateV1(authUserId, name, isPublic) {
+function channelsCreateV1(token: string, name: string, isPublic: boolean) {
   const data = getData();
 
-  // invalid userId
-  if (data.users[authUserId] === undefined) {
+  
+  if (!validToken(token)) {
     return {
       error: 'Invalid user'
     };
@@ -30,8 +30,10 @@ function channelsCreateV1(authUserId, name, isPublic) {
 
   const members = [];
   const owners = [];
-  owners.push(authUserId);
-  members.push(authUserId);
+
+  let user = findUser(token);
+  owners.push(user);
+  members.push(user);
 
   const channel = {
     channelId: data.channels.length,
@@ -42,7 +44,7 @@ function channelsCreateV1(authUserId, name, isPublic) {
     messages: [],
   };
 
-  data.channels[data.channels.length] = channel;
+  data.channels.push(channel);
   setData(data);
 
   return {
@@ -63,7 +65,7 @@ function channelsListV1(token: string) {
   const currentUser = findUser(token);
 
   // check authuser is valid
-  if (validToken(token) === false) {
+  if (!validToken(token) === false) {
     return {
       error: 'Invalid token'
     };
@@ -91,11 +93,11 @@ function channelsListV1(token: string) {
   * @returns {array} channels - list of channels
   * - returns array of all channels
 */
-function channelsListAllV1(authUserId) {
+function channelsListAllV1(token: string) {
   const data = getData();
 
   // check authuser is valid
-  if (data.users[authUserId] === undefined) {
+  if (!validToken(token)) {
     return {
       error: 'authUserId does not refer to a valid ID'
     };
@@ -104,9 +106,10 @@ function channelsListAllV1(authUserId) {
   const allChannelsArray = data.channels;
   const outputChannels = [];
 
+  let user = findUser(token);
   // create array of channels the user is in
   for (const element of allChannelsArray) {
-    if ((element.allMembers).includes(authUserId)) {
+    if ((element.allMembers).includes(user)) {
       outputChannels.push({ channelId: element.channelId, name: element.name });
     }
   }
