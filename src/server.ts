@@ -86,8 +86,17 @@ app.post('/message/send/v1', (req: Request, res: Response) => {
   res.json(messageSend(token, channelId, message));
 });
 
+// ========================================================================= //
+// Channels functions
+
 app.post('/channels/create/v2', (req: Request, res: Response) => {
-  console.log('User Register');
-  const { authUserId, name, isPublic } = req.body;
-  res.json(channelsCreateV1(authUserId, name, isPublic));
+  console.log('Channel Created');
+  const { token, name, isPublic } = req.body;
+  res.json(channelsCreateV1(token, name, isPublic));
+});
+
+app.get('/channels/listAll/v2', (req: Request, res: Response) => {
+  console.log('Channels List All');
+  const token = req.query.token as string; 
+  res.json(channelsListAllV1(token));
 });
