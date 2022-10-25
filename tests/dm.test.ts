@@ -50,6 +50,10 @@ function requestDmMessages(token: string, dmId: number, start: number) {
   return requestHelper('GET', '/dm/messages/v1', { token, dmId, start });
 }
 
+function requestDmSend(token: string, dmId: number) {
+  return requestHelper('POST', '/message/senddm/v1', { token, dmId, message });
+}
+
 function requestClear() {
   return requestHelper('DELETE', '/clear', {});
 }
@@ -58,6 +62,10 @@ function requestClear() {
 
 let user;
 let user1;
+let channel;
+let invalidUserId = 1;
+let invalidToken = 'invalid';
+let invalidDm = -1;
 let start;
 
 beforeEach(() => {
@@ -65,6 +73,66 @@ beforeEach(() => {
   user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   start = 0;
+});
+ 
+describe('dm/create/v1', () => {
+  test('any uId that does not refer to valid user', () => {
+    expect(requestDmCreate(user.token, invalidUserId)).toStrictEqual(ERROR);
+  });
+
+  test('duplicate uIds', () => {
+    expect(requestDmCreate(user.token, user.authUserId)).toStrictEqual(ERROR);
+  });
+
+  test('invalid token', () => {
+    expect(requestDmCreate(invalidToken, user.authUserId)).toStrictEqual(ERROR);
+  });
+
+  test('Successful dm', () => {
+    expect(requestDmCreate(user.token, user.authUserId)).toStrictEqual(ERROR);
+  });
+});
+
+describe('dm/messages/v1', () => {
+  test('invalid dmId', () => {
+    expect(requestDmMessages(user.token, invalidDm, start)).toStrictEqual(ERROR);
+  });
+
+  test('invalid token', () => {
+    expect(requestDmMessages(invalidToken, dm.dmId, start)).toStrictEqual(ERROR);
+  });
+
+  test('start is greater than num of messages', () => {
+    start = 1;
+    expect(requestDmMessages(user.token, dm.dmId, start)).toStrictEqual(ERROR);
+  });
+
+  test('user is not in dm', () => {
+    expect(requestDmMessages(user1.token, dm.dmId, start)).toStrictEqual(ERROR);
+  });
+});
+
+describe('message/senddm/v1', () => {
+  test('invalid dmId', () => {
+    expect(requestDmSend(user.token, invalidDm, message)).toStrictEqual(ERROR);
+  });
+
+  test('message is less than 1 character', () => {
+    message = [];
+    expect(requestDmSend(user.token, dm.dmId, message)).toStrictEqual(ERROR);
+  })
+
+  test('message is more than 1000 characters', () => {
+    expect(requestDmSend(user.token, dm.dmId, message)).toStrictEqual(ERROR);
+  });
+
+  test('user is not in dm', () => {
+    expect(requestDmSend(user1.token, dm.dmId, message)).toStrictEqual(ERROR);
+  });
+
+  test('invalid token', () => {
+    expect(requestDmSend(invalidToken, dm.dmId, message)).toStrictEqual(ERROR);
+  });
 });
 
 describe('/dm/list/v1', () => {
@@ -103,3 +171,4 @@ describe('/dm/list/v1', () => {
 //   });
 
 // });
+
