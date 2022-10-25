@@ -17,16 +17,10 @@ function validEmail(email: string): boolean {
 }
 
 function validToken(token: string): boolean {
-  let data = getData();
-  let isValidToken;
-
-  for (const element of data.users) {
-    isValidToken = element.tokens.find(a => a === token);
-    if (isValidToken !== undefined) {
-      return true;
-    }
+  if (findUser(token) === undefined) {
+    return false; 
   }
-  return false;
+  return true;
 }
 
 function validUId(uId: number): boolean {

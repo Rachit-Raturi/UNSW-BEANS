@@ -32,8 +32,8 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
   const owners = [];
 
   let user = findUser(token);
-  owners.push(user);
-  members.push(user);
+  owners.push(user.uId);
+  members.push(user.uId);
 
   const channel = {
     channelId: data.channels.length,
@@ -109,7 +109,7 @@ function channelsListAllV1(token: string) {
   let user = findUser(token);
   // create array of channels the user is in
   for (const element of allChannelsArray) {
-    if ((element.allMembers).includes(user)) {
+    if ((element.allMembers).includes(user.uId)) {
       outputChannels.push({ channelId: element.channelId, name: element.name });
     }
   }

@@ -74,7 +74,7 @@ describe('Tests for channelsCreateV1', () => {
 describe('Invalid channelsListV1 tests', () => {
   test('Test 1: Invalid authUserId - no users', () => {
     requestClear();
-    expect(requestChannelsList(1)).toStrictEqual({ error: expect.any(String) });
+    expect(requestChannelsList('invalid')).toStrictEqual({ error: expect.any(String) });
   });
 });
 
@@ -90,7 +90,7 @@ describe('Valid channelsListV1 tests', () => {
   });
 
   test('Test 3: user in 2 courses', () => {
-    const channel2 = channelsCreateV1(user.authUserId, 'My Channel2', true);
+    const channel2 = requestChannelsCreate(user.authUserId, 'My Channel2', true);
     const outputArray = [];
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
@@ -100,8 +100,8 @@ describe('Valid channelsListV1 tests', () => {
   });
 
   test('Test 4: user in multiple courses + test it ignores private channel', () => {
-    const channel2 = channelsCreateV1(user.authUserId, 'My Channel2', true);
-    expect(channelsCreateV1(user.authUserId, 'My Channel3', false))
+    const channel2 = requestChannelsCreate(user.authUserId, 'My Channel2', true);
+    expect(requestChannelsCreate(user.authUserId, 'My Channel3', false))
       .toStrictEqual({ channelId: expect.any(Number) });
 
     const outputArray = [];
