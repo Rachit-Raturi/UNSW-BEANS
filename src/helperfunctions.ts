@@ -117,7 +117,15 @@ function findUser(token: string) {
     }
   }
 
-  return userObject;
+  return {
+    uId: userObject.uId,
+    email: userObject.email,
+    password: userObject.password,
+    nameFirst: userObject.nameFirst,
+    nameLast: userObject.nameLast,
+    handleStr: userObject.handleStr,
+    tokens: userObject.tokens,
+  };
 }
 
 export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser };
