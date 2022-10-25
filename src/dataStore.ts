@@ -33,8 +33,8 @@ let data = {
   Channels: [
     channelId: number
     name: string
-    allMembers: [number]
-    allOwners: [number]
+    allMembers: [users]
+    allOwners: [users]
     isPublic: boolean
     messages: [
       { 
@@ -48,8 +48,9 @@ let data = {
 
   dms: [
     dmId: number
-    Owner:
-    allMembers:
+    name: string
+    owner: user
+    members: [users]
     messages: [
       { 
         messageId: number

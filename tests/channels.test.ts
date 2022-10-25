@@ -23,15 +23,15 @@ function requestHelper(method: HttpVerb, path: string, payload: object) {
 // Wrapper functions
 
 function requestchannelsCreate (token: string, name: string, channelId: number) {
-  return requestHelper('POST', '/channel/details/v2', { token, channelId });
+  return requestHelper('POST', '/channel/details/v2', { token, name, isPublic });
 }
 
 function requestchannelsList(token: string, channelId: number) {
-  return requestHelper('GET', '/channel/join/v2', { token, channelId });
+  return requestHelper('GET', '/channel/join/v2', { token });
 }
 
 function requestChannelsListAll(token: string, channelId: number) {
-  return requestHelper('GET', '/channel/invite/v2', { token, channelId, uId });
+  return requestHelper('GET', '/channel/invite/v2', { token });
 }
 
 function requestClear() {
