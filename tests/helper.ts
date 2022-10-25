@@ -87,7 +87,7 @@ export function requestDmMessages(token: string, dmId: number, start: number) {
 }
 
 export function requestClear() {
-  return requestHelper('DELETE', '/clear', {});
+  return requestHelper('DELETE', '/clear/v1', {});
 }
 
 // Message Function 

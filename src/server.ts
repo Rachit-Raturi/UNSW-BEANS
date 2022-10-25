@@ -44,38 +44,18 @@ process.on('SIGINT', () => {
   server.close(() => console.log('Shutting down server gracefully.'));
 });
 
-app.get('/channel/details/v2', (req: Request, res: Response) => {
-  const token = req.query.token as string;
-  const channelId = parseInt(req.query.channelId as string);
-  res.json(channelDetailsV1(token, channelId));
-});
-
-app.post('/message/send/v1', (req: Request, res: Response) => {
-  console.log('Message Sent');
-
-  const { token, channelId, message } = req.body;
-
-  res.json(messageSend(token, channelId, message));
-});
-
 app.post('/auth/login/v2', (req: Request, res: Response) => {
-
   const { email, password } = req.body;
-
   res.json(authLoginV1(email, password));
 });
 
 app.post('/auth/register/v2', (req: Request, res: Response) => {
-
   const { email, password, nameFirst, nameLast } = req.body;
-
   res.json(authRegisterV1(email, password, nameFirst, nameLast));
 });
 
 app.post('/auth/logout/v1', (req: Request, res: Response) => {
-
   const { token } = req.body;
-
   res.json(authLogoutV1(token));
 });
 
@@ -92,4 +72,22 @@ app.post('channel/invite/v2', (req: Request, res: Response) => {
   console.log('Message Sent');
   const { token, channelId, uId } = req.body;
   res.json(channelInviteV1(token, channelId, uId));
+});
+
+app.get('/channel/details/v2', (req: Request, res: Response) => {
+  const token = req.query.token as string;
+  const channelId = parseInt(req.query.channelId as string);
+  res.json(channelDetailsV1(token, channelId));
+});
+
+app.post('/message/send/v1', (req: Request, res: Response) => {
+  console.log('Message Sent');
+  const { token, channelId, message } = req.body;
+  res.json(messageSend(token, channelId, message));
+});
+
+app.post('/channels/create/v2', (req: Request, res: Response) => {
+  console.log('User Register');
+  const { authUserId, name, isPublic } = req.body;
+  res.json(channelsCreateV1(authUserId, name, isPublic));
 });
