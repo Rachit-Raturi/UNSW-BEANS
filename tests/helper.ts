@@ -103,4 +103,25 @@ export function requestMessageDelete( token: string, messageId: number) {
   return requestHelper('DELETE', '/message/delete/v1', { token, messageId });
 }
 
+// User/s Function
+export function requestUserProfile( token: string, uId: number) {
+  return requestHelper('GET', '/user/profile/v2', { token, uId });
+}
+
+export function requestUsersAll( token: string) {
+  return requestHelper('GET', '/users/all/v1', { token });
+}
+
+export function requestUserSetName( token: string, nameFirst: string, nameLast: string) {
+  return requestHelper('PUT', '/user/profile/setname/v1', { token, nameFirst, nameLast });
+}
+
+export function requestUserSetEmail( token: string, email: string) {
+  return requestHelper('PUT', '/user/profile/setemail/v1', { token, email });
+}
+
+export function requestUserSetHandle( token: string, handleStr: string) {
+  return requestHelper('PUT', '/user/profile/sethandle/v1', { token, handleStr });
+}
+
 // ========================================================================= //
