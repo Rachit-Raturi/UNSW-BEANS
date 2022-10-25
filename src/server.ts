@@ -82,3 +82,14 @@ app.post('/auth/logout/v1', (req: Request, res: Response) => {
 app.delete('/clear/v1', (req: Request, res: Response) => {
   res.json(clearV1());
 });
+
+app.get('channels/list/v2', (req: Request, res: Response) => {
+  const token = req.query.token as string;
+  res.json(channelsListV1(token));
+});
+
+app.post('channel/invite/v2', (req: Request, res: Response) => {
+  console.log('Message Sent');
+  const { token, channelId, uId } = req.body;
+  res.json(channelInviteV1(token, channelId, uId));
+});
