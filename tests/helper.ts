@@ -49,8 +49,8 @@ export function requestChannelDetails( token: string, channelId: number, ){
 }
 
 // Channel functions
-export function requestChannelJoin( authUserId: number, name: string, isPublic: boolean  ) {
-  return requestHelper('POST', '/channel/join/v2', { authUserId, name, isPublic } );
+export function requestChannelJoin( token: number, channelId: number, ) {
+  return requestHelper('POST', '/channel/join/v2', { token, channelId } );
 }
 
 export function requestChannelInvite( token: string, channelId: number, uId: number) {

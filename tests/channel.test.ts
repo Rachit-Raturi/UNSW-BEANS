@@ -90,26 +90,25 @@ describe('/channel/join/v2', () => {
     if (channel.channelId === 1) {
       invalidChannelId = 2;
     }
-    expect(requestChannelJoin(user.authUserId, invalidChannelId)).toStrictEqual(ERROR);
+    expect(requestChannelJoin(user.token, invalidChannelId)).toStrictEqual(ERROR);
   });
 
   test('Test 2: User is already a member of the channel', () => {
-    expect(requestChannelJoin(user.authUserId, channel.channelId)).toStrictEqual({});
-    expect(requestChannelJoin(user.authUserId, channel.channelId)).toStrictEqual(ERROR);
+    expect(requestChannelJoin(user.token, channel.channelId)).toStrictEqual(ERROR);
   });
 
   test('Test 3: Private channel join attempt', () => {
-    const newPrivateChannel = requestChannelsCreate(user.authUserId, 'Channel1', false);
-    expect(requestChannelJoin(user1.authUserId, newPrivateChannel.channelId)).toStrictEqual(ERROR);
+    const newPrivateChannel = requestChannelsCreate(user.token, 'Channel1', false);
+    expect(requestChannelJoin(user1.token, newPrivateChannel.channelId)).toStrictEqual(ERROR);
   });
 
   test('Test 4: Valid Case', () => {
-    expect(requestChannelJoin(user1.authUserId, channel.channelId)).toStrictEqual({});
+    expect(requestChannelJoin(user1.token, channel.channelId)).toStrictEqual({});
   });
 
   test('Test 5: Global owner joins private channel', () => {
-    const newPrivateChannel = requestChannelsCreate(user1.authUserId, 'Channel1', false);
-    expect(requestChannelJoin(user.authUserId, newPrivateChannel.channelId)).toStrictEqual({});
+    const newPrivateChannel = requestChannelsCreate(user1.token, 'Channel1', false);
+    expect(requestChannelJoin(user.token, newPrivateChannel.channelId)).toStrictEqual({});
   });
 });
 
@@ -142,7 +141,7 @@ describe('/channel/invite/v2', () => {
 
   test('Test 6: User already in channel - 2 members in channel', () => {
     const user2 = requestauthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
-    channelJoinV1(user2.authUserId, channel.channelId);
+    requestChannelJoin(user2.token, channel.channelId);
     expect(requestChannelInvite(user.token, channel.channelId, user2.authUserId))
       .toStrictEqual(ERROR);
   });

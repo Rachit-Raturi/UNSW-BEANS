@@ -9,14 +9,14 @@ import {
 describe('Test for ClearV1', () => {
   test('Valid test', () => {
     const user = requestauthRegister('person@gmail.com', 'password', 'firstname', 'lastname');
-    const channel = requestChannelsCreate(user.authUserId, 'channel', false);
-    const channel1 = requestChannelsCreate(user.authUserId, 'channel1', true);
+    const channel = requestChannelsCreate(user.token, 'channel', false);
+    const channel1 = requestChannelsCreate(user.token, 'channel1', true);
     requestClear();
     expect(requestauthLogin('person@gmail.com', 'password'))
       .toEqual({ error: expect.any(String) });
-    expect(requestChannelDetails(user.authUserId, channel.channelId))
+    expect(requestChannelDetails(user.token, channel.channelId))
       .toEqual({ error: expect.any(String) });
-    expect(requestChannelDetails(user.authUserId, channel1.channelId))
+    expect(requestChannelDetails(user.token, channel1.channelId))
       .toEqual({ error: expect.any(String) });
   });
 });
