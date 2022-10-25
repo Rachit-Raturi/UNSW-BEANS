@@ -1,5 +1,5 @@
 import {
-        requestauthRegiser,
+        requestauthRegister,
         requestChannelsCreate,     
         requestChannelDetails, 
         requestChannelJoin,
