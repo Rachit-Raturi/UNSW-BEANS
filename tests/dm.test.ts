@@ -50,6 +50,10 @@ function requestDmMessages(token: string, dmId: number, start: number) {
   return requestHelper('GET', '/dm/messages/v1', { token, dmId, start });
 }
 
+function requestDmSend(token: string, dmId: number) {
+  return requestHelper('POST', '/message/senddm/v1', { token, dmId, message });
+}
+
 function requestClear() {
   return requestHelper('DELETE', '/clear', {});
 }
@@ -81,7 +85,7 @@ describe('dm/create/v1', () => {
   });
 
   test('invalid token', () => {
-    expect(requestDmCreate(invalidtoken, user.authUserId)).toStrictEqual(ERROR);
+    expect(requestDmCreate(invalidToken, user.authUserId)).toStrictEqual(ERROR);
   });
 
   test('Successful dm', () => {
@@ -95,20 +99,41 @@ describe('dm/messages/v1', () => {
   });
 
   test('invalid token', () => {
-    expect(requestDmMessages(invalidtoken, data.dm, start)).toStrictEqual(ERROR);
+    expect(requestDmMessages(invalidToken, dm.dmId, start)).toStrictEqual(ERROR);
   });
 
   test('start is greater than num of messages', () => {
     start = 1;
-    expect(requestDmMessages(user.token, data.dm, start)).toStrictEqual(ERROR);
+    expect(requestDmMessages(user.token, dm.dmId, start)).toStrictEqual(ERROR);
   });
 
   test('user is not in dm', () => {
-    expect(requestDmMessages(user1.token, data.dm, start)).toStrictEqual(ERROR);
+    expect(requestDmMessages(user1.token, dm.dmId, start)).toStrictEqual(ERROR);
   });
 });
 
-describe('')
+describe('message/senddm/v1', () => {
+  test('invalid dmId', () => {
+    expect(requestDmSend(user.token, invalidDm, message)).toStrictEqual(ERROR);
+  });
+
+  test('message is less than 1 character', () => {
+    message = [];
+    expect(requestDmSend(user.token, dm.dmId, message)).toStrictEqual(ERROR);
+  })
+
+  test('message is more than 1000 characters', () => {
+    expect(requestDmSend(user.token, dm.dmId, message)).toStrictEqual(ERROR);
+  });
+
+  test('user is not in dm', () => {
+    expect(requestDmSend(user1.token, dm.dmId, message)).toStrictEqual(ERROR);
+  });
+
+  test('invalid token', () => {
+    expect(requestDmSend(invalidToken, dm.dmId, message)).toStrictEqual(ERROR);
+  });
+});
 
 describe('/dm/list/v1', () => {
   test('Test 1: Invalid token - extra characters', () => {
