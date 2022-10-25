@@ -22,13 +22,13 @@ function validToken(token: string): boolean {
   let isValidToken;
 
   for (const element of data.users) {
-    isValidToken = element.tokens.find(a => a.token === token);
-    if (isValidToken === undefined) {
-      return false;
+    isValidToken = element.tokens.find(a => a === token);
+    if (isValidToken !== undefined) {
+      return true;
     }
   }
 
-  return true;
+  return false;
 }
 
 function validUId(uId: number): boolean {
@@ -111,7 +111,7 @@ function findUser(token: string): object {
 
   for (const element of data.users) {
     for (const tokens of element.tokens) {
-      if (tokens.token === token) {
+      if (tokens === token) {
         userObject = element;
       }
     }
