@@ -5,9 +5,10 @@ import { messageSend } from './message';
 import config from './config.json';
 import cors from 'cors';
 
-import { authLoginV1, authRegisterV1 } from './auth';
+import { authLoginV1, authRegisterV1, authLogoutV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from './channel';
+import { clearV1 } from './other';
 
 // Set up web app
 const app = express();
@@ -55,6 +56,31 @@ app.post('/message/send/v1', (req: Request, res: Response) => {
   const { token, channelId, message } = req.body;
 
   res.json(messageSend(token, channelId, message));
+});
+
+app.post('/auth/login/v2', (req: Request, res: Response) => {
+
+  const { email, password } = req.body;
+
+  res.json(authLoginV1(email, password));
+});
+
+app.post('/auth/register/v2', (req: Request, res: Response) => {
+
+  const { email, password, nameFirst, nameLast } = req.body;
+
+  res.json(authRegisterV1(email, password, nameFirst, nameLast));
+});
+
+app.post('/auth/logout/v1', (req: Request, res: Response) => {
+
+  const { token } = req.body;
+
+  res.json(authLogoutV1(token));
+});
+
+app.delete('/clear/v1', (req: Request, res: Response) => {
+  res.json(clearV1());
 });
 
 app.get('channels/list/v2', (req: Request, res: Response) => {
