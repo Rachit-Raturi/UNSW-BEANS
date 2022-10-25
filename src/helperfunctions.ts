@@ -1,4 +1,3 @@
-
 import validator from 'validator';
 import { getData, setData } from './dataStore';
 

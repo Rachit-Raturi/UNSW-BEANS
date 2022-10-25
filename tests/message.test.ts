@@ -17,8 +17,8 @@ beforeEach(() => {
   requestClear()
   user = requestauthRegister("email@gmail.com", "password", "firstname", "lastname"); 
   user2 = requestauthRegister("2email@gmail.com", "2password", "2firstname", "2lastname"); 
-  channel = requestChannelsCreate(user.authUserId, "name", true);
-  channel2 = requestChannelsCreate(user.authUserId, "name", true);
+  channel = requestChannelsCreate(user.token, "name", true);
+  channel2 = requestChannelsCreate(user.token, "name", true);
 });
 
 // ========================================================================= //
@@ -26,7 +26,7 @@ beforeEach(() => {
 
 describe('Tests for Message Send', () => {
   test('Successful case', () => {
-
+    
     expect(requestMessageSend(user.token, channel.channelId, "Message")).toStrictEqual({messageId: expect.any(Number)});
   });
 

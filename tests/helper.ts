@@ -32,8 +32,8 @@ export function requestauthRegister(email: string, password: string, nameFirst: 
 }
 
 // Channels functions 
-export function requestChannelsCreate( authUserId: number, name: string, isPublic: boolean  ) {
-  return requestHelper('POST', '/channels/create/v2', { authUserId, name, isPublic } );
+export function requestChannelsCreate( token: string, name: string, isPublic: boolean  ) {
+  return requestHelper('POST', '/channels/create/v2', { token, name, isPublic } );
 }
 
 export function requestChannelsList( token: string ) {
