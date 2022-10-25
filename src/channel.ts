@@ -1,4 +1,5 @@
 import { getData, setData } from './dataStore';
+import { findUser, validToken, validUId } from './helperfunctions';
 
 interface user {
   uId: number
@@ -29,9 +30,11 @@ function channelDetailsV1 (token: string, channelId: number): object {
   // not a member error
   let isMember: boolean = false;
   for (const member of data.channels[channelId].allMembers) {
-    if (member.token === token) {
-      isMember = true;
-    } 
+    for (const tokens of member.tokens) {
+      if (tokens.token === token) {
+        isMember = true;
+      }
+    }
   }
 
   if (isMember === false) {
@@ -41,7 +44,7 @@ function channelDetailsV1 (token: string, channelId: number): object {
   }
 
   // invalid token error
-  if (data.users[token] === undefined) {
+  if (validToken(token) === false) {
     return {
       error: 'Invalid token'
     };
@@ -141,20 +144,22 @@ function channelJoinV1(authUserId, channelId) {
  * @param {Number} uId - the id of the user being invited to the channel
  * @returns {} - empty object
  */
-function channelInviteV1(authUserId, channelId, uId) {
+function channelInviteV1(token: string, channelId: number, uId: number) {
   const data = getData();
+  const currentUser = findUser(token);
+  type uIdKey = keyof typeof currentUser;
+  const uIdVar = 'uId' as uIdKey;
+  const authUId: number = currentUser[uIdVar];
 
-  // invalid authuserid error
-  const isValidAuthUser = data.users.find(a => a.uId === authUserId);
-  if (isValidAuthUser === undefined) {
+  // invalid token error
+  if (validToken(token) === false) {
     return {
-      error: 'Invalid user',
+      error: 'Invalid token',
     };
   }
 
   // invalid uid to invite error
-  const isvaliduId = data.users.find(a => a.uId === uId);
-  if (isvaliduId === undefined) {
+  if (validUId(uId) === false) {
     return {
       error: 'invalid user',
     };
@@ -170,10 +175,10 @@ function channelInviteV1(authUserId, channelId, uId) {
 
   // check authuser is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
-  const isValidMember = checkIsMember.find(a => a === authUserId);
+  const isValidMember = checkIsMember.find(a => a === authUId);
   if (isValidMember === undefined) {
     return {
-      error: 'Invalid authuser',
+      error: 'You are not a member of this channel',
     };
   }
 
@@ -181,7 +186,7 @@ function channelInviteV1(authUserId, channelId, uId) {
   for (const element of data.channels[channelId].allMembers) {
     if (element === uId) {
       return {
-        error: 'Already a member',
+        error: 'You are already a member',
       };
     }
   }
@@ -207,14 +212,17 @@ function channelInviteV1(authUserId, channelId, uId) {
  * @returns {Number} end - returns -1 indicating no more messages after this return
  */
 
-function channelMessagesV1(authUserId, channelId, start) {
+function channelMessagesV1(token: string, channelId: number, start: number): object {
   const data = getData();
   const beginning = start;
-  // check authuserid is valid
-  const isValiduser = data.users.find(a => a.uId === authUserId);
-  if (isValiduser === undefined) {
+  const currentUser = findUser(token);
+  type uIdKey = keyof typeof currentUser;
+  const uIdVar = 'uId' as uIdKey;
+  const authUserId: number = currentUser[uIdVar];
+  // invalid token
+  if (validToken(token) === false) {
     return {
-      error: 'Invalid user',
+      error: 'Invalid token',
     };
   }
 
@@ -235,8 +243,8 @@ function channelMessagesV1(authUserId, channelId, start) {
     };
   }
 
-  const numberOfMessages = data.messages.length;
-  const messages = data.messages;
+  const numberOfMessages = data.channels.messages.length;
+  const messages = data.channels.messages;
   let end;
   // Check whether the starting index is < 0
   if (start < 0) {

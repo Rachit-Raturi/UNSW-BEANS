@@ -1,39 +1,32 @@
 import { getData } from './dataStore';
+import { validToken, validUId, extractUser } from './helperfunctions'
 
-/**
- * Given a valid authUserId and uId, creates and returns a
- * new user with its details
- *
- * @param {Number} authUserId
- * @param {Number} uId
- * @returns {Object} user
- */
-function userProfileV1 (authUserId, uId) {
-  const data = getData();
+interface user {
+  uId: number,
+  email: string,
+  nameFirst: string,
+  nameLast: string,
+  handleStr: string,
+};
 
-  if ((data.users[authUserId]) === undefined) {
-    return {
-      error: 'authUserId does not refer to a valid ID',
-    };
+function userProfileV1 (token: string, uId: number): user {
+  if (validToken(token) === false) {
+    return { error: 'invalid token' };
   }
 
-  if ((data.users[uId]) === undefined) {
-    return {
-      error: 'uId does not refer to a valid ID',
-    };
+  if (validUId(uId) === false) {
+    return { error: 'invalid uId' };
   }
 
-  const user = data.users[uId];
-
-  return {
-    user: {
-      uId: user.uId,
-      email: user.email,
-      nameFirst: user.nameFirst,
-      nameLast: user.nameLast,
-      handleStr: user.handleStr,
-    },
-  };
+  return { user: extractUser(uId) };
 }
 
-export { userProfileV1 };
+function usersAllV1 (token: string): user[] {
+  if (validToken(token) === false) {
+    return { error: 'invalid token' };
+  }
+
+  return { users: extractUser()};
+}
+
+export { userProfileV1, usersAllV1 };
