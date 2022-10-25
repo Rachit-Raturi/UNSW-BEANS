@@ -18,19 +18,10 @@ function validEmail(email: string): boolean {
 }
 
 function validToken(token: string): boolean {
-<<<<<<< src/helperfunctions.ts
   if (findUser(token) === undefined) {
     return false; 
-=======
-  let data = getData();
-  let isValidToken;
-
-  for (const element of data.users) {
-    isValidToken = element.tokens.find(a => a === token);
-    if (isValidToken !== undefined) {
-      return true;
-    }
->>>>>>> src/helperfunctions.ts
+  }
+  return true;
   }
 
   return false;
