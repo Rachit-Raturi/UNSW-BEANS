@@ -125,7 +125,6 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
 
 function authLogoutV1(token: string) {
   let data = getData();
-  console.log(data.users);
   for (const users of data.users) {
       if (users.tokens.includes(token)) {
         const index = users.tokens.indexOf(token);

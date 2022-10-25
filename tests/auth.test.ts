@@ -157,7 +157,6 @@ describe('Tests for /auth/logout/v1', () => {
       .toStrictEqual({ 
         token: expect.any(String),
         authUserId: expect.any(Number)});
-      console.log(user_new.token);
       expect(requestAuthLogoutV1(user_new.token))
       .toStrictEqual({});
     });
