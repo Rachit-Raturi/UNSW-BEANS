@@ -64,6 +64,7 @@ app.delete('/clear/v1', (req: Request, res: Response) => {
   res.json(clearV1());
 });
 
+// Channel functions
 app.get('/channels/list/v2', (req: Request, res: Response) => {
   const token = req.query.token as string;
   res.json(channelsListV1(token));
@@ -87,6 +88,11 @@ app.post('/message/send/v1', (req: Request, res: Response) => {
   res.json(messageSend(token, channelId, message));
 });
 
+app.get('/channel/messages/v2', (req: Request, res: Response) => {
+  console.log('Message History');
+  const { token, channelId, start } = req.body;
+  res.json(channelMessagesV1(token, channelId, start));
+});
 
 // Channels functions
 
