@@ -8,6 +8,7 @@ import cors from 'cors';
 import { authLoginV1, authRegisterV1, authLogoutV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from './channel';
+import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1 } from './users';
 import { clearV1 } from './other';
 
 // Set up web app
@@ -63,12 +64,12 @@ app.delete('/clear/v1', (req: Request, res: Response) => {
   res.json(clearV1());
 });
 
-app.get('channels/list/v2', (req: Request, res: Response) => {
+app.get('/channels/list/v2', (req: Request, res: Response) => {
   const token = req.query.token as string;
   res.json(channelsListV1(token));
 });
 
-app.post('channel/invite/v2', (req: Request, res: Response) => {
+app.post('/channel/invite/v2', (req: Request, res: Response) => {
   console.log('Message Sent');
   const { token, channelId, uId } = req.body;
   res.json(channelInviteV1(token, channelId, uId));
@@ -90,4 +91,31 @@ app.post('/channels/create/v2', (req: Request, res: Response) => {
   console.log('User Register');
   const { authUserId, name, isPublic } = req.body;
   res.json(channelsCreateV1(authUserId, name, isPublic));
+});
+
+app.get('/user/profile/v2', (req: Request, res: Response) => {
+  const token = req.query.token as string;
+  const uId = parseInt(req.query.uId as string);
+  res.json(userProfileV1(token, uId));
+});
+
+app.get('/users/all/v1', (req: Request, res: Response) => {
+  const token = req.query.token as string;
+  res.json(usersAllV1(token));
+});
+
+
+app.put('/user/profile/setname/v1', (req: Request, res: Response) => {
+  const { token, nameFirst, nameLast } = req.body;
+  res.json(userSetNameV1(token, nameFirst, nameLast));
+});
+
+app.put('/user/profile/setemail/v1', (req: Request, res: Response) => {
+  const { token, email } = req.body;
+  res.json(userSetEmailV1(token, email));
+});
+
+app.put('/user/profile/sethandle/v1', (req: Request, res: Response) => {
+  const { token, handleStr } = req.body;
+  res.json(userSetHandleV1(token, handleStr));
 });
