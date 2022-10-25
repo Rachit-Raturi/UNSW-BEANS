@@ -27,7 +27,7 @@ export function requestauthLogin(email: string, password: string) {
     return requestHelper('POST', '/auth/login/v2', { email, password });
   }
   
-export function requestauthRegiser(email: string, password: string, nameFirst: string, nameLast: string) {
+export function requestauthRegister(email: string, password: string, nameFirst: string, nameLast: string) {
   return requestHelper('POST', '/auth/register/v2', { email, password, nameFirst, nameLast });
 }
 
