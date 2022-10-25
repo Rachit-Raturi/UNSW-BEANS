@@ -105,13 +105,13 @@ function extractchannels(all?: boolean) {
 }
 
 
-function findUser(token: string): object {
+function findUser(token: string) {
   let data = getData();
-  let userObject: object;
+  let userObject;
 
   for (const element of data.users) {
     for (const tokens of element.tokens) {
-      if (tokens.token === token) {
+      if (tokens === token) {
         userObject = element;
       }
     }
