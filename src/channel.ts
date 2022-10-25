@@ -149,14 +149,14 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
   const currentUser = findUser(token);
 
   // invalid token error
-  if (validToken(token) === false) {
+  if (!validToken(token)) {
     return {
       error: 'Invalid token',
     };
   }
 
   // invalid uid to invite error
-  if (validUId(uId) === false) {
+  if (!validUId(uId)) {
     return {
       error: 'invalid user',
     };
