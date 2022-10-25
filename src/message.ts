@@ -30,7 +30,7 @@ function messageSend(token: string, channelId: number, message: string) {
   }
 
   const checkIsMember = data.channels[channelId].allMembers;
-  if (checkIsMember.includes(user.uId) === false) {
+  if (checkIsMember.includes(user) === false) {
     return { error: `user(${token}) is not a member of channel(${channelId})` };
   }
 
