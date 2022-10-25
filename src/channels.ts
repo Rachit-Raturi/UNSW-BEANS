@@ -65,7 +65,7 @@ function channelsListV1(token: string) {
   const currentUser = findUser(token);
 
   // check authuser is valid
-  if (!validToken(token) === false) {
+  if (!validToken(token)) {
     return {
       error: 'Invalid token'
     };

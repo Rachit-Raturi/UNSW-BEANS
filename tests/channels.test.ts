@@ -46,7 +46,7 @@ beforeEach(() => {
   channel1 = requestChannelsCreate(user.token, 'My Channel1', true);
 });
 
-describe('Tests for channelsCreateV1', () => {
+describe('Tests for requestChannelsCreate', () => {
   test('Valid Case ', () => {
   
     expect(requestChannelsCreate(user.token, 'channel1', true))
@@ -71,31 +71,28 @@ describe('Tests for channelsCreateV1', () => {
   });
 });
 
-describe('Invalid channelsListV1 tests', () => {
-  test('Test 1: Invalid authUserId - no users', () => {
+describe('channelsListV1 tests', () => {
+  test('Invalid Test 1: no user', () => {
     requestClear();
-    expect(requestChannelsList('invalid')).toStrictEqual({ error: expect.any(String) });
+   expect(requestChannelsList('invalid')).toStrictEqual(ERROR);
   });
-});
-
-describe('Valid channelsListV1 tests', () => {
-  test('Test 1: user in 1 course', () => {
-    expect(requestChannelsList(user.authUserId))
+  test('Test 1: user in 1 channel', () => {
+    expect(requestChannelsList(user.token))
       .toStrictEqual({ channels: [{ channelId: channel1.channelId, name: 'My Channel1' }] });
   });
 
-  test('Test 2: user in 0 courses', () => {
-    expect(requestChannelsList(user1.authUserId))
+  test('Test 2: user in 0 channels', () => {
+    expect(requestChannelsList(user1.token))
       .toStrictEqual({ channels: [] });
   });
 
-  test('Test 3: user in 2 courses', () => {
-    const channel2 = requestChannelsCreate(user.authUserId, 'My Channel2', true);
+  test('Test 3: user in 2 channels', () => {
+    const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
     const outputArray = [];
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(requestChannelsList(user.authUserId).channels);
+    const receivedSet = new Set(requestChannelsList(user.token).channels);
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 
@@ -103,12 +100,11 @@ describe('Valid channelsListV1 tests', () => {
     const channel2 = requestChannelsCreate(user.authUserId, 'My Channel2', true);
     expect(requestChannelsCreate(user.authUserId, 'My Channel3', false))
       .toStrictEqual({ channelId: expect.any(Number) });
-
     const outputArray = [];
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(requestChannelsList(user.authUserId).channels);
+    const receivedSet = new Set(requestChannelsList(user.token).channels);
 
     expect(receivedSet).toStrictEqual(expectedSet);
   });
