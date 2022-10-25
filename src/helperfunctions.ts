@@ -1,4 +1,3 @@
-
 import validator from 'validator';
 import { getData, setData } from './dataStore';
 
@@ -22,9 +21,6 @@ function validToken(token: string): boolean {
     return false; 
   }
   return true;
-  }
-
-  return false;
 }
 
 function validUId(uId: number): boolean {
