@@ -26,7 +26,7 @@ function requestHelper(method: HttpVerb, path: string, payload: object) {
 
 // Wrapper functions
 
-function requestDmCreate(token: string, uIds: Array<number>) {
+function requestDmCreate(token: string, uIds?: Array<number>) {
   return requestHelper('POST', '/dm/create/v1', { token, uIds });
 }
 
@@ -50,7 +50,7 @@ function requestDmMessages(token: string, dmId: number, start: number) {
   return requestHelper('GET', '/dm/messages/v1', { token, dmId, start });
 }
 
-function requestDmSend(token: string, dmId: number) {
+function requestDmSend(token: string, dmId: number, message: string) {
   return requestHelper('POST', '/message/senddm/v1', { token, dmId, message });
 }
 
@@ -62,10 +62,9 @@ function requestClear() {
 
 let user;
 let user1;
-let channel;
-let invalidUserId = 1;
 let invalidToken = 'invalid';
 let invalidDm = -1;
+let dm;
 let start;
 
 beforeEach(() => {
@@ -75,23 +74,78 @@ beforeEach(() => {
   start = 0;
 });
  
+
+
 describe('dm/create/v1', () => {
   test('any uId that does not refer to valid user', () => {
-    expect(requestDmCreate(user.token, invalidUserId)).toStrictEqual(ERROR);
+    expect(requestDmCreate(user.token, user1.uId + 1)).toStrictEqual(ERROR);
   });
 
   test('duplicate uIds', () => {
-    expect(requestDmCreate(user.token, user.authUserId)).toStrictEqual(ERROR);
+    expect(requestDmCreate(user.token, user.uId)).toStrictEqual(ERROR);
   });
 
   test('invalid token', () => {
-    expect(requestDmCreate(invalidToken, user.authUserId)).toStrictEqual(ERROR);
+    expect(requestDmCreate(invalidToken, user1.uId)).toStrictEqual(ERROR);
   });
 
   test('Successful dm', () => {
-    expect(requestDmCreate(user.token, user.authUserId)).toStrictEqual(ERROR);
+    expect(requestDmCreate(user.token, user.uId)).toStrictEqual(ERROR);
   });
 });
+
+
+
+beforeEach(() => {
+  requestClear();
+  user = authRegisterV1('test@gmail.com', 'password', 'firstname', 'lastname');
+  user1 = authRegisterV1('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
+  dm = requestDmCreate(user.token, user1.uId);
+  start = 0;
+});
+
+
+
+describe('/dm/list/v1', () => {
+  test('Test 1: Invalid token - extra characters', () => {
+    expect(requestDmList(user.token + 'AA')).toStrictEqual(ERROR);
+  });
+
+  test('Test 2: Invalid token - missing characters', () => {
+    expect(requestDmList(user.token.slice(0, -2))).toStrictEqual(ERROR);
+  });
+
+  test('Test 3: Valid case', () => {
+    expect(requestDmList(user.token)).toStrictEqual({ 
+      dms: [
+        {
+          dmId: dm,
+          // name: 
+        }
+      ]
+     })
+  });
+
+});
+
+
+
+// describe('/dm/remove/v1', () => {
+//   test('Test 1: Invalid token - extra characters', () => {
+//     expect(requestDmRemove(user.token + 'AA',)).toStrictEqual(ERROR);
+//   });
+
+//   test('Test 2: Invalid token - missing characters', () => {
+//     expect(requestDmRemove(user.token.slice(0, -2))).toStrictEqual(ERROR);
+//   });
+
+//   test('Test 3: Valid case', () => {
+//     expect(requestDmRemove(user.token)).toStrictEqual({})
+//   });
+
+// });
+
+
 
 describe('dm/messages/v1', () => {
   test('invalid dmId', () => {
@@ -111,6 +165,8 @@ describe('dm/messages/v1', () => {
     expect(requestDmMessages(user1.token, dm.dmId, start)).toStrictEqual(ERROR);
   });
 });
+
+
 
 describe('message/senddm/v1', () => {
   test('invalid dmId', () => {
@@ -134,41 +190,3 @@ describe('message/senddm/v1', () => {
     expect(requestDmSend(invalidToken, dm.dmId, message)).toStrictEqual(ERROR);
   });
 });
-
-describe('/dm/list/v1', () => {
-  test('Test 1: Invalid token - extra characters', () => {
-    expect(requestDmList(user.token + 'AA')).toStrictEqual(ERROR);
-  });
-
-  test('Test 2: Invalid token - missing characters', () => {
-    expect(requestDmList(user.token.slice(0, -2))).toStrictEqual(ERROR);
-  });
-
-  // test('Test 3: Valid case', () => {
-  //   expect(requestDmList(user.token)).toStrictEqual({ 
-  //     dms: [
-  //       {
-  //         dmId:
-  //         name:
-  //       }
-  //     ]
-  //    })
-  // });
-
-});
-
-// describe('/dm/remove/v1', () => {
-//   test('Test 1: Invalid token - extra characters', () => {
-//     expect(requestDmRemove(user.token + 'AA',)).toStrictEqual(ERROR);
-//   });
-
-//   test('Test 2: Invalid token - missing characters', () => {
-//     expect(requestDmRemove(user.token.slice(0, -2))).toStrictEqual(ERROR);
-//   });
-
-//   test('Test 3: Valid case', () => {
-//     expect(requestDmRemove(user.token)).toStrictEqual({})
-//   });
-
-// });
-
