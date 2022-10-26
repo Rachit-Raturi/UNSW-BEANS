@@ -1,7 +1,7 @@
 import express, { json, Request, Response } from 'express';
 import { echo } from './echo';
 import morgan from 'morgan';
-import { messageSend, messageEdit } from './message';
+import { messageSend, messageEdit, messageRemove } from './message';
 import config from './config.json';
 import cors from 'cors';
 
@@ -45,6 +45,8 @@ process.on('SIGINT', () => {
   server.close(() => console.log('Shutting down server gracefully.'));
 });
 
+// ========================================================================= 
+// auth functions
 app.post('/auth/login/v2', (req: Request, res: Response) => {
   const { email, password } = req.body;
   res.json(authLoginV1(email, password));
@@ -64,6 +66,8 @@ app.delete('/clear/v1', (req: Request, res: Response) => {
   res.json(clearV1());
 });
 
+// ========================================================================= 
+// Channel functions
 app.get('/channels/list/v2', (req: Request, res: Response) => {
   const token = req.query.token as string;
   res.json(channelsListV1(token));
@@ -92,6 +96,8 @@ app.get('/channel/messages/v2', (req: Request, res: Response) => {
   res.json(channelMessagesV1(token, channelId, start));
 });
 
+// ========================================================================= 
+// Message functions
 app.post('/message/send/v1', (req: Request, res: Response) => {
   console.log('Message Sent');
   const { token, channelId, message } = req.body;
@@ -104,9 +110,15 @@ app.put('/message/edit/v1', (req: Request, res: Response) => {
   res.json(messageEdit(token, messageId, message));
 });
 
+app.delete('/message/remove/v1', (req: Request, res: Response) => {
+  console.log('Message Removed');
+  const token = req.query.token as string; 
+  const messageId = parseInt(req.query.messageId as string);
+  res.json(messageRemove(token, messageId));
+});
 
+// ========================================================================= 
 // Channels functions
-
 app.post('/channels/create/v2', (req: Request, res: Response) => {
   console.log('Channel Created');
   const { token, name, isPublic } = req.body;
@@ -119,6 +131,7 @@ app.get('/channels/listAll/v2', (req: Request, res: Response) => {
   res.json(channelsListAllV1(token));
 });
 
+// ========================================================================= 
 // User/s functions
 app.get('/user/profile/v2', (req: Request, res: Response) => {
   const token = req.query.token as string;
