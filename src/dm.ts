@@ -217,4 +217,4 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
   };
 }
 
-export { dmCreateV1, dmMessagesV1, messageSendDmV1 }
+export { dmCreateV1, dmMessagesV1, messageSendDmV1 };
