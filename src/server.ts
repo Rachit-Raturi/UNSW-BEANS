@@ -9,6 +9,7 @@ import { authLoginV1, authRegisterV1, authLogoutV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1 } from './channel';
 import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1 } from './users';
+import { dmCreateV1, dmMessagesV1, messageSendDmV1 } from './dm';
 import { clearV1 } from './other';
 
 // Set up web app
@@ -64,6 +65,7 @@ app.delete('/clear/v1', (req: Request, res: Response) => {
   res.json(clearV1());
 });
 
+// Channel functions
 app.get('/channels/list/v2', (req: Request, res: Response) => {
   const token = req.query.token as string;
   res.json(channelsListV1(token));
@@ -98,12 +100,19 @@ app.post('/message/send/v1', (req: Request, res: Response) => {
   res.json(messageSend(token, channelId, message));
 });
 
+app.get('/channel/messages/v2', (req: Request, res: Response) => {
+  console.log('Channel Message History');
+  const token = req.query.token as string;
+  const channelId = parseInt(req.query.channelId as string);
+  const start = parseInt(req.query.start as string);
+  res.json(channelMessagesV1(token, channelId, start));
+});
+
 app.put('/message/edit/v1', (req: Request, res: Response) => {
   console.log('Message Edited');
   const { token, messageId, message } = req.body;
   res.json(messageEdit(token, messageId, message));
 });
-
 
 // Channels functions
 
@@ -144,5 +153,26 @@ app.put('/user/profile/setemail/v1', (req: Request, res: Response) => {
 app.put('/user/profile/sethandle/v1', (req: Request, res: Response) => {
   const { token, handleStr } = req.body;
   res.json(userSetHandleV1(token, handleStr));
+});
+
+// Dm functions
+app.post('/dm/create/v1', (req: Request, res: Response) => {
+  console.log('Dm created');
+  const { token, uIds } = req.body;
+  res.json(dmCreateV1(token, uIds));
+});
+
+app.get('/dm/messages/v1', (req: Request, res: Response) => {
+  console.log('Dm Message History');
+  const token = req.query.token as string;
+  const dmId = parseInt(req.query.dmId as string);
+  const start = parseInt(req.query.start as string);
+  res.json(channelMessagesV1(token, dmId, start));
+});
+
+app.post('/message/senddm/v1', (req: Request, res: Response) => {
+  console.log('Message Sent');
+  const { token, dmId, message } = req.body;
+  res.json(messageSend(token, dmId, message));
 });
 // ========================================================================= //
