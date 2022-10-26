@@ -1,5 +1,5 @@
 import { setData } from './dataStore';
-
+import { resetId } from './message'
 /**
  * Completely resets the datastore
  *
@@ -7,6 +7,7 @@ import { setData } from './dataStore';
  */
 
 function clearV1() {
+  resetId()
   const clearedData = {
     users: [
     ],

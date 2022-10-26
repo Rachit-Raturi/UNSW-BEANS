@@ -1,6 +1,6 @@
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import { getData, setData } from './dataStore';
-import { findUser, validToken } from './helperfunctions'
+import {findUser, validToken, findMessage, validMessage} from './helperfunctions'
 
 /**
  * Given a channel with ID channelId that the authorised user
@@ -13,6 +13,10 @@ import { findUser, validToken } from './helperfunctions'
  */
 
 let Id = 0; 
+function resetId() { 
+  Id = 0;
+}
+
 function messageSend(token: string, channelId: number, message: string) {
   const data = getData();
   
@@ -24,12 +28,11 @@ function messageSend(token: string, channelId: number, message: string) {
     return { error: `message length(${message.length}) is too long or too short` };
   }
   
-  if (!validToken(token)) {
+  
+  if (validToken(token) === false) {
     return { error: `token(${token}) does not refer to a valid user` };
   }
-
-  const user = findUser(token);
-
+  let user = findUser(token); 
   const checkIsMember = data.channels[channelId].allMembers;
   if (checkIsMember.includes(user.uId) === false) {
     return { error: `user(${token}) is not a member of channel(${channelId})` };
@@ -50,4 +53,43 @@ function messageSend(token: string, channelId: number, message: string) {
   return {messageId: Id};
 }
 
-export { messageSend };
+/**
+ * Given a messageId that the user is authorised to manipulate, 
+ * changes the actual message string from a channel or dm.
+ *
+ * @param {string} token
+ * @param {number} messageId
+ * @param {string} message
+ * @returns {} 
+ */
+function messageEdit(token: string, messageId: number, message: string) {
+  const data = getData();
+
+  if (message.length > 1000) { 
+    return {error: "Message exceeds 1000 characters"}
+  }
+
+  if (validMessage(messageId) === false) {
+    return { error: `message(${messageId}) does not refer to a valid message` };
+  }
+
+  if (validToken(token) === false) {
+    return { error: `token(${token}) does not refer to a valid user` };
+  }
+  
+  // Owner can edit the message but members cannot
+  let messageObject = findMessage(messageId); 
+  let user = findUser(token); 
+  const checkIsMember = data.channels[messageObject.channelID].ownerMembers;
+
+  if (user.uId !== messageObject.uId && checkIsMember.includes(user.uId) === false) { 
+    return { error: `user(${token}) is not a member of channel(${messageId})` };
+  }
+
+  data.channels[messageObject.channelID].messages.
+  find( m => m.messageId === messageObject.messageId).message = message;
+    
+  return {}
+}
+
+export { messageSend, messageEdit, resetId };

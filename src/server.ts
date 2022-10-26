@@ -1,7 +1,7 @@
 import express, { json, Request, Response } from 'express';
 import { echo } from './echo';
 import morgan from 'morgan';
-import { messageSend } from './message';
+import { messageSend, messageEdit } from './message';
 import config from './config.json';
 import cors from 'cors';
 
@@ -106,6 +106,12 @@ app.get('/channel/messages/v2', (req: Request, res: Response) => {
   const channelId = parseInt(req.query.channelId as string);
   const start = parseInt(req.query.start as string);
   res.json(channelMessagesV1(token, channelId, start));
+});
+
+app.put('/message/edit/v1', (req: Request, res: Response) => {
+  console.log('Message Edited');
+  const { token, messageId, message } = req.body;
+  res.json(messageEdit(token, messageId, message));
 });
 
 // Channels functions
