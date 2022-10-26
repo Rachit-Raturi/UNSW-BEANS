@@ -1,4 +1,3 @@
-import { port, url } from '../src/config.json';
 import { 
   requestChannelsCreate, 
   requestauthRegister, 
@@ -6,11 +5,9 @@ import {
   requestMessageEdit, 
   requestMessageRemove,
   requestClear,
-  requestChannelsList,
   requestChannelJoin
 
 } from './helper'
-const SERVER_URL = `${url}:${port}`;
 
 let user; 
 let user2; 
@@ -143,6 +140,4 @@ describe('Tests for Message Edit', () => {
     let messageId = requestMessageSend(user.token, channel.channelId, "Message3");
     expect(requestMessageRemove("user2.token", messageId.messageId)).toStrictEqual({error: expect.any(String)})
   });
-
-  
 });

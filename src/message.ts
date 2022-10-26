@@ -1,4 +1,3 @@
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import { getData, setData } from './dataStore';
 import {findUser, validToken, findMessage, validMessage} from './helperfunctions'
 
