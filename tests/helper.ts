@@ -62,7 +62,18 @@ export function requestChannelMessages( token: string, channelId: number, start:
   return requestHelper('GET', '/channel/messages/v2', { token, channelId, start } );
 }
 
-// ========================================================================= 
+export function requestChannelLeave( token: string, channelId: number ) {
+  return requestHelper('POST', '/channel/leave/v1', { token, channelId });
+}
+
+export function requestChannelRemoveOwner( token: string, channelId: number, uId: number ) {
+  return requestHelper('POST', '/channel/removeowner/v1', { token, channelId, uId});
+}
+
+export function requestChannelAddOwner( token: string, channelId: number, uId: number ) {
+  return requestHelper('POST', '/channel/addowner/v1', { token, channelId, uId });
+}
+
 // DM functions
 export function requestDmCreate(token: string, uIds: Array<number>) {
   return requestHelper('POST', '/dm/create/v1', { token, uIds });
