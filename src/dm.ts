@@ -161,7 +161,7 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
 
 
 let messageId = 1;
-function messageSendDmV1 (token: string, dmId: number, message: string) {
+function messageSendDmV1(token: string, dmId: number, message: string) {
   const data = getData();
 
   // Check for valid token
@@ -216,3 +216,5 @@ function messageSendDmV1 (token: string, dmId: number, message: string) {
     messageId: messageId - 2
   };
 }
+
+export { dmCreateV1, dmMessagesV1, messageSendDmV1 }
