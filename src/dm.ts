@@ -116,7 +116,7 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
   const numberOfMessages = data.dms.messages.length;
   const messages = data.dms.messages;
   let end;
-  // CHeck whether starting index is < 0
+  // Check whether starting index is < 0
   if (start < 0) {
     return {
       error: 'Index cannot be negative as there are no messages after the most recent message',
@@ -140,7 +140,7 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
         console.log(`{ [messages], ${start}, ${end} }`);
         start += 50;
       } else if (start + 50 >= numberOfMessages) {
-        // If there is < 50 messages left in the channel history, end pagination
+        // If there is < 50 messages left in the dm history, end pagination
         end = -1;
         console.log(`{ [messages], ${start}, ${end} }`);
         start = beginning;
