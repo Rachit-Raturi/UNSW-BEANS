@@ -174,12 +174,16 @@ describe('message/senddm/v1', () => {
   });
 
   test('message is less than 1 character', () => {
-    message = [];
-    expect(requestDmSend(user.token, dm.dmId, message)).toStrictEqual(ERROR);
+    let emptyString: string;
+    expect(requestDmSend(user.token, dm.dmId, emptyString)).toStrictEqual(ERROR);
   })
 
   test('message is more than 1000 characters', () => {
-    expect(requestDmSend(user.token, dm.dmId, message)).toStrictEqual(ERROR);
+    let longString: string;
+    for (let i = 0; i <= 1000; i++) {
+      longString += 'a';
+    }
+    expect(requestDmSend(user.token, dm.dmId, longString)).toStrictEqual(ERROR);
   });
 
   test('user is not in dm', () => {
