@@ -1,6 +1,6 @@
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import { getData, setData } from './dataStore';
-import {findUser} from './helperfunctions'
+import {findUser, validToken} from './helperfunctions'
 
 /**
  * Given a channel with ID channelId that the authorised user
@@ -24,13 +24,13 @@ function messageSend(token: string, channelId: number, message: string) {
     return { error: `message length(${message.length}) is too long or too short` };
   }
   
-  let user = findUser(token); 
-  if (user === undefined) {
+  
+  if (validToken(token) === false) {
     return { error: `token(${token}) does not refer to a valid user` };
   }
-
+  let user = findUser(token); 
   const checkIsMember = data.channels[channelId].allMembers;
-  if (checkIsMember.includes(user) === false) {
+  if (checkIsMember.includes(user.uId) === false) {
     return { error: `user(${token}) is not a member of channel(${channelId})` };
   }
 
