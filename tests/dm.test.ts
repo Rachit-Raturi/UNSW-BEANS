@@ -82,16 +82,16 @@ describe('dm/create/v1', () => {
   });
 
   test('Test 2: Duplicate uIds', () => {
-    let uIds = [user.uId, user.uId];
-    expect(requestDmCreate(user.token, user.uId)).toStrictEqual(ERROR);
+    let uIds = [user.authUserId, user,authUserId];
+    expect(requestDmCreate(user.token, uIds)).toStrictEqual(ERROR);
   });
 
   test('Test 3: Invalid token', () => {
-    expect(requestDmCreate(invalidToken, user1.uId)).toStrictEqual(ERROR);
+    expect(requestDmCreate(invalidToken, user.authUserId)).toStrictEqual(ERROR);
   });
 
   test('Test 4: Successful dm created', () => {
-    expect(requestDmCreate(user.token, user.uId)).toStrictEqual(expect.any(Number));
+    expect(requestDmCreate(user.token, user.authUserId)).toStrictEqual(expect.any(Number));
   });
 });
 
