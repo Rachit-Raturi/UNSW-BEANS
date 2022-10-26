@@ -127,7 +127,7 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
       start: start,
       end: -1,
     };
-  } else if (start >= 0 && start > numberOfMessages) {
+  } else if (start >= 0 && start >= numberOfMessages) {
     // If starting index is greater than the number of messages sent in the dm
     return {
       error: `The starting index, ${start}, is greater than the number of messages in the dm, ${numberOfMessages}`
@@ -135,17 +135,12 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
   } else if (start >= 0 && start < numberOfMessages) {
     while (start < numberOfMessages) {
       // If starting index is 0 or a multiple of 50
-      if (start % 50 === 0 && start < numberOfMessages) {
+      if (start + 50 < numberOfMessages) {
         end = start + 50;
         console.log(`{ [messages], ${start}, ${end} }`);
         start += 50;
-      } else if (start % 50 !== 0 && start < numberOfMessages) {
-        // If starting index is not a multiple of 50
-        end = start / 50 * 50 + 50; // e.g start = 120 -> 120 / 50 * 50 + 50 = 150
-        console.log(`{ [messages], ${start}, ${end} }`);
-        start = end;
       } else if (start + 50 >= numberOfMessages) {
-        // If there is < 50 messages left in the dm history, end pagination
+        // If there is < 50 messages left in the channel history, end pagination
         end = -1;
         console.log(`{ [messages], ${start}, ${end} }`);
         start = beginning;
