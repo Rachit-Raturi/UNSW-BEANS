@@ -138,31 +138,38 @@ function validMessage(messageId: number) {
   return false; 
 }
 
+// assumes valid messageId 
 function findMessage(messageId: number) { 
   let data = getData();
   let messageObject;
   let channelID; 
-
+  let index_temp; 
+  let index; 
 
   if (messageId % 2 === 0) {
     for (const element of data.channels) {
+      index_temp = 0; 
       for (const message of element.messages) {
-
-        if (message !== undefined ) { 
-          if (message.messageId === messageId) {
-              messageObject = message;
-              channelID = element.channelId;
-          }
+        if (message.messageId === messageId) {
+          messageObject = message;
+          channelID = element.channelId;
+          index = index_temp;
+          break;
         }
+        index_temp++; 
       }
     }
   } else { 
     for (const element of data.dms) {
       for (const message of element.messages) {
+        index_temp = 0; 
         if (message.messageId === messageId) {
           messageObject = element;
           channelID = element.channelId;
+          index = index_temp;
+          break;
         }
+        index_temp++; 
       }
     }
   }
@@ -173,6 +180,7 @@ function findMessage(messageId: number) {
     message: messageObject.message,
     timeSent: messageObject.timeSent,
     channelID: channelID,
+    index: index
   }
 
 }
