@@ -12,7 +12,7 @@ function clearV1() {
     ],
     channels: [
     ],
-    messages: [
+    dms: [
 
     ],
   };

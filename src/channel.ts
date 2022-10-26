@@ -26,54 +26,47 @@ function channelDetailsV1 (token: string, channelId: number): object {
       error: 'Invalid channel'
     };
   }
-
-  // not a member error
-  let isMember: boolean = false;
-  for (const member of data.channels[channelId].allMembers) {
-    for (const tokens of member.tokens) {
-      if (tokens.token === token) {
-        isMember = true;
-      }
-    }
-  }
-
-  if (isMember === false) {
-    return {
-      error: 'User is not a member of the channel'
-    };
-  }
-
-  // invalid token error
+  
+  // invalid token error 
   if (validToken(token) === false) {
     return {
       error: 'Invalid token'
     };
   }
 
-  const owners: Array<user>  = data.channels[channelId].ownerMembers;
-  const members: Array<user>  = data.channels[channelId].allMembers;
+  // not a member error
+  const currentUser = findUser(token);
+  const isMember = data.channels[channelId].allMembers.find(a => a === currentUser.uId)
+  if (isMember === undefined) {
+    return {
+      error: 'User is not a member of the channel'
+    };
+  }
+
+  const ownerMembers:Array<number> = data.channels[channelId].ownerMembers;
+  const allMembers:Array<number> = data.channels[channelId].allMembers;
   const ownersArray: Array<user> = [];
   const membersArray: Array<user> = [];
 
   // Create ownerMembers array output
-  for (const owner of owners) {
+  for (const owner of ownerMembers) {
     ownersArray.push({
-      uId: owner.uId,
-      email: owner.email,
-      nameFirst: owner.nameFirst,
-      nameLast: owner.nameLast,
-      handleStr: owner.handleStr,
+      uId: data.users[owner].uId,
+      email: data.users[owner].email,
+      nameFirst: data.users[owner].nameFirst,
+      nameLast: data.users[owner].nameLast,
+      handleStr: data.users[owner].handleStr,
     });
   }
 
   // Create allMembers array output
-  for (const member of members) {
+  for (const member of allMembers) {
     membersArray.push({
-      uId: member.uId,
-      email: member.email,
-      nameFirst: member.nameFirst,
-      nameLast: member.nameLast,
-      handleStr: member.handleStr,
+      uId: data.users[member].uId,
+      email: data.users[member].email,
+      nameFirst: data.users[member].nameFirst,
+      nameLast: data.users[member].nameLast,
+      handleStr: data.users[member].handleStr,
     });
   }
 
@@ -93,17 +86,17 @@ function channelDetailsV1 (token: string, channelId: number): object {
  * @param {Number} channelId - the id of the course the user is trying to join
  * @returns {} - empty object
  */
-function channelJoinV1(authUserId, channelId) {
+function channelJoinV1(token: string, channelId: number) {
   const data = getData();
 
-  // invalid authuserId
-  const isValidAuthUser = data.users.find(a => a.uId === authUserId);
-  if (isValidAuthUser === undefined) {
+  // invalid token
+  if (!validToken(token)) {
     return {
       error: 'Invalid user'
     };
   }
 
+  const currentUser = findUser(token);
   // invalid channelId error
   if (data.channels[channelId] === undefined) {
     return {
@@ -112,7 +105,7 @@ function channelJoinV1(authUserId, channelId) {
   }
 
   // already member error
-  if (data.channels[channelId].allMembers.includes(authUserId)) {
+  if (data.channels[channelId].allMembers.includes(currentUser.uId)) {
     return {
       error: 'User is already a member of this channel'
     };
@@ -121,15 +114,15 @@ function channelJoinV1(authUserId, channelId) {
   // private channel error
   if (data.channels[channelId].isPublic === false) {
     // global owner false
-    if (authUserId > 0) {
+    if (currentUser.uId > 0) {
       return {
-        error: `User(${authUserId}) cannot join a private channel`
+        error: `User(${currentUser.uId}) cannot join a private channel`
       };
     }
   }
 
   // add member to channel
-  data.channels[channelId].allMembers.push(authUserId);
+  data.channels[channelId].allMembers.push(currentUser.uId);
   setData(data);
 
   return {};
@@ -146,7 +139,6 @@ function channelJoinV1(authUserId, channelId) {
  */
 function channelInviteV1(token: string, channelId: number, uId: number) {
   const data = getData();
-  const currentUser = findUser(token);
 
   // invalid token error
   if (!validToken(token)) {
@@ -155,6 +147,7 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
     };
   }
 
+  const currentUser = findUser(token);
   // invalid uid to invite error
   if (!validUId(uId)) {
     return {
@@ -212,7 +205,7 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
 function channelMessagesV1(token: string, channelId: number, start: number): object {
   const data = getData();
   const beginning = start;
-  const currentUser = findUser(token);
+  
   // invalid token
   if (validToken(token) === false) {
     return {
@@ -220,6 +213,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
     };
   }
 
+  const currentUser = findUser(token);
   // check channelid is valid
   const isValidChannel = data.channels.find(c => c.channelId === channelId);
   if (isValidChannel === undefined) {
@@ -237,8 +231,8 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
     };
   }
 
-  const numberOfMessages = data.channels.messages.length;
-  const messages = data.channels.messages;
+  const numberOfMessages = data.channels[channelId].messages.length;
+  const messages = data.channels[channelId].messages;
   let end;
   // Check whether the starting index is < 0
   if (start < 0) {
