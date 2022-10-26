@@ -50,9 +50,7 @@ function messageSend(token: string, channelId: number, message: string) {
 
   data.channels[channelId].messages.push(newMessage);
   setData(data);
-
-  Id = Id + 2; 
-  return {messageId: Id - 2};
+  return {messageId: Id};
 }
 
 /**
