@@ -1,4 +1,5 @@
 import { getData, setData } from './dataStore';
+import { findUser, validToken } from './helperfunctions';
 
 interface dm {
   dmId: number,
