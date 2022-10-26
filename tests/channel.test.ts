@@ -186,3 +186,28 @@ describe('/channel/messages/v2', () => {
       );
   });
 });
+
+describe('/channel/leave/v1', () => {
+  test('Test 1: channelId does not refer to a valid channel', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelLeave(user1.token, invalidChannelId))
+    .toStrictEqual(ERROR);
+  });
+  
+  test('Test 2: user is not a member of the channel', () => {
+    expect(requestChannelLeave(user1.token, channel.channelId))
+    .toStrictEqual(ERROR);
+  });
+
+  test('Test 3: token is invalid', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelLeave(invalidtoken, channel.channelId))
+    .toStrictEqual(ERROR);
+  });
+  
+  test('Test 4: successful', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelLeave(user1.token, channel.channelId))
+    .toStrictEqual({});
+  });
+});
