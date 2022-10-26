@@ -1,4 +1,5 @@
 import { getData, setData } from './dataStore';
+import { findUser, validToken } from './helperfunctions';
 
 interface dm {
   dmId: number,
@@ -26,13 +27,13 @@ interface dm {
 
 function dmCreateV1(token: string, uIds?: number) {
   const data = getData();
-  const currentUser = findUser(token);
-  type handleStrKey = keyof typeof currentUser;
-  const handleStrVar = 'handleStr' as handleStrKey;
-  const ownerHandle: string = currentUser[handleStrVar];
-  type uIdKey = keyof typeof currentUser;
-  const uIdVar = 'uId' as uIdKey;
-  const authUserId: number = currentUser[uIdVar];
+
+  // invalid token
+  if (validToken(token) === false) {
+    return {
+      error: 'Invalid token'
+    };
+  }
 
   // invalid user Id
   for (const uId of uIds) {
@@ -53,12 +54,13 @@ function dmCreateV1(token: string, uIds?: number) {
     }
   }
 
-  // invalid token
-  if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
-  }
+  const currentUser = findUser(token);
+  type handleStrKey = keyof typeof currentUser;
+  const handleStrVar = 'handleStr' as handleStrKey;
+  const ownerHandle: string = currentUser[handleStrVar];
+  type uIdKey = keyof typeof currentUser;
+  const uIdVar = 'uId' as uIdKey;
+  const authUserId: number = currentUser[uIdVar];
 
   const name = [];
   name.push(ownerHandle);
@@ -68,7 +70,8 @@ function dmCreateV1(token: string, uIds?: number) {
     name: name,
     isPublic: isPublic,
     ownerMembers: authUserId,
-    allMembers: uIds,
+    allMembers: [uIds],
+    messages: [],
   };
 
   data.dms[data.dms.length] = dm;
@@ -81,12 +84,15 @@ function dmCreateV1(token: string, uIds?: number) {
 
 function dmMessagesV1(token: string, dmId: number, start: number) {
   const data = getData();
-  const currentUser = findUser(token);
-  type uIdKey = keyof typeof currentUser;
-  const uIdVar = 'uId' as uIdKey;
-  const authUserId: number = currentUser[uIdVar];
   
-  // invalid dmId
+  // Check for valid token
+  if (validToken(token) === false) {
+    return {
+      error: 'Invalid token'
+    };
+  }
+
+  // Check for valid dmId
   const isValidDm = data.dms.find(d => d.dmId === dmId);
   if (isValidDm === undefined) {
     return {
@@ -94,19 +100,16 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
     };
   }
 
-  // invalid token
-  if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
-  }
+  const currentUser = findUser(token);
+  type uIdKey = keyof typeof currentUser;
+  const uIdVar = 'uId' as uIdKey;
+  const authUserId: number = currentUser[uIdVar];
 
-  // check if user is a member of dm
-  const checkIsMember = data.dms[dm].allMembers;
-  const isValidMember = checkIsMember.find(m => m === authUserId);
-  if (isValidMember === undefined) {
+  // Check if user is a member of dm
+  const checkIsMember = data.channels[channelId].allMembers;
+  if (checkIsMember.includes(user) === false) {
     return {
-      error: `The authorised user ${authUserId} is not a member of the dm ${dmId}`
+      error: `user(${token}) is not a member of the dm(${dmId})`
     };
   }
 
@@ -155,3 +158,63 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
     }
   }
 }
+
+
+let messageId = 1;
+function messageSendDmV1(token: string, dmId: number, message: string) {
+  const data = getData();
+
+  // Check for valid token
+  if (validToken(token) === false) {
+    return {
+      error: 'Invalid token'
+    };
+  }
+
+  // Check for valid dmId
+  const isValidDm = data.dms.find(d => d.dmId === dmId);
+  if (isValidDm === undefined) {
+    return {
+      error: 'Invalid dm'
+    };
+  }
+
+  const checkIsMember = data.dms[dmId].allMembers;
+  if (checkIsMember.includes(user) === false) {
+    return {
+      error: `user(${token}) is not a member of channel(${channelId})`
+    };
+  }
+
+  // Check length of message
+  if (message.length < 1 || message.length > 1000) {
+    return {
+      error: `message length(${message.length}) is too long or too short`
+    };
+  }
+
+  const currentUser = findUser(token);
+  type uIdKey = keyof typeof currentUser;
+  const uIdVar = 'uId' as uIdKey;
+  const authUserId: number = currentUser[uIdVar];
+  const time = Math.floor(Date.now() / 1000); 
+  const messageId = data.dms[dmId].messages.messageId
+
+  const newMessage = {
+    messageId: messageId,
+    uId: authUserId,
+    message: message,
+    timeSent: time,
+  };
+
+  data.dms[dmId].messages.push(newMessage);
+  setData(data);
+
+  messageId = messageId + 2;
+
+  return {
+    messageId: messageId - 2
+  };
+}
+
+export { dmCreateV1, dmMessagesV1, messageSendDmV1 };
