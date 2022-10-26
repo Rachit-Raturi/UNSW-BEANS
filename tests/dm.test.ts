@@ -169,6 +169,7 @@ describe('dm/messages/v1', () => {
 
 
 describe('message/senddm/v1', () => {
+  let message = "Hello World";
   test('invalid dmId', () => {
     expect(requestDmSend(user.token, invalidDm, message)).toStrictEqual(ERROR);
   });
