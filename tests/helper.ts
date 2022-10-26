@@ -18,10 +18,9 @@ function requestHelper(method: HttpVerb, path: string, payload: object) {
   return JSON.parse(res.getBody('utf-8'));
 }
 
-// ========================================================================= //
-
 // Wrapper functions
 
+// ========================================================================= 
 // Auth functions
 export function requestauthLogin(email: string, password: string) {
     return requestHelper('POST', '/auth/login/v2', { email, password });
@@ -31,6 +30,7 @@ export function requestauthRegister(email: string, password: string, nameFirst: 
   return requestHelper('POST', '/auth/register/v2', { email, password, nameFirst, nameLast });
 }
 
+// ========================================================================= 
 // Channels functions 
 export function requestChannelsCreate( token: string, name: string, isPublic: boolean  ) {
   return requestHelper('POST', '/channels/create/v2', { token, name, isPublic } );
@@ -48,6 +48,7 @@ export function requestChannelDetails( token: string, channelId: number, ){
   return requestHelper('GET', '/channel/details/v2', { token, channelId } );
 }
 
+// ========================================================================= 
 // Channel functions
 export function requestChannelJoin( token: number, channelId: number, ) {
   return requestHelper('POST', '/channel/join/v2', { token, channelId } );
@@ -102,6 +103,7 @@ export function requestClear() {
   return requestHelper('DELETE', '/clear/v1', {});
 }
 
+// ========================================================================= 
 // Message Function 
 export function requestMessageSend( token: string, channelId: number, message: string ) {
   return requestHelper('POST', '/message/send/v1', { token, channelId, message} );
@@ -111,10 +113,11 @@ export function requestMessageEdit( token: string, messageId: number, message: s
   return requestHelper('PUT', '/message/edit/v1', {token, messageId, message} );
 }
 
-export function requestMessageDelete( token: string, messageId: number) {
-  return requestHelper('DELETE', '/message/delete/v1', { token, messageId });
+export function requestMessageRemove( token: string, messageId: number) {
+  return requestHelper('DELETE', '/message/remove/v1', { token, messageId });
 }
 
+// ========================================================================= 
 // User/s Function
 export function requestUserProfile( token: string, uId: number) {
   return requestHelper('GET', '/user/profile/v2', { token, uId });
