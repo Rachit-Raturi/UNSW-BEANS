@@ -90,7 +90,9 @@ app.post('/message/send/v1', (req: Request, res: Response) => {
 
 app.get('/channel/messages/v2', (req: Request, res: Response) => {
   console.log('Message History');
-  const { token, channelId, start } = req.body;
+  const token = req.query.token as string;
+  const channelId = parseInt(req.query.channelId as string);
+  const start = parseInt(req.query.start as string);
   res.json(channelMessagesV1(token, channelId, start));
 });
 
