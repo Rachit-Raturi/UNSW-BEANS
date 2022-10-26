@@ -233,7 +233,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
 
   const numberOfMessages = data.channels[channelId].messages.length;
   const messages = data.channels[channelId].messages;
-  let end;
+  let end: number;
   // Check whether the starting index is < 0
   if (start < 0) {
     return {
@@ -257,15 +257,10 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
   } else if (start >= 0 && start < numberOfMessages) {
     while (start < numberOfMessages) {
       // If starting index is 0 or a multiple of 50
-      if (start % 50 === 0 && start < numberOfMessages) {
+      if (start + 50 < numberOfMessages) {
         end = start + 50;
         console.log(`{ [messages], ${start}, ${end} }`);
         start += 50;
-      } else if (start % 50 !== 0 && start < numberOfMessages) {
-        // If starting index is not a multiple of 50
-        end = start / 50 * 50 + 50; // e.g start = 120 -> 120 / 50 * 50 + 50 = 150
-        console.log(`{ [messages], ${start}, ${end} }`);
-        start = end;
       } else if (start + 50 >= numberOfMessages) {
         // If there is < 50 messages left in the channel history, end pagination
         end = -1;
