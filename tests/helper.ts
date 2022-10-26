@@ -96,7 +96,7 @@ export function requestMessageSend( token: string, channelId: number, message: s
 }
 
 export function requestMessageEdit( token: string, messageId: number, message: string ) {
-  return requestHelper('PUT', '/message/edit/v12', {token, messageId, message} );
+  return requestHelper('PUT', '/message/edit/v1', {token, messageId, message} );
 }
 
 export function requestMessageDelete( token: string, messageId: number) {

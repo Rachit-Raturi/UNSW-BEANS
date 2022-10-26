@@ -126,4 +126,55 @@ function findUser(token: string) {
   };
 }
 
-export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser };
+function validMessage(messageId: number) { 
+  let data = getData();
+  let a; 
+  for (const element of data.channels) {
+    a = element.messages.find(a => a.messageId === messageId)
+    if (a !== undefined) {
+      return true; 
+    }
+  }
+  return false; 
+}
+
+function findMessage(messageId: number) { 
+  let data = getData();
+  let messageObject;
+  let channelID; 
+
+
+  if (messageId % 2 === 0) {
+    for (const element of data.channels) {
+      for (const message of element.messages) {
+
+        if (message !== undefined ) { 
+          if (message.messageId === messageId) {
+              messageObject = message;
+              channelID = element.channelId;
+          }
+        }
+      }
+    }
+  } else { 
+    for (const element of data.dms) {
+      for (const message of element.messages) {
+        if (message.messageId === messageId) {
+          messageObject = element;
+          channelID = element.channelId;
+        }
+      }
+    }
+  }
+
+  return { 
+    messageId: messageObject.messageId,
+    uId : messageObject.uId,
+    message: messageObject.message,
+    timeSent: messageObject.timeSent,
+    channelID: channelID,
+  }
+
+}
+
+export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findMessage, validMessage };

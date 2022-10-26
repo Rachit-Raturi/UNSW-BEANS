@@ -5,7 +5,16 @@ import { getData } from '../src/dataStore';
 import { messageSend } from '../src/message';
 import { authRegisterV1 } from '../src/auth';
 import { channelsCreateV1 } from '../src/channels';
-import { requestChannelsCreate, requestauthRegister, requestMessageSend, requestClear } from './helper'
+import { 
+  requestChannelsCreate, 
+  requestauthRegister, 
+  requestMessageSend, 
+  requestMessageEdit, 
+  requestClear,
+  requestChannelsList,
+  requestChannelJoin
+
+} from './helper'
 const SERVER_URL = `${url}:${port}`;
 
 let user; 
@@ -67,5 +76,46 @@ describe('Tests for Message Send', () => {
     const emptyString = '';
     expect(requestMessageSend(user.token, channel.channelId, longString)).toStrictEqual({ error: expect.any(String) });
     expect(requestMessageSend(user.token, channel.channelId, emptyString)).toStrictEqual({ error: expect.any(String) });
+  });
+});
+
+describe('Tests for Message Edit', () => {
+  test('Successful case', () => {
+    let messageId = requestMessageSend(user.token, channel.channelId, "Message3");
+    expect(requestMessageEdit(user.token, messageId.messageId , "New Message")).toStrictEqual({});
+  });
+
+  test('Successful case - user is owner but not sender', () => {
+    requestChannelJoin(user2.token, channel.channelId); 
+    let messageId = requestMessageSend(user2.token, channel.channelId, "Message3");
+
+     expect(requestMessageEdit(user.token, messageId.messageId , "New Message")).toStrictEqual({});
+  });
+  
+  test('Invalid case - invalid Token', () => {
+    let messageId = requestMessageSend(user.token, channel.channelId, "Message3");
+    expect(requestMessageEdit("user.token", messageId.messageId , "New Message")).toStrictEqual({error: expect.any(String) });
+  });
+
+  test('Invalid case - invalid messageId', () => {
+    let messageId = requestMessageSend(user.token, channel.channelId, "Message3");
+    let invalidMessageId = messageId.messageId + 1; 
+    expect(requestMessageEdit(user.token, invalidMessageId , "New Message")).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('Invalid case - invalid userID and user is not owner', () => {
+    let messageId = requestMessageSend(user.token, channel.channelId, "Message3");
+ 
+    expect(requestMessageEdit(user2.token, messageId.messageId , "New Message")).toStrictEqual({error: expect.any(String)});
+  });
+
+  test('Invalid message lengths', () => {
+    let longString: string;
+    for (let i = 0; i <= 1000; i++) {
+      longString += 'a';
+    }
+
+  expect(requestMessageSend(user.token, channel.channelId, longString)).toStrictEqual({ error: expect.any(String) });
+
   });
 });
