@@ -156,6 +156,7 @@ describe('/channel/invite/v2', () => {
 });
 
 describe('/channel/messages/v2', () => {
+  let start: number = 0;
   test('Test 1: Invalid channelId', () => {
       expect(requestChannelMessages(user.token, invalidChannelId, start))
         .toStrictEqual(ERROR);
@@ -178,7 +179,6 @@ describe('/channel/messages/v2', () => {
   });
 
   test('Test 5: no messages in channel', () => {
-    const start = 0;
     expect(requestChannelMessages(user.token, channel.channelId, start))
       .toStrictEqual(
         {
