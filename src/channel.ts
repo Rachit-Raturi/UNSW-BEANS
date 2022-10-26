@@ -282,7 +282,31 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
 }
 
 function channelLeaveV1(token: string, channelId: number) {
-  return {};
+  const data = getData();
+
+  if (data.channels[channelId] === undefined) {
+    return {
+      error: 'Invalid channelId entered'
+    };
+  }
+
+  if (!validToken(token)) {
+    return {
+      error: 'Invalid token entered'
+    };
+  }
+
+  const user = findUser(token);
+  if (!data.channels[channelId].allMembers.includes(user.uId)) {
+    return {
+      error: 'User is not a part of the channel'
+    };
+  } else {
+    const Index = data.channels[channelId].allMembers.indexOf(user.uId);
+    data.channels[channelId].allMembers.splice(Index, 1);
+    setData(data);
+    return {}
+  }
 }
 
 function channelAddOwnerV1(token: string, channelId: number, uId: number) {

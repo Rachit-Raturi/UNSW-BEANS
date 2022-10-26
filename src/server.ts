@@ -88,12 +88,12 @@ app.post('/channel/leave/v1', (req: Request, res: Response) => {
 
 app.post('/channel/addowner/v1', (req: Request, res: Response) => {
   const { token, channelId, uId } = req.body;
-  res.json(channelLeaveV1(token, channelId, uId));
+  res.json(channelAddOwnerV1(token, channelId, uId));
 });
 
 app.post('/channel/removeowner/v1', (req: Request, res: Response) => {
   const { token, channelId, uId } = req.body;
-  res.json(channelLeaveV1(token, channelId, uId));
+  res.json(channelRemoveOwnerV1(token, channelId, uId));
 });
 
 app.get('/channel/details/v2', (req: Request, res: Response) => {
