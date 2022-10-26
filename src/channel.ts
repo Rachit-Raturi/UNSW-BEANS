@@ -205,7 +205,7 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
 function channelMessagesV1(token: string, channelId: number, start: number): object {
   const data = getData();
   const beginning = start;
-  const currentUser = findUser(token);
+  
   // invalid token
   if (validToken(token) === false) {
     return {
@@ -213,6 +213,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
     };
   }
 
+  const currentUser = findUser(token);
   // check channelid is valid
   const isValidChannel = data.channels.find(c => c.channelId === channelId);
   if (isValidChannel === undefined) {
@@ -230,8 +231,8 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
     };
   }
 
-  const numberOfMessages = data.channels.messages.length;
-  const messages = data.channels.messages;
+  const numberOfMessages = data.channels[channelId].messages.length;
+  const messages = data.channels[channelId].messages;
   let end;
   // Check whether the starting index is < 0
   if (start < 0) {

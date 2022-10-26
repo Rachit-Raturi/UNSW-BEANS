@@ -85,6 +85,13 @@ app.get('/channel/details/v2', (req: Request, res: Response) => {
   res.json(channelDetailsV1(token, channelId));
 });
 
+app.get('/channel/messages/v2', (req: Request, res: Response) => {
+  const token = req.query.token as string;
+  const channelId = parseInt(req.query.channelId as string);
+  const start = parseInt(req.query.start as string);
+  res.json(channelMessagesV1(token, channelId, start));
+});
+
 app.post('/message/send/v1', (req: Request, res: Response) => {
   console.log('Message Sent');
   const { token, channelId, message } = req.body;

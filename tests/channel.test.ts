@@ -154,15 +154,11 @@ describe('/channel/invite/v2', () => {
 
 describe('/channel/messages/v2', () => {
   test('Test 1: Invalid channelId', () => {
-    const invalidChannelId = 2;
-    if (channel.channelId === 1) {
       expect(requestChannelMessages(user.token, invalidChannelId, start))
         .toStrictEqual(ERROR);
-    }
   });
 
   test('Test 2: Invalid authUserId', () => {
-    const invalidUserId = 2;
     expect(requestChannelMessages(invalidtoken, channel.channelId, start))
       .toStrictEqual(ERROR);
   });
