@@ -249,7 +249,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
       start: start,
       end: -1,
     };
-  } else if (start >= 0 && start > numberOfMessages) {
+  } else if (start >= 0 && start >= numberOfMessages) {
     // If starting index is greater than the number of messages sent in the channel
     return {
       error: `The starting index, ${start}, is greater than the number of messages in the channel, ${numberOfMessages}`
