@@ -148,6 +148,7 @@ describe('/dm/list/v1', () => {
 
 
 describe('dm/messages/v1', () => {
+  let start: number = 0;
   test('invalid dmId', () => {
     expect(requestDmMessages(user.token, invalidDm, start)).toStrictEqual(ERROR);
   });
