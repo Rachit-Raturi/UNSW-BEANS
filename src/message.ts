@@ -42,7 +42,7 @@ function messageSend(token: string, channelId: number, message: string) {
 
   const newMessage = {
     messageId: Id,
-    uId: 3,
+    uId: user.uId,
     message: message,
     timeSent: time
 
@@ -78,14 +78,14 @@ function messageEdit(token: string, messageId: number, message: string) {
   if (validToken(token) === false) {
     return { error: `token(${token}) does not refer to a valid user` };
   }
-  
+
   // Owner can edit the message but members cannot
   let messageObject = findMessage(messageId); 
   let user = findUser(token); 
-  const checkIsMember = data.channels[messageObject.channelID].ownerMembers;
+  const owner = data.channels[messageObject.channelID].ownerMembers;
 
-  if (user.uId !== messageObject.uId && checkIsMember.includes(user.uId) === false) { 
-    return { error: `user(${token}) is not a member of channel(${messageId})` };
+  if (user.uId !== messageObject.uId && owner.includes(user.uId) === false) { 
+    return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
   }
 
   data.channels[messageObject.channelID].messages.
@@ -94,4 +94,43 @@ function messageEdit(token: string, messageId: number, message: string) {
   return {}
 }
 
-export { messageSend, messageEdit, resetId };
+/**
+ * Given a messageId that the user is authorised to manipulate, 
+ * deletes that message from the channel
+ *
+ * @param {string} token
+ * @param {number} messageId
+ * @returns {} 
+ */
+function messageRemove(token: string, messageId: number) { 
+  const data = getData();
+  
+  if (validToken(token) === false) {
+    return { error: `token(${token}) does not refer to a valid user` };
+  }
+
+  if (validMessage(messageId) === false) {
+    return { error: `message(${messageId}) does not refer to a valid message` };
+  }
+
+  const user = findUser(token);
+  const messageObject = findMessage(messageId);
+
+  const member = data.channels[messageObject.channelID].allMembers;
+  const owner = data.channels[messageObject.channelID].ownerMembers;
+  
+
+  // user is not a member of this channel
+  if (member.includes(user.uId) === false ) { 
+    return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
+  }
+
+  if (messageObject.uId !== user.uId && (owner.includes(user.uId) === false)) { 
+    return { error: `user(${user.uId}) is not the sender or owner of the channel(${messageId})` };
+  }
+
+  data.channels[messageObject.channelID].messages.splice(messageObject.index, 1); 
+  return {}
+}
+
+export { messageSend, messageEdit, messageRemove, resetId };
