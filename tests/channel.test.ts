@@ -229,7 +229,7 @@ describe('/channel/messages/v2', () => {
       message: 'message49',
       timeSent: expect.any(Number)
     });
-    expect(requestChannelMessages(user.token, channel.channelId, start).messages[51]).toEqual(undefined);
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[50]).toEqual(undefined);
 
     expect(requestChannelMessages(user.token, channel.channelId, 50)).toStrictEqual(
       {
