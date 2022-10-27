@@ -225,20 +225,20 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
 }
 
 function dmListV1 (token: string) {
-  
+  return{};
 }
 
 function dmRemoveV1 (token: string, dmId: number) {
-  
+  return{};
 }
 
 function dmDetailsV1 (token: string, dmId: number) {
-  
+  return{};
 }
 
 
 function dmLeaveV1 (token: string, dmId: number) {
-  
+  return{};
 }
 
 
