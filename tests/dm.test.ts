@@ -33,7 +33,7 @@ beforeEach(() => {
   if (user.token === invalidToken || user1.token === invalidToken || user2.token === invalidToken) {
     invalidToken = 'invalid2';
   }
-  while (user.token === invaliduId || user1.token === invaliduId || user2.token === invaliduId) {
+  while (user.authUserId === invaliduId || user1.authUserId === invaliduId || user2.authUserId === invaliduId) {
     invaliduId++;
   }
 });
@@ -62,9 +62,8 @@ describe('/dm/create/v1', () => {
   });
 
   test('Test 1: Successful case', () => {
-    
     expect(requestDmCreate(user.token, [user1.authUserId])).toStrictEqual(expect.any(Number));
-    expect(requestDmCreate(user.token, [])).toStrictEqual(expect.any(Number));
+    expect(requestDmCreate(user.token, [])).toStrictEqual({dmId: expect.any(Number)});
   });
 });
 
