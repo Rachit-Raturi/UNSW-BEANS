@@ -8,16 +8,16 @@ import {
   requestUserSetHandle
 } from './helper';
 
-interface user {
+interface userType {
   token: string,
   authUserId: number
 }
 
 const ERROR = { error: expect.any(String) };
 
-let user: user;
-let invalidToken: string = 'invalid';
-let invalidUId: number = 0;
+let user: userType;
+let invalidToken = 'invalid';
+let invalidUId = 0;
 
 beforeEach(() => {
   requestClear();

@@ -10,24 +10,24 @@ import {
   requestMessageSendDm
 } from './helper';
 
-interface user {
+interface userType {
   token: string,
   authUserId: number
 }
 
-interface dm {
+interface dmType {
   dmId: number
 }
 
 const ERROR = { error: expect.any(String) };
 
-let user: user;
-let user1: user;
-let user2: user;
-let invalidToken: string = 'invalid';
-let invalidUId: number = 0;
-const invalidDm: number = -1;
-let dm: dm;
+let user: userType;
+let user1: userType;
+let user2: userType;
+let invalidToken = 'invalid';
+let invalidUId = 0;
+const invalidDm = -1;
+let dm: dmType;
 let start: number;
 
 beforeEach(() => {

@@ -6,21 +6,21 @@ import {
   requestChannelsListAll
 } from './helper';
 
-interface user {
+interface userType {
   token: string,
   authUserId: number
 }
 
-interface channel {
+interface channelType {
   channelId: number
 }
 
 const ERROR = { error: expect.any(String) };
 
-let user: user;
-let user1: user;
-let channel1: channel;
-let invalidtoken: string = 'invalid';
+let user: userType;
+let user1: userType;
+let channel1: channelType;
+let invalidtoken = 'invalid';
 
 beforeEach(() => {
   requestClear();
@@ -46,11 +46,11 @@ describe('/channels/create/v2', () => {
     });
 
     test('Test 2: Name is greater then 20 characters', () => {
-      expect(requestChannelsCreate(user.uId, 'GreaterThentwentyCharacters', false)).toStrictEqual(ERROR);
+      expect(requestChannelsCreate(user.token, 'GreaterThentwentyCharacters', false)).toStrictEqual(ERROR);
     });
 
     test('Test 3: Name is less then 1', () => {
-      expect(requestChannelsCreate(user.uId, '', false)).toStrictEqual(ERROR);
+      expect(requestChannelsCreate(user.token, '', false)).toStrictEqual(ERROR);
     });
   });
 
