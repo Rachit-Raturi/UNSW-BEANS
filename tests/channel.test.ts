@@ -224,12 +224,15 @@ describe('/channel/messages/v2', () => {
         end: 50,
       }
     );
-    expect(requestChannelMessages(user.token, channel.channelId, start).messages[49]).toEqual({messageId: expect.any(Number),
-      uId: expect.any(Number),
-      message: 'message49',
-      timeSent: expect.any(Number)
-    });
-    expect(requestChannelMessages(user.token, channel.channelId, start).messages[51]).toEqual(undefined);
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[49]).toEqual(
+      {
+        messageId: expect.any(Number),
+        uId: expect.any(Number),
+        message: 'message49',
+        timeSent: expect.any(Number)
+      }
+    );
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[50]).toEqual(undefined);
 
     expect(requestChannelMessages(user.token, channel.channelId, 50)).toStrictEqual(
       {
@@ -238,6 +241,7 @@ describe('/channel/messages/v2', () => {
         end: -1,
       }
     );
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[50]).toEqual(undefined);
   });
 });
 
