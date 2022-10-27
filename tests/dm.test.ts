@@ -62,8 +62,8 @@ describe('/dm/create/v1', () => {
   });
 
   test('Test 1: Successful case', () => {
-    expect(requestDmCreate(user.token, [user1.authUserId])).toStrictEqual(expect.any(Number));
-    expect(requestDmCreate(user.token, [])).toStrictEqual({dmId: expect.any(Number)});
+    expect(requestDmCreate(user.token, [user1.authUserId])).toStrictEqual({ dmId: expect.any(Number) });
+    expect(requestDmCreate(user.token, [])).toStrictEqual({ dmId: expect.any(Number) });
   });
 });
 

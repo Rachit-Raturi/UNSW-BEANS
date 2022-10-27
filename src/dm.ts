@@ -53,7 +53,14 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
     return {error: 'duplicate uIds entered'};
   }
 
+  //owner in uIds
   const currentUser = findUser(token);
+  for (const uId of uIds) {
+    if (uId === currentUser.uId) {
+      return { error: 'owner is part of uIds'};
+    }
+  }
+
   const ownerHandle: string = currentUser.handleStr;
   const authUserId: number = currentUser.uId;
 
