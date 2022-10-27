@@ -204,7 +204,7 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
 
 function channelMessagesV1(token: string, channelId: number, start: number): object {
   const data = getData();
-  const beginning = start;
+
   
   // invalid token
   if (validToken(token) === false) {
@@ -234,6 +234,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
   const numberOfMessages = data.channels[channelId].messages.length;
   const messages = data.channels[channelId].messages;
   let end: number;
+  let messagesArray;
   // Check whether the starting index is < 0
   if (start < 0) {
     return {
@@ -255,25 +256,24 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
       error: `The starting index, ${start}, is greater than the number of messages in the channel, ${numberOfMessages}`
     };
   } else if (start >= 0 && start < numberOfMessages) {
-    while (start < numberOfMessages) {
       // If starting index is 0 or a multiple of 50
       if (start + 50 < numberOfMessages) {
         end = start + 50;
-        console.log(`{ [messages], ${start}, ${end} }`);
-        start += 50;
+        messagesArray = messages.slice(start,end);
       } else if (start + 50 >= numberOfMessages) {
         // If there is < 50 messages left in the channel history, end pagination
+        messagesArray = messages.slice(start);
         end = -1;
-        console.log(`{ [messages], ${start}, ${end} }`);
-        start = beginning;
-        return {
-          messages: [messages],
-          start: start,
-          end: end,
-        };
       }
-    }
+
+    console.log(`{ [messages], ${start}, ${end} }`);
+    return {
+      messages: messagesArray,
+      start: start,
+      end: end,
+    };
   }
+  
 }
 
 function channelLeaveV1(token: string, channelId: number) {

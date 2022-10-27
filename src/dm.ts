@@ -224,5 +224,22 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
   };
 }
 
+function dmListV1 (token: string) {
+  return{};
+}
 
-export { dmCreateV1, dmMessagesV1, messageSendDmV1 };
+function dmRemoveV1 (token: string, dmId: number) {
+  return{};
+}
+
+function dmDetailsV1 (token: string, dmId: number) {
+  return{};
+}
+
+
+function dmLeaveV1 (token: string, dmId: number) {
+  return{};
+}
+
+
+export { dmCreateV1, dmMessagesV1, messageSendDmV1, dmListV1, dmRemoveV1, dmDetailsV1, dmLeaveV1 };
