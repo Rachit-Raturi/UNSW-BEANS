@@ -8,7 +8,8 @@ import {
   requestChannelMessages,
   requestChannelLeave,
   requestChannelAddOwner,
-  requestChannelRemoveOwner
+  requestChannelRemoveOwner,
+  requestMessageSend
 } from './helper';
 
 const ERROR = { error: expect.any(String) };
@@ -188,6 +189,60 @@ describe('/channel/messages/v2', () => {
       }
     );
   });
+
+  test('Test 2: less than 50 messages', () => {
+    let round = 0;
+    let originalMessage = 'message'
+    let message = originalMessage;
+    while (round < 40) {
+      requestMessageSend(user.token, channel.channelId, message);
+      round++;
+      message = originalMessage + round.toString();
+    }
+    expect(requestChannelMessages(user.token, channel.channelId, start)).toStrictEqual(
+      {
+        messages: expect.any(Array),
+        start: 0,
+        end: -1,
+      }
+    )
+  });
+
+  test('Test 2: more than 50 messages', () => {
+    let round = 0;
+    let originalMessage = 'message'
+    let message = originalMessage;
+    while (round < 60) {
+      requestMessageSend(user.token, channel.channelId, message);
+      round++;
+      message = originalMessage + round.toString();
+    }
+    expect(requestChannelMessages(user.token, channel.channelId, start)).toStrictEqual(
+      {
+        messages: expect.any(Array),
+        start: 0,
+        end: 50,
+      }
+    );
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[49]).toEqual(
+      {
+        messageId: expect.any(Number),
+        uId: expect.any(Number),
+        message: 'message49',
+        timeSent: expect.any(Number)
+      }
+    );
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[50]).toEqual(undefined);
+
+    expect(requestChannelMessages(user.token, channel.channelId, 50)).toStrictEqual(
+      {
+        messages: expect.any(Array),
+        start: 50,
+        end: -1,
+      }
+    );
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[50]).toEqual(undefined);
+  });
 });
 
 // =========================================================================
@@ -218,96 +273,107 @@ describe('/channel/leave/v1', () => {
 // =========================================================================
 // Channel Add Owner Tests
 describe('/channel/addowner/v1', () => {
-  describe('Error', () => {
-    test('Test 1: Invalid channelId', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      expect(requestChannelAddOwner(user.token, invalidChannelId, user1.uId)).toStrictEqual(ERROR);
-    });
-    
-    test('Test 2: User is not a member of the channel', () => {
-      expect(requestChannelAddOwner(user.token, channel.channelId, user1.uId)).toStrictEqual(ERROR);
-    });
+  test('Test 1: channelId does not refer to a valid channel', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelAddOwner(user.token, invalidChannelId, user1.authUserId))
+    .toStrictEqual(ERROR);
+  });
+  
+  test('Test 2: user is not a member of the channel', () => {
+    expect(requestChannelAddOwner(user.token, channel.channelId, user1.authUserId))
+    .toStrictEqual(ERROR);
+  });
 
-    test('Test 3: Invalid token', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      expect(requestChannelAddOwner(invalidToken, channel.channelId, user1.uId)).toStrictEqual(ERROR);
-    });
+  test('Test 3: token is invalid', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelAddOwner(invalidToken, channel.channelId, user1.authUserId))
+    .toStrictEqual(ERROR);
+  });
 
-    test('Test 3.5: Token is given by non owner', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      expect(requestChannelAddOwner(user1.token, channel.channelId, user1.uId)).toStrictEqual(ERROR);
-    });
+  test('Test 3.5: token is given by non owner', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelAddOwner(user1.token, channel.channelId, user1.authUserId))
+    .toStrictEqual(ERROR);
+  });
 
-    test('Test 4: Invalid uId', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      expect(requestChannelAddOwner(user.token, channel.channelId, invalidUserId)).toStrictEqual(ERROR);
-    });
-    
-    test('Test 5: User is already an owner', () => {
-      expect(requestChannelAddOwner(user.token, channel.channelId, user.uId)).toStrictEqual(ERROR);
-    });
+  test('Test 4: uId does not refer to a valid user', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelAddOwner(user.token, channel.channelId, invalidUserId))
+    .toStrictEqual(ERROR);
+  });
+  
+  test('Test 5: user is already an owner', () => {
+    expect(requestChannelAddOwner(user.token, channel.channelId, user1.authUserId))
+    .toStrictEqual(ERROR);
   });
 
   test('Test 1: Successful case', () => {
     requestChannelJoin(user1.token, channel.channelId);
-    expect(requestChannelAddOwner(user.token, channel.channelId, user1.uId)).toStrictEqual({});
+    expect(requestChannelAddOwner(user.token, channel.channelId, user1.authUserId))
+    .toStrictEqual({});
   });
 });
 
 // =========================================================================
 // Channel Remove Owner Tests
 describe('/channel/removeowner/v1', () => {
-  describe('Error', () => {
-    test('Test 1: Invalid channelId', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      requestChannelAddOwner(user.token, channel.channelId, user1.userId);
-      expect(requestChannelRemoveOwner(user.token, invalidChannelId, user1.uId)).toStrictEqual(ERROR);
-    });
-    
-    test('Test 2: User is not a member of the channel', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      requestChannelAddOwner(user.token, channel.channelId, user1.userId);
-      const user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
-      expect(requestChannelRemoveOwner(user.token, invalidChannelId, user2.uId)).toStrictEqual(ERROR);
-    });
+  test('Test 1: channelId does not refer to a valid channel', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
+    expect(requestChannelRemoveOwner(user.token, invalidChannelId, user1.authUserId))
+    .toStrictEqual(ERROR);
+  });
+  
+  test('Test 2: user is not a member of the channel', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
+    const user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
+    expect(requestChannelRemoveOwner(user.token, invalidChannelId, user2.authUserId))
+    .toStrictEqual(ERROR);
+  });
 
-    test('Test 3: Invalid token', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      requestChannelAddOwner(user.token, channel.channelId, user1.userId);
-      expect(requestChannelRemoveOwner(invalidToken, channel.channelId, user1.uId)).toStrictEqual(ERROR);
-    });
+  test('Test 3: token is invalid', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
+    expect(requestChannelRemoveOwner(invalidToken, channel.channelId, user1.authUserId))
+    .toStrictEqual(ERROR);
+  });
 
-    test('Test 3.5: Token is given by non owner', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      requestChannelAddOwner(user.token, channel.channelId, user1.userId);
-      const user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
-      requestChannelJoin(user2.token, channel.channelId);
-      expect(requestChannelRemoveOwner(user2.token, channel.channelId, user1.uId)).toStrictEqual(ERROR);
-    });
+  test('Test 3.5: token is given by non owner', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
+    const user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
+    requestChannelJoin(user2.token, channel.channelId);
+    expect(requestChannelRemoveOwner(user2.token, channel.channelId, user1.authUserId))
+    .toStrictEqual(ERROR);
+  });
 
-    test('Test 4: Invalid uId', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      requestChannelAddOwner(user.token, channel.channelId, user1.userId);
-      expect(requestChannelRemoveOwner(user.token, channel.channelId, invalidUserId)).toStrictEqual(ERROR);
-    });
-    
-    test('Test 5: User is not an owner', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      requestChannelAddOwner(user.token, channel.channelId, user1.userId);
-      const user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
-      requestChannelJoin(user2.token, channel.channelId);
-      expect(requestChannelRemoveOwner(user.token, channel.channelId, user2.uId)).toStrictEqual(ERROR);
-    });
+  test('Test 4: uId does not refer to a valid user', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
+    expect(requestChannelRemoveOwner(user.token, channel.channelId, invalidUserId))
+    .toStrictEqual(ERROR);
+  });
+  
+  test('Test 5: user is not an owner', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
+    const user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
+    requestChannelJoin(user2.token, channel.channelId);
+    expect(requestChannelRemoveOwner(user.token, channel.channelId, user2.authUserId))
+    .toStrictEqual(ERROR);
+  });
 
-    test('Test 6: Only one owner', () => {
-      requestChannelJoin(user1.token, channel.channelId);
-      expect(requestChannelRemoveOwner(user.token, channel.channelId, user.Id)).toStrictEqual(ERROR);
-    });
+  test('Test 6: only one owner', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelRemoveOwner(user.token, channel.channelId, user.authUserId))
+    .toStrictEqual(ERROR);
   });
 
   test('Test 1: Successful case', () => {
     requestChannelJoin(user1.token, channel.channelId);
-    requestChannelAddOwner(user.token, channel.channelId, user1.userId);
-    expect(requestChannelRemoveOwner(user.token, channel.channelId, user1.uId)).toStrictEqual({});
+    requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
+    expect(requestChannelRemoveOwner(user.token, channel.channelId, user1.authUserId))
+    .toStrictEqual({});
   });
 });
