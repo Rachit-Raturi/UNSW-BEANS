@@ -12,15 +12,24 @@ import {
   requestMessageSend
 } from './helper';
 
+interface user {
+  token: string,
+  authUserId: number
+}
+
+interface channel {
+  channelId: number
+}
+
 const ERROR = { error: expect.any(String) };
 
-let user;
-let user1;
-let channel;
-let invalidUserId = 1;
-let invalidToken = 'invalid';
-let invalidChannelId = 1;
-let start;
+let user: user;
+let user1: user;
+let channel: channel;
+let invalidUserId: number = 1;
+let invalidToken: string = 'invalid';
+let invalidChannelId: number = 1;
+let start: number;
 
 beforeEach(() => {
   requestClear();

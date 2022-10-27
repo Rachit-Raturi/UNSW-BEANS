@@ -10,16 +10,25 @@ import {
   requestMessageSendDm
 } from './helper';
 
+interface user {
+  token: string,
+  authUserId: number
+}
+
+interface dm {
+  dmId: number
+}
+
 const ERROR = { error: expect.any(String) };
 
-let user;
-let user1;
-let user2;
-let invalidToken = 'invalid';
-let invaliduId = 0;
-const invalidDm = -1;
-let dm;
-let start;
+let user: user;
+let user1: user;
+let user2: user;
+let invalidToken: string = 'invalid';
+let invaliduId: number = 0;
+const invalidDm: number = -1;
+let dm: dm;
+let start: number;
 
 beforeEach(() => {
   requestClear();
