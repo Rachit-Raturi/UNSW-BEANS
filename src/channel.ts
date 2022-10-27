@@ -2,8 +2,8 @@ import { getData, setData } from './dataStore';
 import { findUser, validToken, validUId } from './helperfunctions';
 
 interface user {
-  uId: number
-  email: string
+  uId: number,
+  email: string,
   nameFirst: string,
   nameLast: string,
   handleStr: string

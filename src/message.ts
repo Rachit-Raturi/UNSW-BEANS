@@ -16,7 +16,7 @@ function resetId() {
   Id = 0;
 }
 
-function messageSend(token: string, channelId: number, message: string) {
+function messageSendV1(token: string, channelId: number, message: string) {
   const data = getData();
 
   if (data.channels[channelId] === undefined) {
@@ -62,7 +62,7 @@ function messageSend(token: string, channelId: number, message: string) {
  * @param {string} message
  * @returns {}
  */
-function messageEdit(token: string, messageId: number, message: string) {
+function messageEditV1(token: string, messageId: number, message: string) {
   const data = getData();
 
   if (message.length > 1000) {
@@ -100,7 +100,7 @@ function messageEdit(token: string, messageId: number, message: string) {
  * @param {number} messageId
  * @returns {}
  */
-function messageRemove(token: string, messageId: number) {
+function messageRemoveV1(token: string, messageId: number) {
   const data = getData();
 
   if (validToken(token) === false) {
@@ -130,4 +130,4 @@ function messageRemove(token: string, messageId: number) {
   return {};
 }
 
-export { messageSend, messageEdit, messageRemove, resetId };
+export { messageSendV1, messageEditV1, messageRemoveV1, resetId };
