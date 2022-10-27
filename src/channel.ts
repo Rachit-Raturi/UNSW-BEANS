@@ -265,6 +265,8 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
         messagesArray = messages.slice(start);
         end = -1;
       }
+      
+    console.log(`{ [messages], ${start}, ${end} }`);
     return {
       messages: [messages],
       start: start,
