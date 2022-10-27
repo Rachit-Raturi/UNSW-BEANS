@@ -25,7 +25,7 @@ beforeEach(() => {
   requestClear();
   user = requestAuthRegister('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
-  user2 = requestAuthRegister('email2@gmail.com', 'password2', 'firstname2', 'lastname2');
+  user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
   dm = requestDmCreate(user.token, [user1.authUserId]);
   start = 0;
   if (user.token === invalidToken || user1.token === invalidToken || user2.token === invalidToken) {
@@ -38,6 +38,7 @@ beforeEach(() => {
     invaliduId++;
   }
 });
+
 // =========================================================================
 // DM Create Tests
 describe('/dm/create/v1', () => {
@@ -82,7 +83,7 @@ describe('/dm/list/v1', () => {
         [
           {
             dmId: dm.dmId,
-            name: dm.name
+            name: 'firstnamelastname, firstname1lastname1'
           }
         ]
       }
@@ -134,11 +135,60 @@ describe('/dm/details/v1', () => {
     });
   });
 
-  test('Test 1: Successful case', () => {
-    expect(requestDmDetails(user.token, dm.dmId)).toStrictEqual(
+  test('Test 1: Successful case - 2 members in the DM', () => {
+    expect(requestDmDetails(user.token, dm1.dmId)).toStrictEqual(
       {
-        name: dm.name,
-        members: dm.members
+        name: 'firstnamelastname, firstname1lastname1',
+        members:
+        [
+          {
+            uId: user.authUserId,
+            email: 'test@gmail.com',
+            nameFirst: 'firstname',
+            nameLast: 'lastname',
+            handleStr: 'firstnamelastname'
+          },
+          {
+            uId: user1.authUserId,
+            email: 'test1@gmail.com',
+            nameFirst: 'firstname1',
+            nameLast: 'lastname1',
+            handleStr: 'firstname1lastname1'
+          }
+        ]
+      }
+    );
+  });
+
+  test('Test 2: Successful case - 3 members in the DM', () => {
+    let dm1 = requestDmCreate(user.token, [user1.authUserId, user2.authUserId]);
+    expect(requestDmDetails(user.token, dm1.dmId)).toStrictEqual(
+      {
+        name: 'firstnamelastname, firstname1lastname1, firstname2lastname2',
+        members:
+        [
+          {
+            uId: user.authUserId,
+            email: 'test@gmail.com',
+            nameFirst: 'firstname',
+            nameLast: 'lastname',
+            handleStr: 'firstnamelastname'
+          },
+          {
+            uId: user1.authUserId,
+            email: 'test1@gmail.com',
+            nameFirst: 'firstname1',
+            nameLast: 'lastname1',
+            handleStr: 'firstname1lastname1'
+          },
+          {
+            uId: user2.authUserId,
+            email: 'test2@gmail.com',
+            nameFirst: 'firstname2',
+            nameLast: 'lastname2',
+            handleStr: 'firstname2lastname2'
+          }
+        ]
       }
     );
   });
