@@ -195,12 +195,12 @@ app.get('/dm/messages/v1', (req: Request, res: Response) => {
   const token = req.query.token as string;
   const dmId = parseInt(req.query.dmId as string);
   const start = parseInt(req.query.start as string);
-  res.json(channelMessagesV1(token, dmId, start));
+  res.json(dmMessagesV1(token, dmId, start));
 });
 
 app.post('/message/senddm/v1', (req: Request, res: Response) => {
   console.log('Message Sent');
   const { token, dmId, message } = req.body;
-  res.json(messageSend(token, dmId, message));
+  res.json(messageSendDmV1(token, dmId, message));
 });
 // ========================================================================= //

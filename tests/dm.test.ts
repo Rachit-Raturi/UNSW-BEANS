@@ -6,7 +6,8 @@ import {
   requestDmRemove,
   requestDmDetails,
   requestDmLeave,
-  requestDmMessages
+  requestDmMessages,
+  requestMessageSendDm
 } from './helper';
 
 const ERROR = { error: expect.any(String) };
@@ -15,6 +16,7 @@ let user;
 let user1;
 let user2;
 let invalidToken = 'invalid';
+let invaliduId = 0;
 let invalidDm = -1;
 let dm;
 let start;
@@ -22,45 +24,9 @@ let start;
 beforeEach(() => {
   requestClear();
   user = requestAuthRegister('test@gmail.com', 'password', 'firstname', 'lastname');
-  if (user.token === invalidToken) {
-    invalidToken = 'invalid1';
-  }
-  if (user.token === invalidToken) {
-    invalidToken = 'invalid2';
-  }
-});
- 
-// =========================================================================
-// DM Create Tests
-describe('/dm/create/v1', () => {
-  describe('Error', () => {
-    test('Test 1: Invalid uId', () => {
-      expect(requestDmCreate(user.token, user1.uId + 1)).toStrictEqual(ERROR);
-    });
-
-    test('Test 2: Duplicate uIds', () => {
-      let uIds = [user.uId, user.uId];
-      expect(requestDmCreate(user.token, user.uId)).toStrictEqual(ERROR);
-    });
-
-    test('Test 3: Invalid token', () => {
-      expect(requestDmCreate(invalidToken, user1.uId)).toStrictEqual(ERROR);
-    });
-  });
-
-  test('Test 1: Successful case', () => {
-    expect(requestDmCreate(user.token, user.uId)).toStrictEqual(expect.any(Number));
-  });
-});
-
-
-
-beforeEach(() => {
-  requestClear();
-  user = requestAuthRegister('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   user2 = requestAuthRegister('email2@gmail.com', 'password2', 'firstname2', 'lastname2');
-  dm = requestDmCreate(user.token, user1.uId);
+  dm = requestDmCreate(user.token, [user1.authUserId]);
   start = 0;
   if (user.token === invalidToken || user1.token === invalidToken || user2.token === invalidToken) {
     invalidToken = 'invalid1';
@@ -68,6 +34,38 @@ beforeEach(() => {
   if (user.token === invalidToken || user1.token === invalidToken || user2.token === invalidToken) {
     invalidToken = 'invalid2';
   }
+  while (user.authUserId === invaliduId || user1.authUserId === invaliduId || user2.authUserId === invaliduId) {
+    invaliduId++;
+  }
+});
+// =========================================================================
+// DM Create Tests
+describe('/dm/create/v1', () => {
+  describe('Error', () => {
+    test('Test 1: Invalid uId', () => {
+      expect(requestDmCreate(user.token, [invaliduId])).toStrictEqual(ERROR);
+    });
+
+    test('Test 2: Duplicate uIds', () => {
+      let uIds = [user1.authUserId, user1.authUserId];
+      expect(requestDmCreate(user.token, uIds)).toStrictEqual(ERROR);
+    });
+
+    test('Test 3: Invalid token', () => {
+      expect(requestDmCreate(invalidToken, [user1.authUserId])).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: owner in uIds', () => {
+      let uIds = [user.authUserId, user1.authUserId];
+      expect(requestDmCreate(user.token, [user.authUserId])).toStrictEqual(ERROR);
+      expect(requestDmCreate(user.token, uIds)).toStrictEqual(ERROR);
+    });
+  });
+
+  test('Test 1: Successful case', () => {
+    expect(requestDmCreate(user.token, [user1.authUserId])).toStrictEqual({ dmId: expect.any(Number) });
+    expect(requestDmCreate(user.token, [])).toStrictEqual({ dmId: expect.any(Number) });
+  });
 });
 
 // =========================================================================
@@ -188,7 +186,7 @@ describe('/dm/messages/v1', () => {
     });
 
     test('Test 4: User is not in dm', () => {
-      expect(requestDmMessages(user1.token, dm.dmId, start)).toStrictEqual(ERROR);
+      expect(requestDmMessages(user2.token, dm.dmId, start)).toStrictEqual(ERROR);
     });
   });
 
@@ -201,4 +199,41 @@ describe('/dm/messages/v1', () => {
       }
     );
   });
+});
+
+// =========================================================================
+// Message Send Dm Tests
+describe('/message/senddm/v1', () => {
+  let message: string = "Hello World";
+  describe('Error', () => {
+    test('Test 1: Invalid dmId', () => {
+      expect(requestMessageSendDm(user.token, invalidDm, message)).toStrictEqual(ERROR);
+    });
+
+    test('Test 2: Message is less than 1 character', () => {
+      let emptyString: string = '';
+      expect(requestMessageSendDm(user.token, dm.dmId, emptyString)).toStrictEqual(ERROR);
+    })
+
+    test('Test 3: Message is more than 1000 characters', () => {
+      let longString: string;
+      for (let i = 0; i <= 1000; i++) {
+        longString += 'a';
+      }
+      expect(requestMessageSendDm(user.token, dm.dmId, longString)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: User is not in DM', () => {
+      expect(requestMessageSendDm(user2.token, dm.dmId, message)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Invalid token', () => {
+      expect(requestMessageSendDm(invalidToken, dm.dmId, message)).toStrictEqual(ERROR);
+    });
+  });
+
+  test('Test 1: Successful message', () => {
+    let message: string = "Hello World";
+    expect(requestMessageSendDm(user.token, dm.dmId, message)).toStrictEqual({ messageId: expect.any(Number) });
+  })
 });
