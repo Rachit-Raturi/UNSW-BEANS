@@ -253,10 +253,8 @@ describe('/channel/addowner/v1', () => {
 
   test('Test 6: successful', () => {
     requestChannelJoin(user1.token, channel.channelId);
-    console.log(requestChannelDetails(user.token, channel.channelId));
     expect(requestChannelAddOwner(user.token, channel.channelId, user1.authUserId))
     .toStrictEqual({});
-    console.log(requestChannelDetails(user.token, channel.channelId));
   });
 });
 
