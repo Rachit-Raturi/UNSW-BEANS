@@ -256,15 +256,15 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
       error: `The starting index, ${start}, is greater than the number of messages in the channel, ${numberOfMessages}`
     };
   } else if (start >= 0 && start < numberOfMessages) {
-      // If starting index is 0 or a multiple of 50
-      if (start + 50 < numberOfMessages) {
-        end = start + 50;
-        messagesArray = messages.slice(start,end);
-      } else if (start + 50 >= numberOfMessages) {
-        // If there is < 50 messages left in the channel history, end pagination
-        messagesArray = messages.slice(start);
-        end = -1;
-      }
+    // If starting index is 0 or a multiple of 50
+    if (start + 50 < numberOfMessages) {
+      end = start + 50;
+      messagesArray = messages.slice(start,end);
+    } else if (start + 50 >= numberOfMessages) {
+      // If there is < 50 messages left in the channel history, end pagination
+      messagesArray = messages.slice(start);
+      end = -1;
+    }
 
     console.log(`{ [messages], ${start}, ${end} }`);
     return {
