@@ -25,7 +25,7 @@ interface dm {
 //   return {};
 // }
 
-function dmCreateV1(token: string, uIds?: number) {
+function dmCreateV1(token: string, uIds?: Array<number>) {
   const data = getData();
 
   // invalid token
@@ -45,32 +45,32 @@ function dmCreateV1(token: string, uIds?: number) {
   }
 
   // duplicate user Id
-  let uniqueUId = [...new Set(uIds)];
-  for (const uId of Uids) {
-    if (uniqueUId !== uIds) {
-      return {
-        error: 'Duplicate uIds have been entered'
-      };
-    }
+  function hasDuplicates(array) {
+    return (new Set(array)).size === array.length;
+  }
+  
+  if (!hasDuplicates(uIds)) {
+    return {error: 'duplicate uIds entered'};
   }
 
   const currentUser = findUser(token);
-  type handleStrKey = keyof typeof currentUser;
-  const handleStrVar = 'handleStr' as handleStrKey;
-  const ownerHandle: string = currentUser[handleStrVar];
-  type uIdKey = keyof typeof currentUser;
-  const uIdVar = 'uId' as uIdKey;
-  const authUserId: number = currentUser[uIdVar];
+  const ownerHandle: string = currentUser.handleStr;
+  const authUserId: number = currentUser.uId;
 
   const name = [];
   name.push(ownerHandle);
 
+  for (const element of uIds) {
+    let userHandle = ', ' + data.users[element].handleStr;
+    name.push(userHandle);
+  }
+
+
   const dm = {
-    dmId: data.dm.length,
+    dmId: data.dms.length,
     name: name,
-    isPublic: isPublic,
-    ownerMembers: authUserId,
-    allMembers: [uIds],
+    owner: authUserId,
+    members: uIds,
     messages: [],
   };
 
@@ -84,6 +84,7 @@ function dmCreateV1(token: string, uIds?: number) {
 
 function dmMessagesV1(token: string, dmId: number, start: number) {
   const data = getData();
+  const beginning = start;
   
   // Check for valid token
   if (validToken(token) === false) {
@@ -101,20 +102,19 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
   }
 
   const currentUser = findUser(token);
-  type uIdKey = keyof typeof currentUser;
-  const uIdVar = 'uId' as uIdKey;
-  const authUserId: number = currentUser[uIdVar];
+  const authUserId: number = currentUser.uId;
 
   // Check if user is a member of dm
-  const checkIsMember = data.channels[channelId].allMembers;
-  if (checkIsMember.includes(user) === false) {
+  const checkIsMember = data.dms[dmId].members;
+  if (checkIsMember.includes(authUserId) === false) {
     return {
       error: `user(${token}) is not a member of the dm(${dmId})`
     };
   }
 
-  const numberOfMessages = data.dms.messages.length;
-  const messages = data.dms.messages;
+  const messages = data.dms[dmId].messages;
+  const numberOfMessages = messages.length;
+
   let end;
   // CHeck whether starting index is < 0
   if (start < 0) {
@@ -179,10 +179,11 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
     };
   }
 
-  const checkIsMember = data.dms[dmId].allMembers;
-  if (checkIsMember.includes(user) === false) {
+  const user = findUser(token);
+  const checkIsMember = data.dms[dmId].members;
+  if (checkIsMember.includes(user.uId) === false) {
     return {
-      error: `user(${token}) is not a member of channel(${channelId})`
+      error: `user(${token}) is not a member of dm(${dmId})`
     };
   }
 
@@ -193,16 +194,12 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
     };
   }
 
-  const currentUser = findUser(token);
-  type uIdKey = keyof typeof currentUser;
-  const uIdVar = 'uId' as uIdKey;
-  const authUserId: number = currentUser[uIdVar];
   const time = Math.floor(Date.now() / 1000); 
-  const messageId = data.dms[dmId].messages.messageId
+  let messageId = data.dms[dmId].messages.messageId
 
   const newMessage = {
     messageId: messageId,
-    uId: authUserId,
+    uId: user.uId,
     message: message,
     timeSent: time,
   };
@@ -216,5 +213,6 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
     messageId: messageId - 2
   };
 }
+
 
 export { dmCreateV1, dmMessagesV1, messageSendDmV1 };
