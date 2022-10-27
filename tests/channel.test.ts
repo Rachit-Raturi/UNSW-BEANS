@@ -192,9 +192,12 @@ describe('/channel/messages/v2', () => {
 
   test('Test 2: less than 50 messages', () => {
     let round = 0;
+    let originalMessage = 'message'
+    let message = originalMessage;
     while (round < 40) {
+      requestMessageSend(user.token, channel.channelId, message);
       round++;
-      requestMessageSend(user.token, channel.channelId, 'Message');
+      message = originalMessage + round.toString();
     }
     expect(requestChannelMessages(user.token, channel.channelId, start)).toStrictEqual(
       {
@@ -207,9 +210,12 @@ describe('/channel/messages/v2', () => {
 
   test('Test 2: more than 50 messages', () => {
     let round = 0;
+    let originalMessage = 'message'
+    let message = originalMessage;
     while (round < 60) {
+      requestMessageSend(user.token, channel.channelId, message);
       round++;
-      requestMessageSend(user.token, channel.channelId, 'Message');
+      message = originalMessage + round.toString();
     }
     expect(requestChannelMessages(user.token, channel.channelId, start)).toStrictEqual(
       {
@@ -217,14 +223,21 @@ describe('/channel/messages/v2', () => {
         start: 0,
         end: 50,
       }
-    )
+    );
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[49]).toEqual({messageId: expect.any(Number),
+      uId: expect.any(Number),
+      message: 'message49',
+      timeSent: expect.any(Number)
+    });
+    expect(requestChannelMessages(user.token, channel.channelId, start).messages[51]).toEqual(undefined);
+
     expect(requestChannelMessages(user.token, channel.channelId, 50)).toStrictEqual(
       {
         messages: expect.any(Array),
         start: 50,
         end: -1,
       }
-    )
+    );
   });
 });
 
