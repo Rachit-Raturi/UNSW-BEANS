@@ -15,7 +15,7 @@ let invalidtoken = 'invalid';
 
 beforeEach(() => {
   requestClear();
-  user = requestAuthRegister('test@gmail.com', 'password', 'firstname', 'lastname');  
+  user = requestAuthRegister('test@gmail.com', 'password', 'firstname', 'lastname');
   user1 = requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channel1 = requestChannelsCreate(user.token, 'My Channel1', true);
 
@@ -32,7 +32,7 @@ beforeEach(() => {
 describe('/channels/create/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid token', () => {
-      let invalidToken = "0"
+      const invalidToken = '0';
       expect(requestChannelsCreate(invalidToken, 'channel1', true)).toStrictEqual(ERROR);
     });
 
@@ -110,13 +110,13 @@ describe('/channels/listAll/v2', () => {
       invalidUserId = 3;
     }
 
-    expect(requestChannelsListAll("invalidUserId")) 
+    expect(requestChannelsListAll('invalidUserId'))
       .toStrictEqual(ERROR);
   });
 
   test('Test 2: User in 0 courses', () => {
-    let user3 = requestAuthRegister('3test@gmail.com', '3password',
-    '3firstname', '3lastname');
+    const user3 = requestAuthRegister('3test@gmail.com', '3password',
+      '3firstname', '3lastname');
     expect(requestChannelsListAll(user3.token))
       .toStrictEqual({ channels: [] });
   });

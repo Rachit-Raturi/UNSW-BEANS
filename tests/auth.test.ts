@@ -16,7 +16,7 @@ beforeEach(() => {
 describe('/auth/login/v2', () => {
   describe('Error', () => {
     test('Test 1: Email doesnt belong to a user', () => {
-      expect(requestAuthRegister('Validemail@gmail.com', 'password', 'Lebron', 'James')).toStrictEqual({ 
+      expect(requestAuthRegister('Validemail@gmail.com', 'password', 'Lebron', 'James')).toStrictEqual({
         token: expect.any(String),
         authUserId: expect.any(Number)
       });
@@ -24,7 +24,7 @@ describe('/auth/login/v2', () => {
     });
 
     test('Test 2: Incorrect password is entered', () => {
-      expect(requestAuthRegister('Validemail@gmail.com', 'password', 'Lebron', 'James')).toStrictEqual({ 
+      expect(requestAuthRegister('Validemail@gmail.com', 'password', 'Lebron', 'James')).toStrictEqual({
         token: expect.any(String),
         authUserId: expect.any(Number)
       });
@@ -33,30 +33,30 @@ describe('/auth/login/v2', () => {
   });
 
   test('Test 1: Successful case 1', () => {
-    expect(requestAuthRegister('Validemail@gmail.com', 'password', 'Lebron', 'James')).toStrictEqual({ 
+    expect(requestAuthRegister('Validemail@gmail.com', 'password', 'Lebron', 'James')).toStrictEqual({
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
-    expect(requestAuthLogin('Validemail@gmail.com', 'password')).toStrictEqual({ 
+    expect(requestAuthLogin('Validemail@gmail.com', 'password')).toStrictEqual({
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
   });
 
   test('Test 2: Successful case 2', () => {
-    expect(requestAuthRegister('Validemail@gmail.com', 'password', 'Lebron', 'James')).toStrictEqual({ 
+    expect(requestAuthRegister('Validemail@gmail.com', 'password', 'Lebron', 'James')).toStrictEqual({
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
-    expect(requestAuthLogin('Validemail@gmail.com', 'password')).toStrictEqual({ 
+    expect(requestAuthLogin('Validemail@gmail.com', 'password')).toStrictEqual({
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
-    expect(requestAuthRegister('second@gmail.com', 'sdjnasdnjkasnjdnj', 'Lebron', 'James')).toStrictEqual({ 
+    expect(requestAuthRegister('second@gmail.com', 'sdjnasdnjkasnjdnj', 'Lebron', 'James')).toStrictEqual({
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
-    expect(requestAuthLogin('second@gmail.com', 'sdjnasdnjkasnjdnj')).toStrictEqual({ 
+    expect(requestAuthLogin('second@gmail.com', 'sdjnasdnjkasnjdnj')).toStrictEqual({
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
@@ -72,7 +72,7 @@ describe('/auth/register/v1', () => {
     });
 
     test('Test 2: Email address already in use', () => {
-      expect(requestAuthRegister('validemail@gmail.com', '123abc!@#', 'Jake', 'Renzella')).toStrictEqual({ 
+      expect(requestAuthRegister('validemail@gmail.com', '123abc!@#', 'Jake', 'Renzella')).toStrictEqual({
         token: expect.any(String),
         authUserId: expect.any(Number)
       });
@@ -114,8 +114,8 @@ describe('/auth/register/v1', () => {
 // Auth Logout Tests
 describe('/auth/logout/v1', () => {
   test('Test 1: Invalid token', () => {
-    const user_new = requestAuthRegister('validemail@gmail.com', 'password', 'first', 'last');
-    expect(user_new).toStrictEqual({
+    const userNew = requestAuthRegister('validemail@gmail.com', 'password', 'first', 'last');
+    expect(userNew).toStrictEqual({
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
@@ -123,11 +123,11 @@ describe('/auth/logout/v1', () => {
   });
 
   test('Test 2: Successful case', () => {
-    const user_new = requestAuthRegister('validemail@gmail.com', 'password', 'first', 'last');
-    expect(user_new).toStrictEqual({
+    const userNew = requestAuthRegister('validemail@gmail.com', 'password', 'first', 'last');
+    expect(userNew).toStrictEqual({
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
-    expect(requestAuthLogout(user_new.token)).toStrictEqual({});
+    expect(requestAuthLogout(userNew.token)).toStrictEqual({});
   });
 });

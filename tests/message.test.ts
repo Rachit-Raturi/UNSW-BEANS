@@ -6,7 +6,6 @@ import {
   requestMessageSend,
   requestMessageEdit,
   requestMessageRemove,
-  requestMessageSendDm
 } from './helper';
 
 const ERROR = { error: expect.any(String) };
@@ -39,26 +38,26 @@ beforeEach(() => {
 describe('/message/send/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid channelId', () => {
-      expect(requestMessageSend(user.token, channel1.channelId + 1, 'Message')).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageSend(user.token, channel1.channelId + 1, 'Message')).toStrictEqual({ ERROR });
     });
-  
+
     test('Test 2: Invalid token', () => {
-      expect(requestMessageSend(invalidToken, channel.channelId, 'Message')).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageSend(invalidToken, channel.channelId, 'Message')).toStrictEqual({ ERROR });
     });
-  
+
     test('Test 3: User is not a Member', () => {
-      expect(requestMessageSend(user2.token, channel.channelId, 'Message')).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageSend(user2.token, channel.channelId, 'Message')).toStrictEqual({ ERROR });
     });
-  
+
     test('Test 4: Invalid message lengths', () => {
       let longString: string;
       for (let i = 0; i <= 1000; i++) {
         longString += 'a';
       }
-  
+
       const emptyString = '';
-      expect(requestMessageSend(user.token, channel.channelId, longString)).toStrictEqual({ error: expect.any(String) });
-      expect(requestMessageSend(user.token, channel.channelId, emptyString)).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageSend(user.token, channel.channelId, longString)).toStrictEqual({ ERROR });
+      expect(requestMessageSend(user.token, channel.channelId, emptyString)).toStrictEqual({ ERROR });
     });
   });
 
@@ -82,25 +81,25 @@ describe('/message/edit/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid token', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageEdit('user.token', messageId.messageId, 'New Message')).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageEdit('user.token', messageId.messageId, 'New Message')).toStrictEqual({ ERROR });
     });
-  
+
     test('Test 2: Invalid messageId', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageEdit(user.token, messageId.messageId + 1, 'New Message')).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageEdit(user.token, messageId.messageId + 1, 'New Message')).toStrictEqual({ ERROR });
     });
-  
+
     test('Test 3: Invalid uID and user is not owner', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageEdit(user2.token, messageId.messageId, 'New Message')).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageEdit(user2.token, messageId.messageId, 'New Message')).toStrictEqual({ ERROR });
     });
-  
+
     test('Test 4: Invalid message lengths', () => {
       let longString: string;
       for (let i = 0; i <= 1000; i++) {
         longString += 'a';
       }
-      expect(requestMessageSend(user.token, channel.channelId, longString)).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageSend(user.token, channel.channelId, longString)).toStrictEqual({ ERROR });
     });
   });
 
@@ -122,12 +121,12 @@ describe('/message/remove/v1', () => {
   describe('Error', () => {
     test('Test 1: User is not sender', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageRemove(user2.token, messageId.messageId)).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageRemove(user2.token, messageId.messageId)).toStrictEqual({ ERROR });
     });
-  
+
     test('Test 2: Invalid token', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageRemove('user2.token', messageId.messageId)).toStrictEqual({ error: expect.any(String) });
+      expect(requestMessageRemove('user2.token', messageId.messageId)).toStrictEqual({ ERROR });
     });
   });
 
