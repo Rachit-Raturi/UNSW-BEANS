@@ -257,6 +257,66 @@ describe('/dm/messages/v1', () => {
       }
     );
   });
+
+  test('Test 2: less than 50 messages', () => {
+    let round = 0;
+    const originalMessage = 'message';
+    let message = originalMessage;
+    while (round < 40) {
+      requestMessageSendDm(user.token, dm.dmId, message);
+      round++;
+      message = originalMessage + round.toString();
+    }
+    expect(requestDmMessages(user.token, dm.dmId, start)).toStrictEqual(
+      {
+        messages: expect.any(Array),
+        start: 0,
+        end: -1,
+      }
+    );
+  });
+
+  test('Test 2: more than 50 messages', () => {
+    let round = 0;
+    const originalMessage = 'message';
+    let message = originalMessage;
+    while (round < 60) {
+      requestMessageSendDm(user.token, dm.dmId, message);
+      round++;
+      message = originalMessage + round.toString();
+    }
+    expect(requestDmMessages(user.token, dm.dmId, start)).toStrictEqual(
+      {
+        messages: expect.any(Array),
+        start: 0,
+        end: 50,
+      }
+    );
+    expect(requestDmMessages(user.token, dm.dmId, start).messages[49]).toEqual(
+      {
+        messageId: expect.any(Number),
+        uId: expect.any(Number),
+        message: 'message49',
+        timeSent: expect.any(Number)
+      }
+    );
+    expect(requestDmMessages(user.token, dm.dmId, start).messages[50]).toEqual(undefined);
+
+    expect(requestDmMessages(user.token, dm.dmId, 50)).toStrictEqual(
+      {
+        messages: expect.any(Array),
+        start: 50,
+        end: -1,
+      }
+    );
+    expect(requestDmMessages(user.token, dm.dmId, start).messages[50]).toEqual(undefined);
+  });
+
+
+
+
+
+
 });
 
 // =========================================================================
