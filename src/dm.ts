@@ -122,8 +122,9 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
 
   const messages = data.dms[dmId].messages;
   const numberOfMessages = messages.length;
+  let end: number;
+  let messagesArray;
 
-  let end;
   // Check whether starting index is < 0
   if (start < 0) {
     return {
@@ -141,29 +142,22 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
       error: `The starting index, ${start}, is greater than the number of messages in the dm, ${numberOfMessages}`
     };
   } else if (start >= 0 && start < numberOfMessages) {
-    while (start < numberOfMessages) {
-      // If starting index is 0 or a multiple of 50
-      if (start % 50 === 0 && start < numberOfMessages) {
-        end = start + 50;
-        console.log(`{ [messages], ${start}, ${end} }`);
-        start += 50;
-      } else if (start % 50 !== 0 && start < numberOfMessages) {
-        // If starting index is not a multiple of 50
-        end = start / 50 * 50 + 50; // e.g start = 120 -> 120 / 50 * 50 + 50 = 150
-        console.log(`{ [messages], ${start}, ${end} }`);
-        start = end;
-      } else if (start + 50 >= numberOfMessages) {
-        // If there is < 50 messages left in the dm history, end pagination
-        end = -1;
-        console.log(`{ [messages], ${start}, ${end} }`);
-        start = beginning;
-        return {
-          messages: [messages],
-          start: start,
-          end: end,
-        };
-      }
+    // If starting index is 0 or a multiple of 50
+    if (start + 50 < numberOfMessages) {
+      end = start + 50;
+      messagesArray = messages.slice(start,end);
+    } else if (start + 50 >= numberOfMessages) {
+      // If there is < 50 messages left in the dm history, end pagination
+      messagesArray = messages.slice(start);
+      end = -1;
     }
+
+    console.log(`{ [messages], ${start}, ${end} }`);
+    return {
+      messages: messagesArray,
+      start: start,
+      end: end,
+    };
   }
 }
 

@@ -272,8 +272,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
       start: start,
       end: end,
     };
-  }
-  
+  } 
 }
 
 function channelLeaveV1(token: string, channelId: number) {
