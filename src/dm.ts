@@ -34,7 +34,7 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
   }
 
   // duplicate user Id
-  function hasDuplicates(array) {
+  function hasDuplicates(array: Array<number>) {
     return (new Set(array)).size === array.length;
   }
   

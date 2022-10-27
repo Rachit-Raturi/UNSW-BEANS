@@ -21,7 +21,7 @@ function validToken(token: string): boolean {
   let isValidToken;
 
   for (const element of data.users) {
-    isValidToken = element.tokens.find(a => a === token);
+    isValidToken = element.tokens.find(token);
     if (isValidToken !== undefined) {
       return true;
     }
@@ -63,7 +63,7 @@ function validHandleStr(handleStr: string): boolean {
     }
   }
 
-  const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
+  const isAlphaNumeric = (str: string) => /^[a-z0-9]+$/gi.test(str);
   return isAlphaNumeric(handleStr);
 }
 
@@ -128,10 +128,10 @@ function findUser(token: string) {
 
 function validMessage(messageId: number) { 
   let data = getData();
-  let a; 
+  let validmessage;
   for (const element of data.channels) {
-    a = element.messages.find(a => a.messageId === messageId)
-    if (a !== undefined) {
+    validmessage = element.messages.find(a => a.messageId === messageId)
+    if (validmessage !== undefined) {
       return true; 
     }
   }

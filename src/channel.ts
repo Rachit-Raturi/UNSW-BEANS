@@ -36,7 +36,7 @@ function channelDetailsV1 (token: string, channelId: number): object {
 
   // not a member error
   const currentUser = findUser(token);
-  const isMember = data.channels[channelId].allMembers.find(a => a === currentUser.uId)
+  const isMember = data.channels[channelId].allMembers.find(currentUser.uId)
   if (isMember === undefined) {
     return {
       error: 'User is not a member of the channel'
@@ -165,7 +165,7 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
 
   // check authuser is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
-  const isValidMember = checkIsMember.find(a => a === currentUser.uId);
+  const isValidMember = checkIsMember.find(currentUser.uId);
   if (isValidMember === undefined) {
     return {
       error: 'You are not a member of this channel',
@@ -224,7 +224,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
 
   // check authuserid is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
-  const isValidMember = checkIsMember.find(a => a === currentUser.uId);
+  const isValidMember = checkIsMember.find(currentUser.uId);
   if (isValidMember === undefined) {
     return {
       error: `The authorised user ${currentUser.uId} is not a member of the channel ${channelId}`,

@@ -1,6 +1,13 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken, extractUser } from './helperfunctions';
 
+interface Message {
+    messageId: number,
+    uId : number,
+    message: string,
+    timeSent: number
+}
+
 /**
  * Given a valid authUserId and channel name, creates and
  * returns a new channel with its details
