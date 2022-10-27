@@ -311,12 +311,6 @@ describe('/dm/messages/v1', () => {
     );
     expect(requestDmMessages(user.token, dm.dmId, start).messages[50]).toEqual(undefined);
   });
-
-
-
-
-
-
 });
 
 // =========================================================================
