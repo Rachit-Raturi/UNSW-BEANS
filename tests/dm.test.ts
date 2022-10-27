@@ -6,7 +6,8 @@ import {
   requestDmRemove,
   requestDmDetails,
   requestDmLeave,
-  requestDmMessages
+  requestDmMessages,
+  requestMessageSendDm
 } from './helper';
 
 const ERROR = { error: expect.any(String) };
@@ -185,7 +186,7 @@ describe('/dm/messages/v1', () => {
     });
 
     test('Test 4: User is not in dm', () => {
-      expect(requestDmMessages(user1.token, dm.dmId, start)).toStrictEqual(ERROR);
+      expect(requestDmMessages(user2.token, dm.dmId, start)).toStrictEqual(ERROR);
     });
   });
 
@@ -198,4 +199,41 @@ describe('/dm/messages/v1', () => {
       }
     );
   });
+});
+
+// =========================================================================
+// Message Send Dm Tests
+describe('/message/senddm/v1', () => {
+  let message: string = "Hello World";
+  describe('Error', () => {
+    test('Test 1: Invalid dmId', () => {
+      expect(requestMessageSendDm(user.token, invalidDm, message)).toStrictEqual(ERROR);
+    });
+
+    test('Test 2: Message is less than 1 character', () => {
+      let emptyString: string = '';
+      expect(requestMessageSendDm(user.token, dm.dmId, emptyString)).toStrictEqual(ERROR);
+    })
+
+    test('Test 3: Message is more than 1000 characters', () => {
+      let longString: string;
+      for (let i = 0; i <= 1000; i++) {
+        longString += 'a';
+      }
+      expect(requestMessageSendDm(user.token, dm.dmId, longString)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: User is not in DM', () => {
+      expect(requestMessageSendDm(user2.token, dm.dmId, message)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Invalid token', () => {
+      expect(requestMessageSendDm(invalidToken, dm.dmId, message)).toStrictEqual(ERROR);
+    });
+  });
+
+  test('Test 1: Successful message', () => {
+    let message: string = "Hello World";
+    expect(requestMessageSendDm(user.token, dm.dmId, message)).toStrictEqual({ messageId: expect.any(Number) });
+  })
 });

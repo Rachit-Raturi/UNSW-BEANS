@@ -71,13 +71,14 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
     let userHandle = ', ' + data.users[element].handleStr;
     name.push(userHandle);
   }
-
+  const membersArray = uIds;
+  membersArray.push(currentUser.uId);
 
   const dm = {
     dmId: data.dms.length,
     name: name,
     owner: authUserId,
-    members: uIds,
+    members: membersArray,
     messages: [],
   };
 
@@ -188,7 +189,7 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
 
   const user = findUser(token);
   const checkIsMember = data.dms[dmId].members;
-  if (checkIsMember.includes(user.uId) === false) {
+  if (checkIsMember.includes(user.uId) === false || data.dms[dmId].owner !== user.uId) {
     return {
       error: `user(${token}) is not a member of dm(${dmId})`
     };
@@ -202,7 +203,9 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
   }
 
   const time = Math.floor(Date.now() / 1000); 
-  let messageId = data.dms[dmId].messages.messageId
+  let maxMessageId = data.dms[dmId].messages.length;
+  console.log(maxMessageId)
+  let messageId = maxMessageId + 1;
 
   const newMessage = {
     messageId: messageId,
