@@ -6,12 +6,21 @@ import {
   requestChannelsListAll
 } from './helper';
 
+interface user {
+  token: string,
+  authUserId: number
+}
+
+interface channel {
+  channelId: number
+}
+
 const ERROR = { error: expect.any(String) };
 
-let user;
-let user1;
-let channel1;
-let invalidtoken = 'invalid';
+let user: user;
+let user1: user;
+let channel1: channel;
+let invalidtoken: string = 'invalid';
 
 beforeEach(() => {
   requestClear();
