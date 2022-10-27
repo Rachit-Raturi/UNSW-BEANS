@@ -40,7 +40,7 @@ describe('/user/profile/v2', () => {
   });
 
   test('Test 1: Successful case - view another user', () => {
-    let user1 = requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
+    const user1 = requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
     expect(requestUserProfile(user.token, user1.authUserId)).toStrictEqual(
       {
         user: {
@@ -89,7 +89,7 @@ describe('/users/all/v1', () => {
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
       }
-    )
+    );
     outputarray.push(
       {
         uId: user1.authUserId,
@@ -98,7 +98,7 @@ describe('/users/all/v1', () => {
         nameLast: 'lastname1',
         handleStr: 'firstname1lastname1',
       }
-    )
+    );
 
     const outputSet = new Set(outputarray);
     const inputSet = new Set(requestUsersAll(user.token).users);

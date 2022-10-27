@@ -25,9 +25,9 @@ export function requestClear() {
 // =========================================================================
 // Auth functions
 export function requestAuthLogin(email: string, password: string) {
-    return requestHelper('POST', '/auth/login/v2', { email, password });
+  return requestHelper('POST', '/auth/login/v2', { email, password });
 }
-  
+
 export function requestAuthRegister(email: string, password: string, nameFirst: string, nameLast: string) {
   return requestHelper('POST', '/auth/register/v2', { email, password, nameFirst, nameLast });
 }
@@ -52,11 +52,11 @@ export function requestChannelsListAll(token: string) {
 
 // =========================================================================
 // Channel functions
-export function requestChannelDetails(token: string, channelId: number){
+export function requestChannelDetails(token: string, channelId: number) {
   return requestHelper('GET', '/channel/details/v2', { token, channelId });
 }
 
-export function requestChannelJoin(token: number, channelId: number,) {
+export function requestChannelJoin(token: number, channelId: number) {
   return requestHelper('POST', '/channel/join/v2', { token, channelId });
 }
 
@@ -77,7 +77,7 @@ export function requestChannelAddOwner(token: string, channelId: number, uId: nu
 }
 
 export function requestChannelRemoveOwner(token: string, channelId: number, uId: number) {
-  return requestHelper('POST', '/channel/removeowner/v1', { token, channelId, uId});
+  return requestHelper('POST', '/channel/removeowner/v1', { token, channelId, uId });
 }
 
 // =========================================================================
@@ -107,13 +107,13 @@ export function requestDmMessages(token: string, dmId: number, start: number) {
 }
 
 // =========================================================================
-// Message Function 
+// Message Function
 export function requestMessageSend(token: string, channelId: number, message: string) {
-  return requestHelper('POST', '/message/send/v1', { token, channelId, message});
+  return requestHelper('POST', '/message/send/v1', { token, channelId, message });
 }
 
 export function requestMessageEdit(token: string, messageId: number, message: string) {
-  return requestHelper('PUT', '/message/edit/v1', {token, messageId, message});
+  return requestHelper('PUT', '/message/edit/v1', { token, messageId, message });
 }
 
 export function requestMessageRemove(token: string, messageId: number) {
