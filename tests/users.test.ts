@@ -8,11 +8,16 @@ import {
   requestUserSetHandle
 } from './helper';
 
+interface user {
+  token: string,
+  authUserId: number
+}
+
 const ERROR = { error: expect.any(String) };
 
-let user;
-let invalidToken = 'invalid';
-let invalidId = 0;
+let user: user;
+let invalidToken: string = 'invalid';
+let invalidUId: number = 0;
 
 beforeEach(() => {
   requestClear();
@@ -21,8 +26,8 @@ beforeEach(() => {
   if (user.token === invalidToken) {
     invalidToken = 'invalid1';
   }
-  if (user.authUserId === invalidId) {
-    invalidId = 1;
+  if (user.authUserId === invalidUId) {
+    invalidUId = 1;
   }
 });
 
@@ -35,7 +40,7 @@ describe('/user/profile/v2', () => {
     });
 
     test('Test 2: Invalid uId', () => {
-      expect(requestUserProfile(user.token, invalidId)).toStrictEqual(ERROR);
+      expect(requestUserProfile(user.token, invalidUId)).toStrictEqual(ERROR);
     });
   });
 

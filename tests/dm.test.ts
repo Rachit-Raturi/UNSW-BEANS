@@ -25,7 +25,7 @@ let user: user;
 let user1: user;
 let user2: user;
 let invalidToken: string = 'invalid';
-let invaliduId: number = 0;
+let invalidUId: number = 0;
 const invalidDm: number = -1;
 let dm: dm;
 let start: number;
@@ -43,8 +43,8 @@ beforeEach(() => {
   if (user.token === invalidToken || user1.token === invalidToken || user2.token === invalidToken) {
     invalidToken = 'invalid2';
   }
-  while (user.authUserId === invaliduId || user1.authUserId === invaliduId || user2.authUserId === invaliduId) {
-    invaliduId++;
+  while (user.authUserId === invalidUId || user1.authUserId === invalidUId || user2.authUserId === invalidUId) {
+    invalidUId++;
   }
 });
 
@@ -53,7 +53,7 @@ beforeEach(() => {
 describe('/dm/create/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid uId', () => {
-      expect(requestDmCreate(user.token, [invaliduId])).toStrictEqual(ERROR);
+      expect(requestDmCreate(user.token, [invalidUId])).toStrictEqual(ERROR);
     });
 
     test('Test 2: Duplicate uIds', () => {

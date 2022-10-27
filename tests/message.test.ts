@@ -8,14 +8,23 @@ import {
   requestMessageRemove
 } from './helper';
 
+interface user {
+  token: string,
+  authUserId: number
+}
+
+interface channel {
+  channelId: number
+}
+
 const ERROR = { error: expect.any(String) };
 
-let user;
-let user1;
-let user2;
-let channel;
-let channel1;
-let invalidToken = 'invalid';
+let user: user;
+let user1: user;
+let user2: user;
+let channel: channel;
+let channel1: channel;
+let invalidToken: string = 'invalid';
 
 beforeEach(() => {
   requestClear();
