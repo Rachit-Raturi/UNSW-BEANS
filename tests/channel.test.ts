@@ -12,15 +12,24 @@ import {
   requestMessageSend
 } from './helper';
 
+interface userType {
+  token: string,
+  authUserId: number
+}
+
+interface channelType {
+  channelId: number
+}
+
 const ERROR = { error: expect.any(String) };
 
-let user;
-let user1;
-let channel;
-let invalidUserId = 1;
+let user: userType;
+let user1: userType;
+let channel: channelType;
+let invalidUId = 1;
 let invalidToken = 'invalid';
 let invalidChannelId = 1;
-let start;
+let start: number;
 
 beforeEach(() => {
   requestClear();
@@ -30,10 +39,10 @@ beforeEach(() => {
   start = 0;
 
   if (user.authUserId === 1 || user1.authUserId === 1) {
-    invalidUserId = 2;
+    invalidUId = 2;
   }
   if (user.authUserId === 2 || user1.authUserId === 2) {
-    invalidUserId = 3;
+    invalidUId = 3;
   }
   if (user.token === invalidToken || user1.token === invalidToken) {
     invalidToken = 'invalid1';
@@ -134,7 +143,7 @@ describe('/channel/invite/v2', () => {
     });
 
     test('Test 3: Invalid uId', () => {
-      expect(requestChannelInvite(user.token, channel.channelId, invalidUserId)).toStrictEqual(ERROR);
+      expect(requestChannelInvite(user.token, channel.channelId, invalidUId)).toStrictEqual(ERROR);
     });
 
     test('Test 4: User is not a member of the channel', () => {
@@ -298,7 +307,7 @@ describe('/channel/addowner/v1', () => {
 
   test('Test 4: uId does not refer to a valid user', () => {
     requestChannelJoin(user1.token, channel.channelId);
-    expect(requestChannelAddOwner(user.token, channel.channelId, invalidUserId))
+    expect(requestChannelAddOwner(user.token, channel.channelId, invalidUId))
       .toStrictEqual(ERROR);
   });
 
@@ -351,7 +360,7 @@ describe('/channel/removeowner/v1', () => {
   test('Test 4: uId does not refer to a valid user', () => {
     requestChannelJoin(user1.token, channel.channelId);
     requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
-    expect(requestChannelRemoveOwner(user.token, channel.channelId, invalidUserId))
+    expect(requestChannelRemoveOwner(user.token, channel.channelId, invalidUId))
       .toStrictEqual(ERROR);
   });
 

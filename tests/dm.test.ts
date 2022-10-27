@@ -10,16 +10,25 @@ import {
   requestMessageSendDm
 } from './helper';
 
+interface userType {
+  token: string,
+  authUserId: number
+}
+
+interface dmType {
+  dmId: number
+}
+
 const ERROR = { error: expect.any(String) };
 
-let user;
-let user1;
-let user2;
+let user: userType;
+let user1: userType;
+let user2: userType;
 let invalidToken = 'invalid';
-let invaliduId = 0;
+let invalidUId = 0;
 const invalidDm = -1;
-let dm;
-let start;
+let dm: dmType;
+let start: number;
 
 beforeEach(() => {
   requestClear();
@@ -34,8 +43,8 @@ beforeEach(() => {
   if (user.token === invalidToken || user1.token === invalidToken || user2.token === invalidToken) {
     invalidToken = 'invalid2';
   }
-  while (user.authUserId === invaliduId || user1.authUserId === invaliduId || user2.authUserId === invaliduId) {
-    invaliduId++;
+  while (user.authUserId === invalidUId || user1.authUserId === invalidUId || user2.authUserId === invalidUId) {
+    invalidUId++;
   }
 });
 
@@ -44,7 +53,7 @@ beforeEach(() => {
 describe('/dm/create/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid uId', () => {
-      expect(requestDmCreate(user.token, [invaliduId])).toStrictEqual(ERROR);
+      expect(requestDmCreate(user.token, [invalidUId])).toStrictEqual(ERROR);
     });
 
     test('Test 2: Duplicate uIds', () => {

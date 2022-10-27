@@ -56,7 +56,7 @@ export function requestChannelDetails(token: string, channelId: number) {
   return requestHelper('GET', '/channel/details/v2', { token, channelId });
 }
 
-export function requestChannelJoin(token: number, channelId: number) {
+export function requestChannelJoin(token: string, channelId: number) {
   return requestHelper('POST', '/channel/join/v2', { token, channelId });
 }
 
