@@ -1,25 +1,24 @@
-import request, { HttpVerb } from 'sync-request';
-import { 
+import {
+  requestClear,
+  requestAuthRegister,
   requestChannelsCreate,
-  requestChannelsListAll,
-  requestauthRegister, 
-  requestChannelsList, 
-  requestClear
-} from './helper'
+  requestChannelsList,
+  requestChannelsListAll
+} from './helper';
+
+const ERROR = { error: expect.any(String) };
 
 let user;
 let user1;
 let channel1;
 let invalidtoken = 'invalid';
-const ERROR = { error: expect.any(String) };
 
 beforeEach(() => {
   requestClear();
-  user = requestauthRegister('test@gmail.com', 'password',
-    'firstname', 'lastname');  
-  user1 = requestauthRegister('test1@gmail.com', 'password1',
-    'firstname1', 'lastname1');
+  user = requestAuthRegister('test@gmail.com', 'password', 'firstname', 'lastname');  
+  user1 = requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
   channel1 = requestChannelsCreate(user.token, 'My Channel1', true);
+
   if (user.token === invalidtoken || user1.token === invalidtoken) {
     invalidtoken = 'invalid1';
   }
@@ -28,46 +27,55 @@ beforeEach(() => {
   }
 });
 
-describe('Tests for requestChannelsCreate', () => {
-  test('Valid Case ', () => {
-  
-    expect(requestChannelsCreate(user.token, 'channel1', true))
-      .toStrictEqual({ channelId: expect.any(Number) });
+// =========================================================================
+// Channels Create Tests
+describe('/channels/create/v2', () => {
+  describe('Error', () => {
+    test('Test 1: Invalid token', () => {
+      let invalidToken = "0"
+      expect(requestChannelsCreate(invalidToken, 'channel1', true)).toStrictEqual(ERROR);
+    });
+
+    test('Test 2: Name is greater then 20 characters', () => {
+      expect(requestChannelsCreate(user.uId, 'GreaterThentwentyCharacters', false)).toStrictEqual(ERROR);
+    });
+
+    test('Test 3: Name is less then 1', () => {
+      expect(requestChannelsCreate(user.uId, '', false)).toStrictEqual(ERROR);
+    });
   });
 
-
-  test('Invalid case - Invalid token', () => {
-    let invalidToken = "0"
-    expect(requestChannelsCreate(invalidToken, 'channel1', true))
-      .toStrictEqual(ERROR);
-  });
-
-  test('Invalid case - Name is greater then 20 characters', () => {
-    expect(requestChannelsCreate(user.uId, 'GreaterThentwentyCharacters', false))
-      .toStrictEqual(ERROR);
-  });
-
-  test('Invalid case - Name is less then 1', () => {
-    expect(requestChannelsCreate(user.uId, '', false))
-      .toStrictEqual(ERROR);
+  test('Test 1: Successful case', () => {
+    expect(requestChannelsCreate(user.token, 'channel1', true)).toStrictEqual({ channelId: expect.any(Number) });
   });
 });
 
-describe('channelsListV1 tests', () => {
-  test('Invalid Test 1: no user', () => {
+// =========================================================================
+// Channels List Tests
+describe('/channels/list/v2', () => {
+  test('Error Test 1: No user', () => {
     expect(requestChannelsList(invalidtoken)).toStrictEqual(ERROR);
   });
-  test('Test 1: user in 1 channel', () => {
-    expect(requestChannelsList(user.token))
-      .toStrictEqual({ channels: [{ channelId: channel1.channelId, name: 'My Channel1' }] });
+
+  test('Test 1: User in 1 channel', () => {
+    expect(requestChannelsList(user.token)).toStrictEqual(
+      {
+        channels:
+        [
+          {
+            channelId: channel1.channelId,
+            name: 'My Channel1'
+          }
+        ]
+      }
+    );
   });
 
-  test('Test 2: user in 0 channels', () => {
-    expect(requestChannelsList(user1.token))
-      .toStrictEqual({ channels: [] });
+  test('Test 2: User in 0 channels', () => {
+    expect(requestChannelsList(user1.token)).toStrictEqual({ channels: [] });
   });
 
-  test('Test 3: user in 2 channels', () => {
+  test('Test 3: User in 2 channels', () => {
     const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
     const outputArray = [];
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
@@ -77,10 +85,9 @@ describe('channelsListV1 tests', () => {
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 
-  test('Test 4: user in multiple courses + test it ignores private channel', () => {
+  test('Test 4: User in multiple courses + test it ignores private channel', () => {
     const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
-    expect(requestChannelsCreate(user.token, 'My Channel3', false))
-      .toStrictEqual({ channelId: expect.any(Number) });
+    expect(requestChannelsCreate(user.token, 'My Channel3', false)).toStrictEqual({ channelId: expect.any(Number) });
     const outputArray = [];
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
@@ -91,7 +98,9 @@ describe('channelsListV1 tests', () => {
   });
 });
 
-describe('Tests for channelsList AllV1 function', () => {
+// =========================================================================
+// Channels List All Tests
+describe('/channels/listAll/v2', () => {
   test('Test 1: Invalid authUserId', () => {
     let invalidUserId = 1;
     if (user.authUserId === 1) {
@@ -105,8 +114,8 @@ describe('Tests for channelsList AllV1 function', () => {
       .toStrictEqual(ERROR);
   });
 
-  test('Test 2: user in 0 courses', () => {
-    let user3 = requestauthRegister('3test@gmail.com', '3password',
+  test('Test 2: User in 0 courses', () => {
+    let user3 = requestAuthRegister('3test@gmail.com', '3password',
     '3firstname', '3lastname');
     expect(requestChannelsListAll(user3.token))
       .toStrictEqual({ channels: [] });

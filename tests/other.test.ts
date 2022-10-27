@@ -1,22 +1,21 @@
-import { 
-  requestauthRegister,
-  requestauthLogin,
+import {
+  requestClear,
+  requestAuthRegister,
+  requestAuthLogin,
   requestChannelsCreate,
-  requestChannelDetails,
-  requestClear
+  requestChannelDetails
 } from './helper';
 
-describe('Test for ClearV1', () => {
+const ERROR = { error: expect.any(String) };
+
+describe('/clear/v1', () => {
   test('Valid test', () => {
-    const user = requestauthRegister('person@gmail.com', 'password', 'firstname', 'lastname');
+    const user = requestAuthRegister('person@gmail.com', 'password', 'firstname', 'lastname');
     const channel = requestChannelsCreate(user.token, 'channel', false);
     const channel1 = requestChannelsCreate(user.token, 'channel1', true);
     requestClear();
-    expect(requestauthLogin('person@gmail.com', 'password'))
-      .toEqual({ error: expect.any(String) });
-    expect(requestChannelDetails(user.token, channel.channelId))
-      .toEqual({ error: expect.any(String) });
-    expect(requestChannelDetails(user.token, channel1.channelId))
-      .toEqual({ error: expect.any(String) });
+    expect(requestAuthLogin('person@gmail.com', 'password')).toStrictEqual(ERROR);
+    expect(requestChannelDetails(user.token, channel.channelId)).toStrictEqual(ERROR);
+    expect(requestChannelDetails(user.token, channel1.channelId)).toStrictEqual(ERROR);
   });
 });
