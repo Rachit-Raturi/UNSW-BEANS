@@ -25,7 +25,7 @@ app.use(cors());
 const PORT: number = parseInt(process.env.PORT || config.port);
 const HOST: string = process.env.IP || '127.0.0.1';
 
-if (fs.existsSync('./database.json')) {
+if (fs.existsSync('./src/database.json')) {
   const dbstr = fs.readFileSync('./src/database.json');
   setData(JSON.parse(String(dbstr)));
 }
