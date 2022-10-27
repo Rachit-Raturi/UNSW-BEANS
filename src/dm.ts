@@ -351,4 +351,60 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
   }
 }
 
-export { dmCreateV1, dmListV1, dmRemoveV1, dmDetailsV1, dmLeaveV1, dmMessagesV1 };
+let messageId = 1;
+function messageSendDmV1(token: string, dmId: number, message: string) {
+  const data = getData();
+
+  // Check for valid token
+  if (validToken(token) === false) {
+    return {
+      error: 'Invalid token'
+    };
+  }
+
+  // Check for valid dmId
+  const isValidDm = data.dms.find(d => d.dmId === dmId);
+  if (isValidDm === undefined) {
+    return {
+      error: 'Invalid dm'
+    };
+  }
+
+  const user = findUser(token);
+  const checkIsMember = data.dms[dmId].members;
+  if (checkIsMember.includes(user.uId) === false || data.dms[dmId].owner !== user.uId) {
+    return {
+      error: `user(${token}) is not a member of dm(${dmId})`
+    };
+  }
+
+  // Check length of message
+  if (message.length < 1 || message.length > 1000) {
+    return {
+      error: `message length(${message.length}) is too long or too short`
+    };
+  }
+
+  const time = Math.floor(Date.now() / 1000); 
+  let maxMessageId = data.dms[dmId].messages.length;
+  console.log(maxMessageId)
+  let messageId = maxMessageId + 1;
+
+  const newMessage = {
+    messageId: messageId,
+    uId: user.uId,
+    message: message,
+    timeSent: time,
+  };
+
+  data.dms[dmId].messages.push(newMessage);
+  setData(data);
+
+  messageId = messageId + 2;
+
+  return {
+    messageId: messageId - 2
+  };
+}
+
+export { dmCreateV1, dmListV1, dmRemoveV1, dmDetailsV1, dmLeaveV1, dmMessagesV1, messageSendDmV1 };

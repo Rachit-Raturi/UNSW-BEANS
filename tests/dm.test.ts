@@ -136,7 +136,7 @@ describe('/dm/details/v1', () => {
   });
 
   test('Test 1: Successful case - 2 members in the DM', () => {
-    expect(requestDmDetails(user.token, dm1.dmId)).toStrictEqual(
+    expect(requestDmDetails(user.token, dm.dmId)).toStrictEqual(
       {
         name: 'firstnamelastname, firstname1lastname1',
         members:
