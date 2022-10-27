@@ -32,18 +32,6 @@ beforeEach(() => {
  
 // =========================================================================
 // DM Create Tests
-describe('/dm/create/v1', () => {
-  describe('Error', () => {
-    test('Test 1: Invalid uId', () => {
-      expect(requestDmCreate(user.token, user1.uId + 1)).toStrictEqual(ERROR);
-    });
-
-    test('Test 2: Duplicate uIds', () => {
-      let uIds = [user.uId, user.uId];
-      expect(requestDmCreate(user.token, user.uId)).toStrictEqual(ERROR);
-    });
-
-<<<<<<< HEAD
 describe('dm/create/v1', () => {
   test('Test 1: There is a uId that does not refer to valid user', () => {
     expect(requestDmCreate(user.token, user1.uId + 1)).toStrictEqual(ERROR);
@@ -59,16 +47,7 @@ describe('dm/create/v1', () => {
   });
 
   test('Test 4: Successful dm created', () => {
-    expect(requestDmCreate(user.token, user.authUserId)).toStrictEqual(expect.any(Number));
-=======
-    test('Test 3: Invalid token', () => {
-      expect(requestDmCreate(invalidToken, user1.uId)).toStrictEqual(ERROR);
-    });
-  });
-
-  test('Test 1: Successful case', () => {
-    expect(requestDmCreate(user.token, user.uId)).toStrictEqual(expect.any(Number));
->>>>>>> f548a5d3594060f80855db9c1d6761c8976bbf18
+    expect(requestDmCreate(user.token, user1.authUserId)).toStrictEqual(expect.any(Number));
   });
 });
 
