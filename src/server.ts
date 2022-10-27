@@ -1,7 +1,6 @@
 import express, { json, Request, Response } from 'express';
 import { echo } from './echo';
 import morgan from 'morgan';
-import { messageSend, messageEdit, messageRemove } from './message';
 import config from './config.json';
 import cors from 'cors';
 import fs from 'fs';
@@ -11,8 +10,9 @@ import { getData, setData } from './dataStore';
 import { authLoginV1, authRegisterV1, authLogoutV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1, channelLeaveV1, channelAddOwnerV1, channelRemoveOwnerV1 } from './channel';
+import { dmCreateV1, dmMessagesV1, dmListV1, dmRemoveV1, dmDetailsV1, dmLeaveV1 } from './dm';
+import { messageSendV1, messageEditV1, messageRemoveV1, messageSendDmV1 } from './message';
 import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1 } from './users';
-import { dmCreateV1, dmMessagesV1, messageSendDmV1, dmListV1, dmRemoveV1, dmDetailsV1, dmLeaveV1 } from './dm';
 import { clearV1 } from './other';
 
 // Set up web app
@@ -144,7 +144,7 @@ app.post('/message/send/v1', (req: Request, res: Response) => {
   console.log('Message Sent');
   const { token, channelId, message } = req.body;
   save();
-  res.json(messageSend(token, channelId, message));
+  res.json(messageSendV1(token, channelId, message));
 });
 
 app.get('/channel/messages/v2', (req: Request, res: Response) => {
@@ -160,7 +160,7 @@ app.put('/message/edit/v1', (req: Request, res: Response) => {
   console.log('Message Edited');
   const { token, messageId, message } = req.body;
   save();
-  res.json(messageEdit(token, messageId, message));
+  res.json(messageEditV1(token, messageId, message));
 });
 
 app.delete('/message/remove/v1', (req: Request, res: Response) => {
@@ -168,7 +168,7 @@ app.delete('/message/remove/v1', (req: Request, res: Response) => {
   const token = req.query.token as string; 
   const messageId = parseInt(req.query.messageId as string);
   save();
-  res.json(messageRemove(token, messageId));
+  res.json(messageRemoveV1(token, messageId));
 });
 
 // ========================================================================= 

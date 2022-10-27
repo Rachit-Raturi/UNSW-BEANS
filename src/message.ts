@@ -16,7 +16,7 @@ function resetId() {
   Id = 0;
 }
 
-function messageSend(token: string, channelId: number, message: string) {
+function messageSendV1(token: string, channelId: number, message: string) {
   const data = getData();
 
   if (data.channels[channelId] === undefined) {
@@ -62,7 +62,7 @@ function messageSend(token: string, channelId: number, message: string) {
  * @param {string} message
  * @returns {}
  */
-function messageEdit(token: string, messageId: number, message: string) {
+function messageEditV1(token: string, messageId: number, message: string) {
   const data = getData();
 
   if (message.length > 1000) {
@@ -100,7 +100,7 @@ function messageEdit(token: string, messageId: number, message: string) {
  * @param {number} messageId
  * @returns {}
  */
-function messageRemove(token: string, messageId: number) {
+function messageRemoveV1(token: string, messageId: number) {
   const data = getData();
 
   if (validToken(token) === false) {
@@ -130,4 +130,60 @@ function messageRemove(token: string, messageId: number) {
   return {};
 }
 
-export { messageSend, messageEdit, messageRemove, resetId };
+let messageId = 1;
+function messageSendDmV1(token: string, dmId: number, message: string) {
+  const data = getData();
+
+  // Check for valid token
+  if (validToken(token) === false) {
+    return {
+      error: 'Invalid token'
+    };
+  }
+
+  // Check for valid dmId
+  const isValidDm = data.dms.find(d => d.dmId === dmId);
+  if (isValidDm === undefined) {
+    return {
+      error: 'Invalid dm'
+    };
+  }
+
+  const user = findUser(token);
+  const checkIsMember = data.dms[dmId].members;
+  if (checkIsMember.includes(user.uId) === false || data.dms[dmId].owner !== user.uId) {
+    return {
+      error: `user(${token}) is not a member of dm(${dmId})`
+    };
+  }
+
+  // Check length of message
+  if (message.length < 1 || message.length > 1000) {
+    return {
+      error: `message length(${message.length}) is too long or too short`
+    };
+  }
+
+  const time = Math.floor(Date.now() / 1000); 
+  let maxMessageId = data.dms[dmId].messages.length;
+  console.log(maxMessageId)
+  let messageId = maxMessageId + 1;
+
+  const newMessage = {
+    messageId: messageId,
+    uId: user.uId,
+    message: message,
+    timeSent: time,
+  };
+
+  data.dms[dmId].messages.push(newMessage);
+  setData(data);
+
+  messageId = messageId + 2;
+
+  return {
+    messageId: messageId - 2
+  };
+}
+
+export { messageSendV1, messageEditV1, messageRemoveV1, messageSendDmV1, resetId };
