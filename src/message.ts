@@ -80,15 +80,22 @@ function messageEditV1(token: string, messageId: number, message: string) {
   // Owner can edit the message but members cannot
   const messageObject = findMessage(messageId);
   const user = findUser(token);
-  const owner = data.channels[messageObject.channelID].ownerMembers;
+  if (messageId % 2 === 0) {
+    const owner = data.channels[messageObject.channelID].ownerMembers;
+    if (user.uId !== messageObject.uId && owner.includes(user.uId) === false) {
+      return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
+    }
 
-  if (user.uId !== messageObject.uId && owner.includes(user.uId) === false) {
-    return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
+    data.channels[messageObject.channelID].messages
+      .find(m => m.messageId === messageObject.messageId).message = message;
+  } else {
+    const owner = data.dms[messageObject.channelID].owner;
+    if (user.uId !== messageObject.uId && owner.includes(user.uId) === false) {
+      return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
+    }
+    data.dms[messageObject.channelID].messages
+      .find(m => m.messageId === messageObject.messageId).message = message;
   }
-
-  data.channels[messageObject.channelID].messages
-    .find(m => m.messageId === messageObject.messageId).message = message;
-
   return {};
 }
 
