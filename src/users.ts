@@ -1,6 +1,14 @@
 import { getData, setData } from './dataStore';
 import { validToken, validUId, validName, validHandleStr, validEmail, extractUser, findUser } from './helperfunctions';
 
+/**
+ * Given a token views a user's profile
+ *
+ * @param {string} token
+ * @param {number} uId
+ * @returns {user} user
+ */
+
 function userProfileV1 (token: string, uId: number) {
   if (validToken(token) === false) {
     return { error: 'invalid token' };
@@ -12,6 +20,12 @@ function userProfileV1 (token: string, uId: number) {
   return { user: extractUser(uId) };
 }
 
+/**
+ * Given a token views a all users
+ *
+ * @param {string} token
+ * @returns {Array<user>} users
+ */
 function usersAllV1 (token: string) {
   if (validToken(token) === false) {
     return { error: 'invalid token' };
@@ -47,6 +61,13 @@ function userSetNameV1 (token: string, nameFirst: string, nameLast: string) {
   return {};
 }
 
+/**
+ * Given a token changes the userhandle of the user
+ *
+ * @param {string} token
+ * @param {string} handleStr
+ * @returns {}
+ */
 function userSetHandleV1 (token: string, handleStr: string) {
   const data = getData();
   if (validToken(token) === false) {
@@ -68,6 +89,13 @@ function userSetHandleV1 (token: string, handleStr: string) {
   return {};
 }
 
+/**
+ * Given a token changes the userhandle of the user
+ *
+ * @param {string} token
+ * @param {string} email
+ * @returns {}
+ */
 function userSetEmailV1 (token: string, email: string) {
   const data = getData();
   if (validToken(token) === false) {
