@@ -278,7 +278,7 @@ describe('/channel/messages/v2', () => {
     );
   });
 
-  test('Test 2: more than 50 messages', () => {
+  test('Test 3: more than 50 messages', () => {
     let round = 0;
     const originalMessage = 'message';
     let message = originalMessage;

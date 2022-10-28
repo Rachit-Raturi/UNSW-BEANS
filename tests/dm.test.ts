@@ -125,6 +125,7 @@ describe('/dm/remove/v1', () => {
 
   test('Test 1: Successful case', () => {
     expect(requestDmRemove(user.token, dm.dmId)).toStrictEqual({});
+    expect(requestDmDetails(user.token, dm.dmId)).toStrictEqual(ERROR);
   });
 });
 
@@ -276,7 +277,7 @@ describe('/dm/messages/v1', () => {
     );
   });
 
-  test('Test 2: more than 50 messages', () => {
+  test('Test 3: more than 50 messages', () => {
     let round = 0;
     const originalMessage = 'message';
     let message = originalMessage;
