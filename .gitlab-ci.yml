@@ -22,10 +22,6 @@ linting:
   script:
     - npm run lint
 
-tsc:
-  stage: checks
-  script:
-    - npm run tsc
 
 
 
