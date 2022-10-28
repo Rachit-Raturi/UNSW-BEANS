@@ -6,9 +6,9 @@ import uniqid from 'uniqid';
  * Given a valid registered email and password the function
  * will return the assigned authUserId unique to the user
  *
- * @param {String} email - The email of the user
- * @param {String} password - The password of the user
- * @returns {Number} authUserId - The authUserid of the user
+ * @param {string} email - The email of the user
+ * @param {string} password - The password of the user
+ * @returns {number} authUserId - The authUserid of the user
  * @returns {string} token - the token to mark the users
  */
 function authLoginV1(email: string, password: string) {
@@ -40,12 +40,12 @@ function authLoginV1(email: string, password: string) {
  * Given a valid email, password, first name and last name
  * will return a generated authUserId unique to the user
  *
- * @param {String} email - The email of the user
- * @param {String} password - The password of the user
- * @param {String} nameFirst - The first name of the user
- * @param {String} nameLast - The last name of the user
+ * @param {string} email - The email of the user
+ * @param {string} password - The password of the user
+ * @param {string} nameFirst - The first name of the user
+ * @param {string} nameLast - The last name of the user
  * @returns {Number} authUserId - The authUserId of the user
- * @return {String} token - the token of the session
+ * @return {string} token - the token of the session
  */
 function authRegisterV1(email: string, password: string, nameFirst: string, nameLast: string) {
   const data = getData();
@@ -122,6 +122,13 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
     authUserId: data.users.length - 1,
   };
 }
+
+/**
+ * Given a valid registered token the user will be logged out
+ * of the session that is connected to the token
+ *
+ * @param {string} token - the token of the users session
+ */
 
 function authLogoutV1(token: string) {
   const data = getData();
