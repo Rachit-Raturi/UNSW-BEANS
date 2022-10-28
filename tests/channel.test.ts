@@ -173,7 +173,7 @@ describe('/channel/invite/v2', () => {
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
       }
-    ]
+    ];
     const expectedmembers = [
       {
         uId: user.authUserId,
@@ -184,12 +184,12 @@ describe('/channel/invite/v2', () => {
       },
       {
         uId: user1.authUserId,
-        email: 'test1@gmail.com', 
+        email: 'test1@gmail.com',
         nameFirst: 'firstname1',
         nameLast: 'lastname1',
         handleStr: 'firstname1lastname1',
       }
-    ]
+    ];
 
     expect(requestChannelDetails(user1.token, channel.channelId).allMembers).toStrictEqual(expect.arrayContaining(expectedmembers));
     expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers).toStrictEqual(expect.arrayContaining(expectedowners));
