@@ -9,10 +9,6 @@ import { validToken, validUId, validName, validHandleStr, validEmail, extractUse
  * @returns {user} user
  */
 
- let Id = 0;
- function resetId() {
-   Id = 0;
- }
 function userProfileV1 (token: string, uId: number) {
   if (validToken(token) === false) {
     return { error: 'invalid token' };
