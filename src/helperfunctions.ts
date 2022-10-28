@@ -122,13 +122,23 @@ function findUser(token: string) {
 function validMessage(messageId: number) {
   const data = getData();
   let a;
-  for (const element of data.channels) {
-    a = element.messages.find(a => a.messageId === messageId);
-    if (a !== undefined) {
-      return true;
+  if (messageId % 2 === 0) {
+    for (const element of data.channels) {
+      a = element.messages.find(a => a.messageId === messageId);
+      if (a !== undefined) {
+        return true;
+      }
     }
+    return false;
+  } else {
+    for (const element of data.dms) {
+      a = element.messages.find(a => a.messageId === messageId);
+      if (a !== undefined) {
+        return true;
+      }
+    }
+    return false;
   }
-  return false;
 }
 
 // assumes valid messageId
@@ -157,8 +167,8 @@ function findMessage(messageId: number) {
       for (const message of element.messages) {
         indexTemp = 0;
         if (message.messageId === messageId) {
-          messageObject = element;
-          channelID = element.channelId;
+          messageObject = message;
+          channelID = element.dmId;
           index = indexTemp;
           break;
         }

@@ -14,6 +14,11 @@ interface user {
   handleStr: string
 }
 
+let Id = 1;
+function resetId() {
+  Id = 1;
+}
+
 function dmCreateV1(token: string, uIds?: Array<number>) {
   const data = getData();
 
@@ -376,12 +381,9 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
   }
 
   const time = Math.floor(Date.now() / 1000);
-  const maxMessageId = data.dms[dmId].messages.length;
-  console.log(maxMessageId);
-  let messageId = maxMessageId + 1;
 
   const newMessage = {
-    messageId: messageId,
+    messageId: Id,
     uId: user.uId,
     message: message,
     timeSent: time,
@@ -390,10 +392,10 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
   data.dms[dmId].messages.push(newMessage);
   setData(data);
 
-  messageId = messageId + 2;
+  Id = Id + 2;
 
   return {
-    messageId: messageId - 2
+    messageId: Id - 2
   };
 }
 

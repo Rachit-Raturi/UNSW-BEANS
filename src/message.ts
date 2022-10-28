@@ -101,32 +101,53 @@ function messageEditV1(token: string, messageId: number, message: string) {
  * @returns {}
  */
 function messageRemoveV1(token: string, messageId: number) {
+  console.log(messageId);
   const data = getData();
 
   if (validToken(token) === false) {
+    console.log('not token');
     return { error: `token(${token}) does not refer to a valid user` };
   }
 
   if (validMessage(messageId) === false) {
+    console.log('not message');
     return { error: `message(${messageId}) does not refer to a valid message` };
   }
 
   const user = findUser(token);
   const messageObject = findMessage(messageId);
+  console.log(messageObject);
 
-  const member = data.channels[messageObject.channelID].allMembers;
-  const owner = data.channels[messageObject.channelID].ownerMembers;
 
-  // user is not a member of this channel
-  if (member.includes(user.uId) === false) {
-    return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
+  if (messageId % 2 === 0) {
+    console.log('huh');
+    const member = data.channels[messageObject.channelID].allMembers;
+    const owner = data.channels[messageObject.channelID].ownerMembers;
+    // user is not a member of this channel
+    if (member.includes(user.uId) === false) {
+      return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
+    }
+
+    if (messageObject.uId !== user.uId && (owner.includes(user.uId) === false)) {
+      return { error: `user(${user.uId}) is not the sender or owner of the channel(${messageId})` };
+    }
+    data.channels[messageObject.channelID].messages.splice(messageObject.index, 1);
+
+  } else {
+    const member = data.dms[messageObject.channelID].members;
+    const owner = data.dms[messageObject.channelID].owner;
+    console.log('works');
+    if (member.includes(user.uId) === false) {
+      return { error: `user(${user.uId}) is not a member of dm(${messageId})` };
+    }
+
+    if (messageObject.uId !== user.uId && (owner.includes(user.uId) === false)) {
+      return { error: `user(${user.uId}) is not the sender or owner of the dm(${messageId})` };
+    }
+    data.dms[messageObject.channelID].messages.splice(messageObject.index, 1);
   }
 
-  if (messageObject.uId !== user.uId && (owner.includes(user.uId) === false)) {
-    return { error: `user(${user.uId}) is not the sender or owner of the channel(${messageId})` };
-  }
-
-  data.channels[messageObject.channelID].messages.splice(messageObject.index, 1);
+  setData(data);
   return {};
 }
 
