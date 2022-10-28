@@ -260,16 +260,9 @@ function dmLeaveV1 (token: string, dmId: number) {
     };
   }
 
-  const membersArray: Array<user> = [];
+  const Index = data.dms[dmId].members.indexOf(currentUser.uId);
+  data.dms[dmId].members.splice(Index, 1);
 
-  // Creates a new array of the members excluding the one to be removed
-  for (const member of data.dms[dmId].members) {
-    if (member !== currentUser.uId) {
-      membersArray.push(member);
-    }
-  }
-
-  data.dms[dmId].members = membersArray;
   setData(data);
   return {};
 }
