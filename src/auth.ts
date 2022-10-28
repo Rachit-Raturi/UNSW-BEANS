@@ -9,10 +9,10 @@ import uniqid from 'uniqid';
  * @param {String} email - The email of the user
  * @param {String} password - The password of the user
  * @returns {Number} authUserId - The authUserid of the user
- * @returns {string} token - the token to mark the users 
+ * @returns {string} token - the token to mark the users
  */
 function authLoginV1(email: string, password: string) {
-  let data = getData();
+  const data = getData();
   for (const users of data.users) {
     if (users.email === email) {
       if (password === users.password) {
@@ -21,7 +21,7 @@ function authLoginV1(email: string, password: string) {
         users.tokens.push(token);
         setData(data);
         return {
-          token: token, 
+          token: token,
           authUserId: users.uId,
         };
       } else {
@@ -48,7 +48,7 @@ function authLoginV1(email: string, password: string) {
  * @return {String} token - the token of the session
  */
 function authRegisterV1(email: string, password: string, nameFirst: string, nameLast: string) {
-  let data = getData();
+  const data = getData();
   // Test for whether or not the email is invalid
   if (!validator.isEmail(email)) {
     return {
@@ -100,7 +100,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   // Generating the session token
   const session = uniqid();
 
-  let token = [
+  const token = [
     session
   ];
   // Register the user
@@ -124,17 +124,16 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
 }
 
 function authLogoutV1(token: string) {
-  let data = getData();
+  const data = getData();
   for (const users of data.users) {
-      if (users.tokens.includes(token)) {
-        const index = users.tokens.indexOf(token);
-        users.tokens.splice(index, 1);
-        setData(data);
-        return {};
-      }
+    if (users.tokens.includes(token)) {
+      const index = users.tokens.indexOf(token);
+      users.tokens.splice(index, 1);
+      setData(data);
+      return {};
+    }
   }
-  return {error: 'Token entered was invalid'};
+  return { error: 'Token entered was invalid' };
 }
 
 export { authLoginV1, authRegisterV1, authLogoutV1 };
-

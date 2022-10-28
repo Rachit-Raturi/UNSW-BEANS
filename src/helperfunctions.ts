@@ -1,8 +1,8 @@
 import validator from 'validator';
-import { getData, setData } from './dataStore';
+import { getData } from './dataStore';
 
 function validEmail(email: string): boolean {
-  let data = getData();
+  const data = getData();
   if (!validator.isEmail(email)) {
     return false;
   }
@@ -17,7 +17,7 @@ function validEmail(email: string): boolean {
 }
 
 function validToken(token: string): boolean {
-  let data = getData();
+  const data = getData();
   let isValidToken;
 
   for (const element of data.users) {
@@ -30,19 +30,18 @@ function validToken(token: string): boolean {
 }
 
 function validUId(uId: number): boolean {
-  let data = getData();
+  const data = getData();
 
   const isValidUId = data.users.find(a => a.uId === uId);
 
-    if (isValidUId === undefined) {
-      return false;
-    }
+  if (isValidUId === undefined) {
+    return false;
+  }
 
   return true;
 }
 
 function validName(name: string): boolean {
-
   if (name.length < 1 || name.length > 50) {
     return false;
   }
@@ -51,7 +50,7 @@ function validName(name: string): boolean {
 }
 
 function validHandleStr(handleStr: string): boolean {
-  let data = getData();
+  const data = getData();
 
   if (handleStr.length < 3 || handleStr.length > 20) {
     return false;
@@ -68,11 +67,11 @@ function validHandleStr(handleStr: string): boolean {
 }
 
 function extractUser(uId?: number) {
-  let data = getData();
+  const data = getData();
 
   if (uId === undefined) {
     const usersArray = [];
-    
+
     for (const element of data.users) {
       usersArray.push(
         {
@@ -86,7 +85,6 @@ function extractUser(uId?: number) {
     }
 
     return usersArray;
-
   } else {
     return {
       uId: data.users[uId].uId,
@@ -94,17 +92,12 @@ function extractUser(uId?: number) {
       nameFirst: data.users[uId].nameFirst,
       nameLast: data.users[uId].nameLast,
       handleStr: data.users[uId].handleStr,
-    }
+    };
   }
 }
 
-function extractchannels(all?: boolean) {
-  let data = getData();
-}
-
-
 function findUser(token: string) {
-  let data = getData();
+  const data = getData();
   let userObject;
 
   for (const element of data.users) {
@@ -126,63 +119,62 @@ function findUser(token: string) {
   };
 }
 
-function validMessage(messageId: number) { 
-  let data = getData();
-  let a; 
+function validMessage(messageId: number) {
+  const data = getData();
+  let a;
   for (const element of data.channels) {
-    a = element.messages.find(a => a.messageId === messageId)
+    a = element.messages.find(a => a.messageId === messageId);
     if (a !== undefined) {
-      return true; 
+      return true;
     }
   }
-  return false; 
+  return false;
 }
 
-// assumes valid messageId 
-function findMessage(messageId: number) { 
-  let data = getData();
+// assumes valid messageId
+function findMessage(messageId: number) {
+  const data = getData();
   let messageObject;
-  let channelID; 
-  let index_temp; 
-  let index; 
+  let channelID;
+  let indexTemp;
+  let index;
 
   if (messageId % 2 === 0) {
     for (const element of data.channels) {
-      index_temp = 0; 
+      indexTemp = 0;
       for (const message of element.messages) {
         if (message.messageId === messageId) {
           messageObject = message;
           channelID = element.channelId;
-          index = index_temp;
+          index = indexTemp;
           break;
         }
-        index_temp++; 
+        indexTemp++;
       }
     }
-  } else { 
+  } else {
     for (const element of data.dms) {
       for (const message of element.messages) {
-        index_temp = 0; 
+        indexTemp = 0;
         if (message.messageId === messageId) {
           messageObject = element;
           channelID = element.channelId;
-          index = index_temp;
+          index = indexTemp;
           break;
         }
-        index_temp++; 
+        indexTemp++;
       }
     }
   }
 
-  return { 
+  return {
     messageId: messageObject.messageId,
-    uId : messageObject.uId,
+    uId: messageObject.uId,
     message: messageObject.message,
     timeSent: messageObject.timeSent,
     channelID: channelID,
     index: index
-  }
-
+  };
 }
 
 export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findMessage, validMessage };
