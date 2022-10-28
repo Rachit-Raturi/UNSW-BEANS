@@ -101,16 +101,13 @@ function messageEditV1(token: string, messageId: number, message: string) {
  * @returns {}
  */
 function messageRemoveV1(token: string, messageId: number) {
-  console.log(messageId);
   const data = getData();
 
   if (validToken(token) === false) {
-    console.log('not token');
     return { error: `token(${token}) does not refer to a valid user` };
   }
 
   if (validMessage(messageId) === false) {
-    console.log('not message');
     return { error: `message(${messageId}) does not refer to a valid message` };
   }
 
@@ -120,7 +117,6 @@ function messageRemoveV1(token: string, messageId: number) {
 
 
   if (messageId % 2 === 0) {
-    console.log('huh');
     const member = data.channels[messageObject.channelID].allMembers;
     const owner = data.channels[messageObject.channelID].ownerMembers;
     // user is not a member of this channel
@@ -136,7 +132,6 @@ function messageRemoveV1(token: string, messageId: number) {
   } else {
     const member = data.dms[messageObject.channelID].members;
     const owner = data.dms[messageObject.channelID].owner;
-    console.log('works');
     if (member.includes(user.uId) === false) {
       return { error: `user(${user.uId}) is not a member of dm(${messageId})` };
     }
