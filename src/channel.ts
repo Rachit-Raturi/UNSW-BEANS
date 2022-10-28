@@ -320,7 +320,7 @@ function channelLeaveV1(token: string, channelId: number) {
 
 /**
  * Given a channel that the authorised user is apart of
- * removes the user from the channel
+ * promotes a member of the channel to an owner 
  *
  * @param {string} token - the token of relating to the session where the the user wants to add
  ************************** another owner to the channel
@@ -373,6 +373,15 @@ function channelAddOwnerV1(token: string, channelId: number, uId: number) {
   }
 }
 
+/**
+ * Given a channel that the authorised user is apart of
+ * removes a user as an owner of the channel
+ *
+ * @param {string} token - the token  relating to the session where the the user wants to remove
+ ************************** another owner from a channel
+ * @param {number} channelId - the id of the channel that the user intends to remove an owner from
+ * @param {number} uId - the user id of the user being demoted
+ */
 function channelRemoveOwnerV1(token: string, channelId: number, uId: number) {
   const data = getData();
 
