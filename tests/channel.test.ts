@@ -122,6 +122,36 @@ describe('/channel/join/v2', () => {
 
   test('Test 1: Successful case', () => {
     expect(requestChannelJoin(user1.token, channel.channelId)).toStrictEqual({});
+    const expectedowners = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      }
+    ];
+    const expectedmembers = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      },
+      {
+        uId: user1.authUserId,
+        email: 'test1@gmail.com',
+        nameFirst: 'firstname1',
+        nameLast: 'lastname1',
+        handleStr: 'firstname1lastname1',
+      }
+    ];
+
+    expect(requestChannelDetails(user1.token, channel.channelId).allMembers)
+      .toStrictEqual(expect.arrayContaining(expectedmembers));
+    expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers)
+      .toStrictEqual(expect.arrayContaining(expectedowners));
   });
 
   test('Test 2: Global owner joins private channel', () => {
@@ -191,8 +221,10 @@ describe('/channel/invite/v2', () => {
       }
     ];
 
-    expect(requestChannelDetails(user1.token, channel.channelId).allMembers).toStrictEqual(expect.arrayContaining(expectedmembers));
-    expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers).toStrictEqual(expect.arrayContaining(expectedowners));
+    expect(requestChannelDetails(user1.token, channel.channelId).allMembers)
+      .toStrictEqual(expect.arrayContaining(expectedmembers));
+    expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers)
+      .toStrictEqual(expect.arrayContaining(expectedowners));
   });
 });
 
@@ -305,6 +337,44 @@ describe('/channel/leave/v1', () => {
   test('Test 1: Successful case', () => {
     requestChannelJoin(user1.token, channel.channelId);
     expect(requestChannelLeave(user1.token, channel.channelId)).toStrictEqual({});
+    const expectedowners = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      }
+    ];
+    const expectedmembers = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      },
+    ];
+    expect(requestChannelDetails(user.token, channel.channelId).allMembers)
+      .toStrictEqual(expect.arrayContaining(expectedmembers));
+    expect(requestChannelDetails(user.token, channel.channelId).ownerMembers)
+      .toStrictEqual(expect.arrayContaining(expectedowners));
+  });
+  test('Test 2: only owner leaves', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    expect(requestChannelLeave(user.token, channel.channelId)).toStrictEqual({});
+    expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers)
+      .toStrictEqual([]);
+    expect(requestChannelDetails(user1.token, channel.channelId).allMembers)
+      .toStrictEqual([
+        {
+          uId: user1.authUserId,
+          email: 'test1@gmail.com',
+          nameFirst: 'firstname1',
+          nameLast: 'lastname1',
+          handleStr: 'firstname1lastname1',
+        }
+      ]);
   });
 });
 
@@ -349,6 +419,43 @@ describe('/channel/addowner/v1', () => {
     requestChannelJoin(user1.token, channel.channelId);
     expect(requestChannelAddOwner(user.token, channel.channelId, user1.authUserId))
       .toStrictEqual({});
+    const expectedowners = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      },
+      {
+        uId: user1.authUserId,
+        email: 'test1@gmail.com',
+        nameFirst: 'firstname1',
+        nameLast: 'lastname1',
+        handleStr: 'firstname1lastname1',
+      }
+    ];
+    const expectedmembers = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      },
+      {
+        uId: user1.authUserId,
+        email: 'test1@gmail.com',
+        nameFirst: 'firstname1',
+        nameLast: 'lastname1',
+        handleStr: 'firstname1lastname1',
+      }
+    ];
+
+    expect(requestChannelDetails(user1.token, channel.channelId).allMembers)
+      .toStrictEqual(expect.arrayContaining(expectedmembers));
+    expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers)
+      .toStrictEqual(expect.arrayContaining(expectedowners));
   });
 });
 
@@ -413,5 +520,36 @@ describe('/channel/removeowner/v1', () => {
     requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
     expect(requestChannelRemoveOwner(user.token, channel.channelId, user1.authUserId))
       .toStrictEqual({});
+    const expectedowners = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      },
+
+    ];
+    const expectedmembers = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      },
+      {
+        uId: user1.authUserId,
+        email: 'test1@gmail.com',
+        nameFirst: 'firstname1',
+        nameLast: 'lastname1',
+        handleStr: 'firstname1lastname1',
+      }
+    ];
+
+    expect(requestChannelDetails(user1.token, channel.channelId).allMembers)
+      .toStrictEqual(expect.arrayContaining(expectedmembers));
+    expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers)
+      .toStrictEqual(expect.arrayContaining(expectedowners));
   });
 });
