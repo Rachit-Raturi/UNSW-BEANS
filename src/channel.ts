@@ -320,7 +320,7 @@ function channelLeaveV1(token: string, channelId: number) {
 
 /**
  * Given a channel that the authorised user is apart of
- * promotes a member of the channel to an owner 
+ * promotes a member of the channel to an owner
  *
  * @param {string} token - the token of relating to the session where the the user wants to add
  ************************** another owner to the channel
