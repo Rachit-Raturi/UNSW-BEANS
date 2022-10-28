@@ -155,7 +155,7 @@ function dmRemoveV1 (token: string, dmId: number) {
   }
 
   data.dms = dmArray;
-
+  setData(data);
   return {};
 }
 
@@ -261,16 +261,16 @@ function dmLeaveV1 (token: string, dmId: number) {
   }
 
   const membersArray: Array<user> = [];
-
+  const currentUser = findUser(token);
   // Creates a new array of the members excluding the one to be removed
   for (const member of data.dms[dmId].members) {
-    if (member.token !== token) {
+    if (member !== currentUser.uId) {
       membersArray.push(member);
     }
   }
 
   data.dms[dmId].members = membersArray;
-
+  setData(data);
   return {};
 }
 
