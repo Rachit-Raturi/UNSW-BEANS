@@ -13,9 +13,9 @@ interface user {
  * Given a channel with ID channelId that the authorised user
  * is a member of, provides basic details about the channel.
  *
- * @param {String} token
- * @param {Number} channelId
- * @returns {Object} channel
+ * @param {string} token
+ * @param {number} channelId
+ * @returns {object} channel
  */
 function channelDetailsV1 (token: string, channelId: number): object {
   const data = getData();
@@ -82,8 +82,8 @@ function channelDetailsV1 (token: string, channelId: number): object {
  * Given a channel with channelId that the authorised user
  * can join, adds them to the allMembers array.
  *
- * @param {Number} authUserId - the id of the user joining the channel
- * @param {Number} channelId - the id of the course the user is trying to join
+ * @param {number} authUserId - the id of the user joining the channel
+ * @param {number} channelId - the id of the course the user is trying to join
  * @returns {} - empty object
  */
 function channelJoinV1(token: string, channelId: number) {
@@ -132,9 +132,9 @@ function channelJoinV1(token: string, channelId: number) {
  * Given a channel with channelId that the authorised user
  * can join, adds them to the allMembers array.
  *
- * @param {Number} authUserId - the id of the user creating the invite
- * @param {Number} channelId - the id of the course the user is trying to join
- * @param {Number} uId - the id of the user being invited to the channel
+ * @param {number} authUserId - the id of the user creating the invite
+ * @param {number} channelId - the id of the course the user is trying to join
+ * @param {number} uId - the id of the user being invited to the channel
  * @returns {} - empty object
  */
 function channelInviteV1(token: string, channelId: number, uId: number) {
@@ -194,12 +194,12 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
  * checks the channels message history given a starting index
  * where the most recent message has an index of 0
  *
- * @param {Number} authUserId - the id of the person checking the message history
- * @param {Number} channelId - the id of the channel that the messages are in
- * @param {Number} start - the index of the message at which the message history is being determined from
- * @returns {Array} messages - returns an array of messages either empty or with messages
- * @returns {Number} start - returns the start value passed in
- * @returns {Number} end - returns -1 indicating no more messages after this return
+ * @param {number} authUserId - the id of the person checking the message history
+ * @param {number} channelId - the id of the channel that the messages are in
+ * @param {number} start - the index of the message at which the message history is being determined from
+ * @returns {array} messages - returns an array of messages either empty or with messages
+ * @returns {number} start - returns the start value passed in
+ * @returns {number} end - returns -1 indicating no more messages after this return
  */
 
 function channelMessagesV1(token: string, channelId: number, start: number): object {
@@ -274,6 +274,14 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
   }
 }
 
+/**
+ * Given a channel that the authorised user is apart of
+ * removes the user from the channel
+ *
+ * @param {string} token - the token of relating to the session where the user is leaving the channel
+ * @param {number} channelId - the id of the channel that the user intends to leave
+ */
+
 function channelLeaveV1(token: string, channelId: number) {
   const data = getData();
   // check validity of channelId
@@ -309,6 +317,16 @@ function channelLeaveV1(token: string, channelId: number) {
     return {};
   }
 }
+
+/**
+ * Given a channel that the authorised user is apart of
+ * removes the user from the channel
+ *
+ * @param {string} token - the token of relating to the session where the the user wants to add
+ ************************** another owner to the channel
+ * @param {number} channelId - the id of the channel that the user intends to add an owner to
+ * @param {number} uId - the user id of the user being promoted
+ */
 
 function channelAddOwnerV1(token: string, channelId: number, uId: number) {
   const data = getData();
