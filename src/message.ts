@@ -16,6 +16,15 @@ function resetId() {
   Id = 0;
 }
 
+/**
+  * Sends a new message inside the chosen channel
+  * 
+  * @param {string} token 
+  * @param {number} channelId 
+  * @param {string} message 
+  * @returns {} 
+  * 
+*/
 function messageSend(token: string, channelId: number, message: string) {
   const data = getData();
 

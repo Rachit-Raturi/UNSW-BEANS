@@ -1,6 +1,14 @@
 import { getData, setData } from './dataStore';
 import { validToken, validUId, validName, validHandleStr, validEmail, extractUser, findUser } from './helperfunctions'
 
+/**
+  * Creates a new user profile 
+  * 
+  * @param {string} token 
+  * @param {number} uId 
+  * @returns {} 
+  * 
+*/
 function userProfileV1 (token: string, uId: number) {
   if (validToken(token) === false) {
     return { error: 'invalid token' };
@@ -20,6 +28,15 @@ function usersAllV1 (token: string) {
   return { users: extractUser()};
 }
 
+/**
+  * Sets the name for the profile
+  * 
+  * @param {string} token 
+  * @param {string} nameFirst 
+  * @param {string} nameLast 
+  * @returns {} 
+  * 
+*/
 function userSetNameV1 (token: string, nameFirst: string, nameLast: string) {
   let data = getData();
   if (validToken(token) === false) {
@@ -47,6 +64,14 @@ function userSetNameV1 (token: string, nameFirst: string, nameLast: string) {
   return {};
 }
 
+/**
+  * Sets the userSetHandle for the profile
+  * 
+  * @param {string} token 
+  * @param {string} handleStr 
+  * @returns {} 
+  * 
+*/
 function userSetHandleV1 (token: string, handleStr: string) {
   let data = getData();
   if (validToken(token) === false) {

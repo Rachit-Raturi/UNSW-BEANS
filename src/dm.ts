@@ -25,6 +25,14 @@ interface dm {
 //   return {};
 // }
 
+/**
+  * Creates a new instance of a dm 
+  * 
+  * @param {string} token 
+  * @param {Array<number>} uIds? 
+  * @returns {dmId} 
+  * 
+*/
 function dmCreateV1(token: string, uIds?: Array<number>) {
   const data = getData();
 
@@ -90,6 +98,17 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
   };
 }
 
+/**
+  * Given a DM with ID dmId that the authorised user is a member of, 
+  * return up to 50 messages between index "start" and "start + 50". 
+  * Message with index 0 is the most recent message in the DM.  
+  * 
+  * @param {string} token 
+  * @param {number} dmId
+  * @param {number} start
+  * @returns {messages, start, end} 
+  * 
+*/
 function dmMessagesV1(token: string, dmId: number, start: number) {
   const data = getData();
   const beginning = start;
@@ -167,7 +186,15 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
   }
 }
 
-
+/**
+  * Send a message from authorised user to the DM specified by dmId.
+  * 
+  * @param {string} token 
+  * @param {number} dmId
+  * @param {number} start
+  * @returns {dmId} 
+  * 
+*/
 let messageId = 1;
 function messageSendDmV1(token: string, dmId: number, message: string) {
   const data = getData();
