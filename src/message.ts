@@ -115,7 +115,6 @@ function messageRemoveV1(token: string, messageId: number) {
   const messageObject = findMessage(messageId);
   console.log(messageObject);
 
-
   if (messageId % 2 === 0) {
     const member = data.channels[messageObject.channelID].allMembers;
     const owner = data.channels[messageObject.channelID].ownerMembers;
@@ -128,7 +127,6 @@ function messageRemoveV1(token: string, messageId: number) {
       return { error: `user(${user.uId}) is not the sender or owner of the channel(${messageId})` };
     }
     data.channels[messageObject.channelID].messages.splice(messageObject.index, 1);
-
   } else {
     const member = data.dms[messageObject.channelID].members;
     const owner = data.dms[messageObject.channelID].owner;

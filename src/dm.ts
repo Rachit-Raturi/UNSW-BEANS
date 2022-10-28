@@ -15,9 +15,6 @@ interface user {
 }
 
 let Id = 1;
-function resetId() {
-  Id = 1;
-}
 
 function dmCreateV1(token: string, uIds?: Array<number>) {
   const data = getData();
