@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken, extractUser } from './helperfunctions';
+import { findUser, validToken } from './helperfunctions';
 
 /**
  * Given a valid authUserId and channel name, creates and
@@ -14,7 +14,6 @@ import { findUser, validToken, extractUser } from './helperfunctions';
 function channelsCreateV1(token: string, name: string, isPublic: boolean) {
   const data = getData();
 
-  
   if (!validToken(token)) {
     return {
       error: 'Invalid user'
@@ -31,7 +30,7 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
   const members = [];
   const owners = [];
 
-  let user = findUser(token);
+  const user = findUser(token);
   owners.push(user.uId);
   members.push(user.uId);
 
@@ -68,7 +67,7 @@ function channelsListV1(token: string) {
       error: 'Invalid token'
     };
   }
-  
+
   const currentUser = findUser(token);
   const outputChannels = [];
 
@@ -105,7 +104,7 @@ function channelsListAllV1(token: string) {
   const allChannelsArray = data.channels;
   const outputChannels = [];
 
-  let user = findUser(token);
+  const user = findUser(token);
   // create array of channels the user is in
   for (const element of allChannelsArray) {
     if ((element.allMembers).includes(user.uId)) {

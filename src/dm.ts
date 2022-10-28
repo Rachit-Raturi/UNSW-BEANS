@@ -37,12 +37,12 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
   function hasDuplicates(array) {
     return (new Set(array)).size === array.length;
   }
-  
+
   if (!hasDuplicates(uIds)) {
-    return {error: 'duplicate uIds entered'};
+    return { error: 'duplicate uIds entered' };
   }
 
-  //owner in uIds
+  // owner in uIds
   const currentUser = findUser(token);
   for (const uId of uIds) {
     if (uId === currentUser.uId) {
@@ -89,7 +89,7 @@ function dmListV1 (token: string): Array<dm> | object {
       error: 'Invalid token'
     };
   }
-  
+
   const currentUser = findUser(token);
   const dmArray: Array<dm> = [];
 
@@ -111,7 +111,7 @@ function dmListV1 (token: string): Array<dm> | object {
  * @param {Number} dmId
  * @returns {}
  */
- function dmRemoveV1 (token: string, dmId: number) {
+function dmRemoveV1 (token: string, dmId: number) {
   const data = getData();
 
   // Invalid token error
@@ -128,7 +128,7 @@ function dmListV1 (token: string): Array<dm> | object {
       error: 'Invalid dmId'
     };
   }
-  
+
   const currentUser = findUser(token);
 
   // User is not a member of DM error
@@ -136,7 +136,6 @@ function dmListV1 (token: string): Array<dm> | object {
     return {
       error: `User(${token}) is not a member of the dm(${dmId})`
     };
-  
   }
 
   // User is not the original DM creator
@@ -145,7 +144,6 @@ function dmListV1 (token: string): Array<dm> | object {
       error: `User(${token}) is not the original creator of the dm(${dmId})`
     };
   }
-  
 
   const dmArray: Array<dm> = [];
 
@@ -155,7 +153,7 @@ function dmListV1 (token: string): Array<dm> | object {
       dmArray.push(dm);
     }
   }
-  
+
   data.dms = dmArray;
 
   return {};
@@ -169,7 +167,7 @@ function dmListV1 (token: string): Array<dm> | object {
  * @param {Number} dmId
  * @returns {Object} name, members
  */
-function dmDetailsV1 (token: string, dmId: number): Object {
+function dmDetailsV1 (token: string, dmId: number) {
   const data = getData();
 
   // Invalid token error
@@ -270,7 +268,7 @@ function dmLeaveV1 (token: string, dmId: number) {
       membersArray.push(member);
     }
   }
-  
+
   data.dms[dmId].members = membersArray;
 
   return {};
@@ -278,8 +276,7 @@ function dmLeaveV1 (token: string, dmId: number) {
 
 function dmMessagesV1(token: string, dmId: number, start: number) {
   const data = getData();
-  const beginning = start;
-  
+
   // Check for valid token
   if (validToken(token) === false) {
     return {
@@ -303,7 +300,7 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
       error: `User(${token}) is not a member of the dm(${dmId})`
     };
   }
-  
+
   const messages = data.dms[dmId].messages;
   const numberOfMessages = messages.length;
   let end: number;
@@ -329,7 +326,7 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
     // If starting index is 0 or a multiple of 50
     if (start + 50 < numberOfMessages) {
       end = start + 50;
-      messagesArray = messages.slice(start,end);
+      messagesArray = messages.slice(start, end);
     } else if (start + 50 >= numberOfMessages) {
       // If there is < 50 messages left in the dm history, end pagination
       messagesArray = messages.slice(start);
@@ -345,7 +342,6 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
   }
 }
 
-let messageId = 1;
 function messageSendDmV1(token: string, dmId: number, message: string) {
   const data = getData();
 
@@ -379,9 +375,9 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
     };
   }
 
-  const time = Math.floor(Date.now() / 1000); 
-  let maxMessageId = data.dms[dmId].messages.length;
-  console.log(maxMessageId)
+  const time = Math.floor(Date.now() / 1000);
+  const maxMessageId = data.dms[dmId].messages.length;
+  console.log(maxMessageId);
   let messageId = maxMessageId + 1;
 
   const newMessage = {

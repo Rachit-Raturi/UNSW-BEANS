@@ -26,8 +26,8 @@ function channelDetailsV1 (token: string, channelId: number): object {
       error: 'Invalid channel'
     };
   }
-  
-  // invalid token error 
+
+  // invalid token error
   if (validToken(token) === false) {
     return {
       error: 'Invalid token'
@@ -36,7 +36,7 @@ function channelDetailsV1 (token: string, channelId: number): object {
 
   // not a member error
   const currentUser = findUser(token);
-  const isMember = data.channels[channelId].allMembers.find(a => a === currentUser.uId)
+  const isMember = data.channels[channelId].allMembers.find(a => a === currentUser.uId);
   if (isMember === undefined) {
     return {
       error: 'User is not a member of the channel'
@@ -205,7 +205,6 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
 function channelMessagesV1(token: string, channelId: number, start: number): object {
   const data = getData();
 
-  
   // invalid token
   if (validToken(token) === false) {
     return {
@@ -259,7 +258,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
     // If starting index is 0 or a multiple of 50
     if (start + 50 < numberOfMessages) {
       end = start + 50;
-      messagesArray = messages.slice(start,end);
+      messagesArray = messages.slice(start, end);
     } else if (start + 50 >= numberOfMessages) {
       // If there is < 50 messages left in the channel history, end pagination
       messagesArray = messages.slice(start);
@@ -272,7 +271,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
       start: start,
       end: end,
     };
-  } 
+  }
 }
 
 function channelLeaveV1(token: string, channelId: number) {
@@ -300,14 +299,14 @@ function channelLeaveV1(token: string, channelId: number) {
   } else {
     const Index = data.channels[channelId].allMembers.indexOf(user.uId);
     data.channels[channelId].allMembers.splice(Index, 1);
-    
+
     // check if the user is also an owner
     if (data.channels[channelId].ownerMembers.includes(user.uId)) {
       const Index2 = data.channels[channelId].ownerMembers.indexOf(user.uId);
       data.channels[channelId].ownerMembers.splice(Index2, 1);
     }
     setData(data);
-    return {}
+    return {};
   }
 }
 
@@ -336,13 +335,13 @@ function channelAddOwnerV1(token: string, channelId: number, uId: number) {
     return {
       error: 'UId refers to someone who is not a member of the channel'
     };
-  } 
-  
+  }
+
   if (data.channels[channelId].ownerMembers.includes(uId)) {
     return {
       error: 'UId refers to someone who is already an owner of the channel'
-    }
-  } 
+    };
+  }
 
   const user = findUser(token);
   if (user.uId === 0 || data.channels[channelId].ownerMembers.includes(user.uId)) {
@@ -354,7 +353,6 @@ function channelAddOwnerV1(token: string, channelId: number, uId: number) {
       error: 'User does not possess the correct permissions'
     };
   }
-
 }
 
 function channelRemoveOwnerV1(token: string, channelId: number, uId: number) {
@@ -382,13 +380,13 @@ function channelRemoveOwnerV1(token: string, channelId: number, uId: number) {
     return {
       error: 'UId refers tos someone who is not an owner of the channel'
     };
-  } 
+  }
 
   if (data.channels[channelId].ownerMembers.includes(uId) && data.channels[channelId].ownerMembers.length === 1) {
     return {
       error: 'UId refers to the only owner of the channel'
     };
-  } 
+  }
 
   const user = findUser(token);
   if (user.uId === 0 || data.channels[channelId].ownerMembers.includes(user.uId)) {

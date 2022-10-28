@@ -29,7 +29,7 @@ let data = {
       token: string
     ]
   ]
-  
+
   channels: [
     channelId: number
     name: string
@@ -52,7 +52,7 @@ let data = {
     owner: user
     members: [users]
     messages: [
-      { 
+      {
         messageId: number
         uId : number
         message: string

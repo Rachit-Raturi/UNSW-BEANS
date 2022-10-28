@@ -6,7 +6,6 @@ import cors from 'cors';
 import fs from 'fs';
 import { getData, setData } from './dataStore';
 
-
 import { authLoginV1, authRegisterV1, authLogoutV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1, channelLeaveV1, channelAddOwnerV1, channelRemoveOwnerV1 } from './channel';
@@ -34,8 +33,7 @@ const data = getData();
 const save = () => {
   const jsonstr = JSON.stringify(data);
   fs.writeFileSync('./src/database.json', jsonstr);
-
-}
+};
 // Example get request
 app.get('/echo', (req: Request, res: Response, next) => {
   try {
@@ -117,7 +115,7 @@ app.get('/channel/details/v2', (req: Request, res: Response) => {
 });
 
 app.post('/channel/join/v2', (req: Request, res: Response) => {
-  const { token, channelId, } = req.body;
+  const { token, channelId } = req.body;
   save();
   res.json(channelJoinV1(token, channelId));
 });
@@ -181,7 +179,7 @@ app.get('/dm/list/v1', (req: Request, res: Response) => {
 
 app.delete('/dm/remove/v1', (req: Request, res: Response) => {
   console.log('DM Removed');
-  const token = req.query.token as string; 
+  const token = req.query.token as string;
   const dmId = parseInt(req.query.dmId as string);
   save();
   res.json(dmRemoveV1(token, dmId));
@@ -189,7 +187,7 @@ app.delete('/dm/remove/v1', (req: Request, res: Response) => {
 
 app.get('/dm/details/v1', (req: Request, res: Response) => {
   console.log('DM details');
-  const token = req.query.token as string; 
+  const token = req.query.token as string;
   const dmId = parseInt(req.query.dmId as string);
   save();
   res.json(dmDetailsV1(token, dmId));
@@ -227,7 +225,7 @@ app.put('/message/edit/v1', (req: Request, res: Response) => {
 
 app.delete('/message/remove/v1', (req: Request, res: Response) => {
   console.log('Message Removed');
-  const token = req.query.token as string; 
+  const token = req.query.token as string;
   const messageId = parseInt(req.query.messageId as string);
   save();
   res.json(messageRemoveV1(token, messageId));
