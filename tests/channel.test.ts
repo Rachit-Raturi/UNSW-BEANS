@@ -164,6 +164,35 @@ describe('/channel/invite/v2', () => {
 
   test('Test 1: Successful case', () => {
     expect(requestChannelInvite(user.token, channel.channelId, user1.authUserId)).toStrictEqual({});
+
+    const expectedowners = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      }
+    ]
+    const expectedmembers = [
+      {
+        uId: user.authUserId,
+        email: 'test@gmail.com',
+        nameFirst: 'firstname',
+        nameLast: 'lastname',
+        handleStr: 'firstnamelastname',
+      },
+      {
+        uId: user1.authUserId,
+        email: 'test1@gmail.com', 
+        nameFirst: 'firstname1',
+        nameLast: 'lastname1',
+        handleStr: 'firstname1lastname1',
+      }
+    ]
+
+    expect(requestChannelDetails(user1.token, channel.channelId).allMembers).toStrictEqual(expect.arrayContaining(expectedmembers));
+    expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers).toStrictEqual(expect.arrayContaining(expectedowners));
   });
 });
 
