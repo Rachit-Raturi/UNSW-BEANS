@@ -15,6 +15,13 @@ interface user {
 }
 
 let Id = 1;
+/**
+ * Creates a dm between the user (owner) and any additional users
+ * 
+ * @param {string} token
+ * @param {array} uIds 
+ * @returns {number} dmId
+ */
 
 function dmCreateV1(token: string, uIds?: Array<number>) {
   const data = getData();
@@ -269,6 +276,19 @@ function dmLeaveV1 (token: string, dmId: number) {
   return {};
 }
 
+/**
+ * Given a dm that user is a part of
+ * checks message history form starting index
+ * given most recent message has index 0
+ * 
+ * @param {string} token 
+ * @param {number} dmId 
+ * @param {number} start 
+ * @returns {array} messages - returns an array of messages either empty or with messages
+ * @returns {number} start - returns the start value passed in
+ * @returns {number} end - returns -1 indicating no more messages after this return
+ */
+
 function dmMessagesV1(token: string, dmId: number, start: number) {
   const data = getData();
 
@@ -336,6 +356,15 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
     };
   }
 }
+
+/**
+ * Sends a message in the specified dm that user is a part of
+ * 
+ * @param {string} token 
+ * @param {number} dmId 
+ * @param {string} message 
+ * @returns {number} messageId
+ */
 
 function messageSendDmV1(token: string, dmId: number, message: string) {
   const data = getData();
