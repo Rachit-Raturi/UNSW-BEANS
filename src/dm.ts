@@ -261,7 +261,7 @@ function dmLeaveV1 (token: string, dmId: number) {
   }
 
   const membersArray: Array<user> = [];
-  const currentUser = findUser(token);
+
   // Creates a new array of the members excluding the one to be removed
   for (const member of data.dms[dmId].members) {
     if (member !== currentUser.uId) {
