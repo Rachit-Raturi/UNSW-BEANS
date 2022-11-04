@@ -127,21 +127,21 @@ export function requestMessageSendDm(token: string, dmId: number, message: strin
 // =========================================================================
 // User/s Function
 export function requestUserProfile(token: string, uId: number) {
-  return requestHelper('GET', '/user/profile/v2', { token, uId });
+  return requestHelper('GET', '/user/profile/v3', { token, uId });
 }
 
 export function requestUsersAll(token: string) {
-  return requestHelper('GET', '/users/all/v1', { token });
+  return requestHelper('GET', '/users/all/v2', { token });
 }
 
 export function requestUserSetName(token: string, nameFirst: string, nameLast: string) {
-  return requestHelper('PUT', '/user/profile/setname/v1', { token, nameFirst, nameLast });
+  return requestHelper('PUT', '/user/profile/setname/v2', { token, nameFirst, nameLast });
 }
 
 export function requestUserSetEmail(token: string, email: string) {
-  return requestHelper('PUT', '/user/profile/setemail/v1', { token, email });
+  return requestHelper('PUT', '/user/profile/setemail/v2', { token, email });
 }
 
 export function requestUserSetHandle(token: string, handleStr: string) {
-  return requestHelper('PUT', '/user/profile/sethandle/v1', { token, handleStr });
+  return requestHelper('PUT', '/user/profile/sethandle/v2', { token, handleStr });
 }
