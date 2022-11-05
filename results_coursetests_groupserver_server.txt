@@ -1,0 +1,2046 @@
+
+> start
+> ts-node -T src/server.ts
+
+⚡️ Server listening on port 48237 at 127.0.0.1
+[0mDELETE /clear/v1 [32m200[0m 3.851 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 6.712 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ynyf [32m200[0m 2.537 ms - 124[0m
+[0mPOST /auth/login/v2 [32m200[0m 1.530 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.488 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 2.534 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ynz1 [32m200[0m 2.330 ms - 124[0m
+[0mPOST /auth/login/v2 [32m200[0m 1.621 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ynzc [32m200[0m 1.525 ms - 124[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ynz1 [32m200[0m 1.524 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.397 ms - 2[0m
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ynzc [32m200[0m 1.344 ms - 25[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ynz1 [32m200[0m 1.498 ms - 124[0m
+[0mDELETE /clear/v1 [32m200[0m 1.274 ms - 2[0m
+[0mPOST /auth/login/v2 [32m200[0m 1.685 ms - 51[0m
+[0mDELETE /clear/v1 [32m200[0m 1.333 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.657 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo0i [32m200[0m 1.321 ms - 124[0m
+[0mPOST /auth/login/v2 [32m200[0m 1.698 ms - 47[0m
+[0mDELETE /clear/v1 [32m200[0m 1.276 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.630 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo10 [32m200[0m 1.445 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.808 ms - 2[0m
+[0mDELETE /clear/v1 [32m200[0m 1.085 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 3.496 ms - 33[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.009 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.345 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 0.978 ms - 33[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.254 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.018 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.348 ms - 33[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.167 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.364 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.121 ms - 46[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.563 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 0.999 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.485 ms - 35[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.118 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.390 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.172 ms - 66[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.386 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 4.741 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.539 ms - 66[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.369 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.534 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.438 ms - 65[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.536 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.211 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.177 ms - 65[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.451 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.213 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.608 ms - 44[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.104 ms - 35[0m
+[0mDELETE /clear/v1 [32m200[0m 1.481 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.236 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo5c [32m200[0m 1.784 ms - 108[0m
+[0mDELETE /clear/v1 [32m200[0m 1.232 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.437 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo5q [32m200[0m 1.271 ms - 124[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo5q [32m200[0m 1.512 ms - 124[0m
+[0mDELETE /clear/v1 [32m200[0m 1.318 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.599 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo68 [32m200[0m 1.429 ms - 107[0m
+[0mDELETE /clear/v1 [32m200[0m 3.229 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.266 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo6n [32m200[0m 1.583 ms - 133[0m
+[0mDELETE /clear/v1 [32m200[0m 1.222 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.695 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo71 [32m200[0m 1.309 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 2.185 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.309 ms - 44[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.598 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yo7h [32m200[0m 1.439 ms - 126[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.756 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=3&token=140cyzo9rl9t5yo7p [32m200[0m 1.391 ms - 127[0m
+[0mDELETE /clear/v1 [32m200[0m 1.582 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.290 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo83 [32m200[0m 1.762 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.255 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.564 ms - 44[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.228 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yo8j [32m200[0m 1.599 ms - 128[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.121 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=3&token=140cyzo9rl9t5yo8q [32m200[0m 1.464 ms - 129[0m
+[0mDELETE /clear/v1 [32m200[0m 1.236 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.600 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yo95 [32m200[0m 1.297 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.626 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.099 ms - 44[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.088 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yo9k [32m200[0m 1.232 ms - 129[0m
+[0mDELETE /clear/v1 [32m200[0m 1.303 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.587 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yob8 [32m200[0m 1.202 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.488 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.163 ms - 44[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.612 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yobn [32m200[0m 1.173 ms - 102[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.466 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=3&token=140cyzo9rl9t5yobu [32m200[0m 1.094 ms - 101[0m
+[0mDELETE /clear/v1 [32m200[0m 1.435 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.185 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yocd [32m200[0m 1.471 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.238 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.344 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yoco [32m200[0m 1.218 ms - 129[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.729 ms - 2[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.335 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yoco [32m200[0m 1.794 ms - 546[0m
+[0mDELETE /clear/v1 [32m200[0m 1.106 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.368 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yodd [32m200[0m 1.237 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.450 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yodl [32m200[0m 1.278 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.753 ms - 15[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.234 ms - 2[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.442 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yodd [32m200[0m 1.163 ms - 546[0m
+[0mDELETE /clear/v1 [32m200[0m 1.455 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.317 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yoed [32m200[0m 1.492 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.213 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.513 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yoeo [32m200[0m 1.196 ms - 129[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.454 ms - 68[0m
+[0mDELETE /clear/v1 [32m200[0m 1.117 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.367 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yof5 [32m200[0m 1.165 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.396 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.196 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yofg [32m200[0m 1.713 ms - 129[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.210 ms - 68[0m
+[0mDELETE /clear/v1 [32m200[0m 1.438 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.273 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yofx [32m200[0m 1.228 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.267 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yog5 [32m200[0m 1.556 ms - 120[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.293 ms - 15[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.470 ms - 68[0m
+[0mDELETE /clear/v1 [32m200[0m 1.167 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.477 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yogq [32m200[0m 1.694 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.571 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yoh2 [32m200[0m 1.498 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.569 ms - 15[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.498 ms - 68[0m
+[0mDELETE /clear/v1 [32m200[0m 1.554 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.570 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yoho [32m200[0m 1.638 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.602 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.584 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yoi0 [32m200[0m 1.568 ms - 129[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.702 ms - 2[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.595 ms - 57[0m
+[0mDELETE /clear/v1 [32m200[0m 1.633 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.526 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yoj1 [32m200[0m 1.767 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.692 ms - 15[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.532 ms - 72[0m
+[0mDELETE /clear/v1 [32m200[0m 1.581 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.515 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yojz [32m200[0m 1.733 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.638 ms - 15[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.641 ms - 31[0m
+[0mDELETE /clear/v1 [32m200[0m 1.602 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.698 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yokt [32m200[0m 1.739 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.662 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yol1 [32m200[0m 1.569 ms - 129[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.668 ms - 37[0m
+[0mDELETE /clear/v1 [32m200[0m 1.638 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.672 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yolj [32m200[0m 1.555 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.534 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.664 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yolv [32m200[0m 1.642 ms - 129[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.538 ms - 2[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.598 ms - 33[0m
+[0mDELETE /clear/v1 [32m200[0m 4.287 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.626 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yomj [32m200[0m 1.731 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.640 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.755 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yomw [32m200[0m 1.683 ms - 129[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.599 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yomj [32m200[0m 1.669 ms - 425[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yomw [32m200[0m 1.639 ms - 425[0m
+[0mDELETE /clear/v1 [32m200[0m 1.695 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.516 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yonm [32m200[0m 1.699 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.617 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.537 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yony [32m200[0m 1.552 ms - 120[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yony [32m200[0m 1.635 ms - 47[0m
+[0mDELETE /clear/v1 [32m200[0m 1.627 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.677 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yoog [32m200[0m 1.633 ms - 124[0m
+[0mGET /channel/details/v2?channelId=-1&token=140cyzo9rl9t5yoog [32m200[0m 1.567 ms - 27[0m
+[0mDELETE /clear/v1 [32m200[0m 1.565 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.655 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yoox [32m200[0m 2.930 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.601 ms - 15[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.465 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yoox [32m200[0m 1.480 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.552 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.611 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yopo [32m200[0m 1.659 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.606 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.601 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yopz [32m200[0m 1.744 ms - 129[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.876 ms - 2[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.492 ms - 36[0m
+[0mDELETE /clear/v1 [32m200[0m 1.611 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.635 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yoql [32m200[0m 1.631 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.625 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yoqt [32m200[0m 1.619 ms - 120[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.598 ms - 15[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.597 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yoql [32m200[0m 1.607 ms - 410[0m
+[0mDELETE /clear/v1 [32m200[0m 1.566 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.588 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yori [32m200[0m 1.186 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.379 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yorp [32m200[0m 1.228 ms - 129[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.625 ms - 15[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.057 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yorp [32m200[0m 1.444 ms - 425[0m
+[0mDELETE /clear/v1 [32m200[0m 0.985 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.244 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yosc [32m200[0m 1.082 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.288 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yosj [32m200[0m 1.072 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.215 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yosq [32m200[0m 1.035 ms - 120[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.221 ms - 15[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.043 ms - 48[0m
+[0mDELETE /clear/v1 [32m200[0m 1.336 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.083 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yot9 [32m200[0m 1.401 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.144 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yotg [32m200[0m 1.407 ms - 129[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.108 ms - 27[0m
+[0mDELETE /clear/v1 [32m200[0m 1.379 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.075 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yotx [32m200[0m 1.532 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.159 ms - 15[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.472 ms - 24[0m
+[0mDELETE /clear/v1 [32m200[0m 1.188 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.414 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5youh [32m200[0m 1.128 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.495 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.095 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5your [32m200[0m 1.539 ms - 129[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.139 ms - 2[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.393 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.139 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.574 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yovc [32m200[0m 1.199 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.518 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yovj [32m200[0m 1.228 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.216 ms - 15[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.163 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yovc [32m200[0m 1.108 ms - 425[0m
+[0mDELETE /clear/v1 [32m200[0m 1.179 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.227 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yow6 [32m200[0m 1.050 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.126 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yowc [32m200[0m 1.320 ms - 120[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.268 ms - 15[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.500 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yow6 [32m200[0m 1.210 ms - 410[0m
+[0mDELETE /clear/v1 [32m200[0m 1.282 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.256 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yox0 [32m200[0m 1.282 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.605 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.276 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yoxb [32m200[0m 1.607 ms - 129[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.188 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yoxb [32m200[0m 1.485 ms - 425[0m
+[0mDELETE /clear/v1 [32m200[0m 1.201 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.599 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yoxv [32m200[0m 1.240 ms - 120[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.595 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 7.256 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yoyc [32m200[0m 1.649 ms - 129[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.257 ms - 49[0m
+[0mDELETE /clear/v1 [32m200[0m 1.660 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.365 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yoyu [32m200[0m 1.698 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.576 ms - 15[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.362 ms - 52[0m
+[0mDELETE /clear/v1 [32m200[0m 1.463 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.610 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yozf [32m200[0m 1.590 ms - 124[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.552 ms - 27[0m
+[0mDELETE /clear/v1 [32m200[0m 1.452 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.503 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yozw [32m200[0m 1.390 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.463 ms - 15[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.338 ms - 2[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.326 ms - 24[0m
+[0mDELETE /clear/v1 [32m200[0m 1.358 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.397 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yp0l [32m200[0m 1.423 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.380 ms - 15[0m
+[0mPOST /channel/leave/v1 [32m200[0m 1.440 ms - 2[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5yp0l [32m200[0m 1.431 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.370 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.349 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yp1b [32m200[0m 1.344 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.180 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.434 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yp1m [32m200[0m 1.455 ms - 129[0m
+[0mPOST /channel/leave/v1 [32m200[0m 1.240 ms - 45[0m
+[0mDELETE /clear/v1 [32m200[0m 1.419 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.516 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yp23 [32m200[0m 1.573 ms - 124[0m
+[0mPOST /channel/leave/v1 [32m200[0m 1.480 ms - 37[0m
+[0mDELETE /clear/v1 [32m200[0m 1.399 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.371 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yp2k [32m200[0m 1.328 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.281 ms - 15[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.269 ms - 2[0m
+[0mPOST /channel/leave/v1 [32m200[0m 1.406 ms - 33[0m
+[0mDELETE /clear/v1 [32m200[0m 1.353 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.396 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yp38 [32m200[0m 1.418 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.296 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.819 ms - 15[0m
+{ [messages], 0, -1 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5yp38 [32m200[0m 1.810 ms - 105[0m
+[0mDELETE /clear/v1 [32m200[0m 1.727 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.568 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yp3y [32m200[0m 1.453 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.376 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.400 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.420 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.323 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.420 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.322 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.425 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.445 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.437 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.357 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.362 ms - 16[0m
+{ [messages], 0, -1 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5yp3y [32m200[0m 1.279 ms - 758[0m
+[0mDELETE /clear/v1 [32m200[0m 1.664 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.338 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yp5r [32m200[0m 1.656 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.573 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.444 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.561 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.453 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.481 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.445 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.565 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.623 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.625 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.583 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.615 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.594 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.559 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.545 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.564 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.512 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.548 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.429 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.457 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.437 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.360 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.576 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.481 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.558 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.402 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.441 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.588 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.559 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.649 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.574 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.609 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.602 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.502 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.607 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.649 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.628 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.604 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.592 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.615 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.806 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.542 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.570 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.560 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.632 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.574 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.490 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.439 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.502 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.358 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.495 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.487 ms - 16[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.436 ms - 17[0m
+{ [messages], 0, 50 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5yp5r [32m200[0m 1.670 ms - 3678[0m
+[0mDELETE /clear/v1 [32m200[0m 1.503 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.287 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypbt [32m200[0m 1.433 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.400 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.422 ms - 15[0m
+{ [messages], 0, -1 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5ypbt [32m200[0m 1.460 ms - 112[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 2.437 ms - 2[0m
+{ [messages], 0, -1 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5ypbt [32m200[0m 1.619 ms - 92[0m
+[0mDELETE /clear/v1 [32m200[0m 1.385 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.350 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypct [32m200[0m 1.330 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 4.550 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.423 ms - 15[0m
+{ [messages], 0, -1 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5ypct [32m200[0m 1.423 ms - 112[0m
+Message Removed
+{
+  messageId: 0,
+  uId: 0,
+  message: 'you are a toy maybe?',
+  timeSent: 1667002023,
+  channelID: 0,
+  index: 0
+}
+[0mDELETE /message/remove/v1?messageId=0&token=140cyzo9rl9t5ypct [32m200[0m 3.460 ms - 2[0m
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5ypct [32m200[0m 1.263 ms - 34[0m
+[0mDELETE /clear/v1 [32m200[0m 1.256 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.419 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypds [32m200[0m 1.501 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.495 ms - 15[0m
+[0mGET /channel/messages/v2?channelId=0&start=21389429&token=140cyzo9rl9t5ypds [32m200[0m 1.467 ms - 98[0m
+[0mDELETE /clear/v1 [32m200[0m 1.317 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.596 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yped [32m200[0m 1.580 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.562 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.258 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypeo [32m200[0m 1.187 ms - 120[0m
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5ypeo [32m200[0m 1.476 ms - 66[0m
+[0mDELETE /clear/v1 [32m200[0m 1.090 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.425 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypf4 [32m200[0m 1.135 ms - 124[0m
+[0mGET /channel/messages/v2?channelId=-1&start=0&token=140cyzo9rl9t5ypf4 [32m200[0m 1.425 ms - 27[0m
+[0mDELETE /clear/v1 [32m200[0m 1.063 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.468 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypfm [32m200[0m 1.167 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.511 ms - 15[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.124 ms - 2[0m
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5ypfm [32m200[0m 1.366 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.453 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.376 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypga [32m200[0m 1.434 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.420 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.361 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypgm [32m200[0m 1.400 ms - 129[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.378 ms - 2[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.567 ms - 2[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.566 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5ypgm [32m200[0m 1.450 ms - 425[0m
+[0mDELETE /clear/v1 [32m200[0m 1.366 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.355 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yphe [32m200[0m 1.390 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.693 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yphl [32m200[0m 1.527 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.433 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.530 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yphw [32m200[0m 1.610 ms - 129[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.642 ms - 2[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.566 ms - 2[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.581 ms - 2[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.601 ms - 2[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yphw [32m200[0m 1.661 ms - 537[0m
+[0mDELETE /clear/v1 [32m200[0m 1.646 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.487 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypis [32m200[0m 1.604 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.475 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypj0 [32m200[0m 1.372 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.451 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.459 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5ypjb [32m200[0m 1.378 ms - 129[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.323 ms - 2[0m
+[0mPOST /channel/addowner/v1 [32m200[0m 1.350 ms - 2[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.346 ms - 2[0m
+[0mDELETE /clear/v1 [32m200[0m 1.438 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.379 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypk2 [32m200[0m 1.456 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.752 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.516 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypkd [32m200[0m 1.474 ms - 129[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.362 ms - 55[0m
+[0mDELETE /clear/v1 [32m200[0m 1.555 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.467 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypl4 [32m200[0m 1.413 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.418 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.486 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yplg [32m200[0m 1.423 ms - 129[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.460 ms - 2[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.305 ms - 55[0m
+[0mDELETE /clear/v1 [32m200[0m 1.357 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.308 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypm4 [32m200[0m 1.413 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.329 ms - 15[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.524 ms - 55[0m
+[0mDELETE /clear/v1 [32m200[0m 1.553 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.594 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypmp [32m200[0m 1.604 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.613 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypmx [32m200[0m 1.518 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.530 ms - 15[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.704 ms - 2[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.547 ms - 55[0m
+[0mDELETE /clear/v1 [32m200[0m 1.584 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.589 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypnn [32m200[0m 1.583 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.487 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.585 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypnz [32m200[0m 1.533 ms - 129[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.601 ms - 69[0m
+[0mDELETE /clear/v1 [32m200[0m 1.580 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.590 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypog [32m200[0m 1.580 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.594 ms - 15[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.398 ms - 31[0m
+[0mDELETE /clear/v1 [32m200[0m 1.513 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.561 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypp1 [32m200[0m 1.590 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.581 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypp9 [32m200[0m 1.597 ms - 129[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.487 ms - 37[0m
+[0mDELETE /clear/v1 [32m200[0m 1.400 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.406 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yppq [32m200[0m 1.356 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.509 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.490 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypq5 [32m200[0m 1.456 ms - 129[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.511 ms - 2[0m
+[0mPOST /channel/removeowner/v1 [32m200[0m 1.471 ms - 33[0m
+[0mDELETE /clear/v1 [32m200[0m 1.527 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.672 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypqr [32m200[0m 1.627 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.539 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ypqz [32m200[0m 1.671 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.649 ms - 15[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5ypqr [32m200[0m 1.577 ms - 293[0m
+[0mDELETE /clear/v1 [32m200[0m 1.603 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.585 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yprk [32m200[0m 1.613 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.682 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yprs [32m200[0m 1.610 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.612 ms - 15[0m
+[0mGET /channel/details/v2?channelId=0&token=140cyzo9rl9t5yprk [32m200[0m 1.590 ms - 294[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.522 ms - 49[0m
+[0mDELETE /clear/v1 [32m200[0m 1.225 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.560 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypsi [32m200[0m 1.265 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.517 ms - 61[0m
+[0mDELETE /clear/v1 [32m200[0m 1.221 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.397 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypsy [32m200[0m 1.160 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.481 ms - 61[0m
+[0mDELETE /clear/v1 [32m200[0m 1.211 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.536 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yptf [32m200[0m 1.289 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.662 ms - 61[0m
+[0mDELETE /clear/v1 [32m200[0m 1.263 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.592 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypu5 [32m200[0m 1.263 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.593 ms - 61[0m
+[0mDELETE /clear/v1 [32m200[0m 1.504 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.541 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypum [32m200[0m 1.421 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.447 ms - 2[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.408 ms - 24[0m
+[0mDELETE /clear/v1 [32m200[0m 1.484 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.481 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypv7 [32m200[0m 1.561 ms - 124[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5ypv7 [32m200[0m 1.492 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.490 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.522 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypvo [32m200[0m 1.493 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.435 ms - 15[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5ypvo [32m200[0m 1.491 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.527 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.468 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypwa [32m200[0m 1.433 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.371 ms - 15[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5ypwa [32m200[0m 2.153 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.474 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.504 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypx0 [32m200[0m 1.580 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.486 ms - 15[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.567 ms - 15[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5ypx0 [32m200[0m 1.604 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.510 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.565 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypxs [32m200[0m 1.436 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.559 ms - 15[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.468 ms - 15[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5ypxs [32m200[0m 1.462 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.476 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.519 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypyj [32m200[0m 1.506 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.564 ms - 15[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.500 ms - 15[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5ypyj [32m200[0m 1.591 ms - 74[0m
+[0mDELETE /clear/v1 [32m200[0m 1.557 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.493 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypz7 [32m200[0m 1.509 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.559 ms - 15[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.586 ms - 15[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5ypz7 [32m200[0m 1.445 ms - 44[0m
+[0mDELETE /clear/v1 [32m200[0m 1.545 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.484 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ypzz [32m200[0m 1.459 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.462 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.503 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yq0a [32m200[0m 1.520 ms - 129[0m
+[0mPOST /channel/invite/v2 [32m200[0m 1.551 ms - 2[0m
+[0mPOST /channel/leave/v1 [32m200[0m 1.485 ms - 2[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5yq0a [32m200[0m 1.500 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.420 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.395 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq0y [32m200[0m 1.472 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.548 ms - 2[0m
+[0mGET /channels/list/v2?token=140cyzo9rl9t5yq0y [32m200[0m 1.527 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.490 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.577 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq1i [32m200[0m 1.440 ms - 124[0m
+Channels List All
+[0mGET /channels/listAll/v2?token=140cyzo9rl9t5yq1i [32m200[0m 1.680 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.421 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.576 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq1z [32m200[0m 1.519 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.600 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yq27 [32m200[0m 1.594 ms - 120[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.547 ms - 15[0m
+Channels List All
+[0mGET /channels/listAll/v2?token=140cyzo9rl9t5yq1z [32m200[0m 1.469 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.509 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.521 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq2u [32m200[0m 1.425 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.444 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yq31 [32m200[0m 1.562 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.529 ms - 15[0m
+Channels List All
+[0mGET /channels/listAll/v2?token=140cyzo9rl9t5yq2u [32m200[0m 1.545 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.386 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.591 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq3o [32m200[0m 1.538 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.621 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.548 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yq3z [32m200[0m 1.532 ms - 120[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.552 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.632 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yq4b [32m200[0m 1.540 ms - 129[0m
+Channels List All
+[0mGET /channels/listAll/v2?token=140cyzo9rl9t5yq4b [32m200[0m 1.438 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.500 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.448 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq4u [32m200[0m 1.338 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.625 ms - 2[0m
+Channels List All
+[0mGET /channels/listAll/v2?token=140cyzo9rl9t5yq4u [32m200[0m 1.335 ms - 51[0m
+[0mDELETE /clear/v1 [32m200[0m 1.556 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.301 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq5g [32m200[0m 1.601 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.300 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yq5n [32m200[0m 1.671 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.653 ms - 10[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yq5g [32m200[0m 1.766 ms - 57[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yq5n [32m200[0m 1.348 ms - 57[0m
+[0mDELETE /clear/v1 [32m200[0m 1.570 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.285 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq6b [32m200[0m 1.581 ms - 124[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.309 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yq6b [32m200[0m 1.757 ms - 151[0m
+[0mDELETE /clear/v1 [32m200[0m 1.248 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.590 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq6w [32m200[0m 1.326 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.596 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yq73 [32m200[0m 1.361 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.615 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yq6w [32m200[0m 1.250 ms - 287[0m
+[0mDELETE /clear/v1 [32m200[0m 1.578 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.230 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq7q [32m200[0m 1.575 ms - 124[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.303 ms - 28[0m
+[0mDELETE /clear/v1 [32m200[0m 1.547 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.307 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq86 [32m200[0m 2.165 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.303 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yq8n [32m200[0m 1.618 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.281 ms - 26[0m
+[0mDELETE /clear/v1 [32m200[0m 1.658 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.208 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq93 [32m200[0m 1.622 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.447 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yq9b [32m200[0m 1.730 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.423 ms - 34[0m
+[0mDELETE /clear/v1 [32m200[0m 1.531 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.333 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yq9s [32m200[0m 1.637 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.380 ms - 2[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.603 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 5.239 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.602 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqah [32m200[0m 1.331 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.596 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqao [32m200[0m 3.448 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.501 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqah [32m200[0m 1.357 ms - 287[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqao [32m200[0m 1.574 ms - 292[0m
+[0mDELETE /clear/v1 [32m200[0m 1.349 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.607 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqbn [32m200[0m 1.276 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.514 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqbu [32m200[0m 1.288 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.473 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqbn [32m200[0m 1.285 ms - 287[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.619 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yqc8 [32m200[0m 1.287 ms - 120[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqc8 [32m200[0m 1.604 ms - 64[0m
+[0mDELETE /clear/v1 [32m200[0m 4.647 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.590 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqcs [32m200[0m 1.311 ms - 124[0m
+DM details
+[0mGET /dm/details/v1?dmId=-1&token=140cyzo9rl9t5yqcs [32m200[0m 1.470 ms - 24[0m
+[0mDELETE /clear/v1 [32m200[0m 1.190 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.177 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqd8 [32m200[0m 1.093 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.254 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqdf [32m200[0m 1.179 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.094 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqd8 [32m200[0m 1.130 ms - 287[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.104 ms - 2[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqd8 [32m200[0m 1.174 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.162 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.139 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqe9 [32m200[0m 1.223 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.265 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqen [32m200[0m 1.201 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.112 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqe9 [32m200[0m 1.265 ms - 287[0m
+DM leave
+[0mPOST /dm/leave/v1 [32m200[0m 1.394 ms - 2[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yqen [32m200[0m 1.088 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqe9 [32m200[0m 1.677 ms - 166[0m
+[0mDELETE /clear/v1 [32m200[0m 1.574 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.623 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqfn [32m200[0m 1.462 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.420 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqfu [32m200[0m 1.416 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.391 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yqg1 [32m200[0m 1.494 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.492 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqfu [32m200[0m 1.372 ms - 287[0m
+DM leave
+[0mPOST /dm/leave/v1 [32m200[0m 1.494 ms - 64[0m
+[0mDELETE /clear/v1 [32m200[0m 1.567 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.445 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqgp [32m200[0m 1.534 ms - 124[0m
+DM leave
+[0mPOST /dm/leave/v1 [32m200[0m 1.551 ms - 24[0m
+[0mDELETE /clear/v1 [32m200[0m 1.586 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.591 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqh6 [32m200[0m 1.453 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.511 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqhe [32m200[0m 1.497 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.455 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqh6 [32m200[0m 1.546 ms - 287[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.491 ms - 2[0m
+DM leave
+[0mPOST /dm/leave/v1 [32m200[0m 1.553 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.432 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.457 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqi6 [32m200[0m 1.485 ms - 124[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yqi6 [32m200[0m 1.686 ms - 10[0m
+[0mDELETE /clear/v1 [32m200[0m 1.577 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.538 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqin [32m200[0m 1.422 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.539 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqiv [32m200[0m 1.540 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.471 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqin [32m200[0m 1.407 ms - 287[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yqin [32m200[0m 1.531 ms - 57[0m
+[0mDELETE /clear/v1 [32m200[0m 1.617 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.532 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqjk [32m200[0m 1.680 ms - 124[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.529 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqjk [32m200[0m 1.574 ms - 151[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.566 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=1&token=140cyzo9rl9t5yqjk [32m200[0m 1.590 ms - 151[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yqjk [32m200[0m 1.641 ms - 75[0m
+[0mDELETE /clear/v1 [32m200[0m 1.593 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.554 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqkg [32m200[0m 1.629 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.514 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqko [32m200[0m 1.495 ms - 124[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.744 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqko [32m200[0m 1.727 ms - 287[0m
+DM leave
+[0mPOST /dm/leave/v1 [32m200[0m 1.685 ms - 2[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yqkg [32m200[0m 1.492 ms - 10[0m
+[0mDELETE /clear/v1 [32m200[0m 1.469 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.541 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqlg [32m200[0m 1.518 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.538 ms - 2[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yqlg [32m200[0m 1.552 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.518 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.419 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqm0 [32m200[0m 1.584 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.516 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqm8 [32m200[0m 1.514 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.399 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqm0 [32m200[0m 1.673 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.783 ms - 15[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.299 ms - 15[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.180 ms - 15[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.470 ms - 15[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.102 ms - 15[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.452 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.139 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.432 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.152 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.450 ms - 16[0m
+DM Message History
+{ [messages], 0, -1 }
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yqm0 [32m200[0m 1.361 ms - 758[0m
+[0mDELETE /clear/v1 [32m200[0m 1.605 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.141 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqow [32m200[0m 1.549 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.133 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqp3 [32m200[0m 1.478 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.150 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqow [32m200[0m 1.497 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 2.424 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.540 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.144 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.503 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.198 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.585 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.134 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.413 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.125 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.572 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.107 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.596 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.103 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.601 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.179 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.492 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.192 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.466 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.193 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.570 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.272 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.464 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.117 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.587 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.128 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.597 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.156 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.509 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.288 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.542 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.192 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.583 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.155 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.592 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.177 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.510 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.240 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.586 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.345 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.515 ms - 16[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.234 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.473 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.284 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.521 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.168 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.500 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.267 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.575 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.223 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.459 ms - 17[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.113 ms - 17[0m
+DM Message History
+{ [messages], 0, 50 }
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yqow [32m200[0m 1.579 ms - 3693[0m
+[0mDELETE /clear/v1 [32m200[0m 1.237 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.598 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqux [32m200[0m 1.146 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.561 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqv4 [32m200[0m 1.304 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.440 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqux [32m200[0m 1.128 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.445 ms - 17[0m
+DM Message History
+{ [messages], 0, -1 }
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yqux [32m200[0m 1.206 ms - 114[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.570 ms - 2[0m
+DM Message History
+{ [messages], 0, -1 }
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yqux [32m200[0m 1.145 ms - 94[0m
+[0mDELETE /clear/v1 [32m200[0m 1.545 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.169 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqw5 [32m200[0m 1.495 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.348 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqwc [32m200[0m 1.614 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.109 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqw5 [32m200[0m 1.440 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.064 ms - 17[0m
+DM Message History
+{ [messages], 0, -1 }
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yqw5 [32m200[0m 1.505 ms - 114[0m
+Message Removed
+{
+  messageId: 125,
+  uId: 0,
+  message: 'you are a toy maybe?',
+  timeSent: 1667002025,
+  channelID: 0,
+  index: 0
+}
+[0mDELETE /message/remove/v1?messageId=125&token=140cyzo9rl9t5yqw5 [32m200[0m 1.472 ms - 2[0m
+DM Message History
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yqw5 [32m200[0m 1.512 ms - 34[0m
+[0mDELETE /clear/v1 [32m200[0m 1.155 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.434 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqx9 [32m200[0m 1.317 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.608 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqxg [32m200[0m 1.198 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.451 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqx9 [32m200[0m 1.294 ms - 287[0m
+DM Message History
+[0mGET /dm/messages/v1?dmId=0&start=21389429&token=140cyzo9rl9t5yqx9 [32m200[0m 1.627 ms - 93[0m
+[0mDELETE /clear/v1 [32m200[0m 1.103 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.574 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqy4 [32m200[0m 1.185 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.607 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yqyb [32m200[0m 1.326 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.486 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yqyi [32m200[0m 1.250 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.580 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqyb [32m200[0m 1.347 ms - 287[0m
+DM Message History
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yqy4 [32m200[0m 1.612 ms - 64[0m
+[0mDELETE /clear/v1 [32m200[0m 1.282 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.720 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqze [32m200[0m 1.209 ms - 124[0m
+DM Message History
+[0mGET /dm/messages/v1?dmId=-1&start=0&token=140cyzo9rl9t5yqze [32m200[0m 1.550 ms - 22[0m
+[0mDELETE /clear/v1 [32m200[0m 1.155 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.547 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yqzu [32m200[0m 1.184 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.621 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yr02 [32m200[0m 1.205 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.494 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yqzu [32m200[0m 1.185 ms - 287[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.573 ms - 2[0m
+DM Message History
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yqzu [32m200[0m 1.231 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.316 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.204 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr0x [32m200[0m 1.190 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.162 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yr14 [32m200[0m 1.115 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.195 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yr0x [32m200[0m 1.266 ms - 287[0m
+DM Removed
+[0mDELETE /dm/remove/v1?dmId=0&token=140cyzo9rl9t5yr0x [32m200[0m 1.438 ms - 2[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yr0x [32m200[0m 1.300 ms - 10[0m
+DM List
+[0mGET /dm/list/v1?token=140cyzo9rl9t5yr14 [32m200[0m 1.117 ms - 10[0m
+[0mDELETE /clear/v1 [32m200[0m 1.152 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.515 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr1z [32m200[0m 1.159 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.501 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yr26 [32m200[0m 1.310 ms - 124[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.683 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yr26 [32m200[0m 1.157 ms - 287[0m
+DM Removed
+[0mDELETE /dm/remove/v1?dmId=0&token=140cyzo9rl9t5yr1z [32m200[0m 1.698 ms - 76[0m
+[0mDELETE /clear/v1 [32m200[0m 1.381 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.656 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr2v [32m200[0m 1.212 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.694 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yr32 [32m200[0m 1.222 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.409 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yr2v [32m200[0m 1.094 ms - 287[0m
+DM leave
+[0mPOST /dm/leave/v1 [32m200[0m 1.664 ms - 2[0m
+DM Removed
+[0mDELETE /dm/remove/v1?dmId=0&token=140cyzo9rl9t5yr2v [32m200[0m 1.366 ms - 64[0m
+[0mDELETE /clear/v1 [32m200[0m 1.499 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.253 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr3t [32m200[0m 1.544 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.308 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yr40 [32m200[0m 1.574 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.342 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yr3t [32m200[0m 1.741 ms - 287[0m
+DM Removed
+[0mDELETE /dm/remove/v1?dmId=0&token=140cyzo9rl9t5yr3t [32m200[0m 1.576 ms - 2[0m
+DM Removed
+[0mDELETE /dm/remove/v1?dmId=0&token=140cyzo9rl9t5yr3t [32m200[0m 1.607 ms - 24[0m
+[0mDELETE /clear/v1 [32m200[0m 1.254 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.719 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr4s [32m200[0m 1.275 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.793 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yr4z [32m200[0m 1.405 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.648 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yr4s [32m200[0m 1.340 ms - 287[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.565 ms - 2[0m
+DM Removed
+[0mDELETE /dm/remove/v1?dmId=0&token=140cyzo9rl9t5yr4s [32m200[0m 1.368 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.697 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.264 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr5r [32m200[0m 1.649 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.208 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.646 ms - 15[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.321 ms - 2[0m
+{ [messages], 0, -1 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5yr5r [32m200[0m 1.667 ms - 94[0m
+[0mDELETE /clear/v1 [32m200[0m 1.286 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.711 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr6j [32m200[0m 1.468 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.769 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yr6r [32m200[0m 1.460 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.663 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yr6j [32m200[0m 1.244 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.634 ms - 17[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.414 ms - 2[0m
+DM Message History
+{ [messages], 0, -1 }
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yr6j [32m200[0m 1.740 ms - 96[0m
+[0mDELETE /clear/v1 [32m200[0m 1.260 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.769 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr7n [32m200[0m 1.290 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.643 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yr7u [32m200[0m 1.266 ms - 124[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.720 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yr7u [32m200[0m 1.258 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.658 ms - 17[0m
+Message Edited
+[0mPUT /message/edit/v1 [31m500[0m 13.697 ms - 1460[0m
+TypeError: owner.includes is not a function
+    at messageEditV1 (/import/kamen/3/cs1531/project-automarking/tempstore/src/message.ts:93:49)
+    at /import/kamen/3/cs1531/project-automarking/tempstore/src/server.ts:223:25
+    at Layer.handle [as handle_request] (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/layer.js:95:5)
+    at next (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/layer.js:95:5)
+    at /import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/index.js:346:12)
+    at next (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/index.js:280:10)
+    at logger (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/morgan/index.js:144:5)
+[0mDELETE /clear/v1 [32m200[0m 1.720 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.374 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yr98 [32m200[0m 1.739 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.311 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.904 ms - 15[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.389 ms - 2[0m
+{ [messages], 0, -1 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5yr98 [32m200[0m 1.754 ms - 92[0m
+[0mDELETE /clear/v1 [32m200[0m 1.293 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.579 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yra9 [32m200[0m 1.504 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.592 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.293 ms - 15[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.671 ms - 43[0m
+[0mDELETE /clear/v1 [32m200[0m 1.234 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.744 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yrax [32m200[0m 1.145 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.585 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.318 ms - 15[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.624 ms - 2[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.285 ms - 2[0m
+[0mDELETE /clear/v1 [32m200[0m 1.705 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.422 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yrbv [32m200[0m 1.671 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.287 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.797 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yrc7 [32m200[0m 1.298 ms - 129[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.658 ms - 2[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.484 ms - 15[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.725 ms - 49[0m
+[0mDELETE /clear/v1 [32m200[0m 1.369 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.766 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yrcw [32m200[0m 1.485 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.639 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.488 ms - 15[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.618 ms - 2[0m
+Message Edited
+[0mPUT /message/edit/v1 [32m200[0m 1.510 ms - 67[0m
+[0mDELETE /clear/v1 [32m200[0m 1.699 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.351 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yrdp [32m200[0m 1.770 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.381 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yrdw [32m200[0m 1.747 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.487 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yre4 [32m200[0m 1.904 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.592 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yrdp [32m200[0m 1.732 ms - 287[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.477 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.717 ms - 15[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.424 ms - 17[0m
+[0mDELETE /clear/v1 [32m200[0m 1.397 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.780 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yszr [32m200[0m 1.376 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.265 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 2.212 ms - 15[0m
+Message Removed
+{
+  messageId: 0,
+  uId: 0,
+  message: 'Init Commit',
+  timeSent: 1667002028,
+  channelID: 0,
+  index: 0
+}
+[0mDELETE /message/remove/v1?messageId=0&token=140cyzo9rl9t5yszr [32m200[0m 1.366 ms - 2[0m
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5yszr [32m200[0m 1.337 ms - 34[0m
+[0mDELETE /clear/v1 [32m200[0m 1.189 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.204 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt0i [32m200[0m 1.362 ms - 129[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.142 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yt0p [32m200[0m 1.165 ms - 124[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.202 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yt0p [32m200[0m 1.253 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.190 ms - 17[0m
+Message Removed
+{
+  messageId: 133,
+  uId: 1,
+  message: 'Init Commit',
+  timeSent: 1667002028,
+  channelID: 0,
+  index: 0
+}
+[0mDELETE /message/remove/v1?messageId=133&token=140cyzo9rl9t5yt0i [31m500[0m 3.388 ms - 1463[0m
+TypeError: owner.includes is not a function
+    at messageRemoveV1 (/import/kamen/3/cs1531/project-automarking/tempstore/src/message.ts:144:50)
+    at /import/kamen/3/cs1531/project-automarking/tempstore/src/server.ts:231:27
+    at Layer.handle [as handle_request] (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/layer.js:95:5)
+    at next (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/layer.js:95:5)
+    at /import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/index.js:346:12)
+    at next (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/express/lib/router/index.js:280:10)
+    at logger (/import/kamen/3/cs1531/project-automarking/tempstore/node_modules/morgan/index.js:144:5)
+[0mDELETE /clear/v1 [32m200[0m 1.188 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.467 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt1o [32m200[0m 1.271 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.467 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.205 ms - 15[0m
+Message Removed
+{
+  messageId: 0,
+  uId: 0,
+  message: 'hi',
+  timeSent: 1667002028,
+  channelID: 0,
+  index: 0
+}
+[0mDELETE /message/remove/v1?messageId=0&token=140cyzo9rl9t5yt1o [32m200[0m 1.548 ms - 2[0m
+Message Removed
+[0mDELETE /message/remove/v1?messageId=0&token=140cyzo9rl9t5yt1o [32m200[0m 1.227 ms - 56[0m
+[0mDELETE /clear/v1 [32m200[0m 1.401 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.207 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt2f [32m200[0m 1.557 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.173 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.443 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yt2p [32m200[0m 1.177 ms - 129[0m
+[0mPOST /channel/join/v2 [32m200[0m 1.411 ms - 2[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.173 ms - 15[0m
+Message Removed
+{
+  messageId: 0,
+  uId: 0,
+  message: 'Init Commit',
+  timeSent: 1667002028,
+  channelID: 0,
+  index: 0
+}
+[0mDELETE /message/remove/v1?messageId=0&token=140cyzo9rl9t5yt2p [32m200[0m 1.680 ms - 64[0m
+[0mDELETE /clear/v1 [32m200[0m 1.206 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.403 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt3c [32m200[0m 1.123 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.422 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.179 ms - 15[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.310 ms - 2[0m
+Message Removed
+[0mDELETE /message/remove/v1?messageId=0&token=140cyzo9rl9t5yt3c [32m200[0m 1.113 ms - 67[0m
+[0mDELETE /clear/v1 [32m200[0m 1.439 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.132 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt44 [32m200[0m 1.492 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.122 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.348 ms - 15[0m
+{ [messages], 0, -1 }
+[0mGET /channel/messages/v2?channelId=0&start=0&token=140cyzo9rl9t5yt44 [32m200[0m 1.134 ms - 104[0m
+[0mDELETE /clear/v1 [32m200[0m 1.395 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.125 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt4r [32m200[0m 1.362 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.165 ms - 15[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.483 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yt51 [32m200[0m 1.137 ms - 129[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.479 ms - 65[0m
+[0mDELETE /clear/v1 [32m200[0m 1.126 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.379 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt5h [32m200[0m 1.130 ms - 129[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.404 ms - 59[0m
+[0mDELETE /clear/v1 [32m200[0m 1.076 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.369 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt5x [32m200[0m 1.121 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.168 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.187 ms - 54[0m
+[0mDELETE /clear/v1 [32m200[0m 1.140 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.285 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt6o [32m200[0m 1.245 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.115 ms - 15[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.197 ms - 57[0m
+[0mDELETE /clear/v1 [32m200[0m 1.131 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.159 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt7d [32m200[0m 1.189 ms - 124[0m
+Channel Created
+[0mPOST /channels/create/v2 [32m200[0m 1.155 ms - 15[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.124 ms - 2[0m
+Message Sent
+[0mPOST /message/send/v1 [32m200[0m 1.229 ms - 67[0m
+[0mDELETE /clear/v1 [32m200[0m 1.176 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.307 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt80 [32m200[0m 1.249 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.501 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yt87 [32m200[0m 1.121 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.487 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yt80 [32m200[0m 1.146 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.477 ms - 17[0m
+DM Message History
+{ [messages], 0, -1 }
+[0mGET /dm/messages/v1?dmId=0&start=0&token=140cyzo9rl9t5yt80 [32m200[0m 1.167 ms - 106[0m
+[0mDELETE /clear/v1 [32m200[0m 1.417 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.109 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt8x [32m200[0m 1.578 ms - 120[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.165 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yt94 [32m200[0m 1.539 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.330 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=2&token=140cyzo9rl9t5yt9b [32m200[0m 1.299 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.178 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5yt94 [32m200[0m 1.158 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.107 ms - 60[0m
+[0mDELETE /clear/v1 [32m200[0m 1.134 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 0.998 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yt9x [32m200[0m 1.112 ms - 129[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.111 ms - 22[0m
+[0mDELETE /clear/v1 [32m200[0m 1.091 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 0.997 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytac [32m200[0m 3.213 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.181 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ytal [32m200[0m 1.178 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.105 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5ytac [32m200[0m 1.170 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.162 ms - 54[0m
+[0mDELETE /clear/v1 [32m200[0m 1.139 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.130 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytb7 [32m200[0m 1.158 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.180 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ytbe [32m200[0m 1.059 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.023 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5ytb7 [32m200[0m 1.193 ms - 287[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.189 ms - 57[0m
+[0mDELETE /clear/v1 [32m200[0m 1.294 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.465 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytc0 [32m200[0m 1.440 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.232 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ytc7 [32m200[0m 1.626 ms - 129[0m
+DM created
+[0mPOST /dm/create/v1 [32m200[0m 1.137 ms - 10[0m
+DM details
+[0mGET /dm/details/v1?dmId=0&token=140cyzo9rl9t5ytc0 [32m200[0m 1.541 ms - 287[0m
+[0mPOST /auth/logout/v1 [32m200[0m 2.882 ms - 2[0m
+Message Sent
+[0mPOST /message/senddm/v1 [32m200[0m 1.600 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.302 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.252 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytfd [32m200[0m 1.163 ms - 124[0m
+true
+[0mGET /users/all/v1?token=140cyzo9rl9t5ytfd [32m200[0m 1.510 ms - 127[0m
+[0mDELETE /clear/v1 [32m200[0m 1.275 ms - 2[0m
+[0mGET /users/all/v1?token=140cyzo9rl9t5ytfd [32m200[0m 1.381 ms - 25[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.286 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytfu [32m200[0m 1.274 ms - 120[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytfu [32m200[0m 1.251 ms - 120[0m
+true
+[0mGET /users/all/v1?token=140cyzo9rl9t5ytfu [32m200[0m 10.215 ms - 123[0m
+Channels List All
+[0mGET /channels/listAll/v2?token=140cyzo9rl9t5ytfu [32m200[0m 1.332 ms - 15[0m
+[0mDELETE /clear/v1 [32m200[0m 1.171 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.449 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yti9 [32m200[0m 1.141 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.613 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5ytig [32m200[0m 1.379 ms - 129[0m
+true
+[0mGET /users/all/v1?token=140cyzo9rl9t5yti9 [32m200[0m 1.655 ms - 248[0m
+[0mDELETE /clear/v1 [32m200[0m 1.220 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.645 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytix [32m200[0m 1.279 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.605 ms - 2[0m
+[0mGET /users/all/v1?token=140cyzo9rl9t5ytix [32m200[0m 1.253 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.250 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.208 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytm0 [32m200[0m 1.263 ms - 124[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytm0 [32m200[0m 1.299 ms - 124[0m
+[0mDELETE /clear/v1 [32m200[0m 1.554 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.207 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytmg [32m200[0m 1.566 ms - 124[0m
+[0mGET /user/profile/v2?uId=-1&token=140cyzo9rl9t5ytmg [32m200[0m 1.262 ms - 23[0m
+[0mDELETE /clear/v1 [32m200[0m 1.505 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.315 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytmw [32m200[0m 1.525 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.215 ms - 2[0m
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytmw [32m200[0m 1.469 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.272 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.487 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytng [32m200[0m 1.276 ms - 124[0m
+true true
+[0mPUT /user/profile/setemail/v1 [32m200[0m 1.726 ms - 2[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytng [32m200[0m 1.291 ms - 116[0m
+[0mDELETE /clear/v1 [32m200[0m 1.513 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.272 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yto0 [32m200[0m 1.597 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.285 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yto7 [32m200[0m 1.535 ms - 129[0m
+[0mPUT /user/profile/setemail/v1 [32m200[0m 2.551 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.436 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.103 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytop [32m200[0m 1.468 ms - 124[0m
+[0mPUT /user/profile/setemail/v1 [32m200[0m 1.294 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.528 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.272 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytp5 [32m200[0m 1.569 ms - 124[0m
+[0mPUT /user/profile/setemail/v1 [32m200[0m 1.318 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.485 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.213 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytpm [32m200[0m 1.553 ms - 124[0m
+[0mPUT /user/profile/setemail/v1 [32m200[0m 1.269 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.506 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.251 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytq3 [32m200[0m 1.616 ms - 124[0m
+[0mPUT /user/profile/setemail/v1 [32m200[0m 1.288 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.218 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.260 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytqj [32m200[0m 1.269 ms - 124[0m
+[0mPUT /user/profile/setemail/v1 [32m200[0m 1.316 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.242 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.270 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytqz [32m200[0m 1.294 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.263 ms - 2[0m
+[0mPUT /user/profile/setemail/v1 [32m200[0m 1.168 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.226 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.263 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytrj [32m200[0m 1.216 ms - 124[0m
+true true
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.483 ms - 2[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytrj [32m200[0m 1.191 ms - 115[0m
+[0mDELETE /clear/v1 [32m200[0m 1.248 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.166 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yts2 [32m200[0m 1.231 ms - 124[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.128 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=1&token=140cyzo9rl9t5yts8 [32m200[0m 1.059 ms - 129[0m
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.145 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.165 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.194 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytso [32m200[0m 1.530 ms - 124[0m
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.066 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.486 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.165 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytt4 [32m200[0m 1.462 ms - 124[0m
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.028 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.613 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.129 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yttk [32m200[0m 1.645 ms - 124[0m
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.601 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.586 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.450 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytu2 [32m200[0m 1.648 ms - 124[0m
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.452 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.556 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.476 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytuj [32m200[0m 3.730 ms - 124[0m
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.544 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 0.997 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.482 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytv1 [32m200[0m 1.157 ms - 124[0m
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.438 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.083 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.594 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytvl [32m200[0m 1.293 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.489 ms - 2[0m
+[0mPUT /user/profile/sethandle/v1 [32m200[0m 1.144 ms - 25[0m
+[0mDELETE /clear/v1 [32m200[0m 1.440 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.248 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytw5 [32m200[0m 1.586 ms - 124[0m
+true true true
+[0mPUT /user/profile/setname/v1 [32m200[0m 1.537 ms - 2[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytw5 [32m200[0m 1.603 ms - 124[0m
+[0mDELETE /clear/v1 [32m200[0m 1.256 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.576 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytwp [32m200[0m 1.280 ms - 124[0m
+[0mPUT /user/profile/setname/v1 [32m200[0m 1.532 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.338 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.639 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytx6 [32m200[0m 1.257 ms - 124[0m
+[0mPUT /user/profile/setname/v1 [32m200[0m 1.544 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.217 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.576 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytxn [32m200[0m 1.108 ms - 124[0m
+[0mPUT /user/profile/setname/v1 [32m200[0m 1.413 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.051 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.545 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5yty3 [32m200[0m 1.061 ms - 124[0m
+[0mPUT /user/profile/setname/v1 [32m200[0m 1.490 ms - 30[0m
+[0mDELETE /clear/v1 [32m200[0m 1.349 ms - 2[0m
+[0mPOST /auth/register/v2 [32m200[0m 1.731 ms - 44[0m
+true true
+[0mGET /user/profile/v2?uId=0&token=140cyzo9rl9t5ytyp [32m200[0m 1.580 ms - 124[0m
+[0mPOST /auth/logout/v1 [32m200[0m 1.615 ms - 2[0m
+[0mPUT /user/profile/setname/v1 [32m200[0m 1.180 ms - 25[0m
+Killed
