@@ -1,5 +1,6 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken } from './helperfunctions';
+import HTTPError from 'http-errors';
 
 /**
  * Given a valid authUserId and channel name, creates and
@@ -63,9 +64,7 @@ function channelsListV1(token: string) {
   const data = getData();
   // check authuser is valid
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   const currentUser = findUser(token);

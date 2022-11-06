@@ -1,5 +1,6 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken, validUId } from './helperfunctions';
+import HTTPError from 'http-errors';
 
 interface user {
   uId: number,
@@ -142,42 +143,32 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
 
   // invalid token error
   if (!validToken(token)) {
-    return {
-      error: 'Invalid token',
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   const currentUser = findUser(token);
   // invalid uid to invite error
   if (!validUId(uId)) {
-    return {
-      error: 'invalid user',
-    };
+    throw HTTPError(400, 'invalid user');
   }
 
   // invalid channel id error
   const isValidChannel = data.channels.find(a => a.channelId === channelId);
   if (isValidChannel === undefined) {
-    return {
-      error: 'Invalid channel',
-    };
+    throw HTTPError(400, 'invalid channel');
   }
 
   // check authuser is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
   const isValidMember = checkIsMember.find(a => a === currentUser.uId);
   if (isValidMember === undefined) {
-    return {
-      error: 'You are not a member of this channel',
-    };
+    throw HTTPError(403, 'not a member of the channel');
   }
 
   // check member to invite is not already a member
   for (const element of data.channels[channelId].allMembers) {
     if (element === uId) {
-      return {
-        error: 'You are already a member',
-      };
+      throw HTTPError(400, 'user is already a member');
     }
   }
 
