@@ -63,7 +63,7 @@ describe('/channels/create/v2', () => {
 // Channels List Tests
 describe('/channels/list/v2', () => {
   test('Error Test 1: No user', () => {
-    expect(requestChannelsList(invalidtoken)).toStrictEqual(ERROR);
+    expect(requestChannelsList(invalidtoken)).toStrictEqual(403);
   });
 
   test('Test 1: User in 1 channel', () => {
