@@ -62,7 +62,7 @@ describe('/user/profile/v3', () => {
 // Users All Tests
 describe('/users/all/v2', () => {
   test('Error Test 1: Invalid token', () => {
-    expect(requestUsersAll(invalidToken)).toStrictEqual(403 );
+    expect(requestUsersAll(invalidToken)).toStrictEqual(403);
   });
 
   test('Test 1: Successful case - 1 user', () => {
