@@ -14,6 +14,13 @@ function requestHelper(method: HttpVerb, path: string, payload: object) {
     json = payload;
   }
   const res = request(method, SERVER_URL + path, { qs, json });
+
+  if (res.statusCode !== 200) {
+    // Return error code number instead of object in case of error.
+    // (just for convenience)
+    return res.statusCode;
+  }
+
   return JSON.parse(res.getBody('utf-8'));
 }
 
