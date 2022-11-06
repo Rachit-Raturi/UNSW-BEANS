@@ -237,32 +237,32 @@ app.delete('/message/remove/v1', (req: Request, res: Response) => {
 
 // =========================================================================
 // User/s functions
-app.get('/user/profile/v2', (req: Request, res: Response) => {
+app.get('/user/profile/v3', (req: Request, res: Response) => {
   const token = req.query.token as string;
   const uId = parseInt(req.query.uId as string);
   save();
   res.json(userProfileV1(token, uId));
 });
 
-app.get('/users/all/v1', (req: Request, res: Response) => {
+app.get('/users/all/v2', (req: Request, res: Response) => {
   const token = req.query.token as string;
   save();
   res.json(usersAllV1(token));
 });
 
-app.put('/user/profile/setname/v1', (req: Request, res: Response) => {
+app.put('/user/profile/setname/v2', (req: Request, res: Response) => {
   const { token, nameFirst, nameLast } = req.body;
   save();
   res.json(userSetNameV1(token, nameFirst, nameLast));
 });
 
-app.put('/user/profile/setemail/v1', (req: Request, res: Response) => {
+app.put('/user/profile/setemail/v2', (req: Request, res: Response) => {
   const { token, email } = req.body;
   save();
   res.json(userSetEmailV1(token, email));
 });
 
-app.put('/user/profile/sethandle/v1', (req: Request, res: Response) => {
+app.put('/user/profile/sethandle/v2', (req: Request, res: Response) => {
   const { token, handleStr } = req.body;
   save();
   res.json(userSetHandleV1(token, handleStr));
