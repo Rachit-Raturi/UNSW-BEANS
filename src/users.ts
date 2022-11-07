@@ -1,5 +1,14 @@
 import { getData, setData } from './dataStore';
 import { validToken, validUId, validName, validHandleStr, validEmail, extractUser, findUser } from './helperfunctions';
+import HTTPError from 'http-errors';
+
+interface user {
+  uId: number,
+  email: string,
+  nameFirst: string,
+  nameLast: string,
+  handleStr: string
+}
 
 /**
  * Given a token views a user's profile
@@ -9,12 +18,12 @@ import { validToken, validUId, validName, validHandleStr, validEmail, extractUse
  * @returns {user} user
  */
 
-function userProfileV1 (token: string, uId: number) {
+function userProfileV1 (token: string, uId: number): { user: user } {
   if (validToken(token) === false) {
-    return { error: 'invalid token' };
+    throw HTTPError(403, 'invalid token');
   }
   if (validUId(uId) === false) {
-    return { error: 'invalid uId' };
+    throw HTTPError(400, 'invalid uId');
   }
   console.log(validToken(token), validUId(uId));
   return { user: extractUser(uId) };
@@ -28,7 +37,7 @@ function userProfileV1 (token: string, uId: number) {
  */
 function usersAllV1 (token: string) {
   if (validToken(token) === false) {
-    return { error: 'invalid token' };
+    throw HTTPError(403, 'invalid token');
   }
   console.log(validToken(token));
   return { users: extractUser() };
@@ -37,22 +46,17 @@ function usersAllV1 (token: string) {
 function userSetNameV1 (token: string, nameFirst: string, nameLast: string) {
   const data = getData();
   if (validToken(token) === false) {
-    return {
-      error: 'invalid token',
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   if (validName(nameFirst) === false) {
-    return {
-      error: 'invalid userhandle',
-    };
+    throw HTTPError(400, 'invalid first name');
   }
 
   if (validName(nameLast) === false) {
-    return {
-      error: 'invalid userhandle',
-    };
+    throw HTTPError(400, 'invalid last name');
   }
+
   console.log(validToken(token), validName(nameFirst), validName(nameLast));
   const authUserId = findUser(token).uId;
   data.users[authUserId].nameFirst = nameFirst;
@@ -71,15 +75,11 @@ function userSetNameV1 (token: string, nameFirst: string, nameLast: string) {
 function userSetHandleV1 (token: string, handleStr: string) {
   const data = getData();
   if (validToken(token) === false) {
-    return {
-      error: 'invalid token',
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   if (validHandleStr(handleStr) === false) {
-    return {
-      error: 'invalid userhandle',
-    };
+    throw HTTPError(400, 'invalid userhandle');
   }
 
   console.log(validToken(token), validHandleStr(handleStr));
@@ -99,15 +99,11 @@ function userSetHandleV1 (token: string, handleStr: string) {
 function userSetEmailV1 (token: string, email: string) {
   const data = getData();
   if (validToken(token) === false) {
-    return {
-      error: 'invalid token',
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   if (validEmail(email) === false) {
-    return {
-      error: 'invalid token',
-    };
+    throw HTTPError(400, 'invalid email');
   }
   console.log(validToken(token), validEmail(email));
   const authUserId = findUser(token).uId;

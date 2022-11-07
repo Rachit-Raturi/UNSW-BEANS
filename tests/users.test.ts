@@ -13,8 +13,6 @@ interface userType {
   authUserId: number
 }
 
-const ERROR = { error: expect.any(String) };
-
 let user: userType;
 let invalidToken = 'invalid';
 let invalidUId = 0;
@@ -33,14 +31,14 @@ beforeEach(() => {
 
 // =========================================================================
 // User Profile Tests
-describe('/user/profile/v2', () => {
+describe('/user/profile/v3', () => {
   describe('Error', () => {
     test('Test 1: Invalid token', () => {
-      expect(requestUserProfile(invalidToken, user.authUserId)).toStrictEqual(ERROR);
+      expect(requestUserProfile(invalidToken, user.authUserId)).toStrictEqual(403);
     });
 
     test('Test 2: Invalid uId', () => {
-      expect(requestUserProfile(user.token, invalidUId)).toStrictEqual(ERROR);
+      expect(requestUserProfile(user.token, invalidUId)).toStrictEqual(400);
     });
   });
 
@@ -62,9 +60,9 @@ describe('/user/profile/v2', () => {
 
 // =========================================================================
 // Users All Tests
-describe('/users/all/v1', () => {
+describe('/users/all/v2', () => {
   test('Error Test 1: Invalid token', () => {
-    expect(requestUsersAll(invalidToken)).toStrictEqual(ERROR);
+    expect(requestUsersAll(invalidToken)).toStrictEqual(403);
   });
 
   test('Test 1: Successful case - 1 user', () => {
@@ -114,20 +112,20 @@ describe('/users/all/v1', () => {
 
 // =========================================================================
 // User Set Name Tests
-describe('/user/profile/setname/v1', () => {
+describe('/user/profile/setname/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid nameFirst length', () => {
-      expect(requestUserSetName(user.token, '', 'apples')).toStrictEqual(ERROR);
-      expect(requestUserSetName(user.token, 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj', 'apples')).toStrictEqual(ERROR);
+      expect(requestUserSetName(user.token, '', 'apples')).toStrictEqual(400);
+      expect(requestUserSetName(user.token, 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj', 'apples')).toStrictEqual(400);
     });
 
     test('Test 2: Invalid nameLast length', () => {
-      expect(requestUserSetName(user.token, 'apples', '')).toStrictEqual(ERROR);
-      expect(requestUserSetName(user.token, 'apples', 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj')).toStrictEqual(ERROR);
+      expect(requestUserSetName(user.token, 'apples', '')).toStrictEqual(400);
+      expect(requestUserSetName(user.token, 'apples', 'abcdefgHiAjSjoWjoDAWojdsodasdjodaowapdoapcdwocwapdaowdj')).toStrictEqual(400);
     });
 
     test('Test 3: Invalid token', () => {
-      expect(requestUserSetName(invalidToken, 'apples', 'oranges')).toStrictEqual(ERROR);
+      expect(requestUserSetName(invalidToken, 'apples', 'oranges')).toStrictEqual(403);
     });
   });
 
@@ -138,23 +136,23 @@ describe('/user/profile/setname/v1', () => {
 
 // =========================================================================
 // User Set Email Tests
-describe('/user/profile/setemail/v1', () => {
+describe('/user/profile/setemail/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid email', () => {
-      expect(requestUserSetEmail(user.token, 'invalidemail')).toStrictEqual(ERROR);
+      expect(requestUserSetEmail(user.token, 'invalidemail')).toStrictEqual(400);
     });
 
     test('Test 2: Same email entered', () => {
-      expect(requestUserSetEmail(user.token, 'test@gmail.com')).toStrictEqual(ERROR);
+      expect(requestUserSetEmail(user.token, 'test@gmail.com')).toStrictEqual(400);
     });
 
     test('Test 3: Email used by another user', () => {
       requestAuthRegister('test2@gmail.com', 'password2', 'firstname1', 'lastname1');
-      expect(requestUserSetEmail(user.token, 'test2@gmail.com')).toStrictEqual(ERROR);
+      expect(requestUserSetEmail(user.token, 'test2@gmail.com')).toStrictEqual(400);
     });
 
     test('Test 4: Invalid token', () => {
-      expect(requestUserSetEmail(invalidToken, 'test@gmail.com')).toStrictEqual(ERROR);
+      expect(requestUserSetEmail(invalidToken, 'test@gmail.com')).toStrictEqual(403);
     });
   });
 
@@ -165,28 +163,28 @@ describe('/user/profile/setemail/v1', () => {
 
 // =========================================================================
 // User Set Handle Tests
-describe('/user/profile/sethandle/v1', () => {
+describe('/user/profile/sethandle/v2  ', () => {
   describe('Error', () => {
     test('Test 1: Invalid handleStr length', () => {
-      expect(requestUserSetHandle(user.token, 'overtwentycharactersincl')).toStrictEqual(ERROR);
-      expect(requestUserSetHandle(user.token, 'be')).toStrictEqual(ERROR);
+      expect(requestUserSetHandle(user.token, 'overtwentycharactersincl')).toStrictEqual(400);
+      expect(requestUserSetHandle(user.token, 'be')).toStrictEqual(400);
     });
 
     test('Test 2: Same handleStr', () => {
-      expect(requestUserSetHandle(user.token, 'firstnamelastname')).toStrictEqual(ERROR);
+      expect(requestUserSetHandle(user.token, 'firstnamelastname')).toStrictEqual(400);
     });
 
     test('Test 3: handleStr already used', () => {
       requestAuthRegister('test2@gmail.com', 'password2', 'firstname1', 'lastname1');
-      expect(requestUserSetHandle(user.token, 'firstname1lastname1')).toStrictEqual(ERROR);
+      expect(requestUserSetHandle(user.token, 'firstname1lastname1')).toStrictEqual(400);
     });
 
     test('Test 4: Invalid characters', () => {
-      expect(requestUserSetHandle(user.token, '%invalid_handle$')).toStrictEqual(ERROR);
+      expect(requestUserSetHandle(user.token, '%invalid_handle$')).toStrictEqual(400);
     });
 
     test('Test 5: Invalid token', () => {
-      expect(requestUserSetHandle(invalidToken, 'firstname1lastname1')).toStrictEqual(ERROR);
+      expect(requestUserSetHandle(invalidToken, 'firstname1lastname1')).toStrictEqual(403);
     });
   });
 

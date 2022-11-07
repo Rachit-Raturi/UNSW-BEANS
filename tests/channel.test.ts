@@ -165,30 +165,30 @@ describe('/channel/join/v2', () => {
 describe('/channel/invite/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid channelId', () => {
-      expect(requestChannelInvite(user.token, invalidChannelId, user1.authUserId)).toStrictEqual(ERROR);
+      expect(requestChannelInvite(user.token, invalidChannelId, user1.authUserId)).toStrictEqual(400);
     });
 
     test('Test 2: Invalid authUserId', () => {
-      expect(requestChannelInvite(invalidToken, channel.channelId, user1.authUserId)).toStrictEqual(ERROR);
+      expect(requestChannelInvite(invalidToken, channel.channelId, user1.authUserId)).toStrictEqual(403);
     });
 
     test('Test 3: Invalid uId', () => {
-      expect(requestChannelInvite(user.token, channel.channelId, invalidUId)).toStrictEqual(ERROR);
+      expect(requestChannelInvite(user.token, channel.channelId, invalidUId)).toStrictEqual(400);
     });
 
     test('Test 4: User is not a member of the channel', () => {
       const user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
-      expect(requestChannelInvite(user1.token, channel.channelId, user2.authUserId)).toStrictEqual(ERROR);
+      expect(requestChannelInvite(user1.token, channel.channelId, user2.authUserId)).toStrictEqual(403);
     });
 
     test('Test 5: User already in channel - 1 member in channel', () => {
-      expect(requestChannelInvite(user.token, channel.channelId, user.authUserId)).toStrictEqual(ERROR);
+      expect(requestChannelInvite(user.token, channel.channelId, user.authUserId)).toStrictEqual(400);
     });
 
     test('Test 6: User already in channel - 2 members in channel', () => {
       const user2 = requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
       requestChannelJoin(user2.token, channel.channelId);
-      expect(requestChannelInvite(user.token, channel.channelId, user2.authUserId)).toStrictEqual(ERROR);
+      expect(requestChannelInvite(user.token, channel.channelId, user2.authUserId)).toStrictEqual(400);
     });
   });
 
