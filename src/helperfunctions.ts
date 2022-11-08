@@ -1,5 +1,6 @@
 import validator from 'validator';
 import { getData } from './dataStore';
+import { User } from './users';
 
 function validEmail(email: string): boolean {
   const data = getData();
@@ -62,11 +63,11 @@ function validHandleStr(handleStr: string): boolean {
     }
   }
 
-  const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
+  const isAlphaNumeric = (str: string) => /^[a-z0-9]+$/gi.test(str);
   return isAlphaNumeric(handleStr);
 }
 
-function extractUser(uId?: number) {
+function extractUser(uId?: number): User | User[] {
   const data = getData();
 
   if (uId === undefined) {
@@ -83,7 +84,6 @@ function extractUser(uId?: number) {
         }
       );
     }
-
     return usersArray;
   } else {
     return {

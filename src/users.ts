@@ -2,7 +2,7 @@ import { getData, setData } from './dataStore';
 import { validToken, validUId, validName, validHandleStr, validEmail, extractUser, findUser } from './helperfunctions';
 import HTTPError from 'http-errors';
 
-interface user {
+export interface User {
   uId: number,
   email: string,
   nameFirst: string,
@@ -18,14 +18,14 @@ interface user {
  * @returns {user} user
  */
 
-function userProfileV1 (token: string, uId: number): { user: user } {
+function userProfileV1 (token: string, uId: number): { user: User | User[]} {
   if (validToken(token) === false) {
     throw HTTPError(403, 'invalid token');
   }
   if (validUId(uId) === false) {
     throw HTTPError(400, 'invalid uId');
   }
-  console.log(validToken(token), validUId(uId));
+
   return { user: extractUser(uId) };
 }
 
@@ -35,7 +35,7 @@ function userProfileV1 (token: string, uId: number): { user: user } {
  * @param {string} token
  * @returns {Array<user>} users
  */
-function usersAllV1 (token: string) {
+function usersAllV1 (token: string): { users: User | User[]} {
   if (validToken(token) === false) {
     throw HTTPError(403, 'invalid token');
   }

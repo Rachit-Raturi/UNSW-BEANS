@@ -90,7 +90,7 @@ function messageEditV1(token: string, messageId: number, message: string) {
       .find(m => m.messageId === messageObject.messageId).message = message;
   } else {
     const owner = data.dms[messageObject.channelID].owner;
-    if (user.uId !== messageObject.uId && owner.includes(user.uId) === false) {
+    if (user.uId !== messageObject.uId && owner === user.uId) {
       return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
     }
     data.dms[messageObject.channelID].messages
@@ -141,7 +141,7 @@ function messageRemoveV1(token: string, messageId: number) {
       return { error: `user(${user.uId}) is not a member of dm(${messageId})` };
     }
 
-    if (messageObject.uId !== user.uId && (owner.includes(user.uId) === false)) {
+    if (messageObject.uId !== user.uId && (owner === user.uId)) {
       return { error: `user(${user.uId}) is not the sender or owner of the dm(${messageId})` };
     }
     data.dms[messageObject.channelID].messages.splice(messageObject.index, 1);

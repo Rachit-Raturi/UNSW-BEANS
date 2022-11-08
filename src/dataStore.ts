@@ -1,17 +1,10 @@
 // YOU SHOULD MODIFY THIS OBJECT BELOW
-let data = {
-  users:
-  [
+import { Datastore } from './interface';
 
-  ],
-  channels:
-  [
-
-  ],
-  dms:
-  [
-
-  ],
+let data: Datastore = {
+  users: [],
+  channels: [],
+  dms: [],
 };
 
 // YOU SHOULDNT NEED TO MODIFY THE FUNCTIONS BELOW IN ITERATION 1
@@ -82,7 +75,7 @@ function getData() {
 }
 
 // Use set(newData) to pass in the entire data object, with modifications made
-function setData(newData) {
+function setData(newData: Datastore) {
   data = newData;
 }
 

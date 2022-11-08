@@ -1,7 +1,8 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken } from './helperfunctions';
+import { dm } from './interface';
 
-interface dm {
+interface dmlist {
   dmId: number,
   name: string
 }
@@ -43,7 +44,7 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
   }
 
   // duplicate user Id
-  function hasDuplicates(array) {
+  function hasDuplicates(array: number[]) {
     return (new Set(array)).size === array.length;
   }
 
@@ -67,7 +68,7 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
   const membersArray = uIds;
   membersArray.push(currentUser.uId);
 
-  const dm = {
+  const dm: dm = {
     dmId: data.dms.length,
     name: name,
     owner: currentUser.uId,
@@ -89,7 +90,7 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
  * @param {String} token
  * @returns {Array<dm> | Object} dms | error
  */
-function dmListV1 (token: string): Array<dm> | object {
+function dmListV1 (token: string): Array<dmlist> | object {
   const data = getData();
 
   // invalid token error
@@ -100,7 +101,7 @@ function dmListV1 (token: string): Array<dm> | object {
   }
 
   const currentUser = findUser(token);
-  const dmArray: Array<dm> = [];
+  const dmArray: Array<dmlist> = [];
 
   // create array of dms
   for (const dm of data.dms) {
