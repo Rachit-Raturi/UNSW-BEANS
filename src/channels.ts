@@ -1,6 +1,7 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken } from './helperfunctions';
 import HTTPError from 'http-errors';
+import { channel } from './interface';
 
 /**
  * Given a valid authUserId and channel name, creates and
@@ -35,7 +36,7 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
   owners.push(user.uId);
   members.push(user.uId);
 
-  const channel = {
+  const channel: channel = {
     channelId: data.channels.length,
     name: name,
     isPublic: isPublic,
