@@ -1,6 +1,7 @@
 import validator from 'validator';
 import { getData, setData } from './dataStore';
 import uniqid from 'uniqid';
+import { hashPassword, hashToken } from './hash';
 
 /**
  * Given a valid registered email and password the function
@@ -15,13 +16,13 @@ function authLoginV1(email: string, password: string) {
   const data = getData();
   for (const users of data.users) {
     if (users.email === email) {
-      if (password === users.password) {
+      if (hashPassword(password) === users.password) {
         // Generate the token for the session
         const token = uniqid();
-        users.tokens.push(token);
+        users.tokens.push(hashToken(token));
         setData(data);
         return {
-          token: token,
+          token: hashToken(token),
           authUserId: users.uId,
         };
       } else {
@@ -101,13 +102,13 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   const session = uniqid();
 
   const token = [
-    session
+    hashToken(session)
   ];
   // Register the user
   const user = {
     email: email,
     uId: data.users.length,
-    password: password,
+    password: hashPassword(password),
     nameFirst: nameFirst,
     nameLast: nameLast,
     handleStr: userHandle,
