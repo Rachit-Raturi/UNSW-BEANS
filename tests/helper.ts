@@ -157,3 +157,11 @@ export function requestUserSetEmail(token: string, email: string) {
 export function requestUserSetHandle(token: string, handleStr: string) {
   return requestHelper('PUT', '/user/profile/sethandle/v2', { handleStr }, { token: token });
 }
+
+export function requestUserStats(token: string,) {
+  return requestHelper('GET', '/user/stats/v1', {}, { token: token });
+}
+
+export function requestUsersStats(token: string,) {
+  return requestHelper('GET', '/users/stats/v1', {}, { token: token });
+}
