@@ -7,54 +7,6 @@ let data: Datastore = {
   dms: [],
 };
 
-// YOU SHOULDNT NEED TO MODIFY THE FUNCTIONS BELOW IN ITERATION 1
-/*
-// Example data structure
-
-  users: [
-    uId: number
-    email: string
-    password: string
-    nameFirst: string
-    nameLast: string
-    handleStr: string
-    tokens: [
-      token: string
-    ]
-  ]
-
-  channels: [
-    channelId: number
-    name: string
-    allMembers: [users]
-    ownerMembers: [users]
-    isPublic: boolean
-    messages: [
-      {
-        messageId: number
-        uId : number
-        message: string
-        timeSent: date
-      }
-    ]
-  ]
-
-  dms: [
-    dmId: number
-    name: string
-    owner: user
-    members: [users]
-    messages: [
-      {
-        messageId: number
-        uId : number
-        message: string
-        timeSent: date
-      }
-    ]
-  ]
-*/
-
 /*
 Example usage
     let store = getData()
