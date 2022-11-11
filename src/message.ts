@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken, findMessage, validMessage } from './helperfunctions';
+import { findUser, validToken, findMessage, validMessage, userStatsChanges } from './helperfunctions';
 
 /**
  * Given a channel with ID channelId that the authorised user
@@ -46,6 +46,7 @@ function messageSendV1(token: string, channelId: number, message: string) {
 
   };
 
+  userStatsChanges('messages', user.index, 'add');
   data.channels[channelId].messages.push(newMessage);
   setData(data);
 

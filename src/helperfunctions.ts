@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { getData } from './dataStore';
+import { getData, setData } from './dataStore';
 import { User } from './users';
 
 function validEmail(email: string): boolean {
@@ -99,24 +99,77 @@ function extractUser(uId?: number): User | User[] {
 function findUser(token: string) {
   const data = getData();
   let userObject;
+  let usersArrayIndex;
 
   for (const element of data.users) {
     for (const tokens of element.tokens) {
       if (tokens === token) {
         userObject = element;
+        usersArrayIndex = (data.users).indexOf(element);
       }
     }
   }
 
   return {
+    index: usersArrayIndex,
     uId: userObject.uId,
     email: userObject.email,
     password: userObject.password,
     nameFirst: userObject.nameFirst,
     nameLast: userObject.nameLast,
     handleStr: userObject.handleStr,
+    channelsJoined: userObject.channelsJoined,
+    dmsJoined: userObject.dmsJoined,
+    messagesSent: userObject.messagesSent,
     tokens: userObject.tokens,
   };
+}
+
+// parameters are channels, dms and messages - index is for finding one user only
+function findNumberOf(parameter: string, index?: number): number {
+  const data = getData();
+
+  if (index === undefined) {
+    if (parameter === 'channels') {
+      return data.channels.length;
+    } else if (parameter === 'dms') {
+      return data.dms.length;
+    } else if (parameter === 'messages') {
+      let numMessages = 0;
+      for (const channel of data.channels) {
+        numMessages += channel.messages.length;
+      }
+      for (const dm of data.dms) {
+        numMessages += dm.messages.length;
+      }
+      return numMessages;
+    }
+  } else {
+    const user = data.users[index];
+
+    if (parameter === 'channels') {
+      if (user.channelsJoined.length === 0) {
+        return 0;
+      } else {
+        const lastElement = (user.channelsJoined).slice(-1);
+        return lastElement[0].numChannelsJoined;
+      }
+    } else if (parameter === 'dms') {
+      if (user.dmsJoined.length === 0) {
+        return 0;
+      } else {
+        const lastElement = (user.dmsJoined).slice(-1);
+        return lastElement[0].numDmsJoined;
+      }
+    } else if (parameter === 'messages') {
+      if (user.messagesSent.length === 0) {
+        return 0;
+      } else {
+        const lastElement = (user.messagesSent).slice(-1);
+        return lastElement[0].numMessagesSent;
+      }
+    }
+  }
 }
 
 function validMessage(messageId: number) {
@@ -187,4 +240,64 @@ function findMessage(messageId: number) {
   };
 }
 
-export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findMessage, validMessage };
+function userStatsChanges (parameter: string, userIndex: number, operation: string) {
+  const data = getData();
+  const time = Math.floor(Date.now() / 1000);
+  if (parameter === 'channels') {
+    const userchannels = findNumberOf('channels', userIndex);
+    if (operation === 'add') {
+      (data.users[userIndex].channelsJoined).push(
+        {
+          numChannelsJoined: userchannels + 1,
+          timeStamp: time
+        }
+      );
+    } else if (operation === 'remove') {
+      (data.users[userIndex].channelsJoined).push(
+        {
+          numChannelsJoined: userchannels - 1,
+          timeStamp: time
+        }
+      );
+    }
+  } else if (parameter === 'dms') {
+    const userdms = findNumberOf('dms', userIndex);
+    if (operation === 'add') {
+      (data.users[userIndex].dmsJoined).push(
+        {
+          numDmsJoined: userdms + 1,
+          timeStamp: time
+        }
+      );
+    } else if (operation === 'remove') {
+      (data.users[userIndex].dmsJoined).push(
+        {
+          numDmsJoined: userdms - 1,
+          timeStamp: time
+        }
+      );
+    }
+  } else if (parameter === 'messages') {
+    const usermessages = findNumberOf('messages', userIndex);
+    if (operation === 'add') {
+      (data.users[userIndex].messagesSent).push(
+        {
+          numMessagesSent: usermessages + 1,
+          timeStamp: time
+        }
+      );
+    } else if (operation === 'remove') {
+      (data.users[userIndex].messagesSent).push(
+        {
+          numMessagesSent: usermessages - 1,
+          timeStamp: time
+        }
+      );
+    }
+  }
+  console.log(parameter, userIndex, operation);
+  setData(data);
+  return {};
+}
+
+export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges };

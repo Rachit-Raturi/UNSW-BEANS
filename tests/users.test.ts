@@ -7,7 +7,12 @@ import {
   requestUserSetEmail,
   requestUserSetHandle,
   requestChannelsCreate,
+  requestChannelJoin,
+  requestChannelInvite,
+  requestChannelLeave,
   requestDmCreate,
+  requestDmRemove,
+  requestDmLeave,
   requestMessageSend,
   requestMessageSendDm,
   requestMessageRemove,
@@ -213,9 +218,9 @@ describe('/user/stats/v1 ', () => {
     expect(requestUserStats(user.token)).toStrictEqual(
       {
         userStats: {
-          channelsJoined: [],
-          dmsJoined: [],
-          messagesSent: [],
+          channelsJoined: [{ numChannelsJoined: 0, timeStamp: testTimeStamp }],
+          dmsJoined: [{ numDmsJoined: 0, timeStamp: testTimeStamp }],
+          messagesSent: [{ numMessagesSent: 0, timeStamp: testTimeStamp }],
           involvementRate: 0
         }
       }
@@ -224,21 +229,24 @@ describe('/user/stats/v1 ', () => {
 
   test('Test 2: valid token - cap involvement at 1', () => {
     const channel = requestChannelsCreate(user.token, 'channel', true);
-    const dm = requestDmCreate(user.token);
+    const dm = requestDmCreate(user.token, []);
     requestMessageSend(user.token, channel.channelId, 'channel message');
     const message = requestMessageSend(user.token, channel.channelId, 'to delete');
     requestMessageSendDm(user.token, dm.dmId, 'dm message');
-    requestMessageRemove(user.token);
-    expect(requestUserStats(user.token, message.messageId)).toStrictEqual(
+    requestMessageRemove(user.token, message.messageId);
+    expect(requestUserStats(user.token)).toStrictEqual(
       {
         userStats: {
           channelsJoined: [
+            { numChannelsJoined: 0, timeStamp: testTimeStamp },
             { numChannelsJoined: 1, timeStamp: testTimeStamp },
           ],
           dmsJoined: [
+            { numDmsJoined: 0, timeStamp: testTimeStamp },
             { numDmsJoined: 1, timeStamp: testTimeStamp },
-          ], 
+          ],
           messagesSent: [
+            { numMessagesSent: 0, timeStamp: testTimeStamp },
             { numMessagesSent: 1, timeStamp: testTimeStamp },
             { numMessagesSent: 2, timeStamp: testTimeStamp },
             { numMessagesSent: 3, timeStamp: testTimeStamp },
@@ -249,30 +257,49 @@ describe('/user/stats/v1 ', () => {
     );
   });
 
-  test('Test 3: valid token - some stats', () => {
-    user1 = requestAuthRegister('test@gmail.com', 'password', 'firstname', 'lastname');
-    requestChannelsCreate(user.token, 'channel', true);
+  test('Test 3: valid token - advanced test', () => {
+    const user1 = requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
+    const channel = requestChannelsCreate(user.token, 'channel', true);
     requestChannelsCreate(user.token, 'channel1', true);
-    requestChannelsCreate(user1.token, 'channel2', true);
-    requestDmCreate(user.token);
+    const channel2 = requestChannelsCreate(user1.token, 'channel2', true);
+    requestChannelInvite(user1.token, channel2.channelId, user.authUserId);
+    requestChannelLeave(user.token, channel2.channelId);
+    requestChannelJoin(user.token, channel2.channelId);
+    requestChannelLeave(user.token, channel2.channelId);
+    const dm = requestDmCreate(user.token, []);
+    requestDmLeave(user.token, dm.dmId);
+    const dm1 = requestDmCreate(user.token, []);
+    requestDmRemove(user.token, dm1.dmId);
+    requestDmCreate(user.token, []);
     requestMessageSend(user.token, channel.channelId, 'channel message');
-    requestMessageSend(user.token, channel.channelId, 'to delete');
+    requestMessageSend(user.token, channel.channelId, 'message');
     requestMessageSendDm(user.token, dm.dmId, 'dm message');
     expect(requestUserStats(user.token)).toStrictEqual(
       {
         userStats: {
           channelsJoined: [
-            {numChannelsJoined: 1, timeStamp: testTimeStamp },
-            {numChannelsJoined: 2, timeStamp: testTimeStamp }
+            { numChannelsJoined: 0, timeStamp: testTimeStamp },
+            { numChannelsJoined: 1, timeStamp: testTimeStamp },
+            { numChannelsJoined: 2, timeStamp: testTimeStamp },
+            { numChannelsJoined: 3, timeStamp: testTimeStamp },
+            { numChannelsJoined: 2, timeStamp: testTimeStamp },
+            { numChannelsJoined: 3, timeStamp: testTimeStamp },
+            { numChannelsJoined: 2, timeStamp: testTimeStamp }
           ],
           dmsJoined: [
-            {numDmsJoined: 1, timeStamp: testTimeStamp },
+            { numDmsJoined: 0, timeStamp: testTimeStamp },
+            { numDmsJoined: 1, timeStamp: testTimeStamp },
+            { numDmsJoined: 0, timeStamp: testTimeStamp },
+            { numDmsJoined: 1, timeStamp: testTimeStamp },
+            { numDmsJoined: 0, timeStamp: testTimeStamp },
+            { numDmsJoined: 1, timeStamp: testTimeStamp },
           ],
           messagesSent: [
-            {numMessagesSent: 1, timeStamp: testTimeStamp },
-            {numMessagesSent: 2, timeStamp: testTimeStamp }
+            { numMessagesSent: 0, timeStamp: testTimeStamp },
+            { numMessagesSent: 1, timeStamp: testTimeStamp },
+            { numMessagesSent: 2, timeStamp: testTimeStamp }
           ],
-          involvementRate: 5/6
+          involvementRate: 5 / 7
         }
       }
     );

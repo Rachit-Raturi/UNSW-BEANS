@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken, validUId } from './helperfunctions';
+import { findUser, validToken, validUId, userStatsChanges } from './helperfunctions';
 import HTTPError from 'http-errors';
 
 interface user {
@@ -123,7 +123,9 @@ function channelJoinV1(token: string, channelId: number) {
   }
 
   // add member to channel
+  console.log('join');
   data.channels[channelId].allMembers.push(currentUser.uId);
+  userStatsChanges('channels', currentUser.index, 'add');
   setData(data);
 
   return {};
@@ -172,6 +174,15 @@ function channelInviteV1(token: string, channelId: number, uId: number) {
     }
   }
 
+  let uIdindex;
+  for (const user of data.users) {
+    if (user.uId === uId) {
+      uIdindex = (data.users).indexOf(user);
+    }
+  }
+
+  userStatsChanges('channels', uIdindex, 'add');
+  console.log('invite');
   // add uid to members
   const membersArray = data.channels[channelId].allMembers;
   membersArray.push(uId);
@@ -304,6 +315,9 @@ function channelLeaveV1(token: string, channelId: number) {
       const Index2 = data.channels[channelId].ownerMembers.indexOf(user.uId);
       data.channels[channelId].ownerMembers.splice(Index2, 1);
     }
+
+    userStatsChanges('channels', user.index, 'remove');
+    console.log('remove');
     setData(data);
     return {};
   }
