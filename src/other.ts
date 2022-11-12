@@ -13,6 +13,11 @@ function clearV1() {
     users: [],
     channels: [],
     dms: [],
+    stats: {
+      channelsExist: [{ numChannelsExist: 0, timeStamp: 0 }],
+      dmsExist: [{ numDmsExist: 0, timeStamp: 0 }],
+      messagesExist: [{ numMessagesExist: 0, timeStamp: 0 }],
+    }
   };
 
   setData(clearedData);

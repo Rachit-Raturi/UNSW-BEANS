@@ -300,4 +300,58 @@ function userStatsChanges (parameter: string, userIndex: number, operation: stri
   return {};
 }
 
-export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges };
+function workplaceStatsChanges (parameter: string, operation: string) {
+  const data = getData();
+  const time = Math.floor(Date.now() / 1000);
+  console.log(data.stats);
+  if (parameter === 'channels') {
+    const workplaceChannels = findNumberOf('channels');
+    if (operation === 'add') {
+      (data.stats.channelsExist).push(
+        {
+          numChannelsExist: workplaceChannels + 1,
+          timeStamp: time
+        }
+      );
+    }
+  } else if (parameter === 'dms') {
+    const workplaceDms = findNumberOf('dms');
+    if (operation === 'add') {
+      (data.stats.dmsExist).push(
+        {
+          numDmsExist: workplaceDms + 1,
+          timeStamp: time
+        }
+      );
+    } else if (operation === 'remove') {
+      (data.stats.dmsExist).push(
+        {
+          numDmsExist: workplaceDms - 1,
+          timeStamp: time
+        }
+      );
+    }
+  } else if (parameter === 'messages') {
+    const workplaceMessages = findNumberOf('messages');
+    if (operation === 'add') {
+      (data.stats.messagesExist).push(
+        {
+          numMessagesExist: workplaceMessages + 1,
+          timeStamp: time
+        }
+      );
+    } else if (operation === 'remove') {
+      (data.stats.messagesExist).push(
+        {
+          numMessagesExist: workplaceMessages - 1,
+          timeStamp: time
+        }
+      );
+    }
+  }
+  console.log(parameter, operation);
+  setData(data);
+  return {};
+}
+
+export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges };

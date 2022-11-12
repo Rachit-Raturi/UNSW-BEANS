@@ -50,8 +50,28 @@ export interface dm {
   messages: message[]
 }
 
+export interface channelexist {
+  numChannelsExist: number,
+  timeStamp: number
+}
+
+export interface dmexist {
+  numDmsExist: number,
+  timeStamp: number
+}
+
+export interface messageexist {
+  numMessagesExist: number,
+  timeStamp: number
+}
+
 export interface Datastore {
   users: user[],
   channels: channel[],
-  dms: dm[]
+  dms: dm[],
+  stats: {
+    channelsExist: channelexist[],
+    dmsExist: dmexist[],
+    messagesExist: messageexist[],
+  }
 }
