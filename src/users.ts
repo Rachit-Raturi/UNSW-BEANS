@@ -158,4 +158,45 @@ function userStats (token: string) {
   };
 }
 
-export { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats };
+function usersStats (token: string) {
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'invalid token');
+  }
+
+  const data = getData();
+  const notUtilisedArray = [];
+  for (const user of data.users) {
+    notUtilisedArray.push(user.uId);
+  }
+
+  for (const channel of data.channels) {
+    for (const member of channel.allMembers) {
+      if (notUtilisedArray.includes(member)) {
+        const memberindex = notUtilisedArray.indexOf(member);
+        notUtilisedArray.splice(memberindex, 1);
+      }
+    }
+  }
+
+  for (const dm of data.dms) {
+    for (const member of dm.members) {
+      if (notUtilisedArray.includes(member)) {
+        const memberindex = notUtilisedArray.indexOf(member);
+        notUtilisedArray.splice(memberindex, 1);
+      }
+    }
+  }
+  const numerator = data.users.length - notUtilisedArray.length;
+  const utilizationRate: number = numerator / data.users.length;
+
+  return {
+    workspaceStats: {
+      channelsExist: data.stats.channelsExist,
+      dmsExist: data.stats.dmsExist,
+      messagesExist: data.stats.messagesExist,
+      utilizationRate: utilizationRate
+    }
+  };
+}
+
+export { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats };

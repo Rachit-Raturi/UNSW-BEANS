@@ -318,22 +318,9 @@ describe('/users/stats/v1 ', () => {
     expect(requestUsersStats(user.token)).toStrictEqual(
       {
         workspaceStats: {
-          channelsExist: [{numChannelsExist: 0, timeStamp: testTimeStamp}], 
-          dmsExist: [{numDmsExist: 0, timeStamp: testTimeStamp}], 
-          messagesExist: [{numMessagesExist: 0, timeStamp: testTimeStamp}], 
-          utilizationRate: 0
-        }
-      }
-    );
-  });
-
-  test('Test 2: valid token - start statistics', () => {
-    expect(requestUsersStats(user.token)).toStrictEqual(
-      {
-        workspaceStats: {
-          channelsExist: [{numChannelsExist: 0, timeStamp: testTimeStamp}],
-          dmsExist: [{numDmsExist: 0, timeStamp: testTimeStamp}], 
-          messagesExist: [{numMessagesExist: 0, timeStamp: testTimeStamp}],
+          channelsExist: [{ numChannelsExist: 0, timeStamp: testTimeStamp }],
+          dmsExist: [{ numDmsExist: 0, timeStamp: testTimeStamp }],
+          messagesExist: [{ numMessagesExist: 0, timeStamp: testTimeStamp }],
           utilizationRate: 0
         }
       }
@@ -350,18 +337,18 @@ describe('/users/stats/v1 ', () => {
       {
         workspaceStats: {
           channelsExist: [
-            {numChannelsExist: 0, timeStamp: testTimeStamp},
-            {numChannelsExist: 1, timeStamp: testTimeStamp},
-            {numChannelsExist: 2, timeStamp: testTimeStamp}
+            { numChannelsExist: 0, timeStamp: testTimeStamp },
+            { numChannelsExist: 1, timeStamp: testTimeStamp },
+            { numChannelsExist: 2, timeStamp: testTimeStamp }
           ],
           dmsExist: [
-            {numDmsExist: 0, timeStamp: testTimeStamp},
-            {numDmsExist: 1, timeStamp: testTimeStamp}
+            { numDmsExist: 0, timeStamp: testTimeStamp },
+            { numDmsExist: 1, timeStamp: testTimeStamp }
           ],
           messagesExist: [
-            {numMessagesExist: 0, timeStamp: testTimeStamp},
-            {numMessagesExist: 1, timeStamp: testTimeStamp},
-            {numMessagesExist: 2, timeStamp: testTimeStamp},
+            { numMessagesExist: 0, timeStamp: testTimeStamp },
+            { numMessagesExist: 1, timeStamp: testTimeStamp },
+            { numMessagesExist: 2, timeStamp: testTimeStamp },
           ],
           utilizationRate: 1
         }
@@ -369,7 +356,7 @@ describe('/users/stats/v1 ', () => {
     );
   });
 
-  test('Test 2: valid token - multiple users', () => {
+  test('Test 3: valid token - multiple users', () => {
     const channel = requestChannelsCreate(user.token, 'channel', true);
     requestChannelsCreate(user.token, 'channel1', true);
     requestMessageSend(user.token, channel.channelId, 'channel message');
@@ -381,20 +368,20 @@ describe('/users/stats/v1 ', () => {
       {
         workspaceStats: {
           channelsExist: [
-            {numChannelsExist: 0, timeStamp: testTimeStamp},
-            {numChannelsExist: 1, timeStamp: testTimeStamp},
-            {numChannelsExist: 2, timeStamp: testTimeStamp}
+            { numChannelsExist: 0, timeStamp: testTimeStamp },
+            { numChannelsExist: 1, timeStamp: testTimeStamp },
+            { numChannelsExist: 2, timeStamp: testTimeStamp }
           ],
           dmsExist: [
-            {numDmsExist: 0, timeStamp: testTimeStamp},
-            {numDmsExist: 1, timeStamp: testTimeStamp}
+            { numDmsExist: 0, timeStamp: testTimeStamp },
+            { numDmsExist: 1, timeStamp: testTimeStamp }
           ],
           messagesExist: [
-            {numMessagesExist: 0, timeStamp: testTimeStamp},
-            {numMessagesExist: 1, timeStamp: testTimeStamp},
-            {numMessagesExist: 2, timeStamp: testTimeStamp},
+            { numMessagesExist: 0, timeStamp: testTimeStamp },
+            { numMessagesExist: 1, timeStamp: testTimeStamp },
+            { numMessagesExist: 2, timeStamp: testTimeStamp },
           ],
-          utilizationRate: 1/3
+          utilizationRate: 1 / 3
         }
       }
     );

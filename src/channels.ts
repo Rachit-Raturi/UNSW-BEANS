@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken, userStatsChanges } from './helperfunctions';
+import { findUser, validToken, userStatsChanges, workplaceStatsChanges } from './helperfunctions';
 import HTTPError from 'http-errors';
 import { channel } from './interface';
 
@@ -45,9 +45,10 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
     allMembers: members,
     messages: [],
   };
-
+  workplaceStatsChanges('channels', 'add');
   data.channels.push(channel);
   userStatsChanges('channels', user.index, 'add');
+
   setData(data);
 
   return {

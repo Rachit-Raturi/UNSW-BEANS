@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken, userStatsChanges } from './helperfunctions';
+import { findUser, validToken, userStatsChanges, workplaceStatsChanges } from './helperfunctions';
 import { dm } from './interface';
 
 interface dmlist {
@@ -79,6 +79,7 @@ function dmCreateV1(token: string, uIds: Array<number>) {
       userStatsChanges('dms', uIdindex, 'add');
     }
   }
+  workplaceStatsChanges('dms', 'add');
 
   const dm: dm = {
     dmId: data.dms.length,
@@ -184,6 +185,12 @@ function dmRemoveV1 (token: string, dmId: number) {
   for (const user of users) {
     userStatsChanges('dms', user, 'remove');
   }
+  const messages = dmToRemove.messages;
+  for (const msg of messages) {
+    userStatsChanges('messages', msg.uId, 'remove');
+  }
+
+  workplaceStatsChanges('dms', 'remove');
   setData(data);
   return {};
 }
@@ -428,9 +435,10 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
     message: message,
     timeSent: time,
   };
-
+  workplaceStatsChanges('messages', 'add');
   data.dms[dmId].messages.push(newMessage);
   userStatsChanges('messages', user.index, 'add');
+
   setData(data);
 
   Id = Id + 2;
