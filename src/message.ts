@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken, findMessage, validMessage, userStatsChanges } from './helperfunctions';
+import { findUser, validToken, findMessage, validMessage, userStatsChanges, workplaceStatsChanges } from './helperfunctions';
 
 /**
  * Given a channel with ID channelId that the authorised user
@@ -47,6 +47,7 @@ function messageSendV1(token: string, channelId: number, message: string) {
   };
 
   userStatsChanges('messages', user.index, 'add');
+  workplaceStatsChanges('messages', 'add');
   data.channels[channelId].messages.push(newMessage);
   setData(data);
 
@@ -147,7 +148,7 @@ function messageRemoveV1(token: string, messageId: number) {
     }
     data.dms[messageObject.channelID].messages.splice(messageObject.index, 1);
   }
-
+  workplaceStatsChanges('messages', 'remove');
   setData(data);
   return {};
 }
