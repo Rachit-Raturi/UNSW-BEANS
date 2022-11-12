@@ -2,6 +2,7 @@ import validator from 'validator';
 import { getData, setData } from './dataStore';
 import uniqid from 'uniqid';
 import { hashPassword, hashToken } from './hash';
+import HTTPError from 'http-errors';
 
 /**
  * Given a valid registered email and password the function
@@ -26,15 +27,11 @@ function authLoginV1(email: string, password: string) {
           authUserId: users.uId,
         };
       } else {
-        return {
-          error: 'Incorrect password has been entered',
-        };
+        throw HTTPError(400, 'Incorrect password has been entered');
       }
     }
   }
-  return {
-    error: 'Email entered does not belong to a user',
-  };
+  throw HTTPError(400, 'Email entered does not belong to a user');
 }
 
 /**
@@ -52,42 +49,30 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   const data = getData();
   // Test for whether or not the email is invalid
   if (!validator.isEmail(email)) {
-    return {
-      error: 'Invalid email entered',
-    };
+    throw HTTPError(400, 'Invalid email has been entered');
   }
   // Test for whether or not the email is already in use
   if (data.users !== null) {
     for (const users of data.users) {
       if (users.email === email) {
-        return {
-          error: 'Email is already in use',
-        };
+        throw HTTPError(400, 'Email is already in use');
       }
     }
   }
   // Tests for whether the Password is valid
   if (password.length < 6 && password.length !== 0) {
-    return {
-      error: 'Password is less than 6 characters',
-    };
+    throw HTTPError(400, 'Password is less than 6 characters');
   } else if (password.length === 0) {
-    return {
-      error: 'No password was entered',
-    };
+    throw HTTPError(400, 'No password was entered');
   }
   // Tests for whether the first name and last names are valid
   if (nameFirst.length < 1 || nameFirst.length > 50) {
-    return {
-      error: 'First name is not between 1 to 50 characters inclusive',
-    };
+    throw HTTPError(400, 'First name is not between 1 to 50 characters inclusive');
   } else if (nameLast.length < 1 || nameLast.length > 50) {
-    return {
-      error: 'Last name is not between 1 to 50 characters inclusive',
-    };
+    throw HTTPError(400, 'Last name is not between 1 to 50 characters inclusive');
   }
   // Generating the userhandle
-  let userHandle = nameFirst.toLowerCase() + nameLast.toLowerCase();
+  let userHandle = nameFirst.toLowerCase().replace(/[^a-z0-9]/gi, '') + nameLast.toLowerCase().replace(/[^a-z0-9]/gi, '');
   userHandle = userHandle.substring(0, Math.min(userHandle.length, 20));
   const originalUserHandle = userHandle;
   let i = 0;
@@ -160,7 +145,7 @@ function authLogoutV1(token: string) {
       return {};
     }
   }
-  return { error: 'Token entered was invalid' };
+  throw HTTPError(403, 'Token entered was invalid');
 }
 
 export { authLoginV1, authRegisterV1, authLogoutV1 };

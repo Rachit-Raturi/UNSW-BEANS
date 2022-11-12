@@ -17,7 +17,7 @@ describe('/clear/v1', () => {
     const channel1 = requestChannelsCreate(user.token, 'channel1', true);
     const dm = requestDmCreate(user.token, []);
     requestClear();
-    expect(requestAuthLogin('person@gmail.com', 'password')).toStrictEqual(ERROR);
+    expect(requestAuthLogin('person@gmail.com', 'password')).toStrictEqual(400);
     expect(requestChannelDetails(user.token, channel.channelId)).toStrictEqual(ERROR);
     expect(requestChannelDetails(user.token, channel1.channelId)).toStrictEqual(ERROR);
     expect(requestDmDetails(user.token, dm.dmId)).toStrictEqual(ERROR);
