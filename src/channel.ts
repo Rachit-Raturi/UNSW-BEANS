@@ -299,7 +299,7 @@ function channelLeaveV1(token: string, channelId: number) {
   // check if the user is a member of the channel
   const user = findUser(token);
   if (!data.channels[channelId].allMembers.includes(user.uId)) {
-      throw HTTPError(403, 'User is not a part of the channel');
+    throw HTTPError(403, 'User is not a part of the channel');
   } else {
     const Index = data.channels[channelId].allMembers.indexOf(user.uId);
     data.channels[channelId].allMembers.splice(Index, 1);
@@ -335,11 +335,11 @@ function channelAddOwnerV1(token: string, channelId: number, uId: number) {
   }
 
   if (!validToken(token)) {
-    throw HTTPError(403, 'Invalid token entered')
+    throw HTTPError(403, 'Invalid token entered');
   }
 
   if (!validUId(uId)) {
-      throw HTTPError(400, 'Invalid uId entered');
+    throw HTTPError(400, 'Invalid uId entered');
   }
 
   if (!data.channels[channelId].allMembers.includes(uId)) {
@@ -356,7 +356,7 @@ function channelAddOwnerV1(token: string, channelId: number, uId: number) {
     setData(data);
     return {};
   } else {
-    throw HTTPError(403, 'User does not possess the correct permissions')
+    throw HTTPError(403, 'User does not possess the correct permissions');
   }
 }
 
@@ -389,7 +389,7 @@ function channelRemoveOwnerV1(token: string, channelId: number, uId: number) {
   }
 
   if (data.channels[channelId].ownerMembers.includes(uId) && data.channels[channelId].ownerMembers.length === 1) {
-    throw HTTPError(400,'UId refers to the only owner of the channel');
+    throw HTTPError(400, 'UId refers to the only owner of the channel');
   }
 
   const user = findUser(token);
@@ -399,7 +399,7 @@ function channelRemoveOwnerV1(token: string, channelId: number, uId: number) {
     setData(data);
     return {};
   } else {
-    throw HTTPError(403,'User does not possess the correct permissions');
+    throw HTTPError(403, 'User does not possess the correct permissions');
   }
 }
 

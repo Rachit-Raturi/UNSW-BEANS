@@ -50,7 +50,6 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   // Test for whether or not the email is invalid
   if (!validator.isEmail(email)) {
     throw HTTPError(400, 'Invalid email has been entered');
-
   }
   // Test for whether or not the email is already in use
   if (data.users !== null) {

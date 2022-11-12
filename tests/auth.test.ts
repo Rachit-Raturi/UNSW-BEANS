@@ -5,7 +5,7 @@ import {
   requestAuthLogout
 } from './helper';
 
-const ERROR = { error: expect.any(String) };
+// const ERROR = { error: expect.any(String) };
 
 beforeEach(() => {
   requestClear();
