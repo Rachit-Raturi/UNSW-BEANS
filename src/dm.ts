@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken } from './helperfunctions';
+import { findUser, validToken, userStatsChanges } from './helperfunctions';
 import { dm } from './interface';
 
 interface dmlist {
@@ -24,7 +24,7 @@ let Id = 1;
  * @returns {number} dmId
  */
 
-function dmCreateV1(token: string, uIds?: Array<number>) {
+function dmCreateV1(token: string, uIds: Array<number>) {
   const data = getData();
 
   // invalid token
@@ -54,6 +54,7 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
 
   // owner in uIds
   const currentUser = findUser(token);
+
   for (const uId of uIds) {
     if (uId === currentUser.uId) {
       return { error: 'owner is part of uIds' };
@@ -65,8 +66,19 @@ function dmCreateV1(token: string, uIds?: Array<number>) {
   for (const element of uIds) {
     name = name + ', ' + data.users[element].handleStr;
   }
+
   const membersArray = uIds;
   membersArray.push(currentUser.uId);
+
+  // need to do this
+
+  let uIdindex;
+  for (const user of data.users) {
+    if (uIds.includes(user.uId)) {
+      uIdindex = (data.users).indexOf(user);
+      userStatsChanges('dms', uIdindex, 'add');
+    }
+  }
 
   const dm: dm = {
     dmId: data.dms.length,
@@ -156,15 +168,22 @@ function dmRemoveV1 (token: string, dmId: number) {
   }
 
   const dmArray: Array<dm> = [];
-
+  let dmToRemove;
   // Creates a new array of the DMs excluding the one to be removed
   for (const dm of data.dms) {
     if (dm.dmId !== dmId) {
       dmArray.push(dm);
+    } else {
+      dmToRemove = dm;
     }
   }
 
   data.dms = dmArray;
+
+  const users: number[] = dmToRemove.members;
+  for (const user of users) {
+    userStatsChanges('dms', user, 'remove');
+  }
   setData(data);
   return {};
 }
@@ -272,6 +291,7 @@ function dmLeaveV1 (token: string, dmId: number) {
 
   const Index = data.dms[dmId].members.indexOf(currentUser.uId);
   data.dms[dmId].members.splice(Index, 1);
+  userStatsChanges('dms', currentUser.index, 'remove');
 
   setData(data);
   return {};
@@ -410,6 +430,7 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
   };
 
   data.dms[dmId].messages.push(newMessage);
+  userStatsChanges('messages', user.index, 'add');
   setData(data);
 
   Id = Id + 2;

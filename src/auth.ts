@@ -104,6 +104,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   const token = [
     hashToken(session)
   ];
+  const time = Math.floor(Date.now() / 1000);
   // Register the user
   const user = {
     email: email,
@@ -112,6 +113,24 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
     nameFirst: nameFirst,
     nameLast: nameLast,
     handleStr: userHandle,
+    channelsJoined: [
+      {
+        numChannelsJoined: 0,
+        timeStamp: time,
+      }
+    ],
+    dmsJoined: [
+      {
+        numDmsJoined: 0,
+        timeStamp: time,
+      }
+    ],
+    messagesSent: [
+      {
+        numMessagesSent: 0,
+        timeStamp: time,
+      }
+    ],
     tokens: token
   };
   data.users.push(user);

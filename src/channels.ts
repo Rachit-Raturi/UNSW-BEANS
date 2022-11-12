@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken } from './helperfunctions';
+import { findUser, validToken, userStatsChanges } from './helperfunctions';
 import HTTPError from 'http-errors';
 import { channel } from './interface';
 
@@ -33,6 +33,7 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
   const owners = [];
 
   const user = findUser(token);
+
   owners.push(user.uId);
   members.push(user.uId);
 
@@ -46,6 +47,7 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
   };
 
   data.channels.push(channel);
+  userStatsChanges('channels', user.index, 'add');
   setData(data);
 
   return {

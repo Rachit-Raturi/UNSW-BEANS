@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { validToken, validUId, validName, validHandleStr, validEmail, extractUser, findUser } from './helperfunctions';
+import { validToken, validUId, validName, validHandleStr, validEmail, extractUser, findUser, findNumberOf } from './helperfunctions';
 import HTTPError from 'http-errors';
 
 export interface User {
@@ -58,9 +58,9 @@ function userSetNameV1 (token: string, nameFirst: string, nameLast: string) {
   }
 
   console.log(validToken(token), validName(nameFirst), validName(nameLast));
-  const authUserId = findUser(token).uId;
-  data.users[authUserId].nameFirst = nameFirst;
-  data.users[authUserId].nameLast = nameLast;
+  const index = findUser(token).index;
+  data.users[index].nameFirst = nameFirst;
+  data.users[index].nameLast = nameLast;
   setData(data);
   return {};
 }
@@ -83,8 +83,8 @@ function userSetHandleV1 (token: string, handleStr: string) {
   }
 
   console.log(validToken(token), validHandleStr(handleStr));
-  const authUserId = findUser(token).uId;
-  data.users[authUserId].handleStr = handleStr;
+  const index = findUser(token).index;
+  data.users[index].handleStr = handleStr;
   setData(data);
   return {};
 }
@@ -106,10 +106,56 @@ function userSetEmailV1 (token: string, email: string) {
     throw HTTPError(400, 'invalid email');
   }
   console.log(validToken(token), validEmail(email));
-  const authUserId = findUser(token).uId;
-  data.users[authUserId].email = email;
+  const index = findUser(token).index;
+  data.users[index].email = email;
   setData(data);
   return {};
 }
 
-export { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1 };
+function userStats (token: string) {
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'invalid token');
+  }
+
+  const currentUser = findUser(token);
+
+  // current user stats
+  const numberChannels = findNumberOf('channels', currentUser.index);
+  const numberDms = findNumberOf('dms', currentUser.index);
+  const numberMessages = findNumberOf('messages', currentUser.index);
+
+  // all user stats
+  const totalChannels = findNumberOf('channels');
+  const totalDms = findNumberOf('dms');
+  const totalMessages = findNumberOf('messages');
+
+  console.log(numberChannels);
+  console.log(numberDms);
+  console.log(numberMessages);
+  console.log(totalChannels);
+  console.log(totalDms);
+  console.log(totalMessages);
+  let involvementRate = 0;
+
+  if ((totalChannels + totalDms + totalMessages) === 0) {
+    involvementRate = 0;
+  } else {
+    involvementRate = (numberChannels + numberDms + numberMessages) / (totalChannels + totalDms + totalMessages);
+  }
+
+  if (involvementRate > 1) {
+    involvementRate = 1;
+  }
+  console.log(involvementRate);
+
+  return {
+    userStats: {
+      channelsJoined: currentUser.channelsJoined,
+      dmsJoined: currentUser.dmsJoined,
+      messagesSent: currentUser.messagesSent,
+      involvementRate: involvementRate
+    }
+  };
+}
+
+export { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats };

@@ -1,3 +1,18 @@
+export interface channeljoin {
+  numChannelsJoined: number,
+  timeStamp: number
+}
+
+export interface dmjoin {
+  numDmsJoined: number,
+  timeStamp: number
+}
+
+export interface messagesent {
+  numMessagesSent: number,
+  timeStamp: number
+}
+
 export interface user {
   uId: number,
   email: string,
@@ -5,6 +20,9 @@ export interface user {
   nameFirst: string,
   nameLast: string,
   handleStr: string,
+  channelsJoined: channeljoin[],
+  dmsJoined: dmjoin[],
+  messagesSent: messagesent[],
   tokens: string[]
 }
 
