@@ -5,7 +5,8 @@ import {
   requestChannelJoin,
   requestMessageSend,
   requestMessageEdit,
-  requestMessageRemove
+  requestMessageRemove,
+  requestMessageReact
 } from './helper';
 
 interface userType {
@@ -150,4 +151,47 @@ describe('/message/remove/v1', () => {
     const messageId = requestMessageSend(user2.token, channel1.channelId, 'Message3');
     expect(requestMessageRemove(user2.token, messageId.messageId)).toStrictEqual({});
   });
+});
+
+
+describe('/message/react/v1', () => {
+  describe('Success Cases', () => {
+    test('Test 1: Success', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+    
+    test('Test 2: Success - multiple users', () => {
+
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestChannelJoin(user1.token, channel.channelId); 
+      requestChannelJoin(user2.token, channel.channelId); 
+      expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageReact(user1.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageReact(user2.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+  });
+
+  describe('Error Cases', () => {
+    test('Test 3: Message doesnt exist', () => {
+      expect(requestMessageReact(user.token, 0, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: Message doesnt exist', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageReact(user1.token, messageId.messageId, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Double react', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 6: Invalid reactId', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
+    });
+  });
+  
 });
