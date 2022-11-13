@@ -17,7 +17,8 @@ import {
   requestMessageSendDm,
   requestMessageRemove,
   requestUserStats,
-  requestUsersStats
+  requestUsersStats,
+  requestUserPhoto
 } from './helper';
 
 interface userType {
@@ -385,5 +386,35 @@ describe('/users/stats/v1 ', () => {
         }
       }
     );
+  });
+});
+
+describe('/user/profile/uploadphoto/v1', () => {
+  describe('Error', () => {
+    test('Test 1: Invalid token', () => {
+      expect(requestUserPhoto(invalidToken, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 1, 1)).toStrictEqual(403);
+    });
+    test('Test 2: Invalid image url', () => {
+      expect(requestUserPhoto(user.token, 'invalid', 0, 0, 1, 1)).toStrictEqual(400);
+    });
+    test('Test 3: xEnd <= xStart', () => {
+      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 1, 0, 1, 1)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 1, 0, 0, 1)).toStrictEqual(400);
+    });
+    test('Test 4: yEnd <= yStart', () => {
+      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 1, 1, 1)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 1, 1, 0)).toStrictEqual(400);
+    });
+    test('Test 5: invalid image type', () => {
+      expect(requestUserPhoto(user.token, 'http://en.wikipedia.org/wiki/Portable_Network_Graphics#/media/File:PNG_transparency_demonstration_1.png', 0, 0, 1, 1)).toStrictEqual(400);
+    });
+    test('Test 6: cropping not within image dimensions', () => {
+      expect(requestUserPhoto(invalidToken, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 800, 400)).toStrictEqual(400);
+      expect(requestUserPhoto(invalidToken, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 400, 800)).toStrictEqual(400);
+    });
+  });
+
+  test('Test 1: valid test', () => {
+    expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 680, 600)).toStrictEqual({});
   });
 });

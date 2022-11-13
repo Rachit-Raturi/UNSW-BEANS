@@ -165,3 +165,7 @@ export function requestUserStats(token: string) {
 export function requestUsersStats(token: string) {
   return requestHelper('GET', '/users/stats/v1', {}, { token: token });
 }
+
+export function requestUserPhoto(token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
+  return requestHelper('POST', '/user/profile/uploadphoto/v1', { imgUrl, xStart, yStart, xEnd, yEnd }, { token: token });
+}
