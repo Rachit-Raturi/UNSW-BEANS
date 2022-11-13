@@ -354,20 +354,20 @@ function workplaceStatsChanges (parameter: string, operation: string) {
   return {};
 }
 
-function getMessageType(messageId: number) { 
-  let dataType = 'channels'; 
-  if (messageId % 2 !== 0) { 
-    dataType = 'dms'; 
-  } 
-  return dataType; 
+function getMessageType(messageId: number) {
+  let dataType = 'channels';
+  if (messageId % 2 !== 0) {
+    dataType = 'dms';
+  }
+  return dataType;
 }
 
-function dupeReact(uID: number, messageId: number, messageIndex: number, channelId: number) { 
+function dupeReact(uID: number, messageId: number, messageIndex: number, channelId: number) {
   const data = getData();
 
-  let type = getMessageType(messageId);
-  for (let i of data[type][channelId].messages[messageIndex].reacts) { 
-    if (i.uIds.includes(uID)) { 
+  const type = getMessageType(messageId);
+  for (const i of data[type][channelId].messages[messageIndex].reacts) {
+    if (i.uIds.includes(uID)) {
       return true;
     }
   }

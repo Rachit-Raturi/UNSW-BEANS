@@ -1,13 +1,14 @@
 import { getData, setData } from './dataStore';
-import { findUser, 
-        validToken, 
-        findMessage, 
-        validMessage, 
-        userStatsChanges, 
-        workplaceStatsChanges,
-        getMessageType,
-        dupeReact
-       } from './helperfunctions';
+import {
+  findUser,
+  validToken,
+  findMessage,
+  validMessage,
+  userStatsChanges,
+  workplaceStatsChanges,
+  getMessageType,
+  dupeReact
+} from './helperfunctions';
 
 /**
  * Given a channel with ID channelId that the authorised user
@@ -131,7 +132,6 @@ function messageRemoveV1(token: string, messageId: number) {
   const user = findUser(token);
   const messageObject = findMessage(messageId);
 
-
   if (messageId % 2 === 0) {
     const member = data.channels[messageObject.channelID].allMembers;
     const owner = data.channels[messageObject.channelID].ownerMembers;
@@ -169,49 +169,48 @@ function messageRemoveV1(token: string, messageId: number) {
  * @param {string} reactId
  * @returns {}
  */
-function messageReact(token: string, messageId: number, reactId: number) { 
-  let data = getData();
+function messageReact(token: string, messageId: number, reactId: number) {
+  const data = getData();
 
-  if (validMessage(messageId) === false) { 
-    return { error: "Invalid messageId ASS" };
-  }
-  
-  let dataType = getMessageType(messageId); 
-  let message = findMessage(messageId);
-  let members = data[dataType][message.channelID].allMembers;
-  let authUserId = findUser(token);  
-
-
-  if (members.includes(authUserId.uId) === false) { 
-    return { error: `user does not have permissions to react` };
+  if (validMessage(messageId) === false) {
+    return { error: 'Invalid messageId ASS' };
   }
 
-  if (reactId !== 1) { 
-    return { error: `invalid reactId` };
+  const dataType = getMessageType(messageId);
+  const message = findMessage(messageId);
+  const members = data[dataType][message.channelID].allMembers;
+  const authUserId = findUser(token);
+
+  if (members.includes(authUserId.uId) === false) {
+    return { error: 'user does not have permissions to react' };
   }
 
-  if (dupeReact(authUserId.uId, messageId,message.index, message.channelID)) { 
-    return { error: `User has already reacted` };
+  if (reactId !== 1) {
+    return { error: 'invalid reactId' };
   }
 
-  let path = data[dataType][message.channelID].messages[ message.index]; 
+  if (dupeReact(authUserId.uId, messageId, message.index, message.channelID)) {
+    return { error: 'User has already reacted' };
+  }
+
+  const path = data[dataType][message.channelID].messages[message.index];
 
   let allReacts = [authUserId.uId];
-  if (path.reacts.length > 0) { 
-    for(let i of path.reacts) { 
-      i.uIds.push(authUserId.uId); 
-      allReacts = i.uIds
+  if (path.reacts.length > 0) {
+    for (const i of path.reacts) {
+      i.uIds.push(authUserId.uId);
+      allReacts = i.uIds;
     }
   }
-  
-  let newReact = { 
-    reactId: 1, 
-    uIds: allReacts, 
+
+  const newReact = {
+    reactId: 1,
+    uIds: allReacts,
     isThisUserReacted: true,
-  }
+  };
 
   path.reacts.push(newReact);
   setData(data);
-  return {}
+  return {};
 }
 export { messageReact, messageSendV1, messageEditV1, messageRemoveV1, resetId };

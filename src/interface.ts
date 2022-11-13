@@ -26,8 +26,8 @@ export interface user {
   tokens: string[]
 }
 
-export interface react { 
-  reactId: number, 
+export interface react {
+  reactId: number,
   uIds: number[],
   isThisUserReacted: boolean,
 }

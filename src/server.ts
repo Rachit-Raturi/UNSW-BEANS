@@ -249,11 +249,10 @@ app.delete('/message/remove/v2', (req: Request, res: Response) => {
 app.post('/message/react/v1', (req: Request, res: Response) => {
   console.log('Message Reacted');
   const token = req.header('token');
-  const {reactId, messageId } = req.body;
+  const { reactId, messageId } = req.body;
   save();
   res.json(messageReact(token, messageId, reactId));
 });
-
 
 // =========================================================================
 // User/s functions

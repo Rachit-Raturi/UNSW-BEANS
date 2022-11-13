@@ -153,19 +153,17 @@ describe('/message/remove/v1', () => {
   });
 });
 
-
 describe('/message/react/v1', () => {
   describe('Success Cases', () => {
     test('Test 1: Success', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
       expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
     });
-    
-    test('Test 2: Success - multiple users', () => {
 
+    test('Test 2: Success - multiple users', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      requestChannelJoin(user1.token, channel.channelId); 
-      requestChannelJoin(user2.token, channel.channelId); 
+      requestChannelJoin(user1.token, channel.channelId);
+      requestChannelJoin(user2.token, channel.channelId);
       expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
       expect(requestMessageReact(user1.token, messageId.messageId, 1)).toStrictEqual({});
       expect(requestMessageReact(user2.token, messageId.messageId, 1)).toStrictEqual({});
@@ -193,5 +191,4 @@ describe('/message/react/v1', () => {
       expect(requestMessageReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
     });
   });
-  
 });
