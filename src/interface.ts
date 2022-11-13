@@ -26,11 +26,18 @@ export interface user {
   tokens: string[]
 }
 
+export interface react { 
+  reactId: number, 
+  uIds: number[],
+  isThisUserReacted: boolean,
+}
+
 export interface message {
   messageId: number,
   uId: number,
   message: string,
   timeSent: number
+  reacts: react[]
 }
 
 export interface channel {

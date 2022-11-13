@@ -354,4 +354,24 @@ function workplaceStatsChanges (parameter: string, operation: string) {
   return {};
 }
 
-export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges };
+function getMessageType(messageId: number) { 
+  let dataType = 'channels'; 
+  if (messageId % 2 !== 0) { 
+    dataType = 'dms'; 
+  } 
+  return dataType; 
+}
+
+function dupeReact(uID: number, messageId: number, messageIndex: number, channelId: number) { 
+  const data = getData();
+
+  let type = getMessageType(messageId);
+  for (let i of data[type][channelId].messages[messageIndex].reacts) { 
+    if (i.uIds.includes(uID)) { 
+      return true;
+    }
+  }
+  return false;
+}
+
+export { getMessageType, dupeReact, validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges };
