@@ -36,7 +36,7 @@ export interface message {
   messageId: number,
   uId: number,
   message: string,
-  timeSent: number
+  timeSent: number,
   reacts: react[]
 }
 
