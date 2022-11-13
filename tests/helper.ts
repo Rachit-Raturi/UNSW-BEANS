@@ -136,6 +136,10 @@ export function requestMessageSendDm(token: string, dmId: number, message: strin
   return requestHelper('POST', '/message/senddm/v2', { dmId, message }, { token: token });
 }
 
+export function requestMessageReact(token: string, messageId: number, reactId: number) {
+  return requestHelper('POST', '/message/react/v1', { messageId, reactId }, { token: token });
+}
+
 // =========================================================================
 // User/s Function
 export function requestUserProfile(token: string, uId: number) {
