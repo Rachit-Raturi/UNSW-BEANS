@@ -52,7 +52,8 @@ describe('/search/v1', () => {
     requestMessageSendDm(user.token, dm.dmId, 'Send another message');
     requestMessageSendDm(user.token, dm.dmId, 'thisisamessage');
 
-    expect((requestSearch(user.token, 'message').messages).length).toStrictEqual(4);
+    expect(requestSearch(user.token, 'message').messages).toHaveLength(4);
+    expect(requestSearch(user.token, 'Message').messages).toHaveLength(4);
   });
 
   test('test 2: not checking messages in channels/dms that user has not joined', () => {
@@ -68,6 +69,7 @@ describe('/search/v1', () => {
     requestMessageSendDm(user1.token, dm1.dmId, 'Send another message which should not show up');
     requestMessageSendDm(user.token, dm.dmId, 'thisisamessage');
 
-    expect((requestSearch(user.token, 'message').messages).length).toStrictEqual(2);
+    expect(requestSearch(user.token, 'message').messages).toHaveLength(2);
+    expect(requestSearch(user.token, 'Message').messages).toHaveLength(2);
   });
 });
