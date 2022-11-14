@@ -94,15 +94,13 @@ describe('/channels/list/v2', () => {
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 
-  test('Test 4: User in multiple courses + test it ignores private channel', () => {
-    const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
-    expect(requestChannelsCreate(user.token, 'My Channel3', false)).toStrictEqual({ channelId: expect.any(Number) });
+  test('Test 4: User in multiple courses', () => {
+    const channel2 = requestChannelsCreate(user.token, 'My Channel2', false);
     const outputArray = [];
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     const expectedSet = new Set(outputArray);
     const receivedSet = new Set(requestChannelsList(user.token).channels);
-
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 });
