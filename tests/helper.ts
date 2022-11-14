@@ -169,3 +169,7 @@ export function requestUserStats(token: string) {
 export function requestUsersStats(token: string) {
   return requestHelper('GET', '/users/stats/v1', {}, { token: token });
 }
+
+export function requestSearch(token: string, queryStr: string) {
+  return requestHelper('GET', '/search/v1', { queryStr }, { token: token });
+}
