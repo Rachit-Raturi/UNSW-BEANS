@@ -126,8 +126,12 @@ describe('/channels/listAll/v2', () => {
   test('Test 2: User in 0 courses', () => {
     const user3 = requestAuthRegister('3test@gmail.com', '3password',
       '3firstname', '3lastname');
+    const secretChannel = requestChannelsCreate(user.token, 'My Channel2', false);
     expect(requestChannelsListAll(user3.token))
-      .toStrictEqual({ channels: [] });
+      .toStrictEqual({
+        channels: [{ channelId: channel1.channelId, name: 'My Channel1' },
+          { channelId: secretChannel.channelId, name: 'My Channel2' }]
+      });
   });
 
   test('Test 3: Valid Case - 1 channels', () => {
