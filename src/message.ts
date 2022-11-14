@@ -57,7 +57,7 @@ function messageSendV1(token: string, channelId: number, message: string) {
 
   userStatsChanges('messages', user.index, 'add');
   workplaceStatsChanges('messages', 'add');
-  data.channels[channelId].messages.push(newMessage);
+  data.channels[channelId].messages.unshift(newMessage);
   setData(data);
 
   Id = Id + 2;
