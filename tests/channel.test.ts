@@ -21,8 +21,6 @@ interface channelType {
   channelId: number
 }
 
-const ERROR = { error: expect.any(String) };
-
 let user: userType;
 let user1: userType;
 let channel: channelType;
@@ -60,15 +58,15 @@ beforeEach(() => {
 describe('/channel/details/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid channelId', () => {
-      expect(requestChannelDetails(user.token, channel.channelId + 1)).toStrictEqual(ERROR);
+      expect(requestChannelDetails(user.token, channel.channelId + 1)).toThrow(Error);
     });
 
     test('Test 2: Invalid token', () => {
-      expect(requestChannelDetails(invalidToken, channel.channelId)).toStrictEqual(ERROR);
+      expect(requestChannelDetails(invalidToken, channel.channelId)).toThrow(Error);
     });
 
     test('Test 3: User is not a member of the channel', () => {
-      expect(requestChannelDetails(user1.token, channel.channelId)).toStrictEqual(ERROR);
+      expect(requestChannelDetails(user1.token, channel.channelId)).toThrow(Error);
     });
   });
 
@@ -107,16 +105,16 @@ describe('/channel/details/v2', () => {
 describe('/channel/join/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid channelId ', () => {
-      expect(requestChannelJoin(user.token, invalidChannelId)).toStrictEqual(ERROR);
+      expect(requestChannelJoin(user.token, invalidChannelId)).toThrow(Error);
     });
 
     test('Test 2: User is already a member of the channel', () => {
-      expect(requestChannelJoin(user.token, channel.channelId)).toStrictEqual(ERROR);
+      expect(requestChannelJoin(user.token, channel.channelId)).toThrow(Error);
     });
 
     test('Test 3: Private channel join attempt', () => {
       const newPrivateChannel = requestChannelsCreate(user.token, 'Channel1', false);
-      expect(requestChannelJoin(user1.token, newPrivateChannel.channelId)).toStrictEqual(ERROR);
+      expect(requestChannelJoin(user1.token, newPrivateChannel.channelId)).toThrow(Error);
     });
   });
 
@@ -233,20 +231,20 @@ describe('/channel/invite/v2', () => {
 describe('/channel/messages/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid channelId', () => {
-      expect(requestChannelMessages(user.token, invalidChannelId, start)).toStrictEqual(ERROR);
+      expect(requestChannelMessages(user.token, invalidChannelId, start)).toThrow(Error);
     });
 
     test('Test 2: Invalid authUserId', () => {
-      expect(requestChannelMessages(invalidToken, channel.channelId, start)).toStrictEqual(ERROR);
+      expect(requestChannelMessages(invalidToken, channel.channelId, start)).toThrow(Error);
     });
 
     test('Test 3: User is not a member of the channel', () => {
-      expect(requestChannelMessages(user1.token, channel.channelId, start)).toStrictEqual(ERROR);
+      expect(requestChannelMessages(user1.token, channel.channelId, start)).toThrow(Error);
     });
 
     test('Test 4: start > total messages in channel', () => {
       const start = 1;
-      expect(requestChannelMessages(user.token, channel.channelId, start)).toStrictEqual(ERROR);
+      expect(requestChannelMessages(user.token, channel.channelId, start)).toThrow(Error);
     });
   });
 
