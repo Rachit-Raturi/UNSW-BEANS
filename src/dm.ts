@@ -416,7 +416,7 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
     reacts: []
   };
   workplaceStatsChanges('messages', 'add');
-  data.dms[dmId].messages.concat(newMessage);
+  data.dms[dmId].messages.unshift(newMessage);
   userStatsChanges('messages', user.index, 'add');
 
   setData(data);
