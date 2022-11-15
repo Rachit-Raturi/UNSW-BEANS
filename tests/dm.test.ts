@@ -54,22 +54,22 @@ beforeEach(() => {
 describe('/dm/create/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid uId', () => {
-      expect(requestDmCreate(user.token, [invalidUId])).toStrictEqual(ERROR);
+      expect(requestDmCreate(user.token, [invalidUId])).toStrictEqual(400);
     });
 
     test('Test 2: Duplicate uIds', () => {
       const uIds = [user1.authUserId, user1.authUserId];
-      expect(requestDmCreate(user.token, uIds)).toStrictEqual(ERROR);
+      expect(requestDmCreate(user.token, uIds)).toStrictEqual(400);
     });
 
     test('Test 3: Invalid token', () => {
-      expect(requestDmCreate(invalidToken, [user1.authUserId])).toStrictEqual(ERROR);
+      expect(requestDmCreate(invalidToken, [user1.authUserId])).toStrictEqual(403);
     });
 
     test('Test 4: owner in uIds', () => {
       const uIds = [user.authUserId, user1.authUserId];
-      expect(requestDmCreate(user.token, [user.authUserId])).toStrictEqual(ERROR);
-      expect(requestDmCreate(user.token, uIds)).toStrictEqual(ERROR);
+      expect(requestDmCreate(user.token, [user.authUserId])).toStrictEqual(400);
+      expect(requestDmCreate(user.token, uIds)).toStrictEqual(400);
     });
   });
 
@@ -232,20 +232,20 @@ describe('/dm/leave/v1', () => {
 describe('/dm/messages/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid dmId', () => {
-      expect(requestDmMessages(user.token, invalidDm, start)).toStrictEqual(ERROR);
+      expect(requestDmMessages(user.token, invalidDm, start)).toStrictEqual(400);
     });
 
     test('Test 2: Invalid token', () => {
-      expect(requestDmMessages(invalidToken, dm.dmId, start)).toStrictEqual(ERROR);
+      expect(requestDmMessages(invalidToken, dm.dmId, start)).toStrictEqual(403);
     });
 
     test('Test 3: Start is greater than num of messages', () => {
       start = 1;
-      expect(requestDmMessages(user.token, dm.dmId, start)).toStrictEqual(ERROR);
+      expect(requestDmMessages(user.token, dm.dmId, start)).toStrictEqual(400);
     });
 
     test('Test 4: User is not in dm', () => {
-      expect(requestDmMessages(user2.token, dm.dmId, start)).toStrictEqual(ERROR);
+      expect(requestDmMessages(user2.token, dm.dmId, start)).toStrictEqual(403);
     });
   });
 
@@ -297,7 +297,7 @@ describe('/dm/messages/v1', () => {
       {
         messageId: expect.any(Number),
         uId: expect.any(Number),
-        message: 'message49',
+        message: 'message10',
         timeSent: expect.any(Number),
         reacts: []
       }
@@ -321,12 +321,12 @@ describe('/message/senddm/v1', () => {
   const message = 'Hello World';
   describe('Error', () => {
     test('Test 1: Invalid dmId', () => {
-      expect(requestMessageSendDm(user.token, invalidDm, message)).toStrictEqual(ERROR);
+      expect(requestMessageSendDm(user.token, invalidDm, message)).toStrictEqual(400);
     });
 
     test('Test 2: Message is less than 1 character', () => {
       const emptyString = '';
-      expect(requestMessageSendDm(user.token, dm.dmId, emptyString)).toStrictEqual(ERROR);
+      expect(requestMessageSendDm(user.token, dm.dmId, emptyString)).toStrictEqual(400);
     });
 
     test('Test 3: Message is more than 1000 characters', () => {
@@ -334,15 +334,15 @@ describe('/message/senddm/v1', () => {
       for (let i = 0; i <= 1000; i++) {
         longString += 'a';
       }
-      expect(requestMessageSendDm(user.token, dm.dmId, longString)).toStrictEqual(ERROR);
+      expect(requestMessageSendDm(user.token, dm.dmId, longString)).toStrictEqual(400);
     });
 
     test('Test 4: User is not in DM', () => {
-      expect(requestMessageSendDm(user2.token, dm.dmId, message)).toStrictEqual(ERROR);
+      expect(requestMessageSendDm(user2.token, dm.dmId, message)).toStrictEqual(403);
     });
 
     test('Test 5: Invalid token', () => {
-      expect(requestMessageSendDm(invalidToken, dm.dmId, message)).toStrictEqual(ERROR);
+      expect(requestMessageSendDm(invalidToken, dm.dmId, message)).toStrictEqual(403);
     });
   });
 
