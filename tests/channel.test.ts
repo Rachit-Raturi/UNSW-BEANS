@@ -231,20 +231,20 @@ describe('/channel/invite/v2', () => {
 describe('/channel/messages/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid channelId', () => {
-      expect(requestChannelMessages(user.token, invalidChannelId, start)).toThrow(Error);
+      expect(requestChannelMessages(user.token, invalidChannelId, start)).toStrictEqual(400);
     });
 
     test('Test 2: Invalid authUserId', () => {
-      expect(requestChannelMessages(invalidToken, channel.channelId, start)).toThrow(Error);
+      expect(requestChannelMessages(invalidToken, channel.channelId, start)).toStrictEqual(403);
     });
 
     test('Test 3: User is not a member of the channel', () => {
-      expect(requestChannelMessages(user1.token, channel.channelId, start)).toThrow(Error);
+      expect(requestChannelMessages(user1.token, channel.channelId, start)).toStrictEqual(403);
     });
 
     test('Test 4: start > total messages in channel', () => {
       const start = 1;
-      expect(requestChannelMessages(user.token, channel.channelId, start)).toThrow(Error);
+      expect(requestChannelMessages(user.token, channel.channelId, start)).toStrictEqual(400);
     });
   });
 

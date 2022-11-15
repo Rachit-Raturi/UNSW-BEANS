@@ -76,7 +76,7 @@ function channelsListV1(token: string) {
 
   // create array of public channels
   for (const element of data.channels) {
-    if (element.isPublic === true && (element.allMembers).includes(currentUser.uId)) {
+    if ((element.allMembers).includes(currentUser.uId)) {
       outputChannels.push({ channelId: element.channelId, name: element.name });
     }
   }

@@ -30,17 +30,13 @@ function dmCreateV1(token: string, uIds: Array<number>) {
 
   // invalid token
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   // invalid user Id
   for (const uId of uIds) {
     if (data.users[uId] === undefined) {
-      return {
-        error: `Invalid uId ${uId}`
-      };
+      throw HTTPError(400, 'a uId in uIds does not refer to a valid user');
     }
   }
 
@@ -50,7 +46,7 @@ function dmCreateV1(token: string, uIds: Array<number>) {
   }
 
   if (!hasDuplicates(uIds)) {
-    return { error: 'duplicate uIds entered' };
+    throw HTTPError(400, 'there are duplicate uId\'s in uIds');
   }
 
   // owner in uIds
@@ -58,7 +54,7 @@ function dmCreateV1(token: string, uIds: Array<number>) {
 
   for (const uId of uIds) {
     if (uId === currentUser.uId) {
-      return { error: 'owner is part of uIds' };
+      throw HTTPError(400, 'owner is part of uIds');
     }
   }
 
@@ -301,26 +297,20 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
 
   // Check for valid token
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   // Check for valid dmId
   const isValidDm = data.dms.find(d => d.dmId === dmId);
   if (isValidDm === undefined) {
-    return {
-      error: 'Invalid dm'
-    };
+    throw HTTPError(400, 'invalid dmId');
   }
 
   const currentUser = findUser(token);
 
   // User is not a member of DM error
   if (data.dms[dmId].members.includes(currentUser.uId) === false) {
-    return {
-      error: `User(${token}) is not a member of the dm(${dmId})`
-    };
+    throw HTTPError(403, 'user is not a member of the DM');
   }
 
   const messages = data.dms[dmId].messages;
@@ -330,9 +320,7 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
 
   // Check whether starting index is < 0
   if (start < 0) {
-    return {
-      error: 'Index cannot be negative as there are no messages after the most recent message',
-    };
+    throw HTTPError(400, 'start is greater than the total number of messages in the channel');
   } else if (start === numberOfMessages || numberOfMessages === undefined) {
     return {
       messages: [],
@@ -341,9 +329,7 @@ function dmMessagesV1(token: string, dmId: number, start: number) {
     };
   } else if (start >= 0 && start > numberOfMessages) {
     // If starting index is greater than the number of messages sent in the dm
-    return {
-      error: `The starting index, ${start}, is greater than the number of messages in the dm, ${numberOfMessages}`
-    };
+    throw HTTPError(400, 'start is greater than the total number of messages in the channel');
   } else if (start >= 0 && start < numberOfMessages) {
     // If starting index is 0 or a multiple of 50
     if (start + 50 < numberOfMessages) {
@@ -378,32 +364,24 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
 
   // Check for valid token
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   // Check for valid dmId
   const isValidDm = data.dms.find(d => d.dmId === dmId);
   if (isValidDm === undefined) {
-    return {
-      error: 'Invalid dm'
-    };
+    throw HTTPError(400, 'invalid dmId');
   }
 
   const user = findUser(token);
   const checkIsMember = data.dms[dmId].members;
   if (checkIsMember.includes(user.uId) === false || data.dms[dmId].owner !== user.uId) {
-    return {
-      error: `user(${token}) is not a member of dm(${dmId})`
-    };
+    throw HTTPError(403, 'user is not a member of the DM');
   }
 
   // Check length of message
   if (message.length < 1 || message.length > 1000) {
-    return {
-      error: `message length(${message.length}) is too long or too short`
-    };
+    throw HTTPError(400, 'length of message is less than 1 or over 1000 characters');
   }
 
   const time = Math.floor(Date.now() / 1000);
@@ -416,7 +394,7 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
     reacts: []
   };
   workplaceStatsChanges('messages', 'add');
-  data.dms[dmId].messages.push(newMessage);
+  data.dms[dmId].messages.unshift(newMessage);
   userStatsChanges('messages', user.index, 'add');
 
   setData(data);
