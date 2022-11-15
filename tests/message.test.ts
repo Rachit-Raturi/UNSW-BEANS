@@ -271,7 +271,6 @@ describe('/message/unreact/v1', () => {
     });
 
     test('Test 5: Invalid message Id', () => {
-
       expect(requestMessageUnReact(user.token, 10, 1)).toStrictEqual(ERROR);
     });
 
