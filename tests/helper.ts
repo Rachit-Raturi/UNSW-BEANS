@@ -139,6 +139,9 @@ export function requestMessageSendDm(token: string, dmId: number, message: strin
 export function requestMessageReact(token: string, messageId: number, reactId: number) {
   return requestHelper('POST', '/message/react/v1', { messageId, reactId }, { token: token });
 }
+export function requestMessageUnReact(token: string, messageId: number, reactId: number) {
+  return requestHelper('POST', '/message/unreact/v1', { messageId, reactId }, { token: token });
+}
 
 // =========================================================================
 // User/s Function

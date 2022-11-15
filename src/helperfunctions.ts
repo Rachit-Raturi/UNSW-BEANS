@@ -205,6 +205,7 @@ function findMessage(messageId: number) {
   let channelID;
   let indexTemp;
   let index;
+  let reacts;
 
   if (messageId % 2 === 0) {
     for (const element of data.channels) {
@@ -214,6 +215,7 @@ function findMessage(messageId: number) {
           messageObject = message;
           channelID = element.channelId;
           index = indexTemp;
+          reacts = message.reacts;
           break;
         }
         indexTemp++;
@@ -227,6 +229,7 @@ function findMessage(messageId: number) {
           messageObject = message;
           channelID = element.dmId;
           index = indexTemp;
+          reacts = message.reacts;
           break;
         }
         indexTemp++;
@@ -240,7 +243,8 @@ function findMessage(messageId: number) {
     message: messageObject.message,
     timeSent: messageObject.timeSent,
     channelID: channelID,
-    index: index
+    index: index,
+    reacts: reacts
   };
 }
 
