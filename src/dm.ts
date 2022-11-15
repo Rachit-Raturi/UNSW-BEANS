@@ -1,6 +1,7 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken, userStatsChanges, workplaceStatsChanges } from './helperfunctions';
 import { dm } from './interface';
+import HTTPError from 'http-errors';
 
 interface dmlist {
   dmId: number,
@@ -101,16 +102,14 @@ function dmCreateV1(token: string, uIds: Array<number>) {
  * Returns the list of DMs that the user is a member of.
  *
  * @param {String} token
- * @returns {Array<dm> | Object} dms | error
+ * @returns {Object} dms
  */
-function dmListV1 (token: string): Array<dmlist> | object {
+function dmListV1 (token: string): object {
   const data = getData();
 
   // invalid token error
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'Invalid token');
   }
 
   const currentUser = findUser(token);
@@ -139,33 +138,25 @@ function dmRemoveV1 (token: string, dmId: number) {
 
   // Invalid token error
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'Invalid token');
   }
 
   // Invalid dmId error
   const currentDm = data.dms.find(d => d.dmId === dmId);
   if (currentDm === undefined) {
-    return {
-      error: 'Invalid dmId'
-    };
+    throw HTTPError(400, 'Invalid dmId');
   }
 
   const currentUser = findUser(token);
 
   // User is not a member of DM error
   if (data.dms[dmId].members.includes(currentUser.uId) === false) {
-    return {
-      error: `User(${token}) is not a member of the dm(${dmId})`
-    };
+    throw HTTPError(403, `User(${token}) is not a member of the dm(${dmId})`);
   }
 
   // User is not the original DM creator
   if (currentUser.uId !== data.dms[dmId].owner) {
-    return {
-      error: `User(${token}) is not the original creator of the dm(${dmId})`
-    };
+    throw HTTPError(403, `User(${token}) is not the original creator of the dm(${dmId})`);
   }
 
   const dmArray: Array<dm> = [];
@@ -208,26 +199,20 @@ function dmDetailsV1 (token: string, dmId: number) {
 
   // Invalid token error
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'Invalid token');
   }
 
   // Invalid dmId error
   const currentDm = data.dms.find(d => d.dmId === dmId);
   if (currentDm === undefined) {
-    return {
-      error: 'Invalid dmId'
-    };
+    throw HTTPError(400, 'Invalid dmId');
   }
 
   const currentUser = findUser(token);
 
   // User is not a member of DM error
   if (data.dms[dmId].members.includes(currentUser.uId) === false) {
-    return {
-      error: `User(${token}) is not a member of the dm(${dmId})`
-    };
+    throw HTTPError(403, `User(${token}) is not a member of the dm(${dmId})`);
   }
 
   // Create members array output and set the owner as the first member listed
@@ -274,26 +259,20 @@ function dmLeaveV1 (token: string, dmId: number) {
 
   // Invalid token error
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'Invalid token');
   }
 
   // Invalid dmId error
   const currentDm = data.dms.find(d => d.dmId === dmId);
   if (currentDm === undefined) {
-    return {
-      error: 'Invalid dmId'
-    };
+    throw HTTPError(400, 'Invalid dmId');
   }
 
   const currentUser = findUser(token);
 
   // User is not a member of DM error
   if (data.dms[dmId].members.includes(currentUser.uId) === false) {
-    return {
-      error: `User(${token}) is not a member of the dm(${dmId})`
-    };
+    throw HTTPError(403, `User(${token}) is not a member of the dm(${dmId})`);
   }
 
   const Index = data.dms[dmId].members.indexOf(currentUser.uId);
