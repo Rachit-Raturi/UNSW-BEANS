@@ -295,7 +295,6 @@ function userStatsChanges (parameter: string, userIndex: number, operation: stri
       );
     }
   }
-  console.log(parameter, userIndex, operation);
   setData(data);
   return {};
 }
@@ -303,7 +302,6 @@ function userStatsChanges (parameter: string, userIndex: number, operation: stri
 function workplaceStatsChanges (parameter: string, operation: string) {
   const data = getData();
   const time = Math.floor(Date.now() / 1000);
-  console.log(data.stats);
   if (parameter === 'channels') {
     const workplaceChannels = findNumberOf('channels');
     if (operation === 'add') {
@@ -354,4 +352,24 @@ function workplaceStatsChanges (parameter: string, operation: string) {
   return {};
 }
 
-export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges };
+function getMessageType(messageId: number) {
+  let dataType = 'channels';
+  if (messageId % 2 !== 0) {
+    dataType = 'dms';
+  }
+  return dataType;
+}
+
+function dupeReact(uID: number, messageId: number, messageIndex: number, channelId: number) {
+  const data = getData();
+
+  const type = getMessageType(messageId);
+  for (const i of data[type][channelId].messages[messageIndex].reacts) {
+    if (i.uIds.includes(uID)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export { getMessageType, dupeReact, validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges };

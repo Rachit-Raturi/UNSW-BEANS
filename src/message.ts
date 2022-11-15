@@ -1,5 +1,14 @@
 import { getData, setData } from './dataStore';
-import { findUser, validToken, findMessage, validMessage, userStatsChanges, workplaceStatsChanges } from './helperfunctions';
+import {
+  findUser,
+  validToken,
+  findMessage,
+  validMessage,
+  userStatsChanges,
+  workplaceStatsChanges,
+  getMessageType,
+  dupeReact
+} from './helperfunctions';
 
 /**
  * Given a channel with ID channelId that the authorised user
@@ -42,8 +51,8 @@ function messageSendV1(token: string, channelId: number, message: string) {
     messageId: Id,
     uId: user.uId,
     message: message,
-    timeSent: time
-
+    timeSent: time,
+    reacts: []
   };
 
   userStatsChanges('messages', user.index, 'add');
@@ -92,7 +101,7 @@ function messageEditV1(token: string, messageId: number, message: string) {
       .find(m => m.messageId === messageObject.messageId).message = message;
   } else {
     const owner = data.dms[messageObject.channelID].owner;
-    if (user.uId !== messageObject.uId && owner === user.uId) {
+    if (user.uId !== messageObject.uId && owner !== user.uId) {
       return { error: `user(${user.uId}) is not a member of channel(${messageId})` };
     }
     data.dms[messageObject.channelID].messages
@@ -122,7 +131,6 @@ function messageRemoveV1(token: string, messageId: number) {
 
   const user = findUser(token);
   const messageObject = findMessage(messageId);
-  console.log(messageObject);
 
   if (messageId % 2 === 0) {
     const member = data.channels[messageObject.channelID].allMembers;
@@ -143,7 +151,7 @@ function messageRemoveV1(token: string, messageId: number) {
       return { error: `user(${user.uId}) is not a member of dm(${messageId})` };
     }
 
-    if (messageObject.uId !== user.uId && (owner === user.uId)) {
+    if (messageObject.uId !== user.uId && (owner !== user.uId)) {
       return { error: `user(${user.uId}) is not the sender or owner of the dm(${messageId})` };
     }
     data.dms[messageObject.channelID].messages.splice(messageObject.index, 1);
@@ -152,5 +160,57 @@ function messageRemoveV1(token: string, messageId: number) {
   setData(data);
   return {};
 }
+/**
+ * Given a messageId that the user is authorised to manipulate,
+ * changes the actual message string from a channel or dm.
+ *
+ * @param {string} token
+ * @param {number} messageId
+ * @param {string} reactId
+ * @returns {}
+ */
+function messageReact(token: string, messageId: number, reactId: number) {
+  const data = getData();
 
-export { messageSendV1, messageEditV1, messageRemoveV1, resetId };
+  if (validMessage(messageId) === false) {
+    return { error: 'Invalid messageId ASS' };
+  }
+
+  const dataType = getMessageType(messageId);
+  const message = findMessage(messageId);
+  const members = data[dataType][message.channelID].allMembers;
+  const authUserId = findUser(token);
+
+  if (members.includes(authUserId.uId) === false) {
+    return { error: 'user does not have permissions to react' };
+  }
+
+  if (reactId !== 1) {
+    return { error: 'invalid reactId' };
+  }
+
+  if (dupeReact(authUserId.uId, messageId, message.index, message.channelID)) {
+    return { error: 'User has already reacted' };
+  }
+
+  const path = data[dataType][message.channelID].messages[message.index];
+
+  let allReacts = [authUserId.uId];
+  if (path.reacts.length > 0) {
+    for (const i of path.reacts) {
+      i.uIds.push(authUserId.uId);
+      allReacts = i.uIds;
+    }
+  }
+
+  const newReact = {
+    reactId: 1,
+    uIds: allReacts,
+    isThisUserReacted: true,
+  };
+
+  path.reacts.push(newReact);
+  setData(data);
+  return {};
+}
+export { messageReact, messageSendV1, messageEditV1, messageRemoveV1, resetId };

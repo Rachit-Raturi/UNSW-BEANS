@@ -209,27 +209,21 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
 
   // invalid token
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token',
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   const currentUser = findUser(token);
   // check channelid is valid
   const isValidChannel = data.channels.find(c => c.channelId === channelId);
   if (isValidChannel === undefined) {
-    return {
-      error: 'Invalid channel',
-    };
+    throw HTTPError(400, 'invalid channel');
   }
 
   // check authuserid is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
   const isValidMember = checkIsMember.find(a => a === currentUser.uId);
   if (isValidMember === undefined) {
-    return {
-      error: `The authorised user ${currentUser.uId} is not a member of the channel ${channelId}`,
-    };
+    throw HTTPError(403, 'not a member of the channel');
   }
 
   const numberOfMessages = data.channels[channelId].messages.length;
@@ -238,9 +232,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
   let messagesArray;
   // Check whether the starting index is < 0
   if (start < 0) {
-    return {
-      error: 'Index cannot be negative as there are no messages after the most recent message',
-    };
+    throw HTTPError(400, 'start is greater than the total number of messages in the channel');
   } else if (start === numberOfMessages || numberOfMessages === undefined) {
     /* If there are no messages in the channel or if the starting index is = number of messages
        If start = messages in channel return empty array -> earliest message (i.e highest index) is
@@ -253,9 +245,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
     };
   } else if (start >= 0 && start > numberOfMessages) {
     // If starting index is greater than the number of messages sent in the channel
-    return {
-      error: `The starting index, ${start}, is greater than the number of messages in the channel, ${numberOfMessages}`
-    };
+    throw HTTPError(400, 'start is greater than the total number of messages in the channel');
   } else if (start >= 0 && start < numberOfMessages) {
     // If starting index is 0 or a multiple of 50
     if (start + 50 < numberOfMessages) {

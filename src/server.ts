@@ -11,8 +11,9 @@ import { authLoginV1, authRegisterV1, authLogoutV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1, channelLeaveV1, channelAddOwnerV1, channelRemoveOwnerV1 } from './channel';
 import { dmCreateV1, dmDetailsV1, dmListV1, dmRemoveV1, dmLeaveV1, dmMessagesV1, messageSendDmV1 } from './dm';
-import { messageSendV1, messageEditV1, messageRemoveV1 } from './message';
+import { messageSendV1, messageEditV1, messageRemoveV1, messageReact } from './message';
 import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats } from './users';
+import { search } from './search';
 import { clearV1 } from './other';
 
 // Set up web app
@@ -246,6 +247,14 @@ app.delete('/message/remove/v2', (req: Request, res: Response) => {
   res.json(messageRemoveV1(token, messageId));
 });
 
+app.post('/message/react/v1', (req: Request, res: Response) => {
+  console.log('Message Reacted');
+  const token = req.header('token');
+  const { reactId, messageId } = req.body;
+  save();
+  res.json(messageReact(token, messageId, reactId));
+});
+
 // =========================================================================
 // User/s functions
 app.get('/user/profile/v3', (req: Request, res: Response) => {
@@ -292,4 +301,11 @@ app.get('/users/stats/v1', (req: Request, res: Response) => {
   const token = req.header('token');
   save();
   res.json(usersStats(token));
+});
+
+app.get('/search/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const queryStr = req.query.queryStr as string;
+  save();
+  res.json(search(token, queryStr));
 });

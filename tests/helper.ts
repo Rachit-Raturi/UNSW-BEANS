@@ -136,6 +136,10 @@ export function requestMessageSendDm(token: string, dmId: number, message: strin
   return requestHelper('POST', '/message/senddm/v2', { dmId, message }, { token: token });
 }
 
+export function requestMessageReact(token: string, messageId: number, reactId: number) {
+  return requestHelper('POST', '/message/react/v1', { messageId, reactId }, { token: token });
+}
+
 // =========================================================================
 // User/s Function
 export function requestUserProfile(token: string, uId: number) {
@@ -164,6 +168,10 @@ export function requestUserStats(token: string) {
 
 export function requestUsersStats(token: string) {
   return requestHelper('GET', '/users/stats/v1', {}, { token: token });
+}
+
+export function requestSearch(token: string, queryStr: string) {
+  return requestHelper('GET', '/search/v1', { queryStr }, { token: token });
 }
 
 export function requestUserPhoto(token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
