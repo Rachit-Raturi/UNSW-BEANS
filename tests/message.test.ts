@@ -8,7 +8,8 @@ import {
   requestMessageRemove,
   requestMessageReact,
   requestDmCreate,
-  requestMessageSendDm
+  requestMessageSendDm,
+  requestMessageUnReact,
 } from './helper';
 
 interface userType {
@@ -230,6 +231,53 @@ describe('/message/react/v1', () => {
     test('Test 6: Invalid reactId', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
       expect(requestMessageReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
+    });
+  });
+});
+
+describe('/message/unreact/v1', () => {
+  describe('Success Cases', () => {
+    test('Test 1: Success', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestMessageReact(user.token, messageId.messageId, 1);
+      expect(requestMessageUnReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+
+    test('Test 2: Success - multiple users', () => {
+      requestChannelJoin(user1.token, channel.channelId);
+      requestChannelJoin(user2.token, channel.channelId);
+
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+
+      requestMessageReact(user.token, messageId.messageId, 1);
+      requestMessageReact(user1.token, messageId.messageId, 1);
+      requestMessageReact(user2.token, messageId.messageId, 1);
+
+      expect(requestMessageUnReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageUnReact(user1.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageUnReact(user2.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+  });
+
+  describe('Error Cases', () => {
+    test('Test 3: Message doesnt exist', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageUnReact(user.token, messageId.messageId, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: Invalid user ', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageUnReact(user1.token, messageId.messageId, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Invalid message Id', () => {
+
+      expect(requestMessageUnReact(user.token, 10, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 6: Invalid reactId', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageUnReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
     });
   });
 });
