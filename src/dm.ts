@@ -46,7 +46,7 @@ function dmCreateV1(token: string, uIds: Array<number>) {
   }
 
   if (!hasDuplicates(uIds)) {
-    throw HTTPError(400, `there are duplicate uId's in uIds` );
+    throw HTTPError(400, 'there are duplicate uId\'s in uIds');
   }
 
   // owner in uIds

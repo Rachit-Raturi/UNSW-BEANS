@@ -216,7 +216,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
   // check channelid is valid
   const isValidChannel = data.channels.find(c => c.channelId === channelId);
   if (isValidChannel === undefined) {
-    throw HTTPError(400,'invalid channel');
+    throw HTTPError(400, 'invalid channel');
   }
 
   // check authuserid is a member of the channel
