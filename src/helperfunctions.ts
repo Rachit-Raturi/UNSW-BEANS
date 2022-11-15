@@ -81,17 +81,20 @@ function extractUser(uId?: number): User | User[] {
           nameFirst: element.nameFirst,
           nameLast: element.nameLast,
           handleStr: element.handleStr,
+          profileImgUrl: element.profileImgUrl,
         }
       );
     }
     return usersArray;
   } else {
+    console.log(data.users[uId].profileImgUrl);
     return {
       uId: data.users[uId].uId,
       email: data.users[uId].email,
       nameFirst: data.users[uId].nameFirst,
       nameLast: data.users[uId].nameLast,
       handleStr: data.users[uId].handleStr,
+      profileImgUrl: data.users[uId].profileImgUrl,
     };
   }
 }
@@ -121,6 +124,7 @@ function findUser(token: string) {
     channelsJoined: userObject.channelsJoined,
     dmsJoined: userObject.dmsJoined,
     messagesSent: userObject.messagesSent,
+    profileImgUrl: userObject.profileImgUrl,
     tokens: userObject.tokens,
   };
 }

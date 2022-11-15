@@ -66,6 +66,7 @@ describe('/user/profile/v3', () => {
           nameFirst: 'firstname1',
           nameLast: 'lastname1',
           handleStr: 'firstname1lastname1',
+          profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
         }
       }
     );
@@ -89,6 +90,7 @@ describe('/users/all/v2', () => {
             nameFirst: 'firstname',
             nameLast: 'lastname',
             handleStr: 'firstnamelastname',
+            profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
           }
         ]
       }
@@ -105,6 +107,7 @@ describe('/users/all/v2', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     );
     outputarray.push(
@@ -114,6 +117,7 @@ describe('/users/all/v2', () => {
         nameFirst: 'firstname1',
         nameLast: 'lastname1',
         handleStr: 'firstname1lastname1',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     );
 
@@ -409,8 +413,8 @@ describe('/user/profile/uploadphoto/v1', () => {
       expect(requestUserPhoto(user.token, 'http://en.wikipedia.org/wiki/Portable_Network_Graphics#/media/File:PNG_transparency_demonstration_1.png', 0, 0, 1, 1)).toStrictEqual(400);
     });
     test('Test 6: cropping not within image dimensions', () => {
-      expect(requestUserPhoto(invalidToken, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 800, 400)).toStrictEqual(400);
-      expect(requestUserPhoto(invalidToken, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 400, 800)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 800, 400)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 400, 800)).toStrictEqual(400);
     });
   });
 
