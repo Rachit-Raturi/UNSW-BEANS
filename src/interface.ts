@@ -23,6 +23,7 @@ export interface user {
   channelsJoined: channeljoin[],
   dmsJoined: dmjoin[],
   messagesSent: messagesent[],
+  profileImgUrl: string,
   tokens: string[]
 }
 

@@ -11,8 +11,8 @@ import { authLoginV1, authRegisterV1, authLogoutV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1, channelLeaveV1, channelAddOwnerV1, channelRemoveOwnerV1 } from './channel';
 import { dmCreateV1, dmDetailsV1, dmListV1, dmRemoveV1, dmLeaveV1, dmMessagesV1, messageSendDmV1 } from './dm';
-import { messageSendV1, messageEditV1, messageRemoveV1, messageReact } from './message';
-import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats } from './users';
+import { messageUnReact, messageSendV1, messageEditV1, messageRemoveV1, messageReact } from './message';
+import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats, userPhoto } from './users';
 import { search } from './search';
 import { clearV1 } from './other';
 
@@ -57,6 +57,8 @@ const server = app.listen(PORT, HOST, () => {
   // DO NOT CHANGE THIS LINE
   console.log(`⚡️ Server listening on port ${PORT} at ${HOST}`);
 });
+
+app.use('/imgurl', express.static('imgurl'));
 
 // For coverage, handle Ctrl+C gracefully
 process.on('SIGINT', () => {
@@ -254,6 +256,13 @@ app.post('/message/react/v1', (req: Request, res: Response) => {
   save();
   res.json(messageReact(token, messageId, reactId));
 });
+app.post('/message/unreact/v1', (req: Request, res: Response) => {
+  console.log('Message Reacted');
+  const token = req.header('token');
+  const { reactId, messageId } = req.body;
+  save();
+  res.json(messageUnReact(token, messageId, reactId));
+});
 
 // =========================================================================
 // User/s functions
@@ -308,4 +317,11 @@ app.get('/search/v1', (req: Request, res: Response) => {
   const queryStr = req.query.queryStr as string;
   save();
   res.json(search(token, queryStr));
+});
+
+app.post('/user/profile/uploadphoto/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const { imgUrl, xStart, yStart, xEnd, yEnd } = req.body;
+  save();
+  res.json(userPhoto(token, imgUrl, xStart, yStart, xEnd, yEnd));
 });
