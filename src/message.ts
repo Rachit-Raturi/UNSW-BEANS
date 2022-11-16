@@ -263,7 +263,7 @@ async function messageSendLaterV1(token: string, channelId: number, message: str
     reacts: []
   };
 
-  userStatsChanges('messages', user.index, 'add');
+  userStatsChanges('messages', currentUser.index, 'add');
   workplaceStatsChanges('messages', 'add');
   data.channels[channelId].messages.push(newMessage);
   setData(data);
