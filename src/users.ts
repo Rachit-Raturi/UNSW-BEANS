@@ -234,14 +234,18 @@ function userPhoto (token: string, imgUrl: string, xStart: number, yStart: numbe
   console.log(dimensions.width, dimensions.height);
   const w = dimensions.width;
   const h = dimensions.height;
-  const width = xEnd - xStart;
-  const height = yEnd - yStart;
 
-  if (xStart < 0 || yStart < 0 || height > h || width > w || xEnd < 0 || yEnd < 0) {
-    throw HTTPError(400, 'crop dimensions outside of image bounds');
+  if (xStart < 0 || xEnd < 0 || xStart > w || xEnd > w) {
+    throw HTTPError(400, 'crop x-dimensions outside of image bounds');
+  }
+
+  if (yStart < 0 || yEnd < 0 || yStart > h || yEnd > h) {
+    throw HTTPError(400, 'crop y-dimensions outside of image bounds');
   }
 
   const Jimp = require('jimp');
+  const width = xEnd - xStart;
+  const height = yEnd - yStart;
 
   async function crop() {
     // Reading Image
