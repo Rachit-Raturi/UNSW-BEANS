@@ -307,7 +307,6 @@ describe('/message/unreact/v1', () => {
   });
 });
 
-
 describe('/message/pin/v1', () => {
   describe('Success Cases', () => {
     test('Test 1: Channel Success', () => {
@@ -350,14 +349,14 @@ describe('/message/unpin/v1', () => {
   describe('Success Cases', () => {
     test('Test 1: Channel Success', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      requestMessagePin(user.token, messageId.messageId)
+      requestMessagePin(user.token, messageId.messageId);
       expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual({});
     });
 
     test('Test 1: Dm Success', () => {
       const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
       const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
-      requestMessagePin(user.token, dmSend.messageId)
+      requestMessagePin(user.token, dmSend.messageId);
       expect(requestMessageUnpin(user.token, dmSend.messageId)).toStrictEqual({});
     });
   });
@@ -374,7 +373,7 @@ describe('/message/unpin/v1', () => {
 
     test('Test 5: Double Pin', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      requestMessagePin(user.token, messageId.messageId)
+      requestMessagePin(user.token, messageId.messageId);
       expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual({});
       expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual(ERROR);
     });

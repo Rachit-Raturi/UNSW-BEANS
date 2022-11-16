@@ -142,6 +142,12 @@ export function requestMessageReact(token: string, messageId: number, reactId: n
 export function requestMessageUnReact(token: string, messageId: number, reactId: number) {
   return requestHelper('POST', '/message/unreact/v1', { messageId, reactId }, { token: token });
 }
+export function requestMessagePin(token: string, messageId: number) {
+  return requestHelper('POST', '/message/pin/v1', { messageId }, { token: token });
+}
+export function requestMessageUnpin(token: string, messageId: number) {
+  return requestHelper('POST', '/message/unpin/v1', { messageId }, { token: token });
+}
 
 // =========================================================================
 // User/s Function
