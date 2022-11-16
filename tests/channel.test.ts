@@ -356,14 +356,14 @@ describe('/channel/leave/v1', () => {
     expect(requestChannelLeave(user.token, channel.channelId)).toStrictEqual({});
     expect(requestChannelDetails(user1.token, channel.channelId).ownerMembers).toStrictEqual([]);
     expect(requestChannelDetails(user1.token, channel.channelId).allMembers).toStrictEqual([
-        {
-          uId: user1.authUserId,
-          email: 'test1@gmail.com',
-          nameFirst: 'firstname1',
-          nameLast: 'lastname1',
-          handleStr: 'firstname1lastname1',
-        }
-      ]);
+      {
+        uId: user1.authUserId,
+        email: 'test1@gmail.com',
+        nameFirst: 'firstname1',
+        nameLast: 'lastname1',
+        handleStr: 'firstname1lastname1',
+      }
+    ]);
   });
 });
 
