@@ -10,6 +10,8 @@ import {
   requestDmCreate,
   requestMessageSendDm,
   requestMessageUnReact,
+  requestMessagePin,
+  requestMessageUnpin,
 } from './helper';
 
 interface userType {
@@ -202,6 +204,12 @@ describe('/message/react/v1', () => {
       expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
     });
 
+    test('Test 1: Dm Success', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessageReact(user.token, dmSend.messageId, 1)).toStrictEqual({});
+    });
+
     test('Test 2: Success - multiple users', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
       requestChannelJoin(user1.token, channel.channelId);
@@ -232,6 +240,11 @@ describe('/message/react/v1', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
       expect(requestMessageReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
     });
+    test('Test 7: DM - user is not member', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessageReact(user1.token, dmSend.messageId, 0)).toStrictEqual(ERROR);
+    });
   });
 });
 
@@ -241,6 +254,13 @@ describe('/message/unreact/v1', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
       requestMessageReact(user.token, messageId.messageId, 1);
       expect(requestMessageUnReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+
+    test('Test 1: Dm Success', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      requestMessageReact(user.token, dmSend.messageId, 1);
+      expect(requestMessageUnReact(user.token, dmSend.messageId, 1)).toStrictEqual({});
     });
 
     test('Test 2: Success - multiple users', () => {
@@ -277,6 +297,92 @@ describe('/message/unreact/v1', () => {
     test('Test 6: Invalid reactId', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
       expect(requestMessageUnReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
+    });
+    test('Test 6: DM - user is not member', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      requestMessageReact(user.token, dmSend.messageId, 1);
+      expect(requestMessageUnReact(user1.token, dmSend.messageId, 0)).toStrictEqual(ERROR);
+    });
+  });
+});
+
+
+describe('/message/pin/v1', () => {
+  describe('Success Cases', () => {
+    test('Test 1: Channel Success', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessagePin(user.token, messageId.messageId)).toStrictEqual({});
+    });
+
+    test('Test 1: Dm Success', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessagePin(user.token, dmSend.messageId)).toStrictEqual({});
+    });
+  });
+
+  describe('Error Cases', () => {
+    test('Test 3: Message doesnt exist', () => {
+      expect(requestMessagePin(user.token, 0)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: User is not the owner', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessagePin(user1.token, messageId.messageId)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Double Pin', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessagePin(user.token, messageId.messageId)).toStrictEqual({});
+      expect(requestMessagePin(user.token, messageId.messageId)).toStrictEqual(ERROR);
+    });
+
+    test('Test 6: DM - user is not owner', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessagePin(user1.token, dmSend.messageId)).toStrictEqual(ERROR);
+    });
+  });
+});
+
+describe('/message/unpin/v1', () => {
+  describe('Success Cases', () => {
+    test('Test 1: Channel Success', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestMessagePin(user.token, messageId.messageId)
+      expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual({});
+    });
+
+    test('Test 1: Dm Success', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      requestMessagePin(user.token, dmSend.messageId)
+      expect(requestMessageUnpin(user.token, dmSend.messageId)).toStrictEqual({});
+    });
+  });
+
+  describe('Error Cases', () => {
+    test('Test 3: Message doesnt exist', () => {
+      expect(requestMessageUnpin(user.token, 0)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: User is not the owner', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageUnpin(user1.token, messageId.messageId)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Double Pin', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestMessagePin(user.token, messageId.messageId)
+      expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual({});
+      expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual(ERROR);
+    });
+
+    test('Test 6: DM - user is not owner', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessageUnpin(user1.token, dmSend.messageId)).toStrictEqual(ERROR);
     });
   });
 });
