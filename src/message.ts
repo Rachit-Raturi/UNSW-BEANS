@@ -272,8 +272,6 @@ async function messageSendLaterV1(token: string, channelId: number, message: str
   return { messageId: Id - 2 };
 }
 
-export { messageReact, messageSendV1, messageEditV1, messageRemoveV1, resetId, messageSendLaterV1 };
-
 function messageUnReact(token: string, messageId: number, reactId: number) {
   const data = getData();
 
