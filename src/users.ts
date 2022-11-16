@@ -1,12 +1,15 @@
 import { getData, setData } from './dataStore';
 import { validToken, validUId, validName, validHandleStr, validEmail, extractUser, findUser, findNumberOf } from './helperfunctions';
 import HTTPError from 'http-errors';
+import request from 'sync-request';
+import fs from 'fs';
 
 export interface User {
   uId: number,
   email: string,
   nameFirst: string,
   nameLast: string,
+  profileImgUrl: string,
   handleStr: string
 }
 
@@ -199,4 +202,61 @@ function usersStats (token: string) {
   };
 }
 
-export { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats };
+function userPhoto (token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
+  const data = getData();
+
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'invalid token');
+  }
+
+  if (xEnd <= xStart || yEnd <= yStart) {
+    throw HTTPError(400, 'invalid x or y values');
+  }
+
+  if (!(imgUrl.includes('.jpg'))) {
+    throw HTTPError(400, 'image is not a jpg');
+  }
+
+  const user = findUser(token);
+  const uId: number = user.uId;
+  const uIdString: string = uId.toString();
+  const res = request(
+    'GET',
+    imgUrl
+  );
+  const body = res.getBody();
+  const filename: string = 'imgurl/' + uIdString + '.jpg';
+  console.log(filename);
+  fs.writeFileSync(filename, body, { flag: 'w' });
+
+  const sizeOf = require('image-size');
+  const dimensions = sizeOf(filename);
+  console.log(dimensions.width, dimensions.height);
+  const w = dimensions.width;
+  const h = dimensions.height;
+
+  if (xStart < 0 || xEnd < 0 || xStart > w || xEnd > w) {
+    throw HTTPError(400, 'crop x-dimensions outside of image bounds');
+  }
+
+  if (yStart < 0 || yEnd < 0 || yStart > h || yEnd > h) {
+    throw HTTPError(400, 'crop y-dimensions outside of image bounds');
+  }
+
+  const Jimp = require('jimp');
+  const width = xEnd - xStart;
+  const height = yEnd - yStart;
+
+  async function crop() {
+    // Reading Image
+    const image = await Jimp.read(filename);
+    image.crop(xStart, yStart, width, height).write('imgurl/' + uIdString + 'crop' + '.jpg');
+  }
+
+  crop(); // Calling the function here using async
+  console.log('Image is processed successfully');
+  data.users[user.index].profileImgUrl = 'http://localhost:3200/' + 'imgurl/' + uIdString + 'crop' + '.jpg';
+  return {};
+}
+
+export { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats, userPhoto };

@@ -12,6 +12,7 @@ import {
 } from './helperfunctions';
 
 /**
+ *
  * Given a channel with ID channelId that the authorised user
  * is a member of, provides basic details about the channel.
  *
@@ -199,8 +200,10 @@ function messageReact(token: string, messageId: number, reactId: number) {
   let allReacts = [authUserId.uId];
   if (path.reacts.length > 0) {
     for (const i of path.reacts) {
-      i.uIds.push(authUserId.uId);
-      allReacts = i.uIds;
+      if (i.uIds.includes(authUserId.uId) === false) {
+        i.uIds.push(authUserId.uId);
+        allReacts = i.uIds;
+      }
     }
   }
 
@@ -269,3 +272,43 @@ async function messageSendLaterV1(token: string, channelId: number, message: str
 }
 
 export { messageReact, messageSendV1, messageEditV1, messageRemoveV1, resetId, messageSendLaterV1 };
+
+function messageUnReact(token: string, messageId: number, reactId: number) {
+  const data = getData();
+
+  if (validMessage(messageId) === false) {
+    return { error: 'Invalid messageId ' };
+  }
+
+  const dataType = getMessageType(messageId);
+  const message = findMessage(messageId);
+  const members = data[dataType][message.channelID].allMembers;
+  const authUserId = findUser(token);
+
+  if (members.includes(authUserId.uId) === false) {
+    return { error: 'user does not have permissions to react' };
+  }
+
+  if (reactId !== 1) {
+    return { error: 'invalid reactId' };
+  }
+
+  if (message.reacts.length === 0) {
+    return { error: 'react undefined' };
+  }
+
+  const path = data[dataType][message.channelID].messages[message.index];
+
+  let index = -1;
+  for (const i of path.reacts) {
+    if (i.uIds.includes(authUserId.uId) === true) {
+      const index1 = i.uIds.indexOf(authUserId.uId);
+      i.uIds.splice(index1, 1);
+    }
+    index++;
+  }
+
+  path.reacts.splice(index, 1);
+  return {};
+}
+export { messageUnReact, messageReact, messageSendV1, messageEditV1, messageRemoveV1, resetId, messageSendLaterV1 };

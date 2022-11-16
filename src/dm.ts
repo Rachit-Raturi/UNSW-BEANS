@@ -13,6 +13,7 @@ interface user {
   email: string,
   nameFirst: string,
   nameLast: string,
+  profileImgUrl: string,
   handleStr: string
 }
 
@@ -234,7 +235,8 @@ function dmDetailsV1 (token: string, dmId: number) {
       email: currentUser.email,
       nameFirst: currentUser.nameFirst,
       nameLast: currentUser.nameLast,
-      handleStr: currentUser.handleStr
+      handleStr: currentUser.handleStr,
+      profileImgUrl: currentUser.profileImgUrl,
     }
   ];
 
@@ -244,7 +246,8 @@ function dmDetailsV1 (token: string, dmId: number) {
       email: data.users[member].email,
       nameFirst: data.users[member].nameFirst,
       nameLast: data.users[member].nameLast,
-      handleStr: data.users[member].handleStr
+      handleStr: data.users[member].handleStr,
+      profileImgUrl: data.users[member].profileImgUrl
     });
   }
 

@@ -139,6 +139,9 @@ export function requestMessageSendDm(token: string, dmId: number, message: strin
 export function requestMessageReact(token: string, messageId: number, reactId: number) {
   return requestHelper('POST', '/message/react/v1', { messageId, reactId }, { token: token });
 }
+export function requestMessageUnReact(token: string, messageId: number, reactId: number) {
+  return requestHelper('POST', '/message/unreact/v1', { messageId, reactId }, { token: token });
+}
 
 export function requestMessageSendLater(token: string, channelId: number, message: string, timeSent: number) {
   return requestHelper('POST', '/message/sendlater/v1', {channelId, message, timeSent}, {token: token})
@@ -175,4 +178,8 @@ export function requestUsersStats(token: string) {
 
 export function requestSearch(token: string, queryStr: string) {
   return requestHelper('GET', '/search/v1', { queryStr }, { token: token });
+}
+
+export function requestUserPhoto(token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
+  return requestHelper('POST', '/user/profile/uploadphoto/v1', { imgUrl, xStart, yStart, xEnd, yEnd }, { token: token });
 }
