@@ -247,7 +247,7 @@ describe('message/sendlater/v1', () => {
     test('Test 1: Invalid ChannelId', () => {
       const time = Math.floor(Date.now() / 1000);
       const timeSent = time + 1;
-      expect(requestMessageSendLater(user.token, channel.channelId + 1, 'Message', timeSent)).toStrictEqual(400);
+      expect(requestMessageSendLater(user.token, channel1.channelId, 'Message', timeSent)).toStrictEqual(400);
     });
 
     test('Test 2: Invalid Token', () => {
