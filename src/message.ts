@@ -10,6 +10,7 @@ import {
   dupeReact,
   sleep
 } from './helperfunctions';
+import HTTPError from 'http-errors';
 
 /**
  *
@@ -230,7 +231,7 @@ async function messageSendLaterV1(token: string, channelId: number, message: str
   // check channelid is valid
   const isValidChannel = data.channels.find(c => c.channelId === channelId);
   if (isValidChannel === undefined) {
-    throw HTTPError(400,'invalid channel');
+    throw HTTPError(400, 'invalid channel');
   }
 
   // Check length of message
@@ -244,13 +245,13 @@ async function messageSendLaterV1(token: string, channelId: number, message: str
   if (isValidMember === undefined) {
     throw HTTPError(403, 'not a member of the channel');
   }
-  
+
   // Check if timeSent is a time in the past
   const time = Math.floor(Date.now() / 1000);
   if (time > timeSent) {
     throw HTTPError(400, 'timeSent is a time in the past');
   }
-  
+
   // Send a message at the specified time
   wait = timeSent - time;
   await sleep(wait);

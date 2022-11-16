@@ -144,7 +144,7 @@ export function requestMessageUnReact(token: string, messageId: number, reactId:
 }
 
 export function requestMessageSendLater(token: string, channelId: number, message: string, timeSent: number) {
-  return requestHelper('POST', '/message/sendlater/v1', {channelId, message, timeSent}, {token: token})
+  return requestHelper('POST', '/message/sendlater/v1', { channelId, message, timeSent }, { token: token });
 }
 // =========================================================================
 // User/s Function

@@ -265,7 +265,7 @@ app.post('/message/unreact/v1', (req: Request, res: Response) => {
 });
 
 app.post('/message/sendlater/v1', (req: Request, res: Response) => {
-  console.log('Message Sent')
+  console.log('Message Sent');
   const token = req.header('token');
   const { channelId, message } = req.body;
   save();
