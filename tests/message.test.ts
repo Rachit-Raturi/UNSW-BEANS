@@ -8,7 +8,8 @@ import {
   requestMessageRemove,
   requestMessageReact,
   requestDmCreate,
-  requestMessageSendDm
+  requestMessageSendDm,
+  requestMessageSendLater
 } from './helper';
 
 interface userType {
@@ -230,6 +231,66 @@ describe('/message/react/v1', () => {
     test('Test 6: Invalid reactId', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
       expect(requestMessageReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
+    });
+  });
+});
+
+// =========================================================================
+// Message Send Later Tests
+async function sleep(seconds) {
+  return new Promise((resolve) => setTimeout(resolve, seconds));
+}
+
+describe('message/sendlater/v1', () => {
+  describe('Error', () => {
+    test('Test 1: Invalid ChannelId', () => {
+      const time = Math.floor(Date.now() / 1000);
+      let timeSent = time + 1;
+      expect(requestMessageSendLater(user.token, channel.channelId + 1, 'Message', timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 2: Invalid Token', () => {
+      const time = Math.floor(Date.now() / 1000);
+      let timeSent = time + 1;
+      expect(requestMessageSendLater(invalidToken, channel.channelId, 'Message', timeSent)).toStrictEqual(403);
+    });
+
+    test('Test 3: Message is less than 1 character', () => {
+      const emptyString = '';
+      const time = Math.floor(Date.now() / 1000);
+      let timeSent = time + 1;
+      expect(requestMessageSendLater(user.token, channel.channelId, emptyString, timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 4: Message is more than 1000 characters', () => {
+      let longString: string;
+      for (let i = 0; i <= 1000; i++) {
+        longString += 'a';
+      }
+      const time = Math.floor(Date.now() / 1000);
+      let timeSent = time + 1;
+      expect(requestMessageSendLater(user.token, channel.channelId, longString, timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 5: User is not in DM', () => {
+      const time = Math.floor(Date.now() / 1000);
+      let timeSent = time + 1;
+      expect(requestMessageSendLater(user2.token, channel.channelId, 'Message', timeSent)).toStrictEqual(403);
+    });
+
+    test('Test 6: timeSent is a time in the past', () => {
+      const time = Math.floor(Date.now() / 1000);
+      let timeSent = time - 1;
+      expect(requestMessageSendLater(user.token, channel.channelId, 'Message', timeSent)).toStrictEqual(400);
+    });
+  });
+
+  describe('Success Cases', () => {
+    test('Test 1: Successful message sent at specified time', async () => {
+      const time = Math.floor(Date.now() / 1000);
+      let timeSent = time + 2;
+      await sleep(2);
+      expect(requestMessageSendLater(user.token, channel.channelId, 'Message', timeSent)).toStrictEqual({ messageId: expect.any(Number) });
     });
   });
 });

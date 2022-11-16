@@ -140,6 +140,9 @@ export function requestMessageReact(token: string, messageId: number, reactId: n
   return requestHelper('POST', '/message/react/v1', { messageId, reactId }, { token: token });
 }
 
+export function requestMessageSendLater(token: string, channelId: number, message: string, timeSent: number) {
+  return requestHelper('POST', '/message/sendlater/v1', {channelId, message, timeSent}, {token: token})
+}
 // =========================================================================
 // User/s Function
 export function requestUserProfile(token: string, uId: number) {
