@@ -157,14 +157,16 @@ describe('/dm/details/v1', () => {
             email: 'test@gmail.com',
             nameFirst: 'firstname',
             nameLast: 'lastname',
-            handleStr: 'firstnamelastname'
+            handleStr: 'firstnamelastname',
+            profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
           },
           {
             uId: user1.authUserId,
             email: 'test1@gmail.com',
             nameFirst: 'firstname1',
             nameLast: 'lastname1',
-            handleStr: 'firstname1lastname1'
+            handleStr: 'firstname1lastname1',
+            profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
           }
         ]
       }
@@ -183,21 +185,24 @@ describe('/dm/details/v1', () => {
             email: 'test@gmail.com',
             nameFirst: 'firstname',
             nameLast: 'lastname',
-            handleStr: 'firstnamelastname'
+            handleStr: 'firstnamelastname',
+            profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
           },
           {
             uId: user1.authUserId,
             email: 'test1@gmail.com',
             nameFirst: 'firstname1',
             nameLast: 'lastname1',
-            handleStr: 'firstname1lastname1'
+            handleStr: 'firstname1lastname1',
+            profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
           },
           {
             uId: user2.authUserId,
             email: 'test2@gmail.com',
             nameFirst: 'firstname2',
             nameLast: 'lastname2',
-            handleStr: 'firstname2lastname2'
+            handleStr: 'firstname2lastname2',
+            profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
           }
         ]
       }

@@ -7,6 +7,7 @@ interface user {
   email: string,
   nameFirst: string,
   nameLast: string,
+  profileImgUrl: string,
   handleStr: string
 }
 
@@ -57,6 +58,7 @@ function channelDetailsV1 (token: string, channelId: number): object {
       nameFirst: data.users[owner].nameFirst,
       nameLast: data.users[owner].nameLast,
       handleStr: data.users[owner].handleStr,
+      profileImgUrl: data.users[owner].profileImgUrl
     });
   }
 
@@ -68,6 +70,7 @@ function channelDetailsV1 (token: string, channelId: number): object {
       nameFirst: data.users[member].nameFirst,
       nameLast: data.users[member].nameLast,
       handleStr: data.users[member].handleStr,
+      profileImgUrl: data.users[member].profileImgUrl
     });
   }
 
