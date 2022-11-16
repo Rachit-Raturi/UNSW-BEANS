@@ -253,11 +253,11 @@ async function messageSendLaterV1(token: string, channelId: number, message: str
   }
 
   // Send a message at the specified time
-  wait = timeSent - time;
+  const wait = timeSent - time;
   await sleep(wait);
   const newMessage = {
     messageId: Id,
-    uId: user.uId,
+    uId: currentUser.uId,
     message: message,
     timeSent: timeSent,
     reacts: []
