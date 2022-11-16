@@ -85,6 +85,7 @@ describe('/channel/details/v2', () => {
             nameFirst: 'firstname',
             nameLast: 'lastname',
             handleStr: 'firstnamelastname',
+            profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
           }
         ],
         allMembers:
@@ -94,7 +95,8 @@ describe('/channel/details/v2', () => {
             email: 'test@gmail.com',
             nameFirst: 'firstname',
             nameLast: 'lastname',
-            handleStr: 'firstnamelastname'
+            handleStr: 'firstnamelastname',
+            profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
           }
         ],
       }
@@ -129,6 +131,7 @@ describe('/channel/join/v2', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     ];
     const expectedmembers = [
@@ -138,6 +141,7 @@ describe('/channel/join/v2', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       },
       {
         uId: user1.authUserId,
@@ -145,6 +149,7 @@ describe('/channel/join/v2', () => {
         nameFirst: 'firstname1',
         nameLast: 'lastname1',
         handleStr: 'firstname1lastname1',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     ];
 
@@ -202,6 +207,7 @@ describe('/channel/invite/v2', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     ];
     const expectedmembers = [
@@ -211,6 +217,7 @@ describe('/channel/invite/v2', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       },
       {
         uId: user1.authUserId,
@@ -218,6 +225,7 @@ describe('/channel/invite/v2', () => {
         nameFirst: 'firstname1',
         nameLast: 'lastname1',
         handleStr: 'firstname1lastname1',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     ];
 
@@ -345,6 +353,7 @@ describe('/channel/leave/v1', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     ];
     const expectedmembers = [
@@ -354,6 +363,7 @@ describe('/channel/leave/v1', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       },
     ];
     expect(requestChannelDetails(user.token, channel.channelId).allMembers)
@@ -374,6 +384,7 @@ describe('/channel/leave/v1', () => {
           nameFirst: 'firstname1',
           nameLast: 'lastname1',
           handleStr: 'firstname1lastname1',
+          profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
         }
       ]);
   });
@@ -427,6 +438,7 @@ describe('/channel/addowner/v1', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       },
       {
         uId: user1.authUserId,
@@ -434,6 +446,7 @@ describe('/channel/addowner/v1', () => {
         nameFirst: 'firstname1',
         nameLast: 'lastname1',
         handleStr: 'firstname1lastname1',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     ];
     const expectedmembers = [
@@ -443,6 +456,7 @@ describe('/channel/addowner/v1', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       },
       {
         uId: user1.authUserId,
@@ -450,6 +464,7 @@ describe('/channel/addowner/v1', () => {
         nameFirst: 'firstname1',
         nameLast: 'lastname1',
         handleStr: 'firstname1lastname1',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     ];
 
@@ -528,6 +543,7 @@ describe('/channel/removeowner/v1', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       },
 
     ];
@@ -538,6 +554,7 @@ describe('/channel/removeowner/v1', () => {
         nameFirst: 'firstname',
         nameLast: 'lastname',
         handleStr: 'firstnamelastname',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       },
       {
         uId: user1.authUserId,
@@ -545,6 +562,7 @@ describe('/channel/removeowner/v1', () => {
         nameFirst: 'firstname1',
         nameLast: 'lastname1',
         handleStr: 'firstname1lastname1',
+        profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
       }
     ];
 
