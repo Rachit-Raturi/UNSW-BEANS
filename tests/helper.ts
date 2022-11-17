@@ -119,7 +119,7 @@ export function requestDmMessages(token: string, dmId: number, start: number) {
 }
 
 // =========================================================================
-// Message Function
+// Message Functions
 export function requestMessageSend(token: string, channelId: number, message: string) {
   return requestHelper('POST', '/message/send/v2', { channelId, message }, { token: token });
 }
@@ -150,7 +150,7 @@ export function requestMessageUnpin(token: string, messageId: number) {
 }
 
 // =========================================================================
-// User/s Function
+// User/s Functions
 export function requestUserProfile(token: string, uId: number) {
   return requestHelper('GET', '/user/profile/v3', { uId }, { token: token });
 }
@@ -185,4 +185,18 @@ export function requestSearch(token: string, queryStr: string) {
 
 export function requestUserPhoto(token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
   return requestHelper('POST', '/user/profile/uploadphoto/v1', { imgUrl, xStart, yStart, xEnd, yEnd }, { token: token });
+}
+
+// =========================================================================
+// Standup Functions
+export function requestStandupStart(token: string, channelId: number, length: number) {
+  return requestHelper('POST', '/standup/start/v1', { channelId, length }, { token: token });
+}
+
+export function requestStandupActive(token: string, channelId: number) {
+  return requestHelper('GET', '/standup/active/v1', { channelId }, { token: token });
+}
+
+export function requestStandupSend(token: string, channelId: number, message: string) {
+  return requestHelper('POST', '/standup/send/v1', { channelId, message }, { token: token });
 }

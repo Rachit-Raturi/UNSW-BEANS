@@ -22,31 +22,25 @@ interface user {
 function channelDetailsV1 (token: string, channelId: number): object {
   const data = getData();
 
-  // invalid channelId error
-  if (data.channels[channelId] === undefined) {
-    return {
-      error: 'Invalid channel'
-    };
-  }
-
-  // invalid token error
+  // Invalid token error
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'Invalid token');
   }
 
-  // not a member error
+  // Invalid channelId error
+  if (data.channels[channelId] === undefined) {
+    throw HTTPError(400, 'Invalid channelId');
+  }
+
+  // Not a member error
   const currentUser = findUser(token);
   const isMember = data.channels[channelId].allMembers.find(a => a === currentUser.uId);
   if (isMember === undefined) {
-    return {
-      error: 'User is not a member of the channel'
-    };
+    throw HTTPError(403, 'User is not a member of the channel');
   }
 
-  const ownerMembers:Array<number> = data.channels[channelId].ownerMembers;
-  const allMembers:Array<number> = data.channels[channelId].allMembers;
+  const ownerMembers: Array<number> = data.channels[channelId].ownerMembers;
+  const allMembers: Array<number> = data.channels[channelId].allMembers;
   const ownersArray: Array<user> = [];
   const membersArray: Array<user> = [];
 

@@ -8,8 +8,6 @@ import {
   requestDmDetails,
 } from './helper';
 
-const ERROR = { error: expect.any(String) };
-
 describe('/clear/v1', () => {
   test('Valid test', () => {
     const user = requestAuthRegister('person@gmail.com', 'password', 'firstname', 'lastname');
@@ -18,8 +16,8 @@ describe('/clear/v1', () => {
     const dm = requestDmCreate(user.token, []);
     requestClear();
     expect(requestAuthLogin('person@gmail.com', 'password')).toStrictEqual(400);
-    expect(requestChannelDetails(user.token, channel.channelId)).toStrictEqual(ERROR);
-    expect(requestChannelDetails(user.token, channel1.channelId)).toStrictEqual(ERROR);
-    expect(requestDmDetails(user.token, dm.dmId)).toStrictEqual(ERROR);
+    expect(requestChannelDetails(user.token, channel.channelId)).toStrictEqual(403);
+    expect(requestChannelDetails(user.token, channel1.channelId)).toStrictEqual(403);
+    expect(requestDmDetails(user.token, dm.dmId)).toStrictEqual(403);
   });
 });
