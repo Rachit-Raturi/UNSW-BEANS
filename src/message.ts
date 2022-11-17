@@ -363,7 +363,7 @@ function messageUnpin(token: string, messageId: number) {
   const data = getData();
 
   if (validMessage(messageId) === false) {
-    throw HTTPError(400, 'Inavlid Message');
+    throw HTTPError(400, 'Invalid Message');
   }
 
   const dataType = getMessageType(messageId);
@@ -390,6 +390,51 @@ function messageUnpin(token: string, messageId: number) {
   data[dataType][message.channelID].messages[message.index].isPinned = false;
   console.log(data[dataType][message.channelID].messages);
   return {};
+}
+
+function messageShareV1(token: string, ogMessageId: number, message: string, channelId: number, dmId: number) {
+  const data = getData();
+
+  // Check for invalid token
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'invalid token');
+  }
+
+  const currentUser = findUser(token);
+  // check channelId and dmId is valid
+  const isValidChannel = data.channels.find(c => c.channelId === channelId);
+  const isValidDm = data.dms.find(d => d.dmId === dmId);
+  if (isValidChannel === undefined && isValidDm === undefined) {
+    throw HTTPError(400, 'invalid channel and invalid dm');
+  } else if (isValidChannel === true && isValidDm === true) {
+    throw HTTPError(400, 'can only share to either a channel or a dm not both');
+  }
+
+  // Check if ogMessageId is valid
+  if (validMessage(ogMessageId) === false) {
+    throw HTTPError(400, 'Invalid Message');
+  }
+
+  // Check length of message
+  if (message.length > 1000) {
+    throw HTTPError(400, 'length of message is over 1000 characters');
+  }
+
+  // Check if user is a member of the channel or dm
+  if (channelId === true && dmId === undefined) {
+    const checkIsMember = data.channels[channelId].allMembers;
+    const isValidMember = checkIsMember.find(a => a === currentUser.uId);
+    if (isValidMember === undefined) {
+      throw HTTPError(403, 'not a member of the channel');
+    }
+  } else if (channelId === undefined && dmId === true) {
+    const checkIsMember = data.dms[dmId].members;
+    if (checkIsMember.includes(currentUser.uId) === false || data.dms[dmId].owner !== currentUser.uId) {
+      throw HTTPError(403, 'user is not a member of the DM');
+    }
+  }
+
+  
 }
 
 export { messageUnpin, messagePin, messageUnReact, messageReact, messageSendV1, messageEditV1, messageRemoveV1, messageSendLaterV1, resetId };
