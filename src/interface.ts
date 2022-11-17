@@ -38,7 +38,8 @@ export interface message {
   uId: number,
   message: string,
   timeSent: number,
-  reacts: react[]
+  reacts: react[],
+  isPinned: boolean
 }
 
 export interface channel {
