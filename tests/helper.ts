@@ -48,6 +48,14 @@ export function requestAuthLogout(token: string) {
   return requestHelper('POST', '/auth/logout/v2', {}, { token: token });
 }
 
+export function requestAuthPasswordRequestReset(email: string) {
+  return requestHelper('POST', '/auth/passwordreset/request/v1', { email });
+}
+
+export function requestAuthPasswordReset(resetCode: string, newPassword: string) {
+  return requestHelper('POST', '/auth/passwordreset/reset/v1', { resetCode, newPassword });
+}
+
 // =========================================================================
 // Channels functions
 export function requestChannelsCreate(token: string, name: string, isPublic: boolean) {

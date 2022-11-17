@@ -23,7 +23,8 @@ export interface user {
   channelsJoined: channeljoin[],
   dmsJoined: dmjoin[],
   messagesSent: messagesent[],
-  tokens: string[]
+  tokens: string[],
+  resetCode: string
 }
 
 export interface message {
@@ -67,6 +68,7 @@ export interface messageexist {
 
 export interface Datastore {
   users: user[],
+  uIdGen: number,
   channels: channel[],
   dms: dm[],
   stats: {

@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "test": "jest ",
+        "test": "jest",
         "tsc": "tsc --noImplicitAny",
         "lint": "eslint **/*.ts",
         "lint-fix": "eslint --fix **/*.ts",
@@ -9,11 +9,13 @@
         "posttest": "pkill -f 'node_modules/sync-rpc/lib/worker.js' > /dev/null 2>&1"
     },
     "dependencies": {
+        "@types/nodemailer": "^6.4.6",
         "cors": "^2.8.5",
         "express": "^4.18.0",
         "http-errors": "^2.0.0",
         "middleware-http-errors": "^0.1.1",
         "morgan": "^1.10.0",
+        "nodemailer": "^6.8.0",
         "rewire": "^6.0.0",
         "ts-node": "^10.7.0",
         "typescript": "^4.6.3",
