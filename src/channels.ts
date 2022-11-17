@@ -40,7 +40,11 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
     ownerMembers: owners,
     allMembers: members,
     messages: [],
-    standup: null
+    standup: {
+      isActive: false,
+      timeFinish: 0,
+      messages: ''
+    }
   };
   workplaceStatsChanges('channels', 'add');
   data.channels.push(channel);
