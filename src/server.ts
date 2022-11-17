@@ -15,6 +15,7 @@ import { messageUnReact, messageSendV1, messageEditV1, messageRemoveV1, messageR
 import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats, userPhoto } from './users';
 import { search } from './search';
 import { clearV1 } from './other';
+import { standupActiveV1, standupSendV1, standupStartV1 } from './standup';
 
 // Set up web app
 const app = express();
@@ -341,4 +342,27 @@ app.post('/user/profile/uploadphoto/v1', (req: Request, res: Response) => {
   const { imgUrl, xStart, yStart, xEnd, yEnd } = req.body;
   save();
   res.json(userPhoto(token, imgUrl, xStart, yStart, xEnd, yEnd));
+});
+
+// =========================================================================
+// Standup functions
+app.post('/standup/start/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const { channelId, length } = req.body;
+  save();
+  res.json(standupStartV1(token, channelId, length));
+});
+
+app.get('/standup/active/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const channelId = parseInt(req.query.channelId as string);
+  save();
+  res.json(standupActiveV1(token, channelId));
+});
+
+app.post('/standup/send/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const { channelId, message } = req.body;
+  save();
+  res.json(standupSendV1(token, channelId, message));
 });

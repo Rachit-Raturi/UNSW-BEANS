@@ -44,7 +44,8 @@ export interface message {
 
 export interface standup {
   isActive: boolean,
-  timeFinish: number
+  timeFinish: number,
+  messages: string
 }
 
 export interface channel {
@@ -54,7 +55,7 @@ export interface channel {
   ownerMembers: number[],
   isPublic: boolean,
   messages: message[],
-  standups: standup
+  standup: standup
 }
 
 export interface dm {
