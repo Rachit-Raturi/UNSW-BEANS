@@ -81,17 +81,20 @@ function extractUser(uId?: number): User | User[] {
           nameFirst: element.nameFirst,
           nameLast: element.nameLast,
           handleStr: element.handleStr,
+          profileImgUrl: element.profileImgUrl,
         }
       );
     }
     return usersArray;
   } else {
+    console.log(data.users[uId].profileImgUrl);
     return {
       uId: data.users[uId].uId,
       email: data.users[uId].email,
       nameFirst: data.users[uId].nameFirst,
       nameLast: data.users[uId].nameLast,
       handleStr: data.users[uId].handleStr,
+      profileImgUrl: data.users[uId].profileImgUrl,
     };
   }
 }
@@ -121,6 +124,7 @@ function findUser(token: string) {
     channelsJoined: userObject.channelsJoined,
     dmsJoined: userObject.dmsJoined,
     messagesSent: userObject.messagesSent,
+    profileImgUrl: userObject.profileImgUrl,
     tokens: userObject.tokens,
   };
 }
@@ -201,6 +205,7 @@ function findMessage(messageId: number) {
   let channelID;
   let indexTemp;
   let index;
+  let reacts;
 
   if (messageId % 2 === 0) {
     for (const element of data.channels) {
@@ -210,6 +215,7 @@ function findMessage(messageId: number) {
           messageObject = message;
           channelID = element.channelId;
           index = indexTemp;
+          reacts = message.reacts;
           break;
         }
         indexTemp++;
@@ -223,6 +229,7 @@ function findMessage(messageId: number) {
           messageObject = message;
           channelID = element.dmId;
           index = indexTemp;
+          reacts = message.reacts;
           break;
         }
         indexTemp++;
@@ -236,7 +243,8 @@ function findMessage(messageId: number) {
     message: messageObject.message,
     timeSent: messageObject.timeSent,
     channelID: channelID,
-    index: index
+    index: index,
+    reacts: reacts
   };
 }
 
