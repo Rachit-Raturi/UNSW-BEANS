@@ -17,29 +17,30 @@ import HTTPError from 'http-errors';
  * @param {Number} length
  * @returns {Number} timeFinish
  */
-function standupStartV1 (token: string, channelId: number, length: number): number {
+function standupStartV1 (token: string, channelId: number, length: number): {timeFinish: number} {
   const data = getData();
-
-  // Invalid channelId error
-  if (data.channels[channelId] === undefined) {
-    throw HTTPError(400, 'Invalid channelId');
-  }
 
   // Invalid token error
   if (validToken(token) === false) {
     throw HTTPError(403, 'Invalid token');
   }
 
-  // Invalid length error
-  if (length < 0) {
-    throw HTTPError(400, 'Invalid length');
+  // Invalid channelId error
+  if (data.channels[channelId] === undefined) {
+    throw HTTPError(400, 'Invalid channelId');
   }
 
   // Not a member error
   const currentUser = findUser(token);
   const isMember = data.channels[channelId].allMembers.find(a => a === currentUser.uId);
+
   if (isMember === undefined) {
     throw HTTPError(403, 'User is not a member of the channel');
+  }
+
+  // Invalid length error
+  if (length < 0) {
+    throw HTTPError(400, 'Invalid length');
   }
 
   // Already has an active standup running error
@@ -53,7 +54,9 @@ function standupStartV1 (token: string, channelId: number, length: number): numb
   currentStandup.messages = '';
   setData(data);
 
-  return currentStandup.timeFinish;
+  return {
+    timeFinish: currentStandup.timeFinish,
+  };
 }
 
 /**
@@ -66,15 +69,15 @@ function standupStartV1 (token: string, channelId: number, length: number): numb
  */
 function standupActiveV1 (token: string, channelId: number): object {
   const data = getData();
+  
+  // Invalid token error
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'Invalid token');
+  }
 
   // Invalid channelId error
   if (data.channels[channelId] === undefined) {
     throw HTTPError(400, 'Invalid channelId');
-  }
-
-  // Invalid token error
-  if (validToken(token) === false) {
-    throw HTTPError(403, 'Invalid token');
   }
 
   // Not a member error
@@ -110,20 +113,14 @@ function standupActiveV1 (token: string, channelId: number): object {
 function standupSendV1 (token: string, channelId: number, message: string) {
   const data = getData();
 
-  // Invalid channelId error
-  if (data.channels[channelId] === undefined) {
-    throw HTTPError(400, 'Invalid channelId');
-  }
-
   // Invalid token error
   if (validToken(token) === false) {
     throw HTTPError(403, 'Invalid token');
   }
 
-  // No active standup running error
-  const currentStandup = data.channels[channelId].standup;
-  if (currentStandup.isActive === false) {
-    throw HTTPError(400, 'No active standup is running in the channel');
+  // Invalid channelId error
+  if (data.channels[channelId] === undefined) {
+    throw HTTPError(400, 'Invalid channelId');
   }
 
   // Not a member error
@@ -131,6 +128,12 @@ function standupSendV1 (token: string, channelId: number, message: string) {
   const isMember = data.channels[channelId].allMembers.find(a => a === currentUser.uId);
   if (isMember === undefined) {
     throw HTTPError(403, 'User is not a member of the channel');
+  }
+
+  // No active standup running error
+  const currentStandup = data.channels[channelId].standup;
+  if (currentStandup.isActive === false) {
+    throw HTTPError(400, 'No active standup is running in the channel');
   }
 
   if (currentStandup.messages === '') {
