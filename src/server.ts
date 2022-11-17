@@ -11,7 +11,7 @@ import { authLoginV1, authRegisterV1, authLogoutV1 } from './auth';
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1, channelLeaveV1, channelAddOwnerV1, channelRemoveOwnerV1 } from './channel';
 import { dmCreateV1, dmDetailsV1, dmListV1, dmRemoveV1, dmLeaveV1, dmMessagesV1, messageSendDmV1 } from './dm';
-import { messageUnReact, messageSendV1, messageEditV1, messageRemoveV1, messageReact } from './message';
+import { messageUnReact, messageSendV1, messageEditV1, messageRemoveV1, messageReact, messagePin, messageUnpin } from './message';
 import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats, userPhoto } from './users';
 import { search } from './search';
 import { clearV1 } from './other';
@@ -256,12 +256,29 @@ app.post('/message/react/v1', (req: Request, res: Response) => {
   save();
   res.json(messageReact(token, messageId, reactId));
 });
+
 app.post('/message/unreact/v1', (req: Request, res: Response) => {
   console.log('Message Reacted');
   const token = req.header('token');
   const { reactId, messageId } = req.body;
   save();
   res.json(messageUnReact(token, messageId, reactId));
+});
+
+app.post('/message/pin/v1', (req: Request, res: Response) => {
+  console.log('Message Pinned');
+  const token = req.header('token');
+  const { messageId } = req.body;
+  save();
+  res.json(messagePin(token, messageId));
+});
+
+app.post('/message/unpin/v1', (req: Request, res: Response) => {
+  console.log('Message Unpinned');
+  const token = req.header('token');
+  const { messageId } = req.body;
+  save();
+  res.json(messageUnpin(token, messageId));
 });
 
 // =========================================================================

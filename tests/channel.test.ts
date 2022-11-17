@@ -111,7 +111,7 @@ describe('/channel/join/v2', () => {
     });
 
     test('Test 2: User is already a member of the channel', () => {
-      expect(requestChannelJoin(user.token, channel.channelId)).toStrictEqual(403);
+      expect(requestChannelJoin(user.token, channel.channelId)).toStrictEqual(400);
     });
 
     test('Test 3: Private channel join attempt', () => {
@@ -299,7 +299,8 @@ describe('/channel/messages/v2', () => {
         uId: expect.any(Number),
         message: 'message49',
         timeSent: expect.any(Number),
-        reacts: []
+        reacts: [],
+        isPinned: expect.any(Boolean)
       }
     );
     expect(requestChannelMessages(user.token, channel.channelId, start).messages[50]).toEqual(undefined);

@@ -394,7 +394,8 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
     uId: user.uId,
     message: message,
     timeSent: time,
-    reacts: []
+    reacts: [],
+    isPinned: false
   };
   workplaceStatsChanges('messages', 'add');
   data.dms[dmId].messages.unshift(newMessage);
