@@ -69,7 +69,7 @@ function standupStartV1 (token: string, channelId: number, length: number): {tim
  */
 function standupActiveV1 (token: string, channelId: number): object {
   const data = getData();
-  
+
   // Invalid token error
   if (validToken(token) === false) {
     throw HTTPError(403, 'Invalid token');
