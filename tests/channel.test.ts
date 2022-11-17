@@ -308,7 +308,8 @@ describe('/channel/messages/v2', () => {
         uId: expect.any(Number),
         message: 'message49',
         timeSent: expect.any(Number),
-        reacts: []
+        reacts: [],
+        isPinned: expect.any(Boolean)
       }
     );
     expect(requestChannelMessages(user.token, channel.channelId, start).messages[50]).toEqual(undefined);
