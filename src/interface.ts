@@ -41,13 +41,19 @@ export interface message {
   reacts: react[]
 }
 
+export interface standup {
+  isActive: boolean,
+  timeFinish: number
+}
+
 export interface channel {
   channelId: number,
   name: string,
   allMembers: number[],
   ownerMembers: number[],
   isPublic: boolean,
-  messages: message[]
+  messages: message[],
+  standups: standup
 }
 
 export interface dm {

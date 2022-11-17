@@ -44,6 +44,7 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
     ownerMembers: owners,
     allMembers: members,
     messages: [],
+    standups: null
   };
   workplaceStatsChanges('channels', 'add');
   data.channels.push(channel);
