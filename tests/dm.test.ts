@@ -302,7 +302,8 @@ describe('/dm/messages/v1', () => {
         uId: expect.any(Number),
         message: 'message10',
         timeSent: expect.any(Number),
-        reacts: []
+        reacts: [],
+        isPinned: expect.any(Boolean),
       }
     );
     expect(requestDmMessages(user.token, dm.dmId, start).messages[50]).toEqual(undefined);

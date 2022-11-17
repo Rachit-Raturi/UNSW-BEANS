@@ -89,33 +89,25 @@ function channelJoinV1(token: string, channelId: number) {
 
   // invalid token
   if (!validToken(token)) {
-    return {
-      error: 'Invalid user'
-    };
+    throw HTTPError(400, 'Incorrect password has been entered');
   }
 
   const currentUser = findUser(token);
   // invalid channelId error
   if (data.channels[channelId] === undefined) {
-    return {
-      error: 'Invalid channel'
-    };
+    throw HTTPError(400, 'Channel does not exist');
   }
 
   // already member error
   if (data.channels[channelId].allMembers.includes(currentUser.uId)) {
-    return {
-      error: 'User is already a member of this channel'
-    };
+    throw HTTPError(400, 'Already member');
   }
 
   // private channel error
   if (data.channels[channelId].isPublic === false) {
     // global owner false
     if (currentUser.uId > 0) {
-      return {
-        error: `User(${currentUser.uId}) cannot join a private channel`
-      };
+      throw HTTPError(403, 'Invalid permissions');
     }
   }
 
