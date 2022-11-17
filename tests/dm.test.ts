@@ -117,7 +117,7 @@ describe('/dm/remove/v1', () => {
 
     test('Test 4: User is no longer in dm', () => {
       requestDmLeave(user.token, dm.dmId);
-      expect(requestDmRemove(user.token, invalidDm)).toStrictEqual(403);
+      expect(requestDmRemove(user.token, dm.dmId)).toStrictEqual(403);
     });
   });
 
