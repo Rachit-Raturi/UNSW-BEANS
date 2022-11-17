@@ -24,9 +24,7 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
 
   // name length invalid - between 1 and 20 (inclusive)
   if (name.length < 1 || name.length > 20) {
-    return {
-      error: 'Name is not between 1 and 20 characters inclusive'
-    };
+    throw HTTPError(400, 'Invalid channel name length');
   }
 
   const members = [];

@@ -109,16 +109,16 @@ describe('/channel/details/v2', () => {
 describe('/channel/join/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid channelId ', () => {
-      expect(requestChannelJoin(user.token, invalidChannelId)).toStrictEqual(ERROR);
+      expect(requestChannelJoin(user.token, invalidChannelId)).toStrictEqual(400);
     });
 
     test('Test 2: User is already a member of the channel', () => {
-      expect(requestChannelJoin(user.token, channel.channelId)).toStrictEqual(ERROR);
+      expect(requestChannelJoin(user.token, channel.channelId)).toStrictEqual(400);
     });
 
     test('Test 3: Private channel join attempt', () => {
       const newPrivateChannel = requestChannelsCreate(user.token, 'Channel1', false);
-      expect(requestChannelJoin(user1.token, newPrivateChannel.channelId)).toStrictEqual(ERROR);
+      expect(requestChannelJoin(user1.token, newPrivateChannel.channelId)).toStrictEqual(403);
     });
   });
 

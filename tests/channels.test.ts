@@ -46,11 +46,11 @@ describe('/channels/create/v2', () => {
     });
 
     test('Test 2: Name is greater then 20 characters', () => {
-      expect(requestChannelsCreate(user.token, 'GreaterThentwentyCharacters', false)).toStrictEqual(ERROR);
+      expect(requestChannelsCreate(user.token, 'GreaterThentwentyCharacters', false)).toStrictEqual(400);
     });
 
     test('Test 3: Name is less then 1', () => {
-      expect(requestChannelsCreate(user.token, '', false)).toStrictEqual(ERROR);
+      expect(requestChannelsCreate(user.token, '', false)).toStrictEqual(400);
     });
   });
 
