@@ -22,7 +22,7 @@ let user1: userType;
 let channel: channelType;
 let invalidToken = 'invalid';
 let length: number;
-const expectedTimeFinish: number = Math.floor(Date.now() / 1000) + length + 2;
+const expectedTimeFinish: number = Math.floor(Date.now() / 1000) + 1000 + 2;
 
 beforeEach(() => {
   requestClear();
@@ -56,7 +56,7 @@ describe('/standup/start/v1', () => {
     });
 
     test('Test 4: An active standup is already running', () => {
-      expect(requestStandupStart(user.token, channel.channelId, length)).toStrictEqual(Math.floor(Date.now() / 1000) + length + 2);
+      expect(requestStandupStart(user.token, channel.channelId, length).timeFinish).toBeGreaterThanOrEqual(Math.floor(Date.now() / 1000) + length + 2);
       expect(requestStandupStart(user.token, channel.channelId, length)).toStrictEqual(400);
     });
 
@@ -66,7 +66,7 @@ describe('/standup/start/v1', () => {
   });
 
   test('Test 1: Successful case', () => {
-    expect(requestStandupStart(user.token, channel.channelId, length)).toStrictEqual(Math.floor(Date.now() / 1000) + length + 2);
+    expect(requestStandupStart(user.token, channel.channelId, length).timeFinish).toBeGreaterThanOrEqual(Math.floor(Date.now() / 1000) + length);
   });
 });
 
@@ -88,7 +88,7 @@ describe('/standup/active/v1', () => {
   });
 
   test('Test 1: Successful case - an active channel', () => {
-    const timeFinish: number = requestStandupStart(user.token, channel.channelId, length);
+    const timeFinish: number = requestStandupStart(user.token, channel.channelId, length).timeFinish;
     expect(requestStandupActive(user.token, channel.channelId)).toStrictEqual(
       {
         isActive: true,
@@ -101,7 +101,7 @@ describe('/standup/active/v1', () => {
     expect(requestStandupActive(user.token, channel.channelId)).toStrictEqual(
       {
         isActive: false,
-        timeFinish: null
+        timeFinish: 0
       }
     );
   });
@@ -120,7 +120,6 @@ describe('/standup/send/v1', () => {
     });
 
     test('Test 3: No active standup is running', () => {
-      expect(requestStandupStart(user.token, channel.channelId, length)).toStrictEqual(expectedTimeFinish);
       expect(requestStandupSend(user.token, channel.channelId, 'Sending a message')).toStrictEqual(400);
     });
 
@@ -135,12 +134,14 @@ describe('/standup/send/v1', () => {
   });
 
   test('Test 1: Successful case - 1 user sends multiple messages', () => {
+    expect(requestStandupStart(user.token, channel.channelId, length).timeFinish).toBeGreaterThanOrEqual(expectedTimeFinish);
     expect(requestStandupSend(user.token, channel.channelId, 'Sending a message')).toStrictEqual({});
     expect(requestStandupSend(user.token, channel.channelId, 'Sending a 2nd message')).toStrictEqual({});
   });
 
   test('Test 2: Successful case - 2 users send messages', () => {
     expect(requestChannelJoin(user1.token, channel.channelId)).toStrictEqual({});
+    expect(requestStandupStart(user.token, channel.channelId, length).timeFinish).toBeGreaterThanOrEqual(expectedTimeFinish);
     expect(requestStandupSend(user.token, channel.channelId, 'Sending a message')).toStrictEqual({});
     expect(requestStandupSend(user1.token, channel.channelId, 'Also sending a message')).toStrictEqual({});
   });
