@@ -17,16 +17,12 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
   const data = getData();
 
   if (!validToken(token)) {
-    return {
-      error: 'Invalid user'
-    };
+    throw HTTPError(403, 'Invalid tokenId');
   }
 
   // name length invalid - between 1 and 20 (inclusive)
   if (name.length < 1 || name.length > 20) {
-    return {
-      error: 'Name is not between 1 and 20 characters inclusive'
-    };
+    throw HTTPError(400, 'Invalid channel name length');
   }
 
   const members = [];
