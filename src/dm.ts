@@ -213,7 +213,16 @@ function dmDetailsV1 (token: string, dmId: number) {
   }
 
   // Create members array output and set the owner as the first member listed
-  const membersArray: Array<user> = [];
+  const membersArray: Array<user> = [
+    {
+      uId: currentUser.uId,
+      email: currentUser.email,
+      nameFirst: currentUser.nameFirst,
+      nameLast: currentUser.nameLast,
+      handleStr: currentUser.handleStr,
+      profileImgUrl: currentUser.profileImgUrl,
+    }
+  ];
 
   for (const member of data.dms[dmId].members) {
     membersArray.push({
