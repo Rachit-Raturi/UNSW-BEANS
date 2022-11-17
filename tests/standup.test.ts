@@ -52,7 +52,7 @@ describe('/standup/start/v1', () => {
     });
 
     test('Test 4: An active standup is already running', () => {
-      requestStandupStart(user.token, channel, length);
+      expect(requestStandupStart(user.token, channel, length)).toStrictEqual(Math.floor(Date.now() / 1000) + length + 2);
       expect(requestStandupStart(user.token, channel, length)).toStrictEqual(400);
     });
 
