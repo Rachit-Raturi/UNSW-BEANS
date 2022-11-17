@@ -246,20 +246,20 @@ describe('message/sendlater/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid ChannelId', () => {
       const time = Math.floor(Date.now() / 1000);
-      const timeSent = time + 1;
-      expect(requestMessageSendLater(user.token, channel1.channelId, 'Message', timeSent)).toStrictEqual(400);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user.token, 10, 'Message', timeSent)).toStrictEqual(400);
     });
 
     test('Test 2: Invalid Token', () => {
       const time = Math.floor(Date.now() / 1000);
-      const timeSent = time + 1;
+      const timeSent = time + 100;
       expect(requestMessageSendLater(invalidToken, channel.channelId, 'Message', timeSent)).toStrictEqual(403);
     });
 
     test('Test 3: Message is less than 1 character', () => {
       const emptyString = '';
       const time = Math.floor(Date.now() / 1000);
-      const timeSent = time + 1;
+      const timeSent = time + 100;
       expect(requestMessageSendLater(user.token, channel.channelId, emptyString, timeSent)).toStrictEqual(400);
     });
 
@@ -269,19 +269,19 @@ describe('message/sendlater/v1', () => {
         longString += 'a';
       }
       const time = Math.floor(Date.now() / 1000);
-      const timeSent = time + 1;
+      const timeSent = time + 100;
       expect(requestMessageSendLater(user.token, channel.channelId, longString, timeSent)).toStrictEqual(400);
     });
 
     test('Test 5: User is not in DM', () => {
       const time = Math.floor(Date.now() / 1000);
-      const timeSent = time + 1;
+      const timeSent = time + 100;
       expect(requestMessageSendLater(user2.token, channel.channelId, 'Message', timeSent)).toStrictEqual(403);
     });
 
     test('Test 6: timeSent is a time in the past', () => {
       const time = Math.floor(Date.now() / 1000);
-      const timeSent = time - 1;
+      const timeSent = time - 100;
       expect(requestMessageSendLater(user.token, channel.channelId, 'Message', timeSent)).toStrictEqual(400);
     });
   });
@@ -289,8 +289,8 @@ describe('message/sendlater/v1', () => {
   describe('Success Cases', () => {
     test('Test 1: Successful message sent at specified time', async () => {
       const time = Math.floor(Date.now() / 1000);
-      const timeSent = time + 2;
-      await sleep(2);
+      const timeSent = time + 100;
+      await sleep(100);
       expect(requestMessageSendLater(user.token, channel.channelId, 'Message', timeSent)).toStrictEqual({ messageId: expect.any(Number) });
     });
   });
