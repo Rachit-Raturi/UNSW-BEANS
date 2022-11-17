@@ -13,9 +13,13 @@ interface userType {
   authUserId: number
 }
 
+interface channelType {
+  channelId: number
+}
+
 let user: userType;
 let user1: userType;
-let channel: number;
+let channel: channelType;
 let invalidToken = 'invalid';
 let length: number;
 const expectedTimeFinish: number = Math.floor(Date.now() / 1000) + length + 2;
