@@ -53,7 +53,8 @@ function messageSendV1(token: string, channelId: number, message: string) {
     uId: user.uId,
     message: message,
     timeSent: time,
-    reacts: []
+    reacts: [],
+    isPinned: false,
   };
 
   userStatsChanges('messages', user.index, 'add');
@@ -174,16 +175,23 @@ function messageReact(token: string, messageId: number, reactId: number) {
   const data = getData();
 
   if (validMessage(messageId) === false) {
-    return { error: 'Invalid messageId ASS' };
+    return { error: 'Invalid messageId' };
   }
 
   const dataType = getMessageType(messageId);
   const message = findMessage(messageId);
-  const members = data[dataType][message.channelID].allMembers;
   const authUserId = findUser(token);
 
-  if (members.includes(authUserId.uId) === false) {
-    return { error: 'user does not have permissions to react' };
+  if (dataType === 'channels') {
+    const members = data.channels[message.channelID].allMembers;
+    if (members.includes(authUserId.uId) === false) {
+      return { error: 'user does not have permissions to react' };
+    }
+  } else {
+    const members = data.dms[message.channelID].members;
+    if (members.includes(authUserId.uId) === false) {
+      return { error: 'user does not have permissions to react' };
+    }
   }
 
   if (reactId !== 1) {
@@ -226,11 +234,18 @@ function messageUnReact(token: string, messageId: number, reactId: number) {
 
   const dataType = getMessageType(messageId);
   const message = findMessage(messageId);
-  const members = data[dataType][message.channelID].allMembers;
   const authUserId = findUser(token);
 
-  if (members.includes(authUserId.uId) === false) {
-    return { error: 'user does not have permissions to react' };
+  if (dataType === 'channels') {
+    const members = data.channels[message.channelID].allMembers;
+    if (members.includes(authUserId.uId) === false) {
+      return { error: 'user does not have permissions to react' };
+    }
+  } else {
+    const members = data.dms[message.channelID].members;
+    if (members.includes(authUserId.uId) === false) {
+      return { error: 'user does not have permissions to react' };
+    }
   }
 
   if (reactId !== 1) {
@@ -255,4 +270,71 @@ function messageUnReact(token: string, messageId: number, reactId: number) {
   path.reacts.splice(index, 1);
   return {};
 }
-export { messageUnReact, messageReact, messageSendV1, messageEditV1, messageRemoveV1, resetId };
+
+function messagePin(token: string, messageId: number) {
+  const data = getData();
+
+  if (validMessage(messageId) === false) {
+    return { error: 'Invalid messageId' };
+  }
+
+  const dataType = getMessageType(messageId);
+  const message = findMessage(messageId);
+  const authUserId = findUser(token);
+
+  // Only owner can pin messages
+  if (dataType === 'channels') {
+    const owners = data.channels[message.channelID].ownerMembers;
+    if (owners.includes(authUserId.uId) === false) {
+      return { error: 'user does not have permissions to react' };
+    }
+  } else {
+    const owner = data.dms[message.channelID].owner;
+    if (owner !== authUserId.uId) {
+      return { error: 'user does not have permissions to react' };
+    }
+  }
+
+  if (message.isPinned === true) {
+    return { error: 'Message is already pinned' };
+  }
+
+  data[dataType][message.channelID].messages[message.index].isPinned = true;
+
+  return {};
+}
+
+function messageUnpin(token: string, messageId: number) {
+  const data = getData();
+
+  if (validMessage(messageId) === false) {
+    return { error: 'Invalid messageId' };
+  }
+
+  const dataType = getMessageType(messageId);
+  const message = findMessage(messageId);
+  const authUserId = findUser(token);
+
+  // Only owner can pin messages
+  if (dataType === 'channels') {
+    const owners = data.channels[message.channelID].ownerMembers;
+    if (owners.includes(authUserId.uId) === false) {
+      return { error: 'user does not have permissions to react' };
+    }
+  } else {
+    const owner = data.dms[message.channelID].owner;
+    if (owner !== authUserId.uId) {
+      return { error: 'user does not have permissions to react' };
+    }
+  }
+
+  if (message.isPinned === false) {
+    return { error: 'Message is already pinned' };
+  }
+
+  data[dataType][message.channelID].messages[message.index].isPinned = false;
+  console.log(data[dataType][message.channelID].messages);
+  return {};
+}
+
+export { messageUnpin, messagePin, messageUnReact, messageReact, messageSendV1, messageEditV1, messageRemoveV1, resetId };
