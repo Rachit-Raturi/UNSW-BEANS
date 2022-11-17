@@ -57,7 +57,7 @@ describe('/message/send/v1', () => {
     });
 
     test('Test 2: Invalid token', () => {
-      expect(requestMessageSend(invalidToken, channel.channelId, 'Message')).toStrictEqual(ERROR);
+      expect(requestMessageSend(invalidToken, channel.channelId, 'Message')).toStrictEqual(ERROR2);
     });
 
     test('Test 3: User is not a Member', () => {
@@ -96,7 +96,7 @@ describe('/message/edit/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid token', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageEdit('user.token', messageId.messageId, 'New Message')).toStrictEqual(ERROR);
+      expect(requestMessageEdit('user.token', messageId.messageId, 'New Message')).toStrictEqual(ERROR2);
     });
 
     test('Test 2: Invalid messageId', () => {
@@ -152,7 +152,7 @@ describe('/message/remove/v1', () => {
 
     test('Test 2: Invalid token', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageRemove('user2.token', messageId.messageId)).toStrictEqual(ERROR);
+      expect(requestMessageRemove('user2.token', messageId.messageId)).toStrictEqual(ERROR2);
     });
     test('Test 3: Invalid messageId', () => {
       expect(requestMessageRemove(user.token, 3)).toStrictEqual(ERROR);

@@ -42,7 +42,7 @@ describe('/channels/create/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid token', () => {
       const invalidToken = '0';
-      expect(requestChannelsCreate(invalidToken, 'channel1', true)).toStrictEqual(ERROR);
+      expect(requestChannelsCreate(invalidToken, 'channel1', true)).toStrictEqual(403);
     });
 
     test('Test 2: Name is greater then 20 characters', () => {

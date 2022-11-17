@@ -38,7 +38,7 @@ function messageSendV1(token: string, channelId: number, message: string) {
   }
 
   if (validToken(token) === false) {
-    throw HTTPError(400, 'Inavlid user token');
+    throw HTTPError(403, 'Inavlid user token');
   }
   const user = findUser(token);
   const checkIsMember = data.channels[channelId].allMembers;
@@ -87,7 +87,7 @@ function messageEditV1(token: string, messageId: number, message: string) {
   }
 
   if (validToken(token) === false) {
-    throw HTTPError(400, 'Inavlid user token');
+    throw HTTPError(403, 'Inavlid user token');
   }
 
   // Owner can edit the message but members cannot
@@ -124,7 +124,7 @@ function messageRemoveV1(token: string, messageId: number) {
   const data = getData();
 
   if (validToken(token) === false) {
-    throw HTTPError(400, 'Inavlid user token');
+    throw HTTPError(403, 'Inavlid user token');
   }
 
   if (validMessage(messageId) === false) {
