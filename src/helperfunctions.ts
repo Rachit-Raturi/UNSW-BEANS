@@ -384,8 +384,4 @@ function dupeReact(uID: number, messageId: number, messageIndex: number, channel
   return false;
 }
 
-async function sleep(seconds) {
-  return new Promise((resolve) => setTimeout(resolve, seconds));
-}
-
-export { getMessageType, dupeReact, validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges, sleep };
+export { getMessageType, dupeReact, validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges };

@@ -251,10 +251,6 @@ describe('/message/react/v1', () => {
 
 // =========================================================================
 // Message Send Later Tests
-async function sleep(seconds) {
-  return new Promise((resolve) => setTimeout(resolve, seconds));
-}
-
 describe('message/sendlater/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid ChannelId', () => {
@@ -303,7 +299,6 @@ describe('message/sendlater/v1', () => {
     test('Test 1: Successful message sent at specified time', async () => {
       const time = Math.floor(Date.now() / 1000);
       const timeSent = time + 100;
-      await sleep(100);
       expect(requestMessageSendLater(user.token, channel.channelId, 'Message', timeSent)).toStrictEqual({ messageId: expect.any(Number) });
     });
   });

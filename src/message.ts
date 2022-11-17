@@ -227,7 +227,7 @@ function messageReact(token: string, messageId: number, reactId: number) {
   return {};
 }
 
-async function messageSendLaterV1(token: string, channelId: number, message: string, timeSent: number) {
+function messageSendLaterV1(token: string, channelId: number, message: string, timeSent: number) {
   const data = getData();
 
   // invalid token
@@ -262,14 +262,7 @@ async function messageSendLaterV1(token: string, channelId: number, message: str
 
   // Send a message at the specified time
   const wait = timeSent - time;
-  await sleep(wait);
-  const newMessage = {
-    messageId: Id,
-    uId: currentUser.uId,
-    message: message,
-    timeSent: timeSent,
-    reacts: []
-  };
+  setTimeout(messageSendV1(token, channelId, message), wait);
 
   userStatsChanges('messages', currentUser.index, 'add');
   workplaceStatsChanges('messages', 'add');
