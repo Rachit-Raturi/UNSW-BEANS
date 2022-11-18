@@ -1,3 +1,4 @@
+
 export interface channeljoin {
   numChannelsJoined: number,
   timeStamp: number
@@ -24,7 +25,10 @@ export interface user {
   dmsJoined: dmjoin[],
   messagesSent: messagesent[],
   profileImgUrl: string,
-  tokens: string[]
+  tokens: string[],
+  resetCode?: string,
+  isRemoved: boolean
+  globalPermission: number
 }
 
 export interface react {

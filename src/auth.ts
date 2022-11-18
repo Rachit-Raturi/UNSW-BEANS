@@ -1,8 +1,9 @@
 import validator from 'validator';
 import { getData, setData } from './dataStore';
 import uniqid from 'uniqid';
-import { hashPassword, hashToken } from './hash';
+import { hashPassword, hashToken, hash } from './hash';
 import HTTPError from 'http-errors';
+// import Mail from 'nodemailer/lib/mailer';
 
 /**
  * Given a valid registered email and password the function
@@ -16,7 +17,7 @@ import HTTPError from 'http-errors';
 function authLoginV1(email: string, password: string) {
   const data = getData();
   for (const users of data.users) {
-    if (users.email === email) {
+    if (users.email === email && users.isRemoved === false) {
       if (hashPassword(password) === users.password) {
         // Generate the token for the session
         const token = uniqid();
@@ -48,13 +49,19 @@ function authLoginV1(email: string, password: string) {
 function authRegisterV1(email: string, password: string, nameFirst: string, nameLast: string) {
   const data = getData();
   // Test for whether or not the email is invalid
+  let gp = 2;
+
+  if (data.users.length === 0) {
+    gp = 1;
+  }
+
   if (!validator.isEmail(email)) {
     throw HTTPError(400, 'Invalid email has been entered');
   }
   // Test for whether or not the email is already in use
   if (data.users !== null) {
     for (const users of data.users) {
-      if (users.email === email) {
+      if (users.email === email && users.isRemoved === false) {
         throw HTTPError(400, 'Email is already in use');
       }
     }
@@ -77,7 +84,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   const originalUserHandle = userHandle;
   let i = 0;
   for (const user of data.users) {
-    if (user.handleStr === userHandle) {
+    if (user.handleStr === userHandle && user.isRemoved === false) {
       userHandle = originalUserHandle + i;
       i++;
     }
@@ -117,7 +124,9 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
       }
     ],
     profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
-    tokens: token
+    tokens: token,
+    isRemoved: false,
+    globalPermission: gp
   };
   data.users.push(user);
 
@@ -125,7 +134,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
 
   return {
     token: token[0],
-    authUserId: data.users.length - 1,
+    authUserId: user.uId,
   };
 }
 
@@ -140,8 +149,13 @@ function authLogoutV1(token: string) {
   const data = getData();
   for (const users of data.users) {
     if (users.tokens.includes(token)) {
-      const index = users.tokens.indexOf(token);
-      users.tokens.splice(index, 1);
+      if (users.tokens.length === 1) {
+        users.tokens = [];
+      } else {
+        console.log(token);
+        const index = users.tokens.indexOf(token);
+        users.tokens.splice(index, 1);
+      }
       setData(data);
       return {};
     }
@@ -149,4 +163,69 @@ function authLogoutV1(token: string) {
   throw HTTPError(403, 'Token entered was invalid');
 }
 
-export { authLoginV1, authRegisterV1, authLogoutV1 };
+/**
+ * Given an email address, if the email address belongs to a registered user,
+ * sends them an email containing a secret password reset code. This code, when
+ * supplied to auth/passwordreset/reset, shows that the user trying to reset the
+ * password is the same user who got sent the email contaning the code. No error
+ * should be raised when given an invalid email, as that would pose a security/privacy
+ * concern. When a user requests a password reset, they should be logged out of all current
+ * sessions.
+ * @param {string} email - email of the user requesting a password change
+ */
+
+function authPasswordResetRequestV1(email: string) {
+  const nodemailer = require('nodemailer');
+
+  const code = uniqid();
+
+  const data = getData();
+  for (const users of data.users) {
+    if (users.email === email) {
+      if (users.tokens.length !== 0) {
+        return {};
+      }
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: 'beanstreats05@gmail.com',
+          pass: 'fkzeuwhowxwsumbj',
+        }
+      });
+
+      transporter.sendMail({
+        from: 'beanstreats05@gmail.com',
+        to: email,
+        subject: 'Resetting Password',
+        text: code,
+      });
+      users.resetCode = hash(code);
+    }
+  }
+
+  setData(data);
+  return {};
+}
+
+function authPasswordResetV1(resetCode: string, newPassword: string) {
+  const data = getData();
+
+  if (newPassword.length < 6) {
+    throw HTTPError(400, 'New password is less than 6 characters long');
+  }
+
+  for (const user of data.users) {
+    if (user.resetCode === hash(resetCode)) {
+      user.password = hashPassword(newPassword);
+      user.resetCode = undefined;
+      setData(data);
+      return {};
+    }
+  }
+
+  throw HTTPError(400, 'The reset code entered is not valid');
+}
+
+export { authLoginV1, authRegisterV1, authLogoutV1, authPasswordResetRequestV1, authPasswordResetV1 };

@@ -9,3 +9,7 @@ export function hashToken(token: string) {
   const hashInput = token + key;
   return crypto.createHash('sha256').update(hashInput).digest('hex');
 }
+
+export function hash(code: string) {
+  return crypto.createHash('sha256').update(code).digest('hex');
+}
