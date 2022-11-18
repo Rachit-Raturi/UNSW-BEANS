@@ -123,7 +123,11 @@ describe('/standup/send/v1', () => {
       expect(requestStandupSend(user.token, channel.channelId, 'Sending a message')).toStrictEqual(400);
     });
 
-    test('Test 4: Invalid message lengths', () => {
+    test('Test 4: User is not a member of the channel', () => {
+      expect(requestStandupSend(user1.token, channel.channelId, 'message')).toStrictEqual(403);
+    });
+
+    test('Test 5: Invalid message lengths', () => {
       let longString: string;
       for (let i = 0; i <= 1000; i++) {
         longString += 'a';
