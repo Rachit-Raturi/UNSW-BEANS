@@ -130,7 +130,7 @@ describe('/auth/logout/v1', () => {
       token: expect.any(String),
       authUserId: expect.any(Number)
     });
-    requestAuthLogin('validemail@gmail.com', 'password')
+    requestAuthLogin('validemail@gmail.com', 'password');
     expect(requestAuthLogout(userNew.token)).toStrictEqual({});
   });
 });
@@ -139,10 +139,11 @@ describe('/auth/logout/v1', () => {
 // Auth Password Reset Request Tests
 describe('auth/passwordreset/request/v1', () => {
   test('Test 1: email sends', () => {
-    requestAuthPasswordRequestReset('sds');
+    requestAuthPasswordRequestReset('valid@gmail.com');
   });
   test('Test 2: user logged in', () => {
     const userNew = requestAuthRegister('validemail@gmail.com', 'password', 'first', 'last');
+    requestAuthLogout(userNew.token);
     requestAuthPasswordRequestReset('validemail@gmail.com');
   });
 });
