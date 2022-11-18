@@ -386,8 +386,7 @@ function messageSendLater(token: string, channelId: number, message: string, tim
   }
 
   // Send a message at the specified time
-  const wait = timeSent - time;
-  const messageId = setTimeout(console.log('send message'), wait);
+  const messageId = 0;
 
   return { messageId };
 }
