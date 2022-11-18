@@ -1,5 +1,6 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken } from './helperfunctions';
+import { messageSendV1 } from './message';
 import HTTPError from 'http-errors';
 
 /**
@@ -52,6 +53,7 @@ function standupStartV1 (token: string, channelId: number, length: number): {tim
   currentStandup.isActive = true;
   currentStandup.timeFinish = Math.floor(Date.now() / 1000) + length + 2; // allows for 2 second delay
   currentStandup.messages = '';
+  data.channels[channelId].standup = currentStandup;
   setData(data);
 
   return {
@@ -88,10 +90,14 @@ function standupActiveV1 (token: string, channelId: number): object {
   }
 
   const currentStandup = data.channels[channelId].standup;
-  if (Math.floor(Date.now() / 1000) >= currentStandup.timeFinish) {
+  if (Math.floor(Date.now() / 1000) >= currentStandup.timeFinish && currentStandup.timeFinish !== null) {
+    messageSendV1(token, channelId, currentStandup.messages);
     currentStandup.isActive = false;
-    currentStandup.timeFinish = 0;
+    currentStandup.timeFinish = null;
+    currentStandup.messages = '';
   }
+
+  data.channels[channelId].standup = currentStandup;
 
   return {
     isActive: currentStandup.isActive,
@@ -141,7 +147,8 @@ function standupSendV1 (token: string, channelId: number, message: string) {
   } else {
     currentStandup.messages += '\n' + message;
   }
-
+  data.channels[channelId].standup.messages = currentStandup.messages
+  setData(data);
   return {};
 }
 

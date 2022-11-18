@@ -297,7 +297,7 @@ describe('/channel/messages/v2', () => {
       {
         messageId: expect.any(Number),
         uId: expect.any(Number),
-        message: 'message49',
+        message: 'message10',
         timeSent: expect.any(Number),
         reacts: [],
         isPinned: expect.any(Boolean)

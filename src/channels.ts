@@ -42,7 +42,7 @@ function channelsCreateV1(token: string, name: string, isPublic: boolean) {
     messages: [],
     standup: {
       isActive: false,
-      timeFinish: 0,
+      timeFinish: null,
       messages: ''
     }
   };

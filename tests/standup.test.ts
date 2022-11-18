@@ -101,7 +101,7 @@ describe('/standup/active/v1', () => {
     expect(requestStandupActive(user.token, channel.channelId)).toStrictEqual(
       {
         isActive: false,
-        timeFinish: 0
+        timeFinish: null
       }
     );
   });
