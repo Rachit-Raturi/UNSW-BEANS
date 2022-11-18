@@ -424,16 +424,16 @@ function messageSendLaterDm(token: string, dmId: number, message: string, timeSe
     throw HTTPError(400, 'invalid dmId');
   }
 
-  // Check length of message
-  if (message.length < 1 || message.length > 1000) {
-    throw HTTPError(400, 'length of message is less than 1 or over 1000 characters');
-  }
-
-  // check authuserid is a member of the channel
+  // check authuserid is a member of the dm
   const user = findUser(token);
   const checkIsMember = data.dms[dmId].members;
   if (checkIsMember.includes(user.uId) === false || data.dms[dmId].owner !== user.uId) {
     throw HTTPError(403, 'user is not a member of the DM');
+  }
+
+  // Check length of message
+  if (message.length < 1 || message.length > 1000) {
+    throw HTTPError(400, 'length of message is less than 1 or over 1000 characters');
   }
 
   // Check if timeSent is a time in the past
