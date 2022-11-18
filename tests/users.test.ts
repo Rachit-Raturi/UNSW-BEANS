@@ -365,9 +365,9 @@ describe('/users/stats/v1 ', () => {
     const channel = requestChannelsCreate(user.token, 'channel', true);
     requestChannelsCreate(user.token, 'channel1', true);
     requestMessageSend(user.token, channel.channelId, 'channel message');
-    const dm = requestDmCreate(user.token, []);
+    const user1 = requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
+    const dm = requestDmCreate(user.token, [user1.authUserId]);
     requestMessageSendDm(user.token, dm.dmId, 'dm message');
-    requestAuthRegister('test1@gmail.com', 'password1', 'firstname1', 'lastname1');
     requestAuthRegister('test2@gmail.com', 'password2', 'firstname2', 'lastname2');
     expect(requestUsersStats(user.token)).toStrictEqual(
       {
@@ -386,7 +386,7 @@ describe('/users/stats/v1 ', () => {
             { numMessagesExist: 1, timeStamp: testTimeStamp },
             { numMessagesExist: 2, timeStamp: testTimeStamp },
           ],
-          utilizationRate: 1 / 3
+          utilizationRate: 2 / 3
         }
       }
     );
@@ -396,29 +396,29 @@ describe('/users/stats/v1 ', () => {
 describe('/user/profile/uploadphoto/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid token', () => {
-      expect(requestUserPhoto(invalidToken, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 1, 1)).toStrictEqual(403);
+      expect(requestUserPhoto(invalidToken, 'http://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 1, 1)).toStrictEqual(403);
     });
     test('Test 2: Invalid image url', () => {
       expect(requestUserPhoto(user.token, 'invalid', 0, 0, 1, 1)).toStrictEqual(400);
     });
     test('Test 3: xEnd <= xStart', () => {
-      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 1, 0, 1, 1)).toStrictEqual(400);
-      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 1, 0, 0, 1)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'http://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 1, 0, 1, 1)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'http://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 1, 0, 0, 1)).toStrictEqual(400);
     });
     test('Test 4: yEnd <= yStart', () => {
-      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 1, 1, 1)).toStrictEqual(400);
-      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 1, 1, 0)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'http://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 1, 1, 1)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'http://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 1, 1, 0)).toStrictEqual(400);
     });
     test('Test 5: invalid image type', () => {
       expect(requestUserPhoto(user.token, 'http://en.wikipedia.org/wiki/Portable_Network_Graphics#/media/File:PNG_transparency_demonstration_1.png', 0, 0, 1, 1)).toStrictEqual(400);
     });
     test('Test 6: cropping not within image dimensions', () => {
-      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 800, 400)).toStrictEqual(400);
-      expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 400, 800)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'http://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 800, 400)).toStrictEqual(400);
+      expect(requestUserPhoto(user.token, 'http://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 400, 800)).toStrictEqual(400);
     });
   });
 
   test('Test 1: valid test', () => {
-    expect(requestUserPhoto(user.token, 'https://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 680, 600)).toStrictEqual({});
+    expect(requestUserPhoto(user.token, 'http://i.kym-cdn.com/photos/images/newsfeed/001/929/233/8c5.jpg', 0, 0, 680, 600)).toStrictEqual({});
   });
 });

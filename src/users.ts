@@ -115,6 +115,15 @@ function userSetEmailV1 (token: string, email: string) {
   return {};
 }
 
+/**
+ * Given a token fetches the users stats
+ *
+ * @param {string} token
+ * @returns {array} channelsJoined
+ * @returns {array} dmsJoined
+ * @returns {array} messagesSent
+ * @returns {number} involvementRate
+ */
 function userStats (token: string) {
   if (validToken(token) === false) {
     throw HTTPError(403, 'invalid token');
@@ -131,24 +140,20 @@ function userStats (token: string) {
   const totalChannels = findNumberOf('channels');
   const totalDms = findNumberOf('dms');
   const totalMessages = findNumberOf('messages');
-
-  console.log(numberChannels);
-  console.log(numberDms);
-  console.log(numberMessages);
-  console.log(totalChannels);
-  console.log(totalDms);
-  console.log(totalMessages);
   let involvementRate = 0;
 
+  // involvement rate denominator < 0
   if ((totalChannels + totalDms + totalMessages) === 0) {
     involvementRate = 0;
   } else {
     involvementRate = (numberChannels + numberDms + numberMessages) / (totalChannels + totalDms + totalMessages);
   }
 
+    // cap involvement rate at 1
   if (involvementRate > 1) {
     involvementRate = 1;
   }
+
   console.log(involvementRate);
 
   return {
@@ -161,7 +166,18 @@ function userStats (token: string) {
   };
 }
 
+/**
+ * Given a token fetches the workplace stats
+ *
+ * @param {string} token
+ * @returns {array} channelsExist
+ * @returns {array} dmsExist
+ * @returns {array} messagesExist
+ * @returns {number} utilizationRate
+ */
+
 function usersStats (token: string) {
+  // check if token is valid
   if (validToken(token) === false) {
     throw HTTPError(403, 'invalid token');
   }
@@ -172,6 +188,7 @@ function usersStats (token: string) {
     notUtilisedArray.push(user.uId);
   }
 
+  // create array of users that are not in a channel
   for (const channel of data.channels) {
     for (const member of channel.allMembers) {
       if (notUtilisedArray.includes(member)) {
@@ -181,6 +198,7 @@ function usersStats (token: string) {
     }
   }
 
+  // create array of users that are not in a dm
   for (const dm of data.dms) {
     for (const member of dm.members) {
       if (notUtilisedArray.includes(member)) {
@@ -202,6 +220,17 @@ function usersStats (token: string) {
   };
 }
 
+/**
+ * Given a image url, sets the user profile picture to that image
+ *
+ * @param {string} token
+ * @param {string} imgUrl
+ * @param {number} xStart
+ * @param {number} yStart
+ * @param {number} xEnd
+ * @param {number} yEnd
+ * @returns {}
+ */
 function userPhoto (token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
   const data = getData();
 
