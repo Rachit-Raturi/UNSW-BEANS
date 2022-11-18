@@ -285,6 +285,7 @@ function userPhoto (token: string, imgUrl: string, xStart: number, yStart: numbe
   crop(); // Calling the function here using async
   console.log('Image is processed successfully');
   data.users[user.index].profileImgUrl = 'http://localhost:3200/' + 'imgurl/' + uIdString + 'crop' + '.jpg';
+  setData(data);
   return {};
 }
 
