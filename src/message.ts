@@ -337,4 +337,44 @@ function messageUnpin(token: string, messageId: number) {
   return {};
 }
 
-export { messageUnpin, messagePin, messageUnReact, messageReact, messageSendV1, messageEditV1, messageRemoveV1, resetId };
+function messageSendLater(token: string, channelId: number, message: string, timeSent: number) {
+  const data = getData();
+
+  // invalid token
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'invalid token');
+  }
+
+  const currentUser = findUser(token);
+  // check channelid is valid
+  const isValidChannel = data.channels.find(c => c.channelId === channelId);
+  if (isValidChannel === undefined) {
+    throw HTTPError(400, 'invalid channel');
+  }
+
+  // check authuserid is a member of the channel
+  const checkIsMember = data.channels[channelId].allMembers;
+  const isValidMember = checkIsMember.find(a => a === currentUser.uId);
+  if (isValidMember === undefined) {
+    throw HTTPError(403, 'not a member of the channel');
+  }
+
+  // Check length of message
+  if (message.length < 1 || message.length > 1000) {
+    throw HTTPError(400, 'length of message is less than 1 or over 1000 characters');
+  }
+
+  // Check if timeSent is a time in the past
+  const time = Math.floor(Date.now() / 1000);
+  if (time > timeSent) {
+    throw HTTPError(400, 'timeSent is a time in the past');
+  }
+
+  // Send a message at the specified time
+  const wait = timeSent - time;
+  const messageId = setTimeout(messageSendV1(token, channelId, message), wait);
+
+  return { messageId };
+}
+
+export { messageUnpin, messagePin, messageUnReact, messageReact, messageSendV1, messageEditV1, messageRemoveV1, messageSendLater, resetId };

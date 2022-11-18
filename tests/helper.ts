@@ -139,14 +139,21 @@ export function requestMessageSendDm(token: string, dmId: number, message: strin
 export function requestMessageReact(token: string, messageId: number, reactId: number) {
   return requestHelper('POST', '/message/react/v1', { messageId, reactId }, { token: token });
 }
+
 export function requestMessageUnReact(token: string, messageId: number, reactId: number) {
   return requestHelper('POST', '/message/unreact/v1', { messageId, reactId }, { token: token });
 }
+
 export function requestMessagePin(token: string, messageId: number) {
   return requestHelper('POST', '/message/pin/v1', { messageId }, { token: token });
 }
+
 export function requestMessageUnpin(token: string, messageId: number) {
   return requestHelper('POST', '/message/unpin/v1', { messageId }, { token: token });
+}
+
+export function requestMessageSendLater(token: string, channelId: number, message: string, timeSent: number) {
+  return requestHelper('POST', '/message/sendlater/v1', { channelId, message, timeSent }, { token: token });
 }
 
 // =========================================================================
