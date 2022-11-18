@@ -194,6 +194,14 @@ export function requestUsersStats(token: string) {
   return requestHelper('GET', '/users/stats/v1', {}, { token: token });
 }
 
+export function requestSearch(token: string, queryStr: string) {
+  return requestHelper('GET', '/search/v1', { queryStr }, { token: token });
+}
+
+export function requestUserPhoto(token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
+  return requestHelper('POST', '/user/profile/uploadphoto/v1', { imgUrl, xStart, yStart, xEnd, yEnd }, { token: token });
+}
+
 // =========================================================================
 // Admin funcions
 
@@ -203,14 +211,6 @@ export function requestAdminUserRemove(uId: number, token: string) {
 
 export function requestAdminUserPermissionChange(uId: number, permissionId: number, token: string) {
   return requestHelper('POST', '/admin/userpermission/change/v1', { uId, permissionId }, { token: token });
-}
-
-export function requestSearch(token: string, queryStr: string) {
-  return requestHelper('GET', '/search/v1', { queryStr }, { token: token });
-}
-
-export function requestUserPhoto(token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
-  return requestHelper('POST', '/user/profile/uploadphoto/v1', { imgUrl, xStart, yStart, xEnd, yEnd }, { token: token });
 }
 
 // =========================================================================
@@ -226,4 +226,3 @@ export function requestStandupActive(token: string, channelId: number) {
 export function requestStandupSend(token: string, channelId: number, message: string) {
   return requestHelper('POST', '/standup/send/v1', { channelId, message }, { token: token });
 }
-
