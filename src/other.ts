@@ -11,7 +11,6 @@ function clearV1() {
   resetId();
   const clearedData: Datastore = {
     users: [],
-    uIdGen: 0,
     channels: [],
     dms: [],
     stats: {

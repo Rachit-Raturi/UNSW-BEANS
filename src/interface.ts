@@ -24,7 +24,7 @@ export interface user {
   dmsJoined: dmjoin[],
   messagesSent: messagesent[],
   tokens: string[],
-  resetCode: string,
+  resetCode?: string,
   isRemoved: boolean
   globalPermission: number
 }

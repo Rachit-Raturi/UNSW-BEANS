@@ -1,5 +1,5 @@
 import { getData, setData } from './dataStore';
-import { validToken, validUId, findUser } from './helperfunctions'
+import { validToken, validUId, findUser } from './helperfunctions';
 import HTTPError from 'http-errors';
 
 /**
@@ -14,7 +14,7 @@ import HTTPError from 'http-errors';
  * @param {string} - token - the token of the user trying to remove another user
  */
 function adminUserRemoveV1(uId: number, token: string) {
-  let data = getData();
+  const data = getData();
 
   if (!validToken(token)) {
     throw HTTPError(403, 'Invalid token has been inputted');
@@ -39,9 +39,9 @@ function adminUserRemoveV1(uId: number, token: string) {
   }
 
   if (counter === 0) {
-    throw HTTPError(400, 'userId refers to the only global owner')
+    throw HTTPError(400, 'userId refers to the only global owner');
   }
-  
+
   for (const users of data.users) {
     if (users.uId === uId) {
       users.isRemoved = true;
@@ -84,13 +84,13 @@ function adminUserRemoveV1(uId: number, token: string) {
  * @param {number} - permissionId - new permissions being put upon the user
  * @param {string} - token - token of the user changing anothers permissions
  */
-function adminUserPermissionChangeV1(uId: number, permissionId: string, token: string) {
-  let data = getData();
+function adminUserPermissionChangeV1(uId: number, permissionId: number, token: string) {
+  const data = getData();
 
   if (!validToken(token)) {
     throw HTTPError(403, 'Invalid token has been inputted');
   }
-  
+
   const globalOwner = findUser(token);
 
   if (globalOwner.globalPermission !== 1) {
@@ -100,7 +100,7 @@ function adminUserPermissionChangeV1(uId: number, permissionId: string, token: s
   let counter = 0;
 
   if (!validUId(uId)) {
-    throw HTTPError(400, 'uId entered is not valid')
+    throw HTTPError(400, 'uId entered is not valid');
   }
 
   for (const users of data.users) {
@@ -110,11 +110,11 @@ function adminUserPermissionChangeV1(uId: number, permissionId: string, token: s
   }
 
   if (counter === 0 && permissionId !== 1) {
-    throw HTTPError(400, 'userId refers to the only global owner')
+    throw HTTPError(400, 'userId refers to the only global owner');
   }
 
   if (permissionId !== 1 && permissionId !== 2) {
-    throw HTTPError(400, 'permissionId is invalid')
+    throw HTTPError(400, 'permissionId is invalid');
   }
 
   for (const users of data.users) {

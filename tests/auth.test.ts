@@ -154,6 +154,6 @@ describe('auth/passwordreset/reset/v1', () => {
     requestAuthLogout(userNew.token);
     expect(requestAuthPasswordRequestReset('validemail@gmail.com')).toStrictEqual({});
     expect(requestAuthPasswordReset('c723n45783ny5cn34765t3cn94t5n6934tn956ct39462t6n963', 'password'))
-    .toStrictEqual(400);
+      .toStrictEqual(400);
   });
 });

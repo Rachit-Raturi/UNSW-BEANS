@@ -3,7 +3,7 @@ import { getData, setData } from './dataStore';
 import uniqid from 'uniqid';
 import { hashPassword, hashToken, hash } from './hash';
 import HTTPError from 'http-errors';
-import Mail from 'nodemailer/lib/mailer';
+// import Mail from 'nodemailer/lib/mailer';
 
 /**
  * Given a valid registered email and password the function
@@ -15,7 +15,7 @@ import Mail from 'nodemailer/lib/mailer';
  * @returns {string} token - the token to mark the users
  */
 function authLoginV1(email: string, password: string) {
-  let data = getData();
+  const data = getData();
   for (const users of data.users) {
     if (users.email === email && users.isRemoved === false) {
       if (hashPassword(password) === users.password) {
@@ -47,12 +47,12 @@ function authLoginV1(email: string, password: string) {
  * @return {string} token - the token of the session
  */
 function authRegisterV1(email: string, password: string, nameFirst: string, nameLast: string) {
-  let data = getData();
+  const data = getData();
   // Test for whether or not the email is invalid
+  let gp = 2;
+
   if (data.users.length === 0) {
-    const gp = 1;
-  } else {
-    const gp = 2;
+    gp = 1;
   }
 
   if (!validator.isEmail(email)) {
@@ -128,9 +128,9 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
     globalPermission: gp
   };
   data.users.push(user);
-  
+
   setData(data);
-  
+
   return {
     token: token[0],
     authUserId: user.uId,
@@ -145,15 +145,15 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
  */
 
 function authLogoutV1(token: string) {
-  let data = getData();
+  const data = getData();
   for (const users of data.users) {
     if (users.tokens.includes(token)) {
       if (users.tokens.length === 1) {
         users.tokens = [];
       } else {
-      console.log(token);
-      const index = users.tokens.indexOf(token);
-      users.tokens.splice(index, 1);
+        console.log(token);
+        const index = users.tokens.indexOf(token);
+        users.tokens.splice(index, 1);
       }
       setData(data);
       return {};
@@ -178,7 +178,7 @@ function authPasswordResetRequestV1(email: string) {
 
   const code = uniqid();
 
-  let data = getData();
+  const data = getData();
   for (const users of data.users) {
     if (users.email === email) {
       if (users.tokens.length !== 0) {
@@ -193,7 +193,7 @@ function authPasswordResetRequestV1(email: string) {
           pass: 'fkzeuwhowxwsumbj',
         }
       });
-    
+
       transporter.sendMail({
         from: 'beanstreats05@gmail.com',
         to: email,
@@ -209,7 +209,7 @@ function authPasswordResetRequestV1(email: string) {
 }
 
 function authPasswordResetV1(resetCode: string, newPassword: string) {
-  let data = getData();
+  const data = getData();
 
   if (newPassword.length < 6) {
     throw HTTPError(400, 'New password is less than 6 characters long');
