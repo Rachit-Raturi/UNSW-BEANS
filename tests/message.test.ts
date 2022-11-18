@@ -12,6 +12,7 @@ import {
   requestMessageUnReact,
   requestMessagePin,
   requestMessageUnpin,
+  requestMessageSendLater,
 } from './helper';
 
 interface userType {
@@ -382,6 +383,53 @@ describe('/message/unpin/v1', () => {
       const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
       const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
       expect(requestMessageUnpin(user1.token, dmSend.messageId)).toStrictEqual(ERROR2);
+    });
+  });
+});
+
+// =========================================================================
+// Message Send Later Tests
+describe('message/sendlater/v1', () => {
+  describe('Error', () => {
+    test('Test 1: Invalid ChannelId', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user.token, 10, 'Message', timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 2: Invalid Token', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(invalidToken, channel.channelId, 'Message', timeSent)).toStrictEqual(403);
+    });
+
+    test('Test 3: Message is less than 1 character', () => {
+      const emptyString = '';
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user.token, channel.channelId, emptyString, timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 4: Message is more than 1000 characters', () => {
+      let longString: string;
+      for (let i = 0; i <= 1000; i++) {
+        longString += 'a';
+      }
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user.token, channel.channelId, longString, timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 5: User is not in DM', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user2.token, channel.channelId, 'Message', timeSent)).toStrictEqual(403);
+    });
+
+    test('Test 6: timeSent is a time in the past', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time - 100;
+      expect(requestMessageSendLater(user.token, channel.channelId, 'Message', timeSent)).toStrictEqual(400);
     });
   });
 });
