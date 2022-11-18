@@ -295,7 +295,7 @@ app.post('/message/sendlater/v1', (req: Request, res: Response) => {
   const token = req.header('token');
   const { channelId, message, timeSent } = req.body;
   save();
-  res.json(messageSendLater(token, channelId, message, timeSent));
+  res.json(messageSendLaterDm(token, channelId, message, timeSent));
 });
 
 // =========================================================================
