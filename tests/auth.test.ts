@@ -139,10 +139,15 @@ describe('/auth/logout/v1', () => {
 // Auth Password Reset Request Tests
 describe('auth/passwordreset/request/v1', () => {
   test('Test 1: email sends', () => {
-    requestAuthPasswordRequestReset('sds');
+    requestAuthPasswordRequestReset('valid@gmail.com');
   });
   test('Test 2: user logged in', () => {
+<<<<<<< tests/auth.test.ts
+    const userNew = requestAuthRegister('validemail@gmail.com', 'password', 'first', 'last');
+    requestAuthLogout(userNew.token);
+=======
     requestAuthRegister('validemail@gmail.com', 'password', 'first', 'last');
+>>>>>>> tests/auth.test.ts
     requestAuthPasswordRequestReset('validemail@gmail.com');
   });
 });

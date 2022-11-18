@@ -10,6 +10,7 @@ import {
   dupeReact
 } from './helperfunctions';
 import HTTPError from 'http-errors';
+import { message } from './interface';
 /**
  *
  * Given a channel with ID channelId that the authorised user
@@ -48,7 +49,7 @@ function messageSendV1(token: string, channelId: number, message: string) {
 
   const time = Math.floor(Date.now() / 1000);
 
-  const newMessage = {
+  const newMessage: message = {
     messageId: Id,
     uId: user.uId,
     message: message,

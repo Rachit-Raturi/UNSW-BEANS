@@ -1,6 +1,6 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken, userStatsChanges, workplaceStatsChanges } from './helperfunctions';
-import { dm } from './interface';
+import { dm, message } from './interface';
 import HTTPError from 'http-errors';
 
 interface dmlist {
@@ -389,7 +389,7 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
 
   const time = Math.floor(Date.now() / 1000);
 
-  const newMessage = {
+  const newMessage: message = {
     messageId: Id,
     uId: user.uId,
     message: message,
