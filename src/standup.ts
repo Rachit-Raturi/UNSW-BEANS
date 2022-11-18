@@ -1,6 +1,5 @@
 import { getData, setData } from './dataStore';
 import { findUser, validToken } from './helperfunctions';
-import { messageSendV1 } from './message';
 import HTTPError from 'http-errors';
 
 /**
@@ -92,7 +91,7 @@ function standupActiveV1 (token: string, channelId: number): object {
   const currentStandup = data.channels[channelId].standup;
   if (Math.floor(Date.now() / 1000) >= currentStandup.timeFinish) {
     if (currentStandup.timeFinish !== null) {
-      messageSendV1(token, channelId, currentStandup.messages);
+      console.log('message')
     }
     currentStandup.isActive = false;
     currentStandup.timeFinish = null;
