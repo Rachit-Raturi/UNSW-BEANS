@@ -1,4 +1,3 @@
-
 export interface channeljoin {
   numChannelsJoined: number,
   timeStamp: number
@@ -34,7 +33,7 @@ export interface user {
 export interface react {
   reactId: number,
   uIds: number[],
-  isThisUserReacted: boolean,
+  isThisUserReacted: boolean
 }
 
 export interface message {
