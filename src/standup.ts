@@ -91,7 +91,7 @@ function standupActiveV1 (token: string, channelId: number): object {
   const currentStandup = data.channels[channelId].standup;
   if (Math.floor(Date.now() / 1000) >= currentStandup.timeFinish) {
     if (currentStandup.timeFinish !== null) {
-      console.log('message')
+      console.log('message');
     }
     currentStandup.isActive = false;
     currentStandup.timeFinish = null;
