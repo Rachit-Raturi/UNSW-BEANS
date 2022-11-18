@@ -224,6 +224,14 @@ app.post('/message/senddm/v2', (req: Request, res: Response) => {
   res.json(messageSendDmV1(token, dmId, message));
 });
 
+app.post('/message/sendlaterdm/v1', (req: Request, res: Response) => {
+  console.log('Message sent later');
+  const token = req.header('token');
+  const { dmId, message, timeSent } = req.body;
+  save();
+  res.json(messageSendLater(token, dmId, message, timeSent));
+});
+
 // =========================================================================
 // Message functions
 app.post('/message/send/v2', (req: Request, res: Response) => {

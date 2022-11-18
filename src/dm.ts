@@ -410,4 +410,43 @@ function messageSendDmV1(token: string, dmId: number, message: string) {
   };
 }
 
-export { dmCreateV1, dmListV1, dmRemoveV1, dmDetailsV1, dmLeaveV1, dmMessagesV1, messageSendDmV1 };
+function messageSendLaterDm(token: string, dmId: number, message: string, timeSent: number) {
+  const data = getData();
+
+  // invalid token
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'invalid token');
+  }
+
+  // check dmId is valid
+  const isValidDm = data.dms.find(d => d.dmId === dmId);
+  if (isValidDm === undefined) {
+    throw HTTPError(400, 'invalid dmId');
+  }
+
+  // Check length of message
+  if (message.length < 1 || message.length > 1000) {
+    throw HTTPError(400, 'length of message is less than 1 or over 1000 characters');
+  }
+
+  // check authuserid is a member of the channel
+  const user = findUser(token);
+  const checkIsMember = data.dms[dmId].members;
+  if (checkIsMember.includes(user.uId) === false || data.dms[dmId].owner !== user.uId) {
+    throw HTTPError(403, 'user is not a member of the DM');
+  }
+
+  // Check if timeSent is a time in the past
+  const time = Math.floor(Date.now() / 1000);
+  if (time > timeSent) {
+    throw HTTPError(400, 'timeSent is a time in the past');
+  }
+
+  // Send a message at the specified time
+  const wait = timeSent - time;
+  const messageId = setTimeout(messageSendDmV1(token, dmId, message), wait);
+
+  return { messageId };
+}
+
+export { dmCreateV1, dmListV1, dmRemoveV1, dmDetailsV1, dmLeaveV1, dmMessagesV1, messageSendDmV1, messageSendLaterDm };

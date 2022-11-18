@@ -7,7 +7,8 @@ import {
   requestDmDetails,
   requestDmLeave,
   requestDmMessages,
-  requestMessageSendDm
+  requestMessageSendDm,
+  requestMessageSendLaterDm,
 } from './helper';
 
 interface userType {
@@ -248,7 +249,8 @@ describe('/dm/messages/v1', () => {
     });
 
     test('Test 4: User is not in dm', () => {
-      expect(requestDmMessages(user2.token, dm.dmId, start)).toStrictEqual(403);
+      const dmCreate = requestDmCreate(user.token, [user1.authUserId]);
+      expect(requestDmMessages(user2.token, dmCreate.dmId, start)).toStrictEqual(403);
     });
   });
 
@@ -353,5 +355,52 @@ describe('/message/senddm/v1', () => {
   test('Test 1: Successful message', () => {
     const message = 'Hello World';
     expect(requestMessageSendDm(user.token, dm.dmId, message)).toStrictEqual({ messageId: expect.any(Number) });
+  });
+});
+
+// =========================================================================
+// Dm Message Send Later Tests
+describe('message/sendlaterdm/v1', () => {
+  describe('Error', () => {
+    test('Test 1: Invalid dmId', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLaterDm(user.token, 10, 'Message', timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 2: Invalid Token', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLaterDm(invalidToken, dm.dmId, 'Message', timeSent)).toStrictEqual(403);
+    });
+
+    test('Test 3: Message is less than 1 character', () => {
+      const emptyString = '';
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLaterDm(user.token, dm.dmId, emptyString, timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 4: Message is more than 1000 characters', () => {
+      let longString: string;
+      for (let i = 0; i <= 1000; i++) {
+        longString += 'a';
+      }
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLaterDm(user.token, dm.dmId, longString, timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 5: User is not in DM', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLaterDm(user2.token, dm.dmId, 'Message', timeSent)).toStrictEqual(403);
+    });
+
+    test('Test 6: timeSent is a time in the past', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time - 100;
+      expect(requestMessageSendLaterDm(user.token, dm.dmId, 'Message', timeSent)).toStrictEqual(400);
+    });
   });
 });

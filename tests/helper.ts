@@ -118,6 +118,10 @@ export function requestDmMessages(token: string, dmId: number, start: number) {
   return requestHelper('GET', '/dm/messages/v2', { dmId, start }, { token: token });
 }
 
+export function requestMessageSendLaterDm(token: string, dmId: number, message: string, timeSent: number) {
+  return requestHelper('POST', '/message/sendlaterdm/v1', { dmId, message, timeSent }, { token: token });
+}
+
 // =========================================================================
 // Message Functions
 export function requestMessageSend(token: string, channelId: number, message: string) {
