@@ -69,10 +69,15 @@ describe('AdminUserPermissionChange tests', () => {
     expect(requestAdminUserPermissionChange(incorrectId, 1, user.token)).toStrictEqual(400);
   });
 
-  test('Test 4: uId refers to only global owner', () => {
+  test('Test 4: invalid permissionId', () => {
     const user = requestAuthRegister('valid@gmail.com', 'password', 'valid', 'valid');
     const user1 = requestAuthRegister('valid1@gmail.com', 'password1', 'validd', 'validd');
     expect(requestAdminUserPermissionChange(user1.authUserId, 3, user.token)).toStrictEqual(400);
+  });
+
+  test('Test 5: uId refers to only global owner', () => {
+    const user = requestAuthRegister('valid@gmail.com', 'password', 'valid', 'valid');
+    expect(requestAdminUserPermissionChange(user.authUserId, 2, user.token)).toStrictEqual(400);
   });
 
   test('Test 5: success', () => {
