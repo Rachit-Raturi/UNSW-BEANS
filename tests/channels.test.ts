@@ -15,8 +15,6 @@ interface channelType {
   channelId: number
 }
 
-const ERROR = { error: expect.any(String) };
-
 let user: userType;
 let user1: userType;
 let channel1: channelType;
@@ -109,31 +107,16 @@ describe('/channels/list/v2', () => {
 // Channels List All Tests
 describe('/channels/listAll/v2', () => {
   test('Test 1: Invalid authUserId', () => {
-    let invalidUserId = 1;
-    if (user.authUserId === 1) {
-      invalidUserId = 2;
-    }
-    if (user1.authUserId === invalidUserId) {
-      invalidUserId = 3;
-    }
-
     expect(requestChannelsListAll('invalidUserId'))
-      .toStrictEqual(ERROR);
+      .toStrictEqual(403);
   });
 
-  test('Test 2: User in 0 courses', () => {
-    const user3 = requestAuthRegister('3test@gmail.com', '3password',
-      '3firstname', '3lastname');
-    expect(requestChannelsListAll(user3.token))
-      .toStrictEqual({ channels: [] });
-  });
-
-  test('Test 3: Valid Case - 1 channels', () => {
+  test('Test 2: Valid Case - 1 channels', () => {
     expect(requestChannelsListAll(user.token))
       .toStrictEqual({ channels: [{ channelId: channel1.channelId, name: 'My Channel1' }] });
   });
 
-  test('Test 4: Valid Case - 3 channels', () => {
+  test('Test 3: Valid Case - 3 channels', () => {
     const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
     const channel3 = requestChannelsCreate(user.token, 'My Channel3', true);
 
@@ -141,29 +124,6 @@ describe('/channels/listAll/v2', () => {
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     outputArray.push({ channelId: channel3.channelId, name: 'My Channel3' });
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
-
-    const expectedSet = new Set(outputArray);
-    const receivedSet = new Set(requestChannelsListAll(user.token).channels);
-
-    expect(expectedSet).toStrictEqual(receivedSet);
-  });
-
-  test('Test 5: Valid Case - 6 channels', () => {
-    const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
-    const channel3 = requestChannelsCreate(user.token, 'My Channel3', true);
-    const channel4 = requestChannelsCreate(user.token, 'My Channel4', true);
-    const channel5 = requestChannelsCreate(user.token, 'My Channel5', true);
-    const channel6 = requestChannelsCreate(user.token, 'My Channel6', true);
-    const channel7 = requestChannelsCreate(user.token, 'My Channel7', true);
-
-    const outputArray = [];
-    outputArray.push({ channelId: channel3.channelId, name: 'My Channel3' });
-    outputArray.push({ channelId: channel4.channelId, name: 'My Channel4' });
-    outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
-    outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
-    outputArray.push({ channelId: channel5.channelId, name: 'My Channel5' });
-    outputArray.push({ channelId: channel6.channelId, name: 'My Channel6' });
-    outputArray.push({ channelId: channel7.channelId, name: 'My Channel7' });
 
     const expectedSet = new Set(outputArray);
     const receivedSet = new Set(requestChannelsListAll(user.token).channels);

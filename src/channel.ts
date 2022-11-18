@@ -89,7 +89,7 @@ function channelJoinV1(token: string, channelId: number) {
 
   // invalid token
   if (!validToken(token)) {
-    throw HTTPError(400, 'Incorrect password has been entered');
+    throw HTTPError(403, 'Incorrect password has been entered');
   }
 
   const currentUser = findUser(token);
@@ -265,14 +265,15 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
 
 function channelLeaveV1(token: string, channelId: number) {
   const data = getData();
-  // check validity of channelId
-  if (data.channels[channelId] === undefined) {
-    throw HTTPError(400, 'Invalid channelId entered');
-  }
 
   // check validity of token
   if (!validToken(token)) {
     throw HTTPError(403, 'Invalid token entered');
+  }
+
+  // check validity of channelId
+  if (data.channels[channelId] === undefined) {
+    throw HTTPError(400, 'Invalid channelId entered');
   }
 
   // check if the user is a member of the channel
@@ -351,12 +352,12 @@ function channelAddOwnerV1(token: string, channelId: number, uId: number) {
 function channelRemoveOwnerV1(token: string, channelId: number, uId: number) {
   const data = getData();
 
-  if (data.channels[channelId] === undefined) {
-    throw HTTPError(400, 'Invalid channelId entered');
-  }
-
   if (!validToken(token)) {
     throw HTTPError(403, 'Invalid token entered');
+  }
+
+  if (data.channels[channelId] === undefined) {
+    throw HTTPError(400, 'Invalid channelId entered');
   }
 
   if (!validUId(uId)) {
