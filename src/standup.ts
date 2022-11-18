@@ -147,7 +147,7 @@ function standupSendV1 (token: string, channelId: number, message: string) {
   } else {
     currentStandup.messages += '\n' + message;
   }
-  data.channels[channelId].standup.messages = currentStandup.messages
+  data.channels[channelId].standup.messages = currentStandup.messages;
   setData(data);
   return {};
 }
