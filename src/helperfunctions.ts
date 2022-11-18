@@ -81,17 +81,20 @@ function extractUser(uId?: number): User | User[] {
           nameFirst: element.nameFirst,
           nameLast: element.nameLast,
           handleStr: element.handleStr,
+          profileImgUrl: element.profileImgUrl,
         }
       );
     }
     return usersArray;
   } else {
+    console.log(data.users[uId].profileImgUrl);
     return {
       uId: data.users[uId].uId,
       email: data.users[uId].email,
       nameFirst: data.users[uId].nameFirst,
       nameLast: data.users[uId].nameLast,
       handleStr: data.users[uId].handleStr,
+      profileImgUrl: data.users[uId].profileImgUrl,
     };
   }
 }
@@ -121,6 +124,7 @@ function findUser(token: string) {
     channelsJoined: userObject.channelsJoined,
     dmsJoined: userObject.dmsJoined,
     messagesSent: userObject.messagesSent,
+    profileImgUrl: userObject.profileImgUrl,
     tokens: userObject.tokens,
     isRemoved: userObject.isRemoved,
     globalPermission: userObject.globalPermission
@@ -203,6 +207,8 @@ function findMessage(messageId: number) {
   let channelID;
   let indexTemp;
   let index;
+  let reacts;
+  let isPinned;
 
   if (messageId % 2 === 0) {
     for (const element of data.channels) {
@@ -212,6 +218,8 @@ function findMessage(messageId: number) {
           messageObject = message;
           channelID = element.channelId;
           index = indexTemp;
+          reacts = message.reacts;
+          isPinned = message.isPinned;
           break;
         }
         indexTemp++;
@@ -225,6 +233,8 @@ function findMessage(messageId: number) {
           messageObject = message;
           channelID = element.dmId;
           index = indexTemp;
+          reacts = message.reacts;
+          isPinned = message.isPinned;
           break;
         }
         indexTemp++;
@@ -238,7 +248,9 @@ function findMessage(messageId: number) {
     message: messageObject.message,
     timeSent: messageObject.timeSent,
     channelID: channelID,
-    index: index
+    index: index,
+    reacts: reacts,
+    isPinned: isPinned
   };
 }
 
@@ -297,7 +309,6 @@ function userStatsChanges (parameter: string, userIndex: number, operation: stri
       );
     }
   }
-  console.log(parameter, userIndex, operation);
   setData(data);
   return {};
 }
@@ -305,7 +316,6 @@ function userStatsChanges (parameter: string, userIndex: number, operation: stri
 function workplaceStatsChanges (parameter: string, operation: string) {
   const data = getData();
   const time = Math.floor(Date.now() / 1000);
-  console.log(data.stats);
   if (parameter === 'channels') {
     const workplaceChannels = findNumberOf('channels');
     if (operation === 'add') {
@@ -356,4 +366,24 @@ function workplaceStatsChanges (parameter: string, operation: string) {
   return {};
 }
 
-export { validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges };
+function getMessageType(messageId: number) {
+  let dataType = 'channels';
+  if (messageId % 2 !== 0) {
+    dataType = 'dms';
+  }
+  return dataType;
+}
+
+function dupeReact(uID: number, messageId: number, messageIndex: number, channelId: number) {
+  const data = getData();
+
+  const type = getMessageType(messageId);
+  for (const i of data[type][channelId].messages[messageIndex].reacts) {
+    if (i.uIds.includes(uID)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export { getMessageType, dupeReact, validEmail, validToken, validUId, validName, validHandleStr, extractUser, findUser, findNumberOf, findMessage, validMessage, userStatsChanges, workplaceStatsChanges };

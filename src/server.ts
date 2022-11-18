@@ -11,10 +11,12 @@ import { authLoginV1, authRegisterV1, authLogoutV1, authPasswordResetRequestV1, 
 import { channelsCreateV1, channelsListV1, channelsListAllV1 } from './channels';
 import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1, channelLeaveV1, channelAddOwnerV1, channelRemoveOwnerV1 } from './channel';
 import { dmCreateV1, dmDetailsV1, dmListV1, dmRemoveV1, dmLeaveV1, dmMessagesV1, messageSendDmV1 } from './dm';
-import { messageSendV1, messageEditV1, messageRemoveV1 } from './message';
-import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats } from './users';
+import { messageUnReact, messageSendV1, messageEditV1, messageRemoveV1, messageReact, messagePin, messageUnpin, messageSendLater } from './message';
+import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats, userPhoto } from './users';
+import { search } from './search';
 import { adminUserPermissionChangeV1, adminUserRemoveV1 } from './admin';
 import { clearV1 } from './other';
+import { standupActiveV1, standupSendV1, standupStartV1 } from './standup';
 
 // Set up web app
 const app = express();
@@ -57,6 +59,8 @@ const server = app.listen(PORT, HOST, () => {
   // DO NOT CHANGE THIS LINE
   console.log(`⚡️ Server listening on port ${PORT} at ${HOST}`);
 });
+
+app.use('/imgurl', express.static('imgurl'));
 
 // For coverage, handle Ctrl+C gracefully
 process.on('SIGINT', () => {
@@ -259,6 +263,46 @@ app.delete('/message/remove/v2', (req: Request, res: Response) => {
   save();
 });
 
+app.post('/message/react/v1', (req: Request, res: Response) => {
+  console.log('Message Reacted');
+  const token = req.header('token');
+  const { reactId, messageId } = req.body;
+  save();
+  res.json(messageReact(token, messageId, reactId));
+});
+
+app.post('/message/unreact/v1', (req: Request, res: Response) => {
+  console.log('Message Reacted');
+  const token = req.header('token');
+  const { reactId, messageId } = req.body;
+  save();
+  res.json(messageUnReact(token, messageId, reactId));
+});
+
+app.post('/message/pin/v1', (req: Request, res: Response) => {
+  console.log('Message Pinned');
+  const token = req.header('token');
+  const { messageId } = req.body;
+  save();
+  res.json(messagePin(token, messageId));
+});
+
+app.post('/message/unpin/v1', (req: Request, res: Response) => {
+  console.log('Message Unpinned');
+  const token = req.header('token');
+  const { messageId } = req.body;
+  save();
+  res.json(messageUnpin(token, messageId));
+});
+
+app.post('/message/sendlater/v1', (req: Request, res: Response) => {
+  console.log('Message sent later');
+  const token = req.header('token');
+  const { channelId, message, timeSent } = req.body;
+  save();
+  res.json(messageSendLater(token, channelId, message, timeSent));
+});
+
 // =========================================================================
 // User/s functions
 app.get('/user/profile/v3', (req: Request, res: Response) => {
@@ -322,4 +366,41 @@ app.post('/admin/userpermission/change/v1', (req: Request, res: Response) => {
   const { uId, permissionId } = req.body;
   res.json(adminUserPermissionChangeV1(uId, permissionId, token));
   save();
+});
+
+app.get('/search/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const queryStr = req.query.queryStr as string;
+  save();
+  res.json(search(token, queryStr));
+});
+
+app.post('/user/profile/uploadphoto/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const { imgUrl, xStart, yStart, xEnd, yEnd } = req.body;
+  save();
+  res.json(userPhoto(token, imgUrl, xStart, yStart, xEnd, yEnd));
+});
+
+// =========================================================================
+// Standup functions
+app.post('/standup/start/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const { channelId, length } = req.body;
+  save();
+  res.json(standupStartV1(token, channelId, length));
+});
+
+app.get('/standup/active/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const channelId = parseInt(req.query.channelId as string);
+  save();
+  res.json(standupActiveV1(token, channelId));
+});
+
+app.post('/standup/send/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const { channelId, message } = req.body;
+  save();
+  res.json(standupSendV1(token, channelId, message));
 });

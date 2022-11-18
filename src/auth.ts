@@ -123,6 +123,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
         timeStamp: time,
       }
     ],
+    profileImgUrl: 'http://localhost:3200/imgurl/base.jpg',
     tokens: token,
     isRemoved: false,
     globalPermission: gp

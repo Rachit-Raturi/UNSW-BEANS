@@ -42,15 +42,15 @@ describe('/channels/create/v2', () => {
   describe('Error', () => {
     test('Test 1: Invalid token', () => {
       const invalidToken = '0';
-      expect(requestChannelsCreate(invalidToken, 'channel1', true)).toStrictEqual(ERROR);
+      expect(requestChannelsCreate(invalidToken, 'channel1', true)).toStrictEqual(403);
     });
 
     test('Test 2: Name is greater then 20 characters', () => {
-      expect(requestChannelsCreate(user.token, 'GreaterThentwentyCharacters', false)).toStrictEqual(ERROR);
+      expect(requestChannelsCreate(user.token, 'GreaterThentwentyCharacters', false)).toStrictEqual(400);
     });
 
     test('Test 3: Name is less then 1', () => {
-      expect(requestChannelsCreate(user.token, '', false)).toStrictEqual(ERROR);
+      expect(requestChannelsCreate(user.token, '', false)).toStrictEqual(400);
     });
   });
 
@@ -94,15 +94,13 @@ describe('/channels/list/v2', () => {
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 
-  test('Test 4: User in multiple courses + test it ignores private channel', () => {
-    const channel2 = requestChannelsCreate(user.token, 'My Channel2', true);
-    expect(requestChannelsCreate(user.token, 'My Channel3', false)).toStrictEqual({ channelId: expect.any(Number) });
+  test('Test 4: User in multiple courses', () => {
+    const channel2 = requestChannelsCreate(user.token, 'My Channel2', false);
     const outputArray = [];
     outputArray.push({ channelId: channel1.channelId, name: 'My Channel1' });
     outputArray.push({ channelId: channel2.channelId, name: 'My Channel2' });
     const expectedSet = new Set(outputArray);
     const receivedSet = new Set(requestChannelsList(user.token).channels);
-
     expect(receivedSet).toStrictEqual(expectedSet);
   });
 });

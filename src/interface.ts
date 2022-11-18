@@ -1,3 +1,4 @@
+
 export interface channeljoin {
   numChannelsJoined: number,
   timeStamp: number
@@ -23,17 +24,32 @@ export interface user {
   channelsJoined: channeljoin[],
   dmsJoined: dmjoin[],
   messagesSent: messagesent[],
+  profileImgUrl: string,
   tokens: string[],
   resetCode?: string,
   isRemoved: boolean
   globalPermission: number
 }
 
+export interface react {
+  reactId: number,
+  uIds: number[],
+  isThisUserReacted: boolean,
+}
+
 export interface message {
   messageId: number,
   uId: number,
   message: string,
-  timeSent: number
+  timeSent: number,
+  reacts: react[],
+  isPinned: boolean
+}
+
+export interface standup {
+  isActive: boolean,
+  timeFinish: number,
+  messages: string
 }
 
 export interface channel {
@@ -42,7 +58,8 @@ export interface channel {
   allMembers: number[],
   ownerMembers: number[],
   isPublic: boolean,
-  messages: message[]
+  messages: message[],
+  standup: standup
 }
 
 export interface dm {
@@ -78,3 +95,4 @@ export interface Datastore {
     messagesExist: messageexist[],
   }
 }
+

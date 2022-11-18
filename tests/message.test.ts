@@ -5,7 +5,14 @@ import {
   requestChannelJoin,
   requestMessageSend,
   requestMessageEdit,
-  requestMessageRemove
+  requestMessageRemove,
+  requestMessageReact,
+  requestDmCreate,
+  requestMessageSendDm,
+  requestMessageUnReact,
+  requestMessagePin,
+  requestMessageUnpin,
+  requestMessageSendLater,
 } from './helper';
 
 interface userType {
@@ -17,8 +24,8 @@ interface channelType {
   channelId: number
 }
 
-const ERROR = { error: expect.any(String) };
-
+const ERROR = 400;
+const ERROR2 = 403;
 let user: userType;
 let user1: userType;
 let user2: userType;
@@ -51,11 +58,11 @@ describe('/message/send/v1', () => {
     });
 
     test('Test 2: Invalid token', () => {
-      expect(requestMessageSend(invalidToken, channel.channelId, 'Message')).toStrictEqual(ERROR);
+      expect(requestMessageSend(invalidToken, channel.channelId, 'Message')).toStrictEqual(ERROR2);
     });
 
     test('Test 3: User is not a Member', () => {
-      expect(requestMessageSend(user2.token, channel.channelId, 'Message')).toStrictEqual(ERROR);
+      expect(requestMessageSend(user2.token, channel.channelId, 'Message')).toStrictEqual(ERROR2);
     });
 
     test('Test 4: Invalid message lengths', () => {
@@ -90,7 +97,7 @@ describe('/message/edit/v1', () => {
   describe('Error', () => {
     test('Test 1: Invalid token', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageEdit('user.token', messageId.messageId, 'New Message')).toStrictEqual(ERROR);
+      expect(requestMessageEdit('user.token', messageId.messageId, 'New Message')).toStrictEqual(ERROR2);
     });
 
     test('Test 2: Invalid messageId', () => {
@@ -100,15 +107,21 @@ describe('/message/edit/v1', () => {
 
     test('Test 3: Invalid uID and user is not owner', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageEdit(user2.token, messageId.messageId, 'New Message')).toStrictEqual(ERROR);
+      expect(requestMessageEdit(user2.token, messageId.messageId, 'New Message')).toStrictEqual(ERROR2);
     });
 
     test('Test 4: Invalid message lengths', () => {
       let longString: string;
-      for (let i = 0; i <= 1000; i++) {
+      for (let i = 0; i <= 1001; i++) {
         longString += 'a';
       }
-      expect(requestMessageSend(user.token, channel.channelId, longString)).toStrictEqual(ERROR);
+      expect(requestMessageEdit(user.token, channel.channelId, longString)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Dm case - user is not sender or owner of dm', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId, user1.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessageEdit(user1.token, dmSend.messageId, 'New')).toStrictEqual(ERROR2);
     });
   });
 
@@ -122,6 +135,11 @@ describe('/message/edit/v1', () => {
     const messageId = requestMessageSend(user2.token, channel1.channelId, 'Message3');
     expect(requestMessageEdit(user.token, messageId.messageId, 'New Message')).toStrictEqual({});
   });
+  test('Test 3: Success Dm case', () => {
+    const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+    const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+    expect(requestMessageEdit(user.token, dmSend.messageId, 'new Message')).toStrictEqual({});
+  });
 });
 
 // =========================================================================
@@ -130,15 +148,24 @@ describe('/message/remove/v1', () => {
   describe('Error', () => {
     test('Test 1: User is not sender', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageRemove(user2.token, messageId.messageId)).toStrictEqual(ERROR);
+      expect(requestMessageRemove(user2.token, messageId.messageId)).toStrictEqual(ERROR2);
     });
 
     test('Test 2: Invalid token', () => {
       const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
-      expect(requestMessageRemove('user2.token', messageId.messageId)).toStrictEqual(ERROR);
+      expect(requestMessageRemove('user2.token', messageId.messageId)).toStrictEqual(ERROR2);
+    });
+    test('Test 3: Invalid messageId', () => {
+      expect(requestMessageRemove(user.token, 3)).toStrictEqual(ERROR);
+    });
+    test('Test 4: Invalid permissions', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestChannelJoin(user2.token, channel.channelId);
+      expect(requestMessageRemove(user2.token, messageId.messageId)).toStrictEqual(ERROR2);
     });
   });
 
+  // channel
   test('Test 1: Successful case - Removed by channel owner', () => {
     requestChannelJoin(user2.token, channel.channelId);
     const messageId2 = requestMessageSend(user2.token, channel.channelId, 'Message4');
@@ -149,5 +176,260 @@ describe('/message/remove/v1', () => {
     requestChannelJoin(user2.token, channel1.channelId);
     const messageId = requestMessageSend(user2.token, channel1.channelId, 'Message3');
     expect(requestMessageRemove(user2.token, messageId.messageId)).toStrictEqual({});
+  });
+
+  // Dm
+  test('Test 3: Success Dm case', () => {
+    const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+    const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+    expect(requestMessageRemove(user.token, dmSend.messageId)).toStrictEqual({});
+  });
+
+  test('Test 4: Dm case - user is not part of dm', () => {
+    const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+    const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+    expect(requestMessageRemove(user1.token, dmSend.messageId)).toStrictEqual(ERROR2);
+  });
+
+  test('Test 5: Dm case - user is not sender or owner of dm', () => {
+    const dmCreate = requestDmCreate(user.token, [user2.authUserId, user1.authUserId]);
+    const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+    expect(requestMessageRemove(user1.token, dmSend.messageId)).toStrictEqual(ERROR2);
+  });
+});
+
+describe('/message/react/v1', () => {
+  describe('Success Cases', () => {
+    test('Test 1: Success', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+
+    test('Test 1: Dm Success', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessageReact(user.token, dmSend.messageId, 1)).toStrictEqual({});
+    });
+
+    test('Test 2: Success - multiple users', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestChannelJoin(user1.token, channel.channelId);
+      requestChannelJoin(user2.token, channel.channelId);
+      expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageReact(user1.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageReact(user2.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+  });
+
+  describe('Error Cases', () => {
+    test('Test 3: Message doesnt exist', () => {
+      expect(requestMessageReact(user.token, 0, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: Message doesnt exist', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageReact(user1.token, messageId.messageId, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Double react', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageReact(user.token, messageId.messageId, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 6: Invalid reactId', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
+    });
+    test('Test 7: DM - user is not member', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessageReact(user1.token, dmSend.messageId, 0)).toStrictEqual(ERROR);
+    });
+  });
+});
+
+describe('/message/unreact/v1', () => {
+  describe('Success Cases', () => {
+    test('Test 1: Success', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestMessageReact(user.token, messageId.messageId, 1);
+      expect(requestMessageUnReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+
+    test('Test 1: Dm Success', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      requestMessageReact(user.token, dmSend.messageId, 1);
+      expect(requestMessageUnReact(user.token, dmSend.messageId, 1)).toStrictEqual({});
+    });
+
+    test('Test 2: Success - multiple users', () => {
+      requestChannelJoin(user1.token, channel.channelId);
+      requestChannelJoin(user2.token, channel.channelId);
+
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+
+      requestMessageReact(user.token, messageId.messageId, 1);
+      requestMessageReact(user1.token, messageId.messageId, 1);
+      requestMessageReact(user2.token, messageId.messageId, 1);
+
+      expect(requestMessageUnReact(user.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageUnReact(user1.token, messageId.messageId, 1)).toStrictEqual({});
+      expect(requestMessageUnReact(user2.token, messageId.messageId, 1)).toStrictEqual({});
+    });
+  });
+
+  describe('Error Cases', () => {
+    test('Test 3: Message doesnt exist', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageUnReact(user.token, messageId.messageId, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: Invalid user ', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageUnReact(user1.token, messageId.messageId, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 5: Invalid message Id', () => {
+      expect(requestMessageUnReact(user.token, 10, 1)).toStrictEqual(ERROR);
+    });
+
+    test('Test 6: Invalid reactId', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageUnReact(user.token, messageId.messageId, 0)).toStrictEqual(ERROR);
+    });
+    test('Test 7: DM - user is not member', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      requestMessageReact(user.token, dmSend.messageId, 1);
+      expect(requestMessageUnReact(user1.token, dmSend.messageId, 0)).toStrictEqual(ERROR);
+    });
+  });
+});
+
+describe('/message/pin/v1', () => {
+  describe('Success Cases', () => {
+    test('Test 1: Channel Success', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessagePin(user.token, messageId.messageId)).toStrictEqual({});
+    });
+
+    test('Test 1: Dm Success', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessagePin(user.token, dmSend.messageId)).toStrictEqual({});
+    });
+  });
+
+  describe('Error Cases', () => {
+    test('Test 3: Message doesnt exist', () => {
+      expect(requestMessagePin(user.token, 0)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: User is not the owner', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessagePin(user1.token, messageId.messageId)).toStrictEqual(ERROR2);
+    });
+
+    test('Test 5: Double Pin', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessagePin(user.token, messageId.messageId)).toStrictEqual({});
+      expect(requestMessagePin(user.token, messageId.messageId)).toStrictEqual(ERROR);
+    });
+
+    test('Test 6: DM - user is not owner', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessagePin(user1.token, dmSend.messageId)).toStrictEqual(ERROR2);
+    });
+  });
+});
+
+describe('/message/unpin/v1', () => {
+  describe('Success Cases', () => {
+    test('Test 1: Channel Success', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestMessagePin(user.token, messageId.messageId);
+      expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual({});
+    });
+
+    test('Test 1: Dm Success', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      requestMessagePin(user.token, dmSend.messageId);
+      expect(requestMessageUnpin(user.token, dmSend.messageId)).toStrictEqual({});
+    });
+  });
+
+  describe('Error Cases', () => {
+    test('Test 3: Message doesnt exist', () => {
+      expect(requestMessageUnpin(user.token, 0)).toStrictEqual(ERROR);
+    });
+
+    test('Test 4: User is not the owner', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      expect(requestMessageUnpin(user1.token, messageId.messageId)).toStrictEqual(ERROR2);
+    });
+
+    test('Test 5: Double Pin', () => {
+      const messageId = requestMessageSend(user.token, channel.channelId, 'Message3');
+      requestMessagePin(user.token, messageId.messageId);
+      expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual({});
+      expect(requestMessageUnpin(user.token, messageId.messageId)).toStrictEqual(ERROR);
+    });
+
+    test('Test 6: DM - user is not owner', () => {
+      const dmCreate = requestDmCreate(user.token, [user2.authUserId]);
+      const dmSend = requestMessageSendDm(user.token, dmCreate.dmId, 'New message');
+      expect(requestMessageUnpin(user1.token, dmSend.messageId)).toStrictEqual(ERROR2);
+    });
+  });
+});
+
+// =========================================================================
+// Message Send Later Tests
+describe('message/sendlater/v1', () => {
+  describe('Error', () => {
+    test('Test 1: Invalid ChannelId', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user.token, 10, 'Message', timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 2: Invalid Token', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(invalidToken, channel.channelId, 'Message', timeSent)).toStrictEqual(403);
+    });
+
+    test('Test 3: Message is less than 1 character', () => {
+      const emptyString = '';
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user.token, channel.channelId, emptyString, timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 4: Message is more than 1000 characters', () => {
+      let longString: string;
+      for (let i = 0; i <= 1000; i++) {
+        longString += 'a';
+      }
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user.token, channel.channelId, longString, timeSent)).toStrictEqual(400);
+    });
+
+    test('Test 5: User is not in DM', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time + 100;
+      expect(requestMessageSendLater(user2.token, channel.channelId, 'Message', timeSent)).toStrictEqual(403);
+    });
+
+    test('Test 6: timeSent is a time in the past', () => {
+      const time = Math.floor(Date.now() / 1000);
+      const timeSent = time - 100;
+      expect(requestMessageSendLater(user.token, channel.channelId, 'Message', timeSent)).toStrictEqual(400);
+    });
   });
 });

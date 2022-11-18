@@ -7,6 +7,7 @@ interface user {
   email: string,
   nameFirst: string,
   nameLast: string,
+  profileImgUrl: string,
   handleStr: string
 }
 
@@ -21,31 +22,25 @@ interface user {
 function channelDetailsV1 (token: string, channelId: number): object {
   const data = getData();
 
-  // invalid channelId error
-  if (data.channels[channelId] === undefined) {
-    return {
-      error: 'Invalid channel'
-    };
-  }
-
-  // invalid token error
+  // Invalid token error
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token'
-    };
+    throw HTTPError(403, 'Invalid token');
   }
 
-  // not a member error
+  // Invalid channelId error
+  if (data.channels[channelId] === undefined) {
+    throw HTTPError(400, 'Invalid channelId');
+  }
+
+  // Not a member error
   const currentUser = findUser(token);
   const isMember = data.channels[channelId].allMembers.find(a => a === currentUser.uId);
   if (isMember === undefined) {
-    return {
-      error: 'User is not a member of the channel'
-    };
+    throw HTTPError(403, 'User is not a member of the channel');
   }
 
-  const ownerMembers:Array<number> = data.channels[channelId].ownerMembers;
-  const allMembers:Array<number> = data.channels[channelId].allMembers;
+  const ownerMembers: Array<number> = data.channels[channelId].ownerMembers;
+  const allMembers: Array<number> = data.channels[channelId].allMembers;
   const ownersArray: Array<user> = [];
   const membersArray: Array<user> = [];
 
@@ -57,6 +52,7 @@ function channelDetailsV1 (token: string, channelId: number): object {
       nameFirst: data.users[owner].nameFirst,
       nameLast: data.users[owner].nameLast,
       handleStr: data.users[owner].handleStr,
+      profileImgUrl: data.users[owner].profileImgUrl
     });
   }
 
@@ -68,6 +64,7 @@ function channelDetailsV1 (token: string, channelId: number): object {
       nameFirst: data.users[member].nameFirst,
       nameLast: data.users[member].nameLast,
       handleStr: data.users[member].handleStr,
+      profileImgUrl: data.users[member].profileImgUrl
     });
   }
 
@@ -92,33 +89,25 @@ function channelJoinV1(token: string, channelId: number) {
 
   // invalid token
   if (!validToken(token)) {
-    return {
-      error: 'Invalid user'
-    };
+    throw HTTPError(400, 'Incorrect password has been entered');
   }
 
   const currentUser = findUser(token);
   // invalid channelId error
   if (data.channels[channelId] === undefined) {
-    return {
-      error: 'Invalid channel'
-    };
+    throw HTTPError(400, 'Channel does not exist');
   }
 
   // already member error
   if (data.channels[channelId].allMembers.includes(currentUser.uId)) {
-    return {
-      error: 'User is already a member of this channel'
-    };
+    throw HTTPError(400, 'Already member');
   }
 
   // private channel error
   if (data.channels[channelId].isPublic === false) {
     // global owner false
     if (currentUser.uId > 0) {
-      return {
-        error: `User(${currentUser.uId}) cannot join a private channel`
-      };
+      throw HTTPError(403, 'Invalid permissions');
     }
   }
 
@@ -209,27 +198,21 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
 
   // invalid token
   if (validToken(token) === false) {
-    return {
-      error: 'Invalid token',
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   const currentUser = findUser(token);
   // check channelid is valid
   const isValidChannel = data.channels.find(c => c.channelId === channelId);
   if (isValidChannel === undefined) {
-    return {
-      error: 'Invalid channel',
-    };
+    throw HTTPError(400, 'invalid channel');
   }
 
   // check authuserid is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
   const isValidMember = checkIsMember.find(a => a === currentUser.uId);
   if (isValidMember === undefined) {
-    return {
-      error: `The authorised user ${currentUser.uId} is not a member of the channel ${channelId}`,
-    };
+    throw HTTPError(403, 'not a member of the channel');
   }
 
   const numberOfMessages = data.channels[channelId].messages.length;
@@ -238,9 +221,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
   let messagesArray;
   // Check whether the starting index is < 0
   if (start < 0) {
-    return {
-      error: 'Index cannot be negative as there are no messages after the most recent message',
-    };
+    throw HTTPError(400, 'start is greater than the total number of messages in the channel');
   } else if (start === numberOfMessages || numberOfMessages === undefined) {
     /* If there are no messages in the channel or if the starting index is = number of messages
        If start = messages in channel return empty array -> earliest message (i.e highest index) is
@@ -253,9 +234,7 @@ function channelMessagesV1(token: string, channelId: number, start: number): obj
     };
   } else if (start >= 0 && start > numberOfMessages) {
     // If starting index is greater than the number of messages sent in the channel
-    return {
-      error: `The starting index, ${start}, is greater than the number of messages in the channel, ${numberOfMessages}`
-    };
+    throw HTTPError(400, 'start is greater than the total number of messages in the channel');
   } else if (start >= 0 && start < numberOfMessages) {
     // If starting index is 0 or a multiple of 50
     if (start + 50 < numberOfMessages) {
