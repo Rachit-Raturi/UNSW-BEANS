@@ -279,6 +279,8 @@ describe('/user/stats/v1 ', () => {
     requestDmCreate(user.token, []);
     requestMessageSend(user.token, channel.channelId, 'channel message');
     requestMessageSend(user.token, channel.channelId, 'message');
+    requestMessageRemove(user.token, channel.channelId);
+    requestMessageSend(user.token, channel.channelId, 'message');
     requestMessageSendDm(user.token, dm.dmId, 'dm message');
     expect(requestUserStats(user.token)).toStrictEqual(
       {
@@ -303,9 +305,10 @@ describe('/user/stats/v1 ', () => {
           messagesSent: [
             { numMessagesSent: 0, timeStamp: testTimeStamp },
             { numMessagesSent: 1, timeStamp: testTimeStamp },
-            { numMessagesSent: 2, timeStamp: testTimeStamp }
+            { numMessagesSent: 2, timeStamp: testTimeStamp },
+            { numMessagesSent: 3, timeStamp: testTimeStamp }
           ],
-          involvementRate: 5 / 7
+          involvementRate: 6 / 7
         }
       }
     );
