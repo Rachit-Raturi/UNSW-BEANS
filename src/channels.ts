@@ -100,20 +100,15 @@ function channelsListAllV1(token: string) {
 
   // check authuser is valid
   if (!validToken(token)) {
-    return {
-      error: 'authUserId does not refer to a valid ID'
-    };
+    throw HTTPError(403, 'invalid token');
   }
 
   const allChannelsArray = data.channels;
   const outputChannels = [];
 
-  const user = findUser(token);
   // create array of channels the user is in
   for (const element of allChannelsArray) {
-    if ((element.allMembers).includes(user.uId)) {
-      outputChannels.push({ channelId: element.channelId, name: element.name });
-    }
+    outputChannels.push({ channelId: element.channelId, name: element.name });
   }
 
   return {
