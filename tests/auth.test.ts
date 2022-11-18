@@ -2,7 +2,9 @@ import {
   requestClear,
   requestAuthRegister,
   requestAuthLogin,
-  requestAuthLogout
+  requestAuthLogout,
+  requestAuthPasswordRequestReset,
+  requestAuthPasswordReset
 } from './helper';
 
 // const ERROR = { error: expect.any(String) };
@@ -129,5 +131,29 @@ describe('/auth/logout/v1', () => {
       authUserId: expect.any(Number)
     });
     expect(requestAuthLogout(userNew.token)).toStrictEqual({});
+  });
+});
+
+// =========================================================================
+// Auth Password Reset Request Tests
+describe('auth/passwordreset/request/v1', () => {
+  test('Test 1: email sends', () => {
+    requestAuthPasswordRequestReset('sds');
+  });
+});
+
+// =========================================================================
+// Auth Password Reset  Tests
+describe('auth/passwordreset/reset/v1', () => {
+  test('Test 1: new password is less than 6 characters long', () => {
+    expect(requestAuthPasswordReset('code', 'inval')).toStrictEqual(400);
+  });
+
+  test('Test 2: resetCode is invalid', () => {
+    const userNew = requestAuthRegister('validemail@gmail.com', 'password', 'first', 'last');
+    requestAuthLogout(userNew.token);
+    expect(requestAuthPasswordRequestReset('validemail@gmail.com')).toStrictEqual({});
+    expect(requestAuthPasswordReset('c723n45783ny5cn34765t3cn94t5n6934tn956ct39462t6n963', 'password'))
+      .toStrictEqual(400);
   });
 });

@@ -48,6 +48,14 @@ export function requestAuthLogout(token: string) {
   return requestHelper('POST', '/auth/logout/v2', {}, { token: token });
 }
 
+export function requestAuthPasswordRequestReset(email: string) {
+  return requestHelper('POST', '/auth/passwordreset/request/v1', { email });
+}
+
+export function requestAuthPasswordReset(resetCode: string, newPassword: string) {
+  return requestHelper('POST', '/auth/passwordreset/reset/v1', { resetCode, newPassword });
+}
+
 // =========================================================================
 // Channels functions
 export function requestChannelsCreate(token: string, name: string, isPublic: boolean) {
@@ -192,6 +200,17 @@ export function requestSearch(token: string, queryStr: string) {
 
 export function requestUserPhoto(token: string, imgUrl: string, xStart: number, yStart: number, xEnd: number, yEnd: number) {
   return requestHelper('POST', '/user/profile/uploadphoto/v1', { imgUrl, xStart, yStart, xEnd, yEnd }, { token: token });
+}
+
+// =========================================================================
+// Admin funcions
+
+export function requestAdminUserRemove(uId: number, token: string) {
+  return requestHelper('DELETE', '/admin/user/remove/v1', { uId }, { token: token });
+}
+
+export function requestAdminUserPermissionChange(uId: number, permissionId: number, token: string) {
+  return requestHelper('POST', '/admin/userpermission/change/v1', { uId, permissionId }, { token: token });
 }
 
 // =========================================================================

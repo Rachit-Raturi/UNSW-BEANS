@@ -126,6 +126,8 @@ function findUser(token: string) {
     messagesSent: userObject.messagesSent,
     profileImgUrl: userObject.profileImgUrl,
     tokens: userObject.tokens,
+    isRemoved: userObject.isRemoved,
+    globalPermission: userObject.globalPermission
   };
 }
 
