@@ -122,6 +122,8 @@ function findUser(token: string) {
     dmsJoined: userObject.dmsJoined,
     messagesSent: userObject.messagesSent,
     tokens: userObject.tokens,
+    isRemoved: userObject.isRemoved,
+    globalPermission: userObject.globalPermission
   };
 }
 

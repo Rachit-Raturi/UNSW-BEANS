@@ -3,7 +3,6 @@ import { Datastore } from './interface';
 
 let data: Datastore = {
   users: [],
-  uIdGen: 0,
   channels: [],
   dms: [],
   stats: {

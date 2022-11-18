@@ -13,6 +13,7 @@ import { channelDetailsV1, channelJoinV1, channelInviteV1, channelMessagesV1, ch
 import { dmCreateV1, dmDetailsV1, dmListV1, dmRemoveV1, dmLeaveV1, dmMessagesV1, messageSendDmV1 } from './dm';
 import { messageSendV1, messageEditV1, messageRemoveV1 } from './message';
 import { userProfileV1, usersAllV1, userSetNameV1, userSetHandleV1, userSetEmailV1, userStats, usersStats } from './users';
+import { adminUserPermissionChangeV1, adminUserRemoveV1} from './admin';
 import { clearV1 } from './other';
 
 // Set up web app
@@ -305,3 +306,20 @@ app.get('/users/stats/v1', (req: Request, res: Response) => {
   res.json(usersStats(token));
   save();
 });
+
+// =========================================================================
+// admin functions
+
+app.delete('/admin/user/remove/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const uId = parseInt(req.query.uId as string);
+  res.json(adminUserRemoveV1(uId, token));
+  save();
+});
+
+app.post('/admin/userpermission/change/v1', (req: Request, res: Response) => {
+  const token = req.header('token');
+  const { uId, permissionId } = req.body;
+  res.json(adminUserPermissionChangeV1(uId, permissionId, token));
+  save();
+})

@@ -17,7 +17,7 @@ import Mail from 'nodemailer/lib/mailer';
 function authLoginV1(email: string, password: string) {
   let data = getData();
   for (const users of data.users) {
-    if (users.email === email) {
+    if (users.email === email && users.isRemoved === false) {
       if (hashPassword(password) === users.password) {
         // Generate the token for the session
         const token = uniqid();
@@ -49,13 +49,19 @@ function authLoginV1(email: string, password: string) {
 function authRegisterV1(email: string, password: string, nameFirst: string, nameLast: string) {
   let data = getData();
   // Test for whether or not the email is invalid
+  if (data.users.length === 0) {
+    const gp = 1;
+  } else {
+    const gp = 2;
+  }
+
   if (!validator.isEmail(email)) {
     throw HTTPError(400, 'Invalid email has been entered');
   }
   // Test for whether or not the email is already in use
   if (data.users !== null) {
     for (const users of data.users) {
-      if (users.email === email) {
+      if (users.email === email && users.isRemoved === false) {
         throw HTTPError(400, 'Email is already in use');
       }
     }
@@ -78,7 +84,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   const originalUserHandle = userHandle;
   let i = 0;
   for (const user of data.users) {
-    if (user.handleStr === userHandle) {
+    if (user.handleStr === userHandle && user.isRemoved === false) {
       userHandle = originalUserHandle + i;
       i++;
     }
@@ -94,7 +100,7 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
   // Register the user
   const user = {
     email: email,
-    uId: data.uIdGen,
+    uId: data.users.length,
     password: hashPassword(password),
     nameFirst: nameFirst,
     nameLast: nameLast,
@@ -117,11 +123,12 @@ function authRegisterV1(email: string, password: string, nameFirst: string, name
         timeStamp: time,
       }
     ],
-    tokens: token
+    tokens: token,
+    isRemoved: false,
+    globalPermission: gp
   };
   data.users.push(user);
   
-  data.uIdGen++;
   setData(data);
   
   return {

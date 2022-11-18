@@ -173,3 +173,14 @@ export function requestUserStats(token: string) {
 export function requestUsersStats(token: string) {
   return requestHelper('GET', '/users/stats/v1', {}, { token: token });
 }
+
+// =========================================================================
+// Admin funcions
+
+export function requestAdminUserRemove(uId: number, token: string) {
+  return requestHelper('DELETE', '/admin/user/remove/v1', { uId }, { token: token });
+}
+
+export function requestAdminUserPermissionChange(uId: number, permissionId: number, token: string) {
+  return requestHelper('POST', '/admin/userpermission/change/v1', { uId, permissionId }, { token: token });
+}
