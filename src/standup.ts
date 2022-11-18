@@ -90,8 +90,10 @@ function standupActiveV1 (token: string, channelId: number): object {
   }
 
   const currentStandup = data.channels[channelId].standup;
-  if (Math.floor(Date.now() / 1000) >= currentStandup.timeFinish && currentStandup.timeFinish !== null) {
-    messageSendV1(token, channelId, currentStandup.messages);
+  if (Math.floor(Date.now() / 1000) >= currentStandup.timeFinish) {
+    if (currentStandup.timeFinish !== null) {
+      messageSendV1(token, channelId, currentStandup.messages);
+    }
     currentStandup.isActive = false;
     currentStandup.timeFinish = null;
     currentStandup.messages = '';

@@ -28,6 +28,9 @@ function resetId() {
 
 function messageSendV1(token: string, channelId: number, message: string) {
   const data = getData();
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'Inavlid user token');
+  }
 
   if (data.channels[channelId] === undefined) {
     throw HTTPError(400, 'Channel does not exist');
@@ -37,9 +40,6 @@ function messageSendV1(token: string, channelId: number, message: string) {
     throw HTTPError(400, 'Invalid message length');
   }
 
-  if (validToken(token) === false) {
-    throw HTTPError(403, 'Inavlid user token');
-  }
   const user = findUser(token);
   const checkIsMember = data.channels[channelId].allMembers;
   if (checkIsMember.includes(user.uId) === false) {
@@ -77,6 +77,9 @@ function messageSendV1(token: string, channelId: number, message: string) {
  */
 function messageEditV1(token: string, messageId: number, message: string) {
   const data = getData();
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'Inavlid user token');
+  }
 
   if (message.length > 1000) {
     throw HTTPError(400, 'Invalid message length');
@@ -84,10 +87,6 @@ function messageEditV1(token: string, messageId: number, message: string) {
 
   if (validMessage(messageId) === false) {
     throw HTTPError(400, 'Channel does not exist');
-  }
-
-  if (validToken(token) === false) {
-    throw HTTPError(403, 'Inavlid user token');
   }
 
   // Owner can edit the message but members cannot
@@ -174,6 +173,10 @@ function messageRemoveV1(token: string, messageId: number) {
 function messageReact(token: string, messageId: number, reactId: number) {
   const data = getData();
 
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'Inavlid user token');
+  }
+
   if (validMessage(messageId) === false) {
     throw HTTPError(400, 'Inavlid Message');
   }
@@ -228,6 +231,10 @@ function messageReact(token: string, messageId: number, reactId: number) {
 function messageUnReact(token: string, messageId: number, reactId: number) {
   const data = getData();
 
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'Inavlid user token');
+  }
+
   if (validMessage(messageId) === false) {
     throw HTTPError(400, 'Inavlid Message');
   }
@@ -274,6 +281,10 @@ function messageUnReact(token: string, messageId: number, reactId: number) {
 function messagePin(token: string, messageId: number) {
   const data = getData();
 
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'Inavlid user token');
+  }
+
   if (validMessage(messageId) === false) {
     throw HTTPError(400, 'Inavlid Message');
   }
@@ -306,6 +317,10 @@ function messagePin(token: string, messageId: number) {
 
 function messageUnpin(token: string, messageId: number) {
   const data = getData();
+
+  if (validToken(token) === false) {
+    throw HTTPError(403, 'Inavlid user token');
+  }
 
   if (validMessage(messageId) === false) {
     throw HTTPError(400, 'Inavlid Message');

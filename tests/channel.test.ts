@@ -118,6 +118,10 @@ describe('/channel/join/v2', () => {
       const newPrivateChannel = requestChannelsCreate(user.token, 'Channel1', false);
       expect(requestChannelJoin(user1.token, newPrivateChannel.channelId)).toStrictEqual(403);
     });
+
+    test('Test 4: Invalid token ', () => {
+      expect(requestChannelJoin(invalidToken, invalidChannelId)).toStrictEqual(403);
+    });
   });
 
   test('Test 1: Successful case', () => {
@@ -246,6 +250,10 @@ describe('/channel/messages/v2', () => {
     test('Test 4: start > total messages in channel', () => {
       const start = 1;
       expect(requestChannelMessages(user.token, channel.channelId, start)).toStrictEqual(400);
+    });
+
+    test('Test 5: start < 0>', () => {
+      expect(requestChannelMessages(user.token, channel.channelId, -2)).toStrictEqual(400);
     });
   });
 
@@ -407,6 +415,8 @@ describe('/channel/addowner/v1', () => {
   });
 
   test('Test 5: user is already an owner', () => {
+    requestChannelJoin(user1.token, channel.channelId);
+    requestChannelAddOwner(user.token, channel.channelId, user1.authUserId);
     expect(requestChannelAddOwner(user.token, channel.channelId, user1.authUserId)).toStrictEqual(400);
   });
 

@@ -3,6 +3,14 @@ import { findUser, validToken } from './helperfunctions';
 import HTTPError from 'http-errors';
 import { message } from './interface';
 
+/**
+ * Given a string finds all messages containing the substring
+ *
+ * @param {string} token
+ * @param {string} queryStr
+ * @returns {message[]} messages
+ */
+
 export function search (token: string, queryStr: string): { messages: message[] } {
   const data = getData();
   queryStr = queryStr.toLowerCase();
