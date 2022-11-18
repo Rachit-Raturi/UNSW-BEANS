@@ -149,7 +149,7 @@ function userStats (token: string) {
     involvementRate = (numberChannels + numberDms + numberMessages) / (totalChannels + totalDms + totalMessages);
   }
 
-    // cap involvement rate at 1
+  // cap involvement rate at 1
   if (involvementRate > 1) {
     involvementRate = 1;
   }
