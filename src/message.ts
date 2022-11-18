@@ -352,16 +352,16 @@ function messageSendLater(token: string, channelId: number, message: string, tim
     throw HTTPError(400, 'invalid channel');
   }
 
-  // Check length of message
-  if (message.length < 1 || message.length > 1000) {
-    throw HTTPError(400, 'length of message is less than 1 or over 1000 characters');
-  }
-
   // check authuserid is a member of the channel
   const checkIsMember = data.channels[channelId].allMembers;
   const isValidMember = checkIsMember.find(a => a === currentUser.uId);
   if (isValidMember === undefined) {
     throw HTTPError(403, 'not a member of the channel');
+  }
+
+  // Check length of message
+  if (message.length < 1 || message.length > 1000) {
+    throw HTTPError(400, 'length of message is less than 1 or over 1000 characters');
   }
 
   // Check if timeSent is a time in the past
