@@ -1,0 +1,27 @@
+
+> test
+> jest **/?(*.)+(test).ts
+
+  Invalid testPattern **/?(*.)+(test).ts supplied. Running all tests instead.
+  Invalid testPattern **/?(*.)+(test).ts supplied. Running all tests instead.
+PASS tests/message.test.ts (36.739 s)
+PASS tests/channel.test.ts (27.218 s)
+PASS tests/users.test.ts (12.892 s)
+PASS tests/standup.test.ts (8.167 s)
+PASS tests/dm.test.ts (23.094 s)
+PASS tests/other.test.ts
+PASS tests/auth.test.ts
+PASS tests/admin.test.ts
+PASS tests/channels.test.ts (5.377 s)
+PASS tests/search.test.ts
+PASS tests/echo.test.ts
+
+Test Suites: 11 passed, 11 total
+Tests:       237 passed, 237 total
+Snapshots:   0 total
+Time:        128.504 s, estimated 181 s
+Ran all test suites.
+
+> posttest
+> pkill -f 'node_modules/sync-rpc/lib/worker.js' > /dev/null 2>&1
+
